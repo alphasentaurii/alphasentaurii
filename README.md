@@ -1,13 +1,13 @@
 ## Hakkeray
 
 
-[HOME](https://github.com/hakkeray/hakkeray/README.md)
+[HOME](http://hakkeray.com)
 
 
-[PROJECTS](https://github.com/hakkeray/hakkeray/projects.md)
+[PROJECTS](projects.md)
 
 
-[GISTS](https://github.com/hakkeray/hakkeray/gists.md)
+[GISTS](gists.md)
 
 
 ### Current Project
