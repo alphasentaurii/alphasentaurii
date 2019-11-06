@@ -16,7 +16,7 @@
 # projects
 
 ## Datascience Projects
-[datascience](projects/datascience.md)
+[datascience](./projects/datascience.md)
 
 
 
