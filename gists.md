@@ -1,13 +1,8 @@
-## Hakkeray
 
 
-[HOME](http://hakkeray.com)
+## [HOME](index.md) | [BLOG](blog.md) | [PROJECTS](projects.md) | [GISTS](gists.md)
 
 
-[PROJECTS](projects.md)
-
-
-[GISTS](gists.md)
 
 
 ### Current Project

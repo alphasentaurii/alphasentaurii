@@ -1,16 +1,12 @@
-## Hakkeray
+
+## [HOME](index.md) | [BLOG](blog.md) | [PROJECTS](projects.md) | [GISTS](gists.md)
 
 
-[HOME](http://hakkeray.com)
-
-
-[PROJECTS](projects.md)
-
-
-[GISTS](gists.md)
-
+### Latest Post
+[Predicting House Prices with Multiple Linear Progression](/_posts/2019-11-06-predicting-house-prices.markdown)
 
 ### Current Project
+
 
 Here is some meaningless `code` example:
 
