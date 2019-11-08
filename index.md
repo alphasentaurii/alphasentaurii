@@ -10,7 +10,8 @@ Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
 
 > Latest Post
 [Predicting House Prices with Multiple Linear Progression](/_posts/2019-11-06-predicting-home-values-with-multiple-linear-regression.markdown)
-> tags: `projects``datascience`
+
+> tags: [`projects]`[`datascience`]
 
 
 ### Current Project
@@ -28,8 +29,3 @@ for pages in website:
 print(blog)   
 
 ```
-
-
-
-
-COPYRIGHT (c) 2019-2020 Hakkeray / Ru Kein
