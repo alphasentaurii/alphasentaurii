@@ -4,8 +4,8 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=c544c637485ff83d8219d153be89bd84f5ed6060">
-
+    <link rel="stylesheet" href="/assets/css/style.css?v=161808ad3f720927ec250f25396afb1d81926ef2">
+    <title>Predicting House Prices </title>
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>Predicting House Prices | hakkeray</title>
 <meta name="generator" content="Jekyll v3.8.5" />
@@ -13,13 +13,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated." />
 <meta property="og:description" content="You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated." />
-<link rel="canonical" href="http://localhost:4000/datascience/project/2019/11/06/predicting-house-prices.html" />
-<meta property="og:url" content="http://localhost:4000/datascience/project/2019/11/06/predicting-house-prices.html" />
+<link rel="canonical" href="http://localhost:4000/projects/datascience/2019/11/06/predicting-house-prices.html" />
+<meta property="og:url" content="http://localhost:4000/projects/datascience/2019/11/06/predicting-house-prices.html" />
 <meta property="og:site_name" content="hakkeray" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-11-06T10:23:47-08:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/datascience/project/2019/11/06/predicting-house-prices.html","headline":"Predicting House Prices","dateModified":"2019-11-06T10:23:47-08:00","datePublished":"2019-11-06T10:23:47-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/datascience/project/2019/11/06/predicting-house-prices.html"},"description":"You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.","@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/projects/datascience/2019/11/06/predicting-house-prices.html","headline":"Predicting House Prices","dateModified":"2019-11-06T10:23:47-08:00","datePublished":"2019-11-06T10:23:47-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/projects/datascience/2019/11/06/predicting-house-prices.html"},"description":"You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   </head>
@@ -28,6 +28,13 @@
 
     <header>
       <div class="container">
+        <nav>
+  <a href="/">home</a>
+  <a href="/about.html">about</a>
+  <a href="/blog.html">blog</a>
+  <a href="/projects.html">projects</a>
+</nav>
+
         <h1>hakkeray</h1>
         <h2>coding, datascience, and tech</h2>
 
@@ -55,13 +62,11 @@
 
 <p>Jekyll also offers powerful support for code snippets:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">"Hi, {name}"</span>
 
-<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>
+<span class="n">print_hi</span><span class="p">(</span><span class="s">'Hakkeray'</span><span class="p">)</span>
+<span class="c1">#=&gt; prints 'Hi, Hakkeray' to STDOUT.</span></code></pre></figure>
 
 
 
