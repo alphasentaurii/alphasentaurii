@@ -61,6 +61,7 @@ a.current { color: #67F86F; }
 .highlight .ss { color: #90a959; }
 
 /*$cod-grey !default;*/
+/* $conifer */
 body { margin: 0; padding: 0; background: #000; /*$body-background url("../images/bkg.png") 0 0;*/ color: #eaeaea; font-size: 16px; line-height: 1.5; font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace; }
 
 /* General & 'Reset' Stuff */
@@ -74,9 +75,9 @@ li { line-height: 1.4; }
 
 /* Header, <header> header   - container h1       - project name h2       - project description
 */
-header { background: rgba(0, 0, 0, 0.1); width: 100%; border-bottom: 1px dashed #b5e853; padding: 20px 0; margin: 0 0 40px 0; }
+header { background: rgba(0, 0, 0, 0.1); width: 100%; border-bottom: 1px dashed #67F86F; padding: 20px 0; margin: 0 0 40px 0; }
 
-header h1 { font-size: 30px; line-height: 1.5; margin: 0 0 0 -40px; font-weight: bold; font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace; color: #b5e853; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(181, 232, 83, 0.1), 0 0 10px rgba(181, 232, 83, 0.1); letter-spacing: -1px; -webkit-font-smoothing: antialiased; }
+header h1 { font-size: 30px; line-height: 1.5; margin: 0 0 0 -40px; font-weight: bold; font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace; color: #67F86F; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(181, 232, 83, 0.1), 0 0 10px rgba(181, 232, 83, 0.1); letter-spacing: -1px; -webkit-font-smoothing: antialiased; }
 
 header h1:before { content: "./ "; font-size: 24px; }
 
@@ -90,7 +91,7 @@ header h2 { font-size: 18px; font-weight: 300; color: #666; }
 
 section img { max-width: 100%; }
 
-h1, h2, h3, h4, h5, h6 { font-weight: normal; font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace; color: #b5e853; letter-spacing: -0.03em; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(181, 232, 83, 0.1), 0 0 10px rgba(181, 232, 83, 0.1); }
+h1, h2, h3, h4, h5, h6 { font-weight: normal; font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace; color: #67F86F; letter-spacing: -0.03em; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(181, 232, 83, 0.1), 0 0 10px rgba(181, 232, 83, 0.1); }
 
 #main_content h1 { font-size: 30px; }
 
@@ -112,12 +113,7 @@ blockquote { color: #aaa; padding-left: 10px; border-left: 1px dotted #666; }
 
 pre { background: rgba(0, 0, 0, 0.9); border: 1px solid rgba(255, 255, 255, 0.15); padding: 10px; font-size: 16px; color: #b5e853; border-radius: 2px; word-wrap: normal; overflow: auto; overflow-y: hidden; }
 
-/* removed by ru
-code.highlighter-rouge { background: rgba(0,0,0,0.9); border: 1px solid rgba(255, 255, 255, 0.15); padding: 0px 3px; margin: 0px -3px; color: #aa759f; border-radius: 2px;
-}
-*/
-/* added by ru */
-code.highlighter-green { background: rgba(0, 0, 0, 0.9); border: 1px solid rgba(255, 255, 255, 0.15); padding: 0px 3px; margin: 0px -3px; color: #67F86F; border-radius: 2px; }
+code.highlighter-rouge { background: rgba(0, 0, 0, 0.9); border: 1px solid rgba(255, 255, 255, 0.15); padding: 0px 3px; margin: 0px -3px; color: #67F86F; /* changed to green from 'rouge': #aa759f */ border-radius: 2px; }
 
 table { width: 100%; margin: 0 0 20px 0; }
 
