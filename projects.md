@@ -6,10 +6,6 @@ layout: default
 # projects
 
 
-[home](./index.html) | [blog](./blog.html) | [projects](./projects.html) | [gists](./gists.html)
-
-
-
 
 ## coding
 

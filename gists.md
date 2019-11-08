@@ -1,6 +1,7 @@
+---
+layout: default
+---
 
-
-## [HOME](index.md) | [BLOG](blog.md) | [PROJECTS](projects.md) | [GISTS](gists.md)
 
 
 

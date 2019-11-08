@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Predicting House Prices"
+title:  "Predicting Home Values with Multiple Linear Regression"
 date:   2019-11-06 10:23:47 -0800
 categories: projects datascience
 ---

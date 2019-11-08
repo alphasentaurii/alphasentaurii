@@ -4,7 +4,6 @@ layout: default
 
 # Hakkeray
 
-[home](./index.html) | [blog](./blog.html) | [projects](./projects.html) | [gists](./gists.html)
 
 
 
