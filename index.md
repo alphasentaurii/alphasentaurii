@@ -31,5 +31,5 @@ print(blog)
 
 
 
-['github']({{ site.github.repository_url }}" {{ class="btn btn-github"><span class="icon">}})
+
 COPYRIGHT (c) 2019-2020 Hakkeray / Ru Kein
