@@ -1,4 +1,8 @@
 ---
 ---
-
+@import "main";
 @import "{{ site.theme }}";
+
+.current {
+  color: green;
+}
