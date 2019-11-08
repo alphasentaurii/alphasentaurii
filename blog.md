@@ -1,12 +1,12 @@
 ---
-layout: default
+layout: coder
 title: blog
 ---
 
 
 ###  datascience projects
 
-[Predicting Home Values with Multiple Linear Progression](./_posts/2019-11-06-predicting-home-values-with-multiple-linear-regression.markdown)
+[Predicting Home Values with Multiple Linear Progression](/_posts/2019-11-06-predicting-home-values-with-multiple-linear-regression.md)
 
 <h1>Latest Posts</h1>
 

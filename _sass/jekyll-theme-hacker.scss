@@ -1,7 +1,8 @@
+@import "main";
 @import "rouge-base16-dark";
 @import "default_colors";
 
-$body-background: $cod-grey !default;
+$body-background: $black !default;  /*$cod-grey !default;*/
 $body-foreground: $gallery !default;
 $header: $conifer !default;
 $blockquote-color: $silver-chalice !default;

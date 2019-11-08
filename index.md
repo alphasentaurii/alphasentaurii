@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: coder
 ---
 
 # Hakkeray
@@ -14,7 +14,7 @@ Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
 [blog](./blog.html)
 
 > Latest Post
-[Predicting House Prices with Multiple Linear Progression](/_posts/2019-11-06-predicting-house-prices.markdown)
+[Predicting House Prices with Multiple Linear Progression](/_posts/2019-11-06-predicting-home-values-with-multiple-linear-regression.markdown)
 
 `projects` `datascience`
 

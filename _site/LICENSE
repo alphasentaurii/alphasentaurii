@@ -1,4 +1,52 @@
-MIT License
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=51c27a5a471ee53ff532be26ee86065f69ff82ce">
+    <link rel="stylesheet" href="/assets/css/8bits-monochrome.css?v=51c27a5a471ee53ff532be26ee86065f69ff82ce">
+    <title> </title>
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>hakkeray | coding, datascience, and tech</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="hakkeray" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="coding, datascience, and tech" />
+<meta property="og:description" content="coding, datascience, and tech" />
+<link rel="canonical" href="http://hakkeray.com/LICENSE" />
+<meta property="og:url" content="http://hakkeray.com/LICENSE" />
+<meta property="og:site_name" content="hakkeray" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://hakkeray.com/LICENSE","headline":"hakkeray","description":"coding, datascience, and tech","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+  <nav>
+  <a href="/">home</a>
+  <a href="/about.html">about</a>
+  <a href="/blog.html">blog</a>
+  <a href="/projects.html">projects</a>
+</nav>
+
+    <header>
+      <div class="container">
+
+        <h1>hakkeray</h1>
+        <h2>coding, datascience, and tech</h2>
+
+        <section id="downloads">
+          
+          <a href="https://github.com/hakkeray/hakkeray" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        MIT License
 
 Copyright (c) 2019 Ru Keïn
 
@@ -19,3 +67,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+</div>
+</body>
+</html>
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>
