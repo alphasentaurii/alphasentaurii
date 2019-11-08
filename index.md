@@ -2,16 +2,12 @@
 layout: coder
 ---
 
-# Hakkeray
-
-
-Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
-
+# datascience/coding blog
 
 > Latest Post
 [Predicting House Prices with Multiple Linear Progression](/_posts/2019-11-06-predicting-home-values-with-multiple-linear-regression.markdown)
 
-> tags: [`projects]`[`datascience`]
+* tags: [`projects`]  [`datascience`]
 
 
 ### Current Project

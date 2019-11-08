@@ -150,7 +150,7 @@ blockquote {
 }
 
 pre {
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.5);/*rgba(0, 0, 0, 0.9);*/
   border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 10px;
   font-size: 16px;
@@ -236,10 +236,23 @@ hr {
    a, a:hover, a:visited
 */
 
+footer {
+  color: $hakkeray;
+
+}
+
+
 a {
-  color: #63c0f5;
+  color: #67F86F; /* #63c0f5; */
   text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
 }
+
+
+a.current {
+  color: #67F86F;
+}
+
+
 
 /* Clearfix */
 
