@@ -4,13 +4,10 @@ layout: coder
 
 # `datascience projects`
 
-## [`HOME`](index.md) | [`BLOG`](blog.md) | [`PROJECTS`](projects.md) | [`code`](code.md)
-
-
 > Multiple Linear Regression with OLS
 
 Predicting Sale Price of Homes for King County, Washington
 
 [`functions`](./code)
 [`slides`](./projects/king-county/slides/index.html)
-[`repo`]({{ site.github.repository_url }}" class="btn btn-github"><span class="icon"></span>View on GitHub)
+[`repo`]({% include repo-link.html %})

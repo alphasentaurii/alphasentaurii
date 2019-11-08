@@ -22,9 +22,3 @@ layout: coder
 * [`pc builds`](./projects/pc-builds.html)
 
 * [`linux`](./projects/linux.html)
-
-
-
-
-
-COPYRIGHT (c) 2019-2020 Hakkeray / Ru Kein

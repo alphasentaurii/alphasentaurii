@@ -5,24 +5,7 @@ layout: coder
 # datascience + coding blog
 by Ru Keïn
 
-> Latest Post
+> 11.7.2019
 [Predicting House Prices with Multiple Linear Progression](/_posts/2019-11-06-predicting-home-values-with-multiple-linear-regression.markdown)
 
 * tags: [`projects`]  [`datascience`]
-
-
-### Current Project
-
-
-Here is some meaningless `code` example:
-
-```python
-
-blog = []
-
-for pages in website:
-   blog.append(pages)
-
-print(blog)   
-
-```

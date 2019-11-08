@@ -29,6 +29,7 @@ url: "http://hakkeray.com" # the base hostname & protocol for your site, e.g. ht
 
 github_username: hakkeray
 
+
 # Build settings
 theme: jekyll-theme-hacker
 plugins:

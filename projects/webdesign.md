@@ -4,7 +4,6 @@ layout: coder
 
 # `webdesign projects`
 
-## [`HOME`](index.md) | [`BLOG`](blog.md) | [`PROJECTS`](projects.md) | [`code`](code.md)
 
 
 ### [`BostromDesigns.com`](http://www.bostromdesigns.com)
