@@ -6,7 +6,7 @@ title: blog
 
 ###  datascience projects
 
-[Predicting Home Values with Multiple Linear Progression](/_posts/2019-11-06-predicting-home-values-with-multiple-linear-regression.md)
+[Predicting Home Values with Multiple Linear Progression](./_posts/2019-11-06-predicting-home-values-with-multiple-linear-regression.markdown)
 
 <h1>Latest Posts</h1>
 

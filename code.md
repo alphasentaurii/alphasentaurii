@@ -2,6 +2,19 @@
 layout: coder
 ---
 
+
+```python
+
+blog = []
+
+for pages in website:
+   blog.append(pages)
+
+print(blog)   
+
+```
+
+
 Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
 
 [Link to another page](./another-page.html).

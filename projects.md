@@ -3,25 +3,25 @@ layout: coder
 ---
 
 
-# projects
+# `projects`
 
 
 
 ## coding
 
-* [python](./projects/python.html)
+* [`python`](./projects/python.html)
 
-* [datascience](./projects/datascience.html)
+* [`datascience`](./projects/datascience.html)
 
-* [webdesign](./projects/webdesign.html)
+* [`webdesign`](./projects/webdesign.html)
 
 * * *
 
 ## tech
 
-* [pc builds](./projects/pc-builds.html)
+* [`pc builds`](./projects/pc-builds.html)
 
-* [linux](./projects/linux.html)
+* [`linux`](./projects/linux.html)
 
 
 
