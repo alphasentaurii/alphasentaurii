@@ -1,16 +1,31 @@
-
-## [HOME](index.md) | [BLOG](blog.md) | [PROJECTS](projects.md) | [GISTS](gists.md)
+---
+layout: default
+---
 
 
 # projects
 
-## Python Projects
-[python](./projects/python.md)
+
+[home](./index.html) | [blog](./blog.html) | [projects](./projects.html) | [gists](./gists.html)
 
 
-## webdesign
 
 
+## coding
+
+* [python](./projects/python.html)
+
+* [datascience](./projects/datascience.html)
+
+* [webdesign](./projects/webdesign.html)
+
+* * *
+
+## tech
+
+* [pc builds](./projects/pc-builds.html)
+
+* [linux](./projects/linux.html)
 
 
 
