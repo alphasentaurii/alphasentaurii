@@ -10,4 +10,4 @@ Predicting Sale Price of Homes for King County, Washington
 
 [`functions`](./code)
 [`slides`](./projects/king-county/slides/index.html)
-[`repo`]({% include repo-link.html %})
+{% include repo-link.html %}

@@ -10,4 +10,4 @@ layout: coder
 MLR with OLS and Recursive Feature Selection for King County Housing Prices data set.
 [`functions`](./code)
 [`slides`](./projects/king-county/slides/index.html)
-[`repo`](https://github.com/hakkeray)
+{% include repo-link.html %}
