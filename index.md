@@ -2,7 +2,8 @@
 layout: coder
 ---
 
-# datascience/coding blog
+# datascience + coding blog
+by Ru Keïn
 
 > Latest Post
 [Predicting House Prices with Multiple Linear Progression](/_posts/2019-11-06-predicting-home-values-with-multiple-linear-regression.markdown)
