@@ -4,23 +4,23 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=bd5aad2ebb500e21a4827eab515e1a921f6e21dd">
-    <link rel="stylesheet" href="/assets/css/8bits-monochrome.css?v=bd5aad2ebb500e21a4827eab515e1a921f6e21dd">
+    <link rel="stylesheet" href="/assets/css/style.css?v=3995e2c95562c817cf9b5a81af35982a4656cd2d">
+    <link rel="stylesheet" href="/assets/css/8bits-monochrome.css?v=3995e2c95562c817cf9b5a81af35982a4656cd2d">
     <title>Predicting Home Values with Multiple Linear Regression </title>
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>Predicting Home Values with Multiple Linear Regression | hakkeray</title>
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Predicting Home Values with Multiple Linear Regression" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Predicting Home Values with Multiple Linear Regression" />
-<meta property="og:description" content="Predicting Home Values with Multiple Linear Regression" />
+<meta name="description" content="project links: jupyter notebook" />
+<meta property="og:description" content="project links: jupyter notebook" />
 <link rel="canonical" href="http://hakkeray.com/projects/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html" />
 <meta property="og:url" content="http://hakkeray.com/projects/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html" />
 <meta property="og:site_name" content="hakkeray" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-11-06T10:23:47-08:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://hakkeray.com/projects/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html","dateModified":"2019-11-06T10:23:47-08:00","datePublished":"2019-11-06T10:23:47-08:00","headline":"Predicting Home Values with Multiple Linear Regression","mainEntityOfPage":{"@type":"WebPage","@id":"http://hakkeray.com/projects/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html"},"description":"Predicting Home Values with Multiple Linear Regression","@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://hakkeray.com/projects/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html","dateModified":"2019-11-06T10:23:47-08:00","datePublished":"2019-11-06T10:23:47-08:00","headline":"Predicting Home Values with Multiple Linear Regression","mainEntityOfPage":{"@type":"WebPage","@id":"http://hakkeray.com/projects/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html"},"description":"project links: jupyter notebook","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   </head>
@@ -49,48 +49,59 @@
 
 <p class="view">by </p>
 
-<h1 id="predicting-home-values-with-multiple-linear-regression">Predicting Home Values with Multiple Linear Regression</h1>
-
 <p>project links:</p>
 <blockquote>
-  <p><a href="./projects/king-county/notebook.html"><code class="language-plaintext highlighter-rouge">jupyter notebook</code></a>
-<a href="./projects/king-county/slides/index.html"><code class="language-plaintext highlighter-rouge">slides</code></a>
-<a href="./code.html"><code class="language-plaintext highlighter-rouge">functions</code></a>
-<a href="./"><code class="language-plaintext highlighter-rouge">project repo</code></a></p>
+  <p><a href="/projects/king-county/notebook.html"><code class="language-plaintext highlighter-rouge">jupyter notebook</code></a></p>
 </blockquote>
 
-<p>Table of Contents</p>
+<blockquote>
+  <p><a href="/projects/king-county/slides/index.html"><code class="language-plaintext highlighter-rouge">slides</code></a></p>
+</blockquote>
 
-<p>The goal of this project was to identify best combination of variable(s) for predicting property values in King County, Washington, USA.</p>
+<blockquote>
+  <p><a href="/code.html"><code class="language-plaintext highlighter-rouge">functions</code></a></p>
+</blockquote>
 
-<h2 id="domain-knowledge">DOMAIN KNOWLEDGE</h2>
-<p>Ask any realtor you’ll ever meet what the top three most important variables are for measuring property value, and they will all tell you the same 3 things: 1) location, 2) location, and 3) location. After that opinions may vary, but I asked a friend who has been doing real estate for about 20 years (Mom) what other factors tend to have some impact and she mentioned the following:</p>
+<blockquote>
+  <p><a href="/"><code class="language-plaintext highlighter-rouge">project repo</code></a></p>
+</blockquote>
 
-<ul>
-  <li>
-    <p>square-footage (almost every time, a bigger house is going to cost more than a smaller one)</p>
-  </li>
-  <li>
-    <p>condition of the house (“is it a fixer-upper?”)</p>
-  </li>
-  <li>
-    <p>how many bathrooms. Interestingly enough, she specifically pointed out that the number of bathrooms is more important than bedrooms to most people, although usually more bathrooms means more bedrooms, that’s not always the case.</p>
-  </li>
-</ul>
+<h3 id="project-goal">PROJECT GOAL</h3>
+<p>Identify best combination of variables for predicting property values (house prices) in King County, Washington, USA.</p>
 
-<p>Couple of other notes to bear in mind about assumptions to factor in to our analysis:</p>
+<h2 id="introduction">INTRODUCTION</h2>
+<p>Ask any realtor what are the top 3 most important variables for measuring property value, and they will all tell say the same thing: 1) location, 2) location, and 3) location. I asked a friend who has been doing real estate for about 20 years (we’ll call her “Mom”) what other factors besides location tend to have some impact and she mentioned the following:</p>
 
-<ul>
+<ol>
   <li>
-    <p>market demand. Mom also mentioned how market demand changes from generation to generation. For example, right now (Nov 2019) more and more ‘millenials’ are buying houses, but unlike their parents who might be more inclined toward buying a property with a lot of land, a little ways away from the noisy and busy city, millenials essentially want the opposite. They want to be close to the city where all the “action” is, they want “fixer-uppers” they can buy at a lower market value and spend their money making it their own.</p>
+    <p>** Square-Footage ** (almost every time, a bigger house is going to cost more than a smaller one)</p>
   </li>
   <li>
-    <p>Extending this further, the selling-factors for real estate in one town is not necessarily going to be the same on, say, the other side of the country. In other words, we can’t automatically assume the predictors we identify in this dataset are universal.</p>
+    <p>** Condition ** of the house (“Is it a fixer-upper?”)</p>
   </li>
   <li>
-    <p>In conclusion, when it comes to real estate, or selling anything for that matter, it’s absolutely critical to keep in mind what is going on in the market, what your target demographic is, and most of all, what do they want? (Full disclosure: I’ve worked in marketing for almost a decade now and a couple of years ago co-founded a small marketing agency. So, those questions are always in the back of my mind if the question is about how to sell something. Several customers were real estate companies who hired us to produce marketing videos for their properties as well as design their websites. So without further ado, let’s look at the actual math and see if the assumptions laid out above actually check out.</p>
+    <p>** # Bathrooms ** She specifically said number of bathrooms outweighs number of bedrooms (although sometimes more bathrooms will mean more bedrooms, that’s not always the case.)</p>
   </li>
-</ul>
+</ol>
+
+<h2 id="assumptions">ASSUMPTIONS</h2>
+<p>Couple of other assumptions to consider for this analysis:</p>
+
+<ol>
+  <li>
+    <p><strong>Market Demand</strong> Mom also mentioned how market demand changes from generation to generation. For example, right now (Nov 2019) more and more ‘millenials’ are buying houses, but unlike their parents who might be more inclined toward buying a property with a lot of land sitting farther away from the city, millenials generally want the opposite. They want to be close to the hustle and bustle, they want “fixer-uppers” they can buy at a lower price and spend their money making it their own.</p>
+  </li>
+  <li>
+    <p><strong>Non-Universality</strong> The selling-factors for real estate in one town are not necessarily going to hold true for a town on the other side of the country. In other words, we can’t automatically assume the predictors we identify in this dataset are universal.</p>
+  </li>
+</ol>
+
+<h2 id="summary">SUMMARY</h2>
+<p>When it comes to real estate, or selling anything for that matter, it’s absolutely critical to keep in mind what is going on in the market, what your target demographic is, and most of all, what do they want? For this project, the client is someone who “flips” houses and is looking to buy property in the Greater Seattle area. Our job is to help them identify which factors are most important to consider before they purchase a house for flipping.</p>
+
+<hr />
+
+<h3 id="the-data">The Data</h3>
 
 
 

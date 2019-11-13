@@ -5,32 +5,38 @@ date:   2019-11-06 10:23:47 -0800
 categories: projects datascience
 ---
 
-# Predicting Home Values with Multiple Linear Regression
 
 project links:
-> [`jupyter notebook`](./projects/king-county/notebook.html)
-> [`slides`](./projects/king-county/slides/index.html)
-> [`functions`](./code.html)
-> [`project repo`](./)
+> [`jupyter notebook`](/projects/king-county/notebook.html)
 
-Table of Contents
+> [`slides`](/projects/king-county/slides/index.html)
 
+> [`functions`](/code.html)
 
-The goal of this project was to identify best combination of variable(s) for predicting property values in King County, Washington, USA.
+> [`project repo`](/)
 
-## DOMAIN KNOWLEDGE
-Ask any realtor you'll ever meet what the top three most important variables are for measuring property value, and they will all tell you the same 3 things: 1) location, 2) location, and 3) location. After that opinions may vary, but I asked a friend who has been doing real estate for about 20 years (Mom) what other factors tend to have some impact and she mentioned the following:
+### PROJECT GOAL
+Identify best combination of variables for predicting property values (house prices) in King County, Washington, USA.
 
-* square-footage (almost every time, a bigger house is going to cost more than a smaller one)
+## INTRODUCTION
+Ask any realtor what are the top 3 most important variables for measuring property value, and they will all tell say the same thing: 1) location, 2) location, and 3) location. I asked a friend who has been doing real estate for about 20 years (we'll call her "Mom") what other factors besides location tend to have some impact and she mentioned the following:
 
-* condition of the house ("is it a fixer-upper?")
+1. ** Square-Footage ** (almost every time, a bigger house is going to cost more than a smaller one)
 
-* how many bathrooms. Interestingly enough, she specifically pointed out that the number of bathrooms is more important than bedrooms to most people, although usually more bathrooms means more bedrooms, that's not always the case.
+2. ** Condition ** of the house ("Is it a fixer-upper?")
 
-Couple of other notes to bear in mind about assumptions to factor in to our analysis:
+3. ** # Bathrooms ** She specifically said number of bathrooms outweighs number of bedrooms (although sometimes more bathrooms will mean more bedrooms, that's not always the case.)
 
-* market demand. Mom also mentioned how market demand changes from generation to generation. For example, right now (Nov 2019) more and more 'millenials' are buying houses, but unlike their parents who might be more inclined toward buying a property with a lot of land, a little ways away from the noisy and busy city, millenials essentially want the opposite. They want to be close to the city where all the "action" is, they want "fixer-uppers" they can buy at a lower market value and spend their money making it their own.
+## ASSUMPTIONS
+Couple of other assumptions to consider for this analysis:
 
-* Extending this further, the selling-factors for real estate in one town is not necessarily going to be the same on, say, the other side of the country. In other words, we can't automatically assume the predictors we identify in this dataset are universal.
+1. **Market Demand** Mom also mentioned how market demand changes from generation to generation. For example, right now (Nov 2019) more and more 'millenials' are buying houses, but unlike their parents who might be more inclined toward buying a property with a lot of land sitting farther away from the city, millenials generally want the opposite. They want to be close to the hustle and bustle, they want "fixer-uppers" they can buy at a lower price and spend their money making it their own.
 
-* In conclusion, when it comes to real estate, or selling anything for that matter, it's absolutely critical to keep in mind what is going on in the market, what your target demographic is, and most of all, what do they want? (Full disclosure: I've worked in marketing for almost a decade now and a couple of years ago co-founded a small marketing agency. So, those questions are always in the back of my mind if the question is about how to sell something. Several customers were real estate companies who hired us to produce marketing videos for their properties as well as design their websites. So without further ado, let's look at the actual math and see if the assumptions laid out above actually check out.
+2. **Non-Universality** The selling-factors for real estate in one town are not necessarily going to hold true for a town on the other side of the country. In other words, we can't automatically assume the predictors we identify in this dataset are universal.
+
+## SUMMARY
+When it comes to real estate, or selling anything for that matter, it's absolutely critical to keep in mind what is going on in the market, what your target demographic is, and most of all, what do they want? For this project, the client is someone who "flips" houses and is looking to buy property in the Greater Seattle area. Our job is to help them identify which factors are most important to consider before they purchase a house for flipping.
+
+---
+
+### The Data
