@@ -4,8 +4,8 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=3995e2c95562c817cf9b5a81af35982a4656cd2d">
-    <link rel="stylesheet" href="/assets/css/8bits-monochrome.css?v=3995e2c95562c817cf9b5a81af35982a4656cd2d">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4215133067754d71571ad31e8cc86a17482c8fa8">
+    <link rel="stylesheet" href="/assets/css/8bits-monochrome.css?v=4215133067754d71571ad31e8cc86a17482c8fa8">
     <title>Predicting Home Values with Multiple Linear Regression </title>
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>Predicting Home Values with Multiple Linear Regression | hakkeray</title>
@@ -66,23 +66,25 @@
   <p><a href="/"><code class="language-plaintext highlighter-rouge">project repo</code></a></p>
 </blockquote>
 
-<h3 id="project-goal">PROJECT GOAL</h3>
+<h2 id="project-goal">PROJECT GOAL</h2>
 <p>Identify best combination of variables for predicting property values (house prices) in King County, Washington, USA.</p>
 
 <h2 id="introduction">INTRODUCTION</h2>
-<p>Ask any realtor what are the top 3 most important variables for measuring property value, and they will all tell say the same thing: 1) location, 2) location, and 3) location. I asked a friend who has been doing real estate for about 20 years (we’ll call her “Mom”) what other factors besides location tend to have some impact and she mentioned the following:</p>
+<p>Ask any realtor what are the top 3 most important variables for measuring property value, and they will all say the same thing: 1) location, 2) location, and 3) location. I asked a friend who has been doing real estate for about 20 years (we’ll call her “Mom”) what other factors besides location tend to have some impact and she mentioned the following:</p>
 
 <ol>
   <li>
-    <p>** Square-Footage ** (almost every time, a bigger house is going to cost more than a smaller one)</p>
+    <p><strong>Square-Footage</strong> almost every time, a bigger house is going to cost more than a smaller one.</p>
   </li>
   <li>
-    <p>** Condition ** of the house (“Is it a fixer-upper?”)</p>
+    <p><strong>Condition</strong> of the house (“Is it a fixer-upper?”)</p>
   </li>
   <li>
-    <p>** # Bathrooms ** She specifically said number of bathrooms outweighs number of bedrooms (although sometimes more bathrooms will mean more bedrooms, that’s not always the case.)</p>
+    <p><strong># Bathrooms</strong> she specifically said number of bathrooms outweighs number of bedrooms (although sometimes more bathrooms will mean more bedrooms, that’s not always the case.)</p>
   </li>
 </ol>
+
+<p>This project is going to tell us mathematically if her assumptions are valid or not.</p>
 
 <h2 id="assumptions">ASSUMPTIONS</h2>
 <p>Couple of other assumptions to consider for this analysis:</p>
@@ -96,12 +98,49 @@
   </li>
 </ol>
 
-<h2 id="summary">SUMMARY</h2>
-<p>When it comes to real estate, or selling anything for that matter, it’s absolutely critical to keep in mind what is going on in the market, what your target demographic is, and most of all, what do they want? For this project, the client is someone who “flips” houses and is looking to buy property in the Greater Seattle area. Our job is to help them identify which factors are most important to consider before they purchase a house for flipping.</p>
+<h2 id="the-client">THE CLIENT</h2>
+<p>When it comes to real estate, or selling anything for that matter, it’s absolutely critical to keep in mind what is going on in the market, what your target demographic is, and most of all, what do they want? For this project, the client is someone who “flips” houses and is looking to buy property in the Greater Seattle area. Our job is to help them identify which factors are most important to consider before they purchase a house for flipping (i.e. reselling for a higher price).</p>
 
 <hr />
 
-<h3 id="the-data">The Data</h3>
+<h3 id="the-data">THE DATA</h3>
+
+<p>Starting with over 25,000 data points spread across 18 possible variables, I narrowed the candidates down to just three predictors of price. I’ll briefly walk you through how and why I eliminated the other 15:</p>
+
+<p>DATAFRAME COLUMNS:</p>
+<ul>
+  <li>id</li>
+  <li>date</li>
+  <li>
+    <p>price</p>
+  </li>
+  <li>waterfront</li>
+  <li>
+    <p>view</p>
+  </li>
+  <li>yr_built</li>
+  <li>yr_renovated</li>
+  <li>condition</li>
+  <li>
+    <p>grade</p>
+  </li>
+  <li>zipcode</li>
+  <li>lat</li>
+  <li>
+    <p>long</p>
+  </li>
+  <li>bedrooms</li>
+  <li>bathrooms</li>
+  <li>
+    <p>floors</p>
+  </li>
+  <li>sqft_above</li>
+  <li>sqft_basement</li>
+  <li>sqft_living</li>
+  <li>sqft_lot</li>
+  <li>sqft_living15</li>
+  <li>sqft_lot15</li>
+</ul>
 
 
 
