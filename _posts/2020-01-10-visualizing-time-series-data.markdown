@@ -1,10 +1,14 @@
 ---
 layout: post
-title:  "So You Think You're a Data Scientist"
-date:   2019-12-25 10:23:47 -0800
+title:  "Visualizing Time Series Data"
+date:   2020-01-10 10:23:47 -0800
 categories: datascience
-author: Ru Keïn
 ---
+
+Visualizing Time Series Data
+
+## 
+
 
 ```python
 
@@ -16,13 +20,6 @@ for pages in website:
 print(blog)   
 
 ```
-
-### Ru's First DataFrame object (circa 1997)
-
-![png](./assets/images/cynognathus.jpg)
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
 
 
 Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
@@ -144,4 +141,3 @@ Long, single-line code blocks should not wrap. They should horizontally scroll i
 ```
 The final element.
 ```
-
