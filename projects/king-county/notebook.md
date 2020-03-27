@@ -122,66 +122,6 @@ pd.set_option('display.max_columns', 0)
     
 
 
-
-<style  type="text/css" >
-</style><table id="T_184fa97e_018d_11ea_a2de_f40f2405a054" ><caption>Loaded Packages and Handles</caption><thead>    <tr>        <th class="col_heading level0 col0" >Package</th>        <th class="col_heading level0 col1" >Handle</th>        <th class="col_heading level0 col2" >Description</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row0_col0" class="data row0 col0" >IPython.display</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row0_col1" class="data row0 col1" >dp</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row0_col2" class="data row0 col2" >Display modules with helpful display and clearing commands.</td>
-            </tr>
-            <tr>
-                                <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row1_col0" class="data row1 col0" >fsds_100719</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row1_col1" class="data row1 col1" >fs</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row1_col2" class="data row1 col2" >Custom data science bootcamp student package</td>
-            </tr>
-            <tr>
-                                <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row2_col0" class="data row2 col0" >matplotlib</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row2_col1" class="data row2 col1" >mpl</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row2_col2" class="data row2 col2" >Matplotlib's base OOP module with formatting artists</td>
-            </tr>
-            <tr>
-                                <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row3_col0" class="data row3 col0" >matplotlib.pyplot</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row3_col1" class="data row3 col1" >plt</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row3_col2" class="data row3 col2" >Matplotlib's matlab-like plotting module</td>
-            </tr>
-            <tr>
-                                <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row4_col0" class="data row4 col0" >numpy</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row4_col1" class="data row4 col1" >np</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row4_col2" class="data row4 col2" >scientific computing with Python</td>
-            </tr>
-            <tr>
-                                <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row5_col0" class="data row5 col0" >pandas</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row5_col1" class="data row5 col1" >pd</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row5_col2" class="data row5 col2" >High performance data structures and tools</td>
-            </tr>
-            <tr>
-                                <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row6_col0" class="data row6 col0" >seaborn</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row6_col1" class="data row6 col1" >sns</td>
-                        <td id="T_184fa97e_018d_11ea_a2de_f40f2405a054row6_col2" class="data row6 col2" >High-level data visualization library based on matplotlib</td>
-            </tr>
-    </tbody></table>
-
-
-
-        <script type="text/javascript">
-        window.PlotlyConfig = {MathJaxConfig: 'local'};
-        if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
-        if (typeof require !== 'undefined') {
-        require.undef("plotly");
-        requirejs.config({
-            paths: {
-                'plotly': ['https://cdn.plot.ly/plotly-latest.min']
-            }
-        });
-        require(['plotly'], function(Plotly) {
-            window._Plotly = Plotly;
-        });
-        }
-        </script>
-        
-
-
 ## Import custom functions
 
 
@@ -212,57 +152,7 @@ def hot_stats(data, column, verbose=False, t=None):
         using pandas data.corr() function. 
     
     -------------
-    
-    Examples: 
-    
-    hot_stats(df, 'str_column') --> where df = data, 'string_column' = column you want to scan
-    
-    hot_stats(df, 'numeric_column', t='target') --> where 'target' = column to check correlation value
-    
-    -----------------
-    Developer notes: additional features to add in the future:
-    -get mode(s)
-    -functionality for string objects
-    -pass multiple columns at once and display all
-    -----------------
-    SAMPLE OUTPUT: 
-    ****************************************
-    
-    -------->
-    HOT!STATS
-    <--------
-
-    CONDITION
-    Data Type: int64
-
-    count    21597.000000
-    mean         3.409825
-    std          0.650546
-    min          1.000000
-    25%          3.000000
-    50%          3.000000
-    75%          4.000000
-    max          5.000000
-    Name: condition, dtype: float64 
-
-    à-la-Mode: 
-    0    3
-    dtype: int64
-
-
-    No Nulls Found!
-
-    Non-Null Value Counts:
-    3    14020
-    4     5677
-    5     1701
-    2      170
-    1       29
-    Name: condition, dtype: int64
-
-    # Unique Values: 5
-    
-    """
+   
     # assigns variables to call later as shortcuts 
     feature = data[column]
     rdash = "-------->"
@@ -313,17 +203,6 @@ def hot_stats(data, column, verbose=False, t=None):
     if t != None:
         corr = feature.corr(data[t]).round(4)
         print(f"Correlation with {t.upper()}: {corr}")
-```
-
-
-```python
-# NULL_HUNTER() function: display Null counts per column/feature
-def null_hunter(df):
-    print(f"Columns with Null Values")
-    print("------------------------")
-    for column in df:
-        if df[column].isna().sum() > 0:
-            print(f"{df[column].name}: \n{df[column].isna().sum()} out of {len(df[column])} ({round(df[column].isna().sum()/len(df[column])*100,2)}%)\n")
 ```
 
 
@@ -418,7 +297,7 @@ df.head()
 
 
 
-
+<html>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -584,7 +463,7 @@ df.head()
   </tbody>
 </table>
 </div>
-
+</html>
 
 
 ---

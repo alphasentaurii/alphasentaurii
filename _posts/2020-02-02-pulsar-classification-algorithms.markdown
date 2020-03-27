@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "PlanetX Hunter - Classification Algorithms"
+title:  "Pulsar Classification Algorithms"
 date:   2020-02-02 02:02:02 -0800
 categories: datascience
 ---
 
 
 ## PROJECT GOAL
-Identifying undiscovered exoplanets using machine learning classification algorithms.
+Machine learning algorithms for classifying pulsars.
 
 project links:
 > [`jupyter notebook`]

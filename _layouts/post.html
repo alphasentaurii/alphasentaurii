@@ -5,7 +5,7 @@ layout: coder
 <small>{{ page.date | date: "%-d %B %Y" }}</small>
 <h1>{{ page.title }}</h1>
 
-<p class="view">{{ Ru Keïn | default: site.author }}</p>
+<p class="view">{{ site.author | default: "Ru Kein" }}</p>
 
 {{content}}
 

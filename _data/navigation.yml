@@ -5,6 +5,6 @@
 - name: blog
   link: /blog.html
 - name: projects
-  link: /about.html
+  link: /projects.html
 - name: code
   link: /code.html
