@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Starskope"
-date:   2020-03-03 11:11:11 -1111
+title:  "PlanetX Hunter"
+date:   2020-03-21 18:33:33 -1800
 categories: datascience
 ---
 
-Starskøpe - AI-driven stellar classification and planet hunting
+PlanetX Hunter - Tracking Earth-like Exoplanets with Machine Learning Classification Algorithms 
 
 ## 
 
