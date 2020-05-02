@@ -19,7 +19,7 @@ print(blog)
 
 ### Ru's First DataFrame object (circa 1997)
 
-![png](./assets/images/cynognathus.jpg)
+![png](/assets/images/cynognathus.jpg)
 
 ![Branching](https://guides.github.com/activities/hello-world/branching.png)
 

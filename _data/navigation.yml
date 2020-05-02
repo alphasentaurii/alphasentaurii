@@ -4,7 +4,7 @@
   link: /about.html
 - name: blog
   link: /blog.html
-- name: projects
-  link: /projects.html
 - name: code
   link: /code.html
+- name: projects
+  link: /projects.html

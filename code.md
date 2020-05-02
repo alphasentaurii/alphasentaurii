@@ -1,5 +1,5 @@
 ---
-layout: coder
+layout: page
 ---
 
 
