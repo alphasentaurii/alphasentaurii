@@ -4,16 +4,21 @@
   {%- include head.html -%}
 
   <body>
+    
     <div class="container">
 
       {%- include header.html -%}
         {% include navigation.html %}
+        
     <main>
+      
       {{ content }}
+      {%- include kali.html -%}
     </main>
 
     {%- include footer.html -%}
 
     </div>
+    
   </body>
 </html>

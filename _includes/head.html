@@ -11,7 +11,11 @@
     {%- if site.style == 'light' -%}
      <link rel="stylesheet" type="text/css" href="{{ "/assets/main-light.css" | relative_url }}">
    {%- else -%}
-      <link rel="stylesheet" type="text/css" href="{{ "/assets/main-dark.css" | relative_url }}">
+      {%- include kali-dark.html -%}
+      <link rel="stylesheet" type="text/css" href="{{ "/assets/main-kali.css" | relative_url }}">
+      
+      
+
     {%- endif -%}
   {%- endif -%}
 
