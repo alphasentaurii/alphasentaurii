@@ -698,6 +698,7 @@ img[align=left] {
     padding-right: var(--image-alignment-padding)
 }
 
+
 :root {
     --ifm-leading-desktop:1.5;--ifm-leading:calc(var(--ifm-leading-desktop)*1rem)}
 

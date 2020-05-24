@@ -5,3 +5,28 @@
 .current {
   color: limegreen;
 }
+
+
+:root {
+  --ifm-image-alignment-padding:1.25rem}
+
+img {
+  border-style: none;
+  box-sizing: content-box;
+  max-width: 100%
+}
+
+img[align=right] {
+  padding-left: var(--image-alignment-padding)
+}
+
+img[align=left] {
+  padding-right: var(--image-alignment-padding)
+}
+
+.responsive-img {
+  max-width: 100%; 
+  display:block; 
+  height: auto;
+  min-width:200px;
+  }
