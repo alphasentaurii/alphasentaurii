@@ -20,7 +20,7 @@ categories: datascience
     * starskøpe-2:  Image Classification of Spectrographs using Keras CNN
     * starskøpe-3: Stacking autoencoded RBMs into single robust Deep Boltzmann Machine
 
-![jpeg](./assets/images/starskope/288_planetbleed1600.jpeg)
+<img src="/assets/images/starskope/288_planetbleed1600.jpeg" width=400>
 source: NASA
 
 # Mission Brief
@@ -139,11 +139,6 @@ from fsds_100719.imports import *
             </tr>
     </tbody></table>
 </html>     
-
-
-    [i] Pandas .iplot() method activated.
-
-
 
 ```python
 # Import code packages and libraries
@@ -1546,17 +1541,16 @@ Flux.atomic_vector_plotter(signal=tce2, label_col='LABEL', classes=[1,2],
          y_units='PDC_SAP Flux', x_units='Time') 
 ```
 
-
-![png](./assets/images/starskope/output_32_0.png)
-
+<img src="/assets/images/starskope/output_32_0.png" width=400>
 
 
-![png](./assets/images/starskope/output_32_1.png)
-
-![png](./assets/images/starskope/output_32_2.png)
+<img src="/assets/images/starskope/output_32_1.png" width=400>
 
 
-![png](./assets/images/starskope/output_32_3.png)
+<img src="/assets/images/starskope/output_32_2.png" width=400>
+
+
+<img src="/assets/images/starskope/output_32_3.png" width=400>
 
 This second star's flux signal pattern looks very different - are we to assume that each one of those dips is a transit event? Perhaps more than one planet is orbiting? Otherwise that would be a fairly short period. Let's compare these to the NON planet host stars:
 
@@ -1570,21 +1564,13 @@ Flux.atomic_vector_plotter(signal=no_tce2, label_col='LABEL', classes=[1,2],
                           y_units='PDC_SAP Flux', x_units='Time') 
 ```
 
+<img src="/assets/images/starskope/output_34_0.png" width=400>
 
-![png](./assets/images/starskope/output_34_0.png)
+<img src="/assets/images/starskope/output_34_1.png" width=400>
 
+<img src="/assets/images/starskope/output_34_2.png" width=400>
 
-
-![png](./assets/images/starskope/output_34_1.png)
-
-
-
-![png](./assets/images/starskope/output_34_2.png)
-
-
-
-![png](./assets/images/starskope/output_34_3.png)
-
+<img src="/assets/images/starskope/output_34_3.png" width=400>
 
 It's hard to make a fair comparison with these plots without being able to see much in detail. We need to "zoom in" - this can be accomplished through normalizing and scaling techniques, but the standard procedure for this type of data would be to perform phase-folding based on the estimated period of the transiting planets.
 
@@ -1779,8 +1765,7 @@ plt.plot(rolling)
 
 
 
-
-![png](./assets/images/starskope/output_48_2.png)
+<img src="/assets/images/starskope/output_48_2.png" width=400>
 
 
 
@@ -1797,8 +1782,7 @@ plt.plot(rolling)
 
 
 
-
-![png](./assets/images/starskope/output_49_1.png)
+<img src="/assets/images/starskope/output_49_1.png" width=400>
 
 
 # Model
@@ -2378,8 +2362,7 @@ m1_fusion = computer.fusion_matrix(matrix=(y_true,y_pred),
 ```
 
 
-![png](./assets/images/starskope/output_84_0.png)
-
+<img src="/assets/images/starskope/output_84_0.png" width=400>
 
 The baseline model only managed to correctly identify 2 planets in the test set, while missing the other 3. The model incorrectly classified 215 non-TCEs as planets. 
 
@@ -2429,8 +2412,7 @@ Plot the ROC area under the curve
 m1_roc = computer.roc_plots(X_test, y_test, m1)
 ```
 
-
-![png](./assets/images/starskope/output_88_0.png)
+<img src="/assets/images/starskope/output_88_0.png" width=400>
 
 
 # `Model 2`
@@ -2640,13 +2622,11 @@ res_m2 = computer.compute(X=X_test, y=y_test, model=m2, hist=h2, preds=True,
                classes=['No Planet','Planet'],roc=True)
 ```
 
-
-![png](./assets/images/starskope/output_96_0.png)
-
+<img src="/assets/images/starskope/output_96_0.png" width=400>
 
 
-![png](./assets/images/starskope/output_96_1.png)
 
+<img src="/assets/images/starskope/output_96_1.png" width=400>
 
     
     
@@ -2665,8 +2645,7 @@ res_m2 = computer.compute(X=X_test, y=y_test, model=m2, hist=h2, preds=True,
 
 
 
-![png](./assets/images/starskope/output_96_3.png)
-
+<img src="/assets/images/starskope/output_96_3.png" width=400>
 
 
 ```python
@@ -2833,11 +2812,9 @@ res_m3 = computer.compute(X=X_test, y=y_test, model=m3, hist=h3, preds=True,
 ```
 
 
-![png](./assets/images/starskope/output_105_0.png)
+<img src="/assets/images/starskope/output_105_0.png" width=400>
 
-
-
-![png](./assets/images/starskope/output_105_1.png)
+<img src="/assets/images/starskope/output_105_1.png" width=400>
 
 
     
@@ -2856,8 +2833,7 @@ res_m3 = computer.compute(X=X_test, y=y_test, model=m3, hist=h3, preds=True,
     
 
 
-
-![png](./assets/images/starskope/output_105_3.png)
+<img src="/assets/images/starskope/output_105_3.png" width=400>
 
 
 It appears that increasing the learning rate did not help to improve the model's performance. While it still identified all 5 planets, it misclassified 4 non-planets as planets, two more than model 2. Let's see if we can decrease the False Positive Rate, while Maintaining the False Negative Rate at zero. We'll go back to Model 2's original learning rate of 3e-4, this time increasing the number of epochs instead.
@@ -3019,12 +2995,10 @@ res_m4 = computer.compute(X=X_test, y=y_test, model=m4, hist=h4, preds=True,
                classes=['No Planet','Planet'],roc=True)
 ```
 
-
-![png](./assets/images/starskope/output_113_0.png)
-
+<img src="/assets/images/starskope/output_113_0.png" width=400>
 
 
-![png](./assets/images/starskope/output_113_1.png)
+<img src="/assets/images/starskope/output_113_1.png" width=400>
 
 
     
@@ -3044,8 +3018,7 @@ res_m4 = computer.compute(X=X_test, y=y_test, model=m4, hist=h4, preds=True,
 
 
 
-![png](./assets/images/starskope/output_113_3.png)
-
+<img src="/assets/images/starskope/output_113_3.png" width=400>
 
 # Interpret Results
 

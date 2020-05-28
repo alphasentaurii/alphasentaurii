@@ -1,4 +1,4 @@
-I"%F<h1 id="starskøpe"><code class="highlighter-rouge">STARSKØPE</code></h1>
+I"�E<h1 id="starskøpe"><code class="highlighter-rouge">STARSKØPE</code></h1>
 
 <p><strong>Building a Cyberoptic Artificial Telescope for Astrophysical Object Classification</strong></p>
 
@@ -12,7 +12,7 @@
 * starskøpe-3: Stacking autoencoded RBMs into single robust Deep Boltzmann Machine
 </code></pre></div></div>
 
-<p><img src="https://github.com/hakkeray/starskope/blob/master/288_planetbleed1600.jpeg" alt="transiting-planet" />
+<p><img src="/assets/images/starskope/288_planetbleed1600.jpeg" width="400" />
 source: NASA</p>
 
 <h1 id="mission-brief">Mission Brief</h1>
@@ -137,9 +137,6 @@ To continue this project, I’ll take another approach for detecting exoplanets 
             </tr>
     </tbody></table>
 </html>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[i] Pandas .iplot() method activated.
-</code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Import code packages and libraries
 </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
@@ -1505,13 +1502,13 @@ Name: 5085, dtype: float64
          <span class="n">y_units</span><span class="o">=</span><span class="s">'PDC_SAP Flux'</span><span class="p">,</span> <span class="n">x_units</span><span class="o">=</span><span class="s">'Time'</span><span class="p">)</span> 
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_32_0.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_32_0.png" width="400" /></p>
 
-<p><img src="./assets/images/starskope/output_32_1.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_32_1.png" width="400" /></p>
 
-<p><img src="./assets/images/starskope/output_32_2.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_32_2.png" width="400" /></p>
 
-<p><img src="./assets/images/starskope/output_32_3.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_32_3.png" width="400" /></p>
 
 <p>This second star’s flux signal pattern looks very different - are we to assume that each one of those dips is a transit event? Perhaps more than one planet is orbiting? Otherwise that would be a fairly short period. Let’s compare these to the NON planet host stars:</p>
 
@@ -1524,13 +1521,13 @@ Name: 5085, dtype: float64
                           <span class="n">y_units</span><span class="o">=</span><span class="s">'PDC_SAP Flux'</span><span class="p">,</span> <span class="n">x_units</span><span class="o">=</span><span class="s">'Time'</span><span class="p">)</span> 
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_34_0.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_34_0.png" width="400" /></p>
 
-<p><img src="./assets/images/starskope/output_34_1.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_34_1.png" width="400" /></p>
 
-<p><img src="./assets/images/starskope/output_34_2.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_34_2.png" width="400" /></p>
 
-<p><img src="./assets/images/starskope/output_34_3.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_34_3.png" width="400" /></p>
 
 <p>It’s hard to make a fair comparison with these plots without being able to see much in detail. We need to “zoom in” - this can be accomplished through normalizing and scaling techniques, but the standard procedure for this type of data would be to perform phase-folding based on the estimated period of the transiting planets.</p>
 
@@ -1705,7 +1702,7 @@ Variance:  1.0
 [&lt;matplotlib.lines.Line2D at 0x1c428bf210&gt;]
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_48_2.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_48_2.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># viewed together...
 </span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="mi">1</span><span class="p">][:,</span><span class="mi">0</span><span class="p">])</span>
@@ -1715,7 +1712,7 @@ Variance:  1.0
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[&lt;matplotlib.lines.Line2D at 0x1c42a8f2d0&gt;]
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_49_1.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_49_1.png" width="400" /></p>
 
 <h1 id="model">Model</h1>
 
@@ -2238,7 +2235,7 @@ weighted avg       0.98      0.62      0.76       570
                                    <span class="n">title</span><span class="o">=</span><span class="s">'M1 Fusion Matrix'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_84_0.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_84_0.png" width="400" /></p>
 
 <p>The baseline model only managed to correctly identify 2 planets in the test set, while missing the other 3. The model incorrectly classified 215 non-TCEs as planets.</p>
 
@@ -2284,7 +2281,7 @@ weighted avg       0.98      0.62      0.76       570
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m1_roc</span> <span class="o">=</span> <span class="n">computer</span><span class="p">.</span><span class="n">roc_plots</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">m1</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_88_0.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_88_0.png" width="400" /></p>
 
 <h1 id="model-2"><code class="highlighter-rouge">Model 2</code></h1>
 
@@ -2485,9 +2482,9 @@ _________________________________________________________________
                <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s">'No Planet'</span><span class="p">,</span><span class="s">'Planet'</span><span class="p">],</span><span class="n">roc</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_96_0.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_96_0.png" width="400" /></p>
 
-<p><img src="./assets/images/starskope/output_96_1.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_96_1.png" width="400" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------
 	CLASSIFICATION REPORT:
@@ -2502,7 +2499,7 @@ _________________________________________________________________
 weighted avg       0.99      0.98      0.99       570
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_96_3.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_96_3.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># We can retrieve a given metric from the computer's compute function 
 # by accessing any of the given keys from the RES dictionary
@@ -2654,9 +2651,9 @@ _________________________________________________________________
                <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s">'No Planet'</span><span class="p">,</span><span class="s">'Planet'</span><span class="p">],</span><span class="n">roc</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_105_0.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_105_0.png" width="400" /></p>
 
-<p><img src="./assets/images/starskope/output_105_1.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_105_1.png" width="400" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------
 	CLASSIFICATION REPORT:
@@ -2671,7 +2668,7 @@ _________________________________________________________________
 weighted avg       0.99      0.98      0.98       570
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_105_3.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_105_3.png" width="400" /></p>
 
 <p>It appears that increasing the learning rate did not help to improve the model’s performance. While it still identified all 5 planets, it misclassified 4 non-planets as planets, two more than model 2. Let’s see if we can decrease the False Positive Rate, while Maintaining the False Negative Rate at zero. We’ll go back to Model 2’s original learning rate of 3e-4, this time increasing the number of epochs instead.</p>
 
@@ -2826,9 +2823,9 @@ _________________________________________________________________
                <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s">'No Planet'</span><span class="p">,</span><span class="s">'Planet'</span><span class="p">],</span><span class="n">roc</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_113_0.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_113_0.png" width="400" /></p>
 
-<p><img src="./assets/images/starskope/output_113_1.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_113_1.png" width="400" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------
 	CLASSIFICATION REPORT:
@@ -2843,7 +2840,7 @@ _________________________________________________________________
 weighted avg       0.99      0.96      0.97       570
 </code></pre></div></div>
 
-<p><img src="./assets/images/starskope/output_113_3.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_113_3.png" width="400" /></p>
 
 <h1 id="interpret-results">Interpret Results</h1>
 
