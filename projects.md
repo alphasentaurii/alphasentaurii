@@ -7,7 +7,12 @@ title: projects
 
 ## DATASCIENCE
 
-[King County Home Value Prediction](/projects/datascience/king-county/demo.html)
+<!--
+[Timeseries]()
+[Northwind SQL Database](/projects/datascience/northwind/demo.html)
+-->
+[Predicting Home Values in King County](/projects/datascience/king-county/demo.html)
+
 
 ## HARDWARE
 
@@ -15,4 +20,4 @@ title: projects
 
 ## SOFTWARE
 
-[Web Design](/projects/webdesign.html)
+[Web Design](/projects/software/webdesign.html)

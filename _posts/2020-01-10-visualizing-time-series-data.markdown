@@ -5,15 +5,11 @@ date:   2020-01-10 10:23:47 -0800
 categories: datascience
 ---
 
-
 # Time Series Forecasting with SARIMAX and Gridsearch
-
-![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/timeseries-forecasting-with-sarimax-and-gridsearch)
-![GitHub license](https://img.shields.io/github/license/hakkeray/timeseries-forecasting-with-sarimax-and-gridsearch?color=black)
 
 Time Series Forecasting with SARIMAX and Gridsearch is a `housing market prediction model` that uses `seasonal ARIMA time-series analysis and GridsearchCV` to `recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York`.
 
-![](./assets/images/timeseries/10605.png)
+![](/assets/images/timeseries/10605.png)
 
 Prior to training, I set out to identify trends, seasonality, and autoregression elements within the Zillow Housing Market Dataset. I then use a fitting procedure to find the coefficients of a regression model, including several plots and statistical tests of the residual errors along the way. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels. 
 
@@ -134,20 +130,20 @@ INTERPRET
 
 Since commute time to Grand Central Station is part of the client's required criteria, I first had to look up which towns/zip codes were on which train lines. Grand Central has 3 main lines on Metro North Railroad: Hudson, Harlem, and New Haven. The first question I was interested in answering was if the average home prices for the zip codes that fall under these geographic sections display any trends. 
 
-![](./assets/images/timeseries/meanvalues_area.png)
+![](/assets/images/timeseries/meanvalues_area.png)
 
 ### New Haven line
 
 Note that this does not include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state. 
-![](./assets/images/timeseries/newhaven_mapTime.png)
+![](/assets/images/timeseries/newhaven_mapTime.png)
 
 ### Harlem Line
 
-![](./assets/images/timeseries/harlem_mapTime.png)
+![](/assets/images/timeseries/harlem_mapTime.png)
 
 ### Hudson Line
 
-![](./assets/images/timeseries/hudson_mapTime.png)
+![](/assets/images/timeseries/hudson_mapTime.png)
 
 ## Custom Time Series Analysis Functions (python)
 To generate the plots above (as well as others) I wrote a couple of custom functions in python:
@@ -257,13 +253,13 @@ def mapTime(d, xcol, ycol='MeanValue', X=None, vlines=None, MEAN=True):
 
 To check for seasonality and remove trends, I also wrote a custom function to generate all the necessary time series analysis plots in one shot. This is really handy for not having to repeat steps over and over again:
 
-![](./assets/images/timeseries/output_50_1.png)
-![](./assets/images/timeseries/output_50_2.png)
-![](./assets/images/timeseries/output_50_3.png)
-![](./assets/images/timeseries/output_50_4.png)
-![](./assets/images/timeseries/output_50_5.png)
-![](./assets/images/timeseries/output_50_6.png)
-![](./assets/images/timeseries/output_65_0.png)
+![](/assets/images/timeseries/output_50_1.png)
+![](/assets/images/timeseries/output_50_2.png)
+![](/assets/images/timeseries/output_50_3.png)
+![](/assets/images/timeseries/output_50_4.png)
+![](/assets/images/timeseries/output_50_5.png)
+![](/assets/images/timeseries/output_50_6.png)
+![](/assets/images/timeseries/output_65_0.png)
 
 All of the above are generated with the clockTime() function:
 
@@ -461,19 +457,19 @@ I then ran a gridsearch using a Seasonal ARIMA (SARIMAX) model to make forecast 
 
 Using PANDAS, I narrowed down the list by top 10 highest ROI zip codes. I then identified which of these had the lowest confidence intervals in order to ensure I was only selecting the most accurate results.
 
-![](./assets/images/timeseries/conf_roi_pred_3D.png)
+![](/assets/images/timeseries/conf_roi_pred_3D.png)
 
-![](./assets/images/timeseries/conf_roi_heatmap.png)
+![](/assets/images/timeseries/conf_roi_heatmap.png)
 
 The top five I selected based on the above criteria were 10549, 10573, 10604, 10605, 10706:
 
-![](./assets/images/timeseries/10549.png)
-![](./assets/images/timeseries/10573.png)
-![](./assets/images/timeseries/10604.png)
-![](./assets/images/timeseries/10605.png)
-![](./assets/images/timeseries/10706.png)
+![](/assets/images/timeseries/10549.png)
+![](/assets/images/timeseries/10573.png)
+![](/assets/images/timeseries/10604.png)
+![](/assets/images/timeseries/10605.png)
+![](/assets/images/timeseries/10706.png)
 
-![](./assets/images/timeseries/top5_final_mapTime.png)
+![](/assets/images/timeseries/top5_final_mapTime.png)
 
 ## Contact
 
