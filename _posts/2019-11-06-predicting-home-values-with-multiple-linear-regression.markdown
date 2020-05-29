@@ -7,13 +7,10 @@ categories: datascience
 
 
 project links:
-> [`jupyter notebook`](/projects/king-county/notebook.html)
 
 > [`slides`](/projects/king-county/slides/index.html)
 
-> [`functions`](/code.html)
-
-> [`project repo`](/)
+> [`project repo`](https://github.com/hakkeray/predicting-home-values-with-multiple-linear-regression)
 
 ## PROJECT GOAL
 Identify best combination of variables for predicting property values (house prices) in King County, Washington, USA.

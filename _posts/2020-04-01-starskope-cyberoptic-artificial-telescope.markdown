@@ -1,260 +1,83 @@
 ---
 layout: post
-title:  "Starskøpe"
+title:  "Starskøpe 1 - Cyberoptic Artificial Telescope"
 date:   2020-04-01 11:11:11 -1111
 categories: datascience
 ---
 
-
-# `STARSKØPE`
-
-**Building a Cyberoptic Artificial Telescope for Astrophysical Object Classification**
-
-
-![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/starskope)
-![GitHub license](https://img.shields.io/github/license/hakkeray/starskope?color=black)
-
-    Note: this project is divided into 3 notebooks:
-
-    * starskøpe : Binary Classification of K2 Timeseries Photometry Data using a Convolutional Neural Network
-    * starskøpe-2:  Image Classification of Spectrographs using Keras CNN
-    * starskøpe-3: Stacking autoencoded RBMs into single robust Deep Boltzmann Machine
-
-<img src="/assets/images/starskope/288_planetbleed1600.jpeg" width=400>
-source: NASA
-
-# Mission Brief
-
-## ABSTRACT
-
-> "Mathematicians [...] are often led astray when 'studying' physics because they lose sight of the physics. 
-They say: *'Look, these differential equations--the Maxwell equations--are all there is to electrodynamics; it is admitted by the physicists that there is nothing which is not contained in the equations. The equations are complicated, but after all they are only mathematical equations and if I understand them mathematically inside out, I will understand the physics inside out.'* Only it doesn't work that way. Mathematicians who study physics with that point of view--and there have been many of them--usually make little contribution to physics and, in fact, little to mathematics. They fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations."
+## Building a Cyberoptic Artificial Telescope for Astrophysical Object Classification
+> "Mathematicians [...] are often led astray when 'studying' physics because they lose sight of the physics. They say: *'Look, these differential equations--the Maxwell equations--are all there is to electrodynamics; it is admitted by the physicists that there is nothing which is not contained in the equations. The equations are complicated, but after all they are only mathematical equations and if I understand them mathematically inside out, I will understand the physics inside out.'* Only it doesn't work that way. Mathematicians who study physics with that point of view--and there have been many of them--usually make little contribution to physics and, in fact, little to mathematics. They fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations."
 **-Richard Feynman, *The Feynman Lectures on Physics: Volume 2*, Chapter 2-1: "Differential Calculus of Vector Fields"**
+>
 
----
+<img src="/assets/images/starskope/feynman-bongos.jpg" width=400>
 
-**INTRODUCTION**
+## INTRODUCTION
+
 One of the reasons I quote Mr. Feynman above is because I set out to work on this project with only one year of high school physics under my belt. Despite loving the subject and even getting an A- in that one class, for some reason I did not continue pursuing physics while in school. I bought the Feynman lectures a few years back (on a whim? who does that?) and as soon as I began preparing for this project I felt intuitively that it would be somewhat ridiculous for me to build neural networks for classifying astrophysical data if I didn't fully grasp how and why the equations used to calculate my findings actually work.  
 
-**QUESTIONS**
+
+
+## QUESTIONS
 The specific questions this project seeks to answer are as follows: 
 
-    1. Can a transiting exoplanet be detected strictly by analyzing the raw flux values of a given star? 
+1. Can a transiting exoplanet be detected strictly by analyzing the raw flux values of a given star? 
     
-    2. What is the best approach for pre-processing photometric timeseries data and what are some of the issues we might encounter in choosing how the data is prepared for classification modeling?
+2. What is the best approach for pre-processing photometric timeseries data and what are some of the issues we might encounter in choosing how the data is prepared for classification modeling?
     
-    3. How much signal-to-noise ratio is too much? That is, if the classes are highly imbalanced, for instance only a few planets can be confirmed out of thousands of stars, does the imbalance make for an unreliable or inaccurate model? 
-    4. How do we test and validate that?
+3. How much signal-to-noise ratio is too much? That is, if the classes are highly imbalanced, for instance only a few planets can be confirmed out of thousands of stars, does the imbalance make for an unreliable or inaccurate model? 
+
+4. How do we test and validate that?
   
 
-**DATASET**
+## DATASET
+
 To answer the above questions, I started the analysis with a small labeled timeseries dataset from Kaggle posted by NASA several years ago. The reason I chose this particular dataset is because in terms of the type of information we typically need to know in order to solve a physics problem -- the primary one being UNITS, otherwise it's a math problem! -- this one is barren. The author who posted the dataset (`Winter Delta` or `W∆`) does however give us a few hints on how we *could* determine the units, and the dimensions, and a lot of other important physics-related information, if we do a little research. The biggest hint is that this dataset is from the K2 space telescope's Campaign 3 observations in which only 42 confirmed exoplanets are detected in a set of over 5,000 stars. Looking at the dataset on its own (before doing any digging), we are given little information about how long the time period covers, and we know do not know what the time intervals between flux values are. So far, this has not stopped any data scientists from attempting to tackle the classification model without gathering any additional information. 
 
-**MODEL**
-To answer the question, I first set out to build a model for the data as is, "sans-physics". The baseline model is a neural network using the Keras API in a sci-kit learn wrapper.  
 
-**RESULTS**
-I was able to identify with 99% accuracy the handful of stars (5) in the test dataset that have a confirmed exoplanet in their orbit. 
+<img src="/assets/images/starskope/288_planetbleed1600.jpeg" width=600>
+source: NASA
 
-**CONCLUSION**
-This baseline model is mathematically accurate, but it does not "understand physics". The conclusion we need to make about the model is whether or not this lack of physics embedded in the training process (or even pre-training process) is acceptable or not.
+
+## MODEL
+
+To answer the question, I first set out to build a model for the data as is, "sans-physics". The baseline model is a neural network using the `Keras API` in a `sci-kit learn` wrapper.  
+
+## RESULTS
+
+I was able to identify with 99% accuracy the handful of stars (5) in the test dataset that have a confirmed exoplanet in their orbit. This baseline model is mathematically accurate, but it does not "understand physics". The conclusion we need to make about the model is whether or not this lack of physics embedded in the training process (or even pre-training process) is acceptable or not.
+
+## CONCLUSION
 
 While it is possible to create a 99% accurate machine learning model for detecting exoplanets using the raw flux values, without any sense of the actual time intervals, and with a highly imbalanced data set (imbalanced meaning only a few positive examples in a sea of negatives) - it is unclear that we can "get away with" this in every case. Furthermore, it is unlikely that could feel completely sure that we aren't missing out on critical information - such as detecting the existence of an earth-like exoplanet transiting a star - if we don't use our understanding of physics to further de-noise, normalize, and scale the data before training the model (and possibly even embed this into a pre-training phase). As a case in point, if you read any of the space telescope handbooks, you will quickly learn just how complex the instruments that are producng this data are, and that the way their technology works, when and where in the sky they were pointing, as well as what actually happened during their missions, you'd know that should all probably be taken into account in your model! The K2 data in particular, for instance, has a unique issue that every so often its thrusters would fire to adjust/maintain its position in the sky, causing data at multiple points to be completely useless. 
 
-*Why that matters...*
+## Why that matters...
+
 This type of noise cannot be removed without knowing what exact times the thrusters fired, as well as what times each of the observations of the dataset occurred. Even if we do manage to throw the bad data out, we are still stuck with the problem of not having any data for that time period, and once again might miss our potential planet's threshold crossing event! If we know where and when those missing pieces occur, we could use that to collect our missing data from another telescope like TESS, which has overlapping targets of observation. A model that can combine data from two different space telescopes, and be smart enough to know based on the telescope it came from how to handle the data, would make truly accurate predictions, and much more useful classifications. 
 
-*What we can do about that...*
+## What we can do about that...
+
 This is the type of model I will set out to build in my future work. This is what we would call a cyberoptic artificial telescope - one that can aggregate large datasets from multiple missions and give us a more accurate, more detailed picture of the stars and planets than what we have available to us in the limited view of a single picture from a single telescope at a single point in time. This is the vision for *STARSKØPE* which will come out of this project.
 
-**RECOMMENDATIONS**
+## RECOMMENDATIONS
+
 My recommendations are the following:
 
-   1. Use datasets from the MAST website (via API) to incorporate other calculations of the star's properties as features to be used for classification algorithms. Furthermore, attempt other types of transformations and normalizations on the data before running the model - for instance, apply a Fourier transform.
+1. Use datasets from the MAST website (via API) to incorporate other calculations of the star's properties as features to be used for classification algorithms. Furthermore, attempt other types of transformations and normalizations on the data before running the model - for instance, apply a Fourier transform.
 
-   2. Combine data from multiple campaigns and perhaps even multiple telescopes (for instance, matching sky coordinates and time intervals between K2, Kepler, and TESS for a batch of stars that have overlapping observations - this would be critical for finding transit periods that are longer than the campaigns of a single telecope's observation period).
+2. Combine data from multiple campaigns and perhaps even multiple telescopes (for instance, matching sky coordinates and time intervals between K2, Kepler, and TESS for a batch of stars that have overlapping observations - this would be critical for finding transit periods that are longer than the campaigns of a single telecope's observation period).
 
-   3. Explore using computer vision on not only the Full Frame images we can collect from telescopes like TESS, but also on spectographs of the flux values themselves. The beauty of machine learning is our ability to rely on the computer to pick up very small nuances in differences that we ourselves cannot see with our own eyes. 
+3. Explore using computer vision on not only the Full Frame images we can collect from telescopes like TESS, but also on spectographs of the flux values themselves. The beauty of machine learning is our ability to rely on the computer to pick up very small nuances in differences that we ourselves cannot see with our own eyes. 
    
-   4. Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we've seen applied the MNIST dataset - let's find out if the same is true for images of stars, be they the Full Frame Images or spectographs.
+4. Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we've seen applied the MNIST dataset - let's find out if the same is true for images of stars, be they the Full Frame Images or spectographs.
 
-**FUTURE WORK**
-To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. Please go to the notebook `[starskøpe-2]` to see how I use a Restricted Boltzmann Machines neural network model to classify stars as exoplanet hosts using spectograph images of the flux values to find transiting exoplanets. Following this, I will apply the same algorithm to spectographs of Fourier transformed data, as you will see in `[starskøpe-3]`. 
+## FUTURE WORK
+To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. Please go to the next post [starskope-2](/datascience/2020/05/06/starskope-2-spectrograph-image-classification.html) to see how I build a `convolutional neural network` to classify stars using spectrograph images of the flux values to find transiting exoplanets. Following this, I apply the same algorithm to spectrographs of Fourier transformed data.
 
 Additional future work following this project will be to develop my "cyberoptic artificial telescope" as a machine learning driven application that any astrophysicist can use to look at a single or collection of stars and have the model classify them according not only to exoplanet predictions, but also predict what type of star it is, and other key properties that would be of interest for astrophysical science applications.
 
-
-# Obtain
-
-Begin by importing libraries and code packages for basic analysis, as well as the kaggle dataset.
-
-
-```python
-# fsds_1007219  v0.7.20 loaded.  Read the docs: https://fsds.readthedocs.io/en/latest/ 
-#!pip install fsds_100719
-import fsds_100719
-from fsds_100719.imports import *
-```
-
-    fsds_1007219  v0.7.20 loaded.  Read the docs: https://fsds.readthedocs.io/en/latest/ 
-
-
-<html>
-<style  type="text/css" >
-</style><table id="T_56889908_8d6f_11ea_b585_14109fdfaded" ><caption>Loaded Packages and Handles</caption><thead>    <tr>        <th class="col_heading level0 col0" >Handle</th>        <th class="col_heading level0 col1" >Package</th>        <th class="col_heading level0 col2" >Description</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow0_col0" class="data row0 col0" >dp</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow0_col1" class="data row0 col1" >IPython.display</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow0_col2" class="data row0 col2" >Display modules with helpful display and clearing commands.</td>
-            </tr>
-            <tr>
-                                <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow1_col0" class="data row1 col0" >fs</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow1_col1" class="data row1 col1" >fsds_100719</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow1_col2" class="data row1 col2" >Custom data science bootcamp student package</td>
-            </tr>
-            <tr>
-                                <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow2_col0" class="data row2 col0" >mpl</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow2_col1" class="data row2 col1" >matplotlib</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow2_col2" class="data row2 col2" >Matplotlib's base OOP module with formatting artists</td>
-            </tr>
-            <tr>
-                                <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow3_col0" class="data row3 col0" >plt</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow3_col1" class="data row3 col1" >matplotlib.pyplot</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow3_col2" class="data row3 col2" >Matplotlib's matlab-like plotting module</td>
-            </tr>
-            <tr>
-                                <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow4_col0" class="data row4 col0" >np</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow4_col1" class="data row4 col1" >numpy</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow4_col2" class="data row4 col2" >scientific computing with Python</td>
-            </tr>
-            <tr>
-                                <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow5_col0" class="data row5 col0" >pd</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow5_col1" class="data row5 col1" >pandas</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow5_col2" class="data row5 col2" >High performance data structures and tools</td>
-            </tr>
-            <tr>
-                                <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow6_col0" class="data row6 col0" >sns</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow6_col1" class="data row6 col1" >seaborn</td>
-                        <td id="T_56889908_8d6f_11ea_b585_14109fdfadedrow6_col2" class="data row6 col2" >High-level data visualization library based on matplotlib</td>
-            </tr>
-    </tbody></table>
-</html>     
-
-```python
-# Import code packages and libraries
-import numpy as np
-import pandas as pd
-import sklearn
-import seaborn as sns
-import matplotlib as mpl
-sns.set_style('whitegrid')
-import matplotlib.pyplot as plt
-plt.style.use('seaborn-bright')
- 
-font_dict={'family':'"Titillium Web", monospace','size':16}
-mpl.rc('font',**font_dict)
-
-#ignore pink warnings
-import warnings
-warnings.filterwarnings('ignore')
-# Allow for large # columns
-pd.set_option('display.max_columns', 0)
-# pd.set_option('display.max_rows','')
-```
-
-
-```python
-# uncomment if you need to install
-# !pip install keras
-# !pip install tensorflow
-```
-
-
-```python
-# setting a random seed for reproducibility
-from numpy.random import seed
-seed(42)
-from tensorflow import set_random_seed
-set_random_seed(42)
-```
-
-
-```python
-# import additional libraries for keras
-import keras
-from keras.utils.np_utils import to_categorical
-
-# from keras.preprocessing.text import Tokenizer
-from keras import models, layers, optimizers
-from keras.models import Sequential, Model
-from keras.layers import Conv1D, MaxPool1D, Dense, Dropout, Flatten, \
-BatchNormalization, Input, concatenate, Activation
-from keras.optimizers import Adam
-from keras.wrappers.scikit_learn import KerasClassifier
-from sklearn.model_selection import cross_val_score
-```
-
-    Using Theano backend.
-
-
-
-```python
-# Custom library of helper functions I created called "Spacekit"
-import spacekit
-from spacekit import analyzer,transformer,builder,computer
-```
-
-
-```python
-%load_ext autoreload
-%autoreload 2
-```
-
-Import dataset which has already been split into train and test sets, `exoTrain.csv.zip` and `exoTest.csv.zip` (I compressed them from their original csv format since the training set is > 240 MB so we'll to unzip them).
-
-
-```python
-# SET DIRECTORY PATHS
-import os, glob, sys
-
-HOME = os.path.abspath(os.curdir)
-DATA = HOME+'/DATA'
-```
-
-
-```python
-# glob puts matching filenames into a list for us - handy for working with multiple datasets
-files = glob.glob(DATA+'/*.zip')
-```
-
-
-```python
-os.chdir(DATA)
-```
-
-
-```python
-# Uncomment to unzip 
-# !unzip -q '{files[0]}'
-# !unzip -q '{files[1]}'
-```
-
-
-```python
-train = pd.read_csv('exoTrain.csv')
-test = pd.read_csv('exoTest.csv')
-```
-
-
-```python
-os.chdir(HOME)
-```
-
-# Scrub
-
+## SCRUB
 **Initial inspection of data, reviewing the features, target (if any), datatypes, and checking for nulls.**
-
--- What we are NOT going to scrub (in this version at least) --
 
 Each star's light frequency makes up a single row of data collected over the course of the campaign (#3), which in this case for K2 campaign 3 was a little over 60 days (campaigns are normally ~80 days but c3 ended early due to data storage capacity issues. 
 
@@ -262,7 +85,7 @@ If we crunched the numbers (which I did elsewhere), it's 29.4 minutes between ea
 
 This is something we DO want to come back to for comparison with future models that *will* have the astrophysical properties embedded in their pre-learning process, and in particular the SCRUBBING: remember, this is a *timeseries*...it's hard to do any normalizing, scaling, de-noising to a timeseries if we don't know anything about the time units. And that's only ONE of the dimensions being completely ignored by our strict mathematical approach. The question is, will it matter? 
 
-## Initial Inspection
+### Initial Inspection
 
 
 ```python
@@ -281,1096 +104,14 @@ display(train['LABEL'].value_counts(),test['LABEL'].value_counts())
     2      5
     Name: LABEL, dtype: int64
 
-
-
-```python
-# comparing train and test datasets
-display(train.head(), test.head())
-```
-
-<html>
-<body>
-<div>
-
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>LABEL</th>
-      <th>FLUX.1</th>
-      <th>FLUX.2</th>
-      <th>FLUX.3</th>
-      <th>FLUX.4</th>
-      <th>FLUX.5</th>
-      <th>FLUX.6</th>
-      <th>FLUX.7</th>
-      <th>FLUX.8</th>
-      <th>FLUX.9</th>
-      <th>FLUX.10</th>
-      <th>FLUX.11</th>
-      <th>FLUX.12</th>
-      <th>FLUX.13</th>
-      <th>FLUX.14</th>
-      <th>FLUX.15</th>
-      <th>FLUX.16</th>
-      <th>FLUX.17</th>
-      <th>FLUX.18</th>
-      <th>FLUX.19</th>
-      <th>FLUX.20</th>
-      <th>FLUX.21</th>
-      <th>FLUX.22</th>
-      <th>FLUX.23</th>
-      <th>FLUX.24</th>
-      <th>FLUX.25</th>
-      <th>FLUX.26</th>
-      <th>FLUX.27</th>
-      <th>FLUX.28</th>
-      <th>FLUX.29</th>
-      <th>FLUX.30</th>
-      <th>FLUX.31</th>
-      <th>FLUX.32</th>
-      <th>FLUX.33</th>
-      <th>FLUX.34</th>
-      <th>FLUX.35</th>
-      <th>FLUX.36</th>
-      <th>FLUX.37</th>
-      <th>FLUX.38</th>
-      <th>FLUX.39</th>
-      <th>FLUX.40</th>
-      <th>...</th>
-      <th>FLUX.3157</th>
-      <th>FLUX.3158</th>
-      <th>FLUX.3159</th>
-      <th>FLUX.3160</th>
-      <th>FLUX.3161</th>
-      <th>FLUX.3162</th>
-      <th>FLUX.3163</th>
-      <th>FLUX.3164</th>
-      <th>FLUX.3165</th>
-      <th>FLUX.3166</th>
-      <th>FLUX.3167</th>
-      <th>FLUX.3168</th>
-      <th>FLUX.3169</th>
-      <th>FLUX.3170</th>
-      <th>FLUX.3171</th>
-      <th>FLUX.3172</th>
-      <th>FLUX.3173</th>
-      <th>FLUX.3174</th>
-      <th>FLUX.3175</th>
-      <th>FLUX.3176</th>
-      <th>FLUX.3177</th>
-      <th>FLUX.3178</th>
-      <th>FLUX.3179</th>
-      <th>FLUX.3180</th>
-      <th>FLUX.3181</th>
-      <th>FLUX.3182</th>
-      <th>FLUX.3183</th>
-      <th>FLUX.3184</th>
-      <th>FLUX.3185</th>
-      <th>FLUX.3186</th>
-      <th>FLUX.3187</th>
-      <th>FLUX.3188</th>
-      <th>FLUX.3189</th>
-      <th>FLUX.3190</th>
-      <th>FLUX.3191</th>
-      <th>FLUX.3192</th>
-      <th>FLUX.3193</th>
-      <th>FLUX.3194</th>
-      <th>FLUX.3195</th>
-      <th>FLUX.3196</th>
-      <th>FLUX.3197</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>2</td>
-      <td>93.85</td>
-      <td>83.81</td>
-      <td>20.10</td>
-      <td>-26.98</td>
-      <td>-39.56</td>
-      <td>-124.71</td>
-      <td>-135.18</td>
-      <td>-96.27</td>
-      <td>-79.89</td>
-      <td>-160.17</td>
-      <td>-207.47</td>
-      <td>-154.88</td>
-      <td>-173.71</td>
-      <td>-146.56</td>
-      <td>-120.26</td>
-      <td>-102.85</td>
-      <td>-98.71</td>
-      <td>-48.42</td>
-      <td>-86.57</td>
-      <td>-0.84</td>
-      <td>-25.85</td>
-      <td>-67.39</td>
-      <td>-36.55</td>
-      <td>-87.01</td>
-      <td>-97.72</td>
-      <td>-131.59</td>
-      <td>-134.80</td>
-      <td>-186.97</td>
-      <td>-244.32</td>
-      <td>-225.76</td>
-      <td>-229.60</td>
-      <td>-253.48</td>
-      <td>-145.74</td>
-      <td>-145.74</td>
-      <td>30.47</td>
-      <td>-173.39</td>
-      <td>-187.56</td>
-      <td>-192.88</td>
-      <td>-182.76</td>
-      <td>-195.99</td>
-      <td>...</td>
-      <td>-317.51</td>
-      <td>-167.69</td>
-      <td>-56.86</td>
-      <td>7.56</td>
-      <td>37.40</td>
-      <td>-81.13</td>
-      <td>-20.10</td>
-      <td>-30.34</td>
-      <td>-320.48</td>
-      <td>-320.48</td>
-      <td>-287.72</td>
-      <td>-351.25</td>
-      <td>-70.07</td>
-      <td>-194.34</td>
-      <td>-106.47</td>
-      <td>-14.80</td>
-      <td>63.13</td>
-      <td>130.03</td>
-      <td>76.43</td>
-      <td>131.90</td>
-      <td>-193.16</td>
-      <td>-193.16</td>
-      <td>-89.26</td>
-      <td>-17.56</td>
-      <td>-17.31</td>
-      <td>125.62</td>
-      <td>68.87</td>
-      <td>100.01</td>
-      <td>-9.60</td>
-      <td>-25.39</td>
-      <td>-16.51</td>
-      <td>-78.07</td>
-      <td>-102.15</td>
-      <td>-102.15</td>
-      <td>25.13</td>
-      <td>48.57</td>
-      <td>92.54</td>
-      <td>39.32</td>
-      <td>61.42</td>
-      <td>5.08</td>
-      <td>-39.54</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>2</td>
-      <td>-38.88</td>
-      <td>-33.83</td>
-      <td>-58.54</td>
-      <td>-40.09</td>
-      <td>-79.31</td>
-      <td>-72.81</td>
-      <td>-86.55</td>
-      <td>-85.33</td>
-      <td>-83.97</td>
-      <td>-73.38</td>
-      <td>-86.51</td>
-      <td>-74.97</td>
-      <td>-73.15</td>
-      <td>-86.13</td>
-      <td>-76.57</td>
-      <td>-61.27</td>
-      <td>-37.23</td>
-      <td>-48.53</td>
-      <td>-30.96</td>
-      <td>-8.14</td>
-      <td>-5.54</td>
-      <td>15.79</td>
-      <td>45.71</td>
-      <td>10.61</td>
-      <td>40.66</td>
-      <td>16.70</td>
-      <td>15.18</td>
-      <td>11.98</td>
-      <td>-203.70</td>
-      <td>19.13</td>
-      <td>19.13</td>
-      <td>19.13</td>
-      <td>19.13</td>
-      <td>19.13</td>
-      <td>17.02</td>
-      <td>-8.50</td>
-      <td>-13.87</td>
-      <td>-29.10</td>
-      <td>-34.29</td>
-      <td>-24.68</td>
-      <td>...</td>
-      <td>-32.14</td>
-      <td>-36.75</td>
-      <td>-15.49</td>
-      <td>-13.24</td>
-      <td>20.46</td>
-      <td>-1.47</td>
-      <td>-0.40</td>
-      <td>27.80</td>
-      <td>-58.20</td>
-      <td>-58.20</td>
-      <td>-72.04</td>
-      <td>-58.01</td>
-      <td>-30.92</td>
-      <td>-13.42</td>
-      <td>-13.98</td>
-      <td>-5.43</td>
-      <td>8.71</td>
-      <td>1.80</td>
-      <td>36.59</td>
-      <td>-9.80</td>
-      <td>-19.53</td>
-      <td>-19.53</td>
-      <td>-24.32</td>
-      <td>-23.88</td>
-      <td>-33.07</td>
-      <td>-9.03</td>
-      <td>3.75</td>
-      <td>11.61</td>
-      <td>-12.66</td>
-      <td>-5.69</td>
-      <td>12.53</td>
-      <td>-3.28</td>
-      <td>-32.21</td>
-      <td>-32.21</td>
-      <td>-24.89</td>
-      <td>-4.86</td>
-      <td>0.76</td>
-      <td>-11.70</td>
-      <td>6.46</td>
-      <td>16.00</td>
-      <td>19.93</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>2</td>
-      <td>532.64</td>
-      <td>535.92</td>
-      <td>513.73</td>
-      <td>496.92</td>
-      <td>456.45</td>
-      <td>466.00</td>
-      <td>464.50</td>
-      <td>486.39</td>
-      <td>436.56</td>
-      <td>484.39</td>
-      <td>469.66</td>
-      <td>462.30</td>
-      <td>492.23</td>
-      <td>441.20</td>
-      <td>483.17</td>
-      <td>481.28</td>
-      <td>535.31</td>
-      <td>554.34</td>
-      <td>562.80</td>
-      <td>540.14</td>
-      <td>576.34</td>
-      <td>551.67</td>
-      <td>556.69</td>
-      <td>550.86</td>
-      <td>577.33</td>
-      <td>562.08</td>
-      <td>577.97</td>
-      <td>530.67</td>
-      <td>553.27</td>
-      <td>538.33</td>
-      <td>527.17</td>
-      <td>532.50</td>
-      <td>273.66</td>
-      <td>273.66</td>
-      <td>292.39</td>
-      <td>298.44</td>
-      <td>252.64</td>
-      <td>233.58</td>
-      <td>171.41</td>
-      <td>224.02</td>
-      <td>...</td>
-      <td>-56.38</td>
-      <td>-51.09</td>
-      <td>-33.30</td>
-      <td>-61.53</td>
-      <td>-89.61</td>
-      <td>-69.17</td>
-      <td>-86.47</td>
-      <td>-140.91</td>
-      <td>-84.20</td>
-      <td>-84.20</td>
-      <td>-89.09</td>
-      <td>-55.44</td>
-      <td>-61.05</td>
-      <td>-29.17</td>
-      <td>-63.80</td>
-      <td>-57.61</td>
-      <td>2.70</td>
-      <td>-31.25</td>
-      <td>-47.09</td>
-      <td>-6.53</td>
-      <td>14.00</td>
-      <td>14.00</td>
-      <td>-25.05</td>
-      <td>-34.98</td>
-      <td>-32.08</td>
-      <td>-17.06</td>
-      <td>-27.77</td>
-      <td>7.86</td>
-      <td>-70.77</td>
-      <td>-64.44</td>
-      <td>-83.83</td>
-      <td>-71.69</td>
-      <td>13.31</td>
-      <td>13.31</td>
-      <td>-29.89</td>
-      <td>-20.88</td>
-      <td>5.06</td>
-      <td>-11.80</td>
-      <td>-28.91</td>
-      <td>-70.02</td>
-      <td>-96.67</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>2</td>
-      <td>326.52</td>
-      <td>347.39</td>
-      <td>302.35</td>
-      <td>298.13</td>
-      <td>317.74</td>
-      <td>312.70</td>
-      <td>322.33</td>
-      <td>311.31</td>
-      <td>312.42</td>
-      <td>323.33</td>
-      <td>311.14</td>
-      <td>326.19</td>
-      <td>313.11</td>
-      <td>313.89</td>
-      <td>317.96</td>
-      <td>330.92</td>
-      <td>341.10</td>
-      <td>360.58</td>
-      <td>370.29</td>
-      <td>369.71</td>
-      <td>339.00</td>
-      <td>336.24</td>
-      <td>319.31</td>
-      <td>321.56</td>
-      <td>308.02</td>
-      <td>296.82</td>
-      <td>279.34</td>
-      <td>275.78</td>
-      <td>289.67</td>
-      <td>281.33</td>
-      <td>285.37</td>
-      <td>281.87</td>
-      <td>88.75</td>
-      <td>88.75</td>
-      <td>67.71</td>
-      <td>74.46</td>
-      <td>69.34</td>
-      <td>76.51</td>
-      <td>80.26</td>
-      <td>70.31</td>
-      <td>...</td>
-      <td>-32.40</td>
-      <td>-2.75</td>
-      <td>14.29</td>
-      <td>-14.18</td>
-      <td>-25.14</td>
-      <td>-13.43</td>
-      <td>-14.74</td>
-      <td>2.24</td>
-      <td>-31.07</td>
-      <td>-31.07</td>
-      <td>-50.27</td>
-      <td>-39.22</td>
-      <td>-51.33</td>
-      <td>-18.53</td>
-      <td>-1.99</td>
-      <td>10.43</td>
-      <td>-1.97</td>
-      <td>-15.32</td>
-      <td>-23.38</td>
-      <td>-27.71</td>
-      <td>-36.12</td>
-      <td>-36.12</td>
-      <td>-15.65</td>
-      <td>6.63</td>
-      <td>10.66</td>
-      <td>-8.57</td>
-      <td>-8.29</td>
-      <td>-21.90</td>
-      <td>-25.80</td>
-      <td>-29.86</td>
-      <td>7.42</td>
-      <td>5.71</td>
-      <td>-3.73</td>
-      <td>-3.73</td>
-      <td>30.05</td>
-      <td>20.03</td>
-      <td>-12.67</td>
-      <td>-8.77</td>
-      <td>-17.31</td>
-      <td>-17.35</td>
-      <td>13.98</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>2</td>
-      <td>-1107.21</td>
-      <td>-1112.59</td>
-      <td>-1118.95</td>
-      <td>-1095.10</td>
-      <td>-1057.55</td>
-      <td>-1034.48</td>
-      <td>-998.34</td>
-      <td>-1022.71</td>
-      <td>-989.57</td>
-      <td>-970.88</td>
-      <td>-933.30</td>
-      <td>-889.49</td>
-      <td>-888.66</td>
-      <td>-853.95</td>
-      <td>-800.91</td>
-      <td>-754.48</td>
-      <td>-717.24</td>
-      <td>-649.34</td>
-      <td>-605.71</td>
-      <td>-575.62</td>
-      <td>-526.37</td>
-      <td>-490.12</td>
-      <td>-458.73</td>
-      <td>-447.76</td>
-      <td>-419.54</td>
-      <td>-410.76</td>
-      <td>-404.10</td>
-      <td>-425.38</td>
-      <td>-397.29</td>
-      <td>-412.73</td>
-      <td>-446.49</td>
-      <td>-413.46</td>
-      <td>-1006.21</td>
-      <td>-1006.21</td>
-      <td>-973.29</td>
-      <td>-986.01</td>
-      <td>-975.88</td>
-      <td>-982.20</td>
-      <td>-953.73</td>
-      <td>-964.35</td>
-      <td>...</td>
-      <td>-732.66</td>
-      <td>-694.76</td>
-      <td>-705.01</td>
-      <td>-625.24</td>
-      <td>-604.16</td>
-      <td>-668.26</td>
-      <td>-742.18</td>
-      <td>-820.55</td>
-      <td>-874.76</td>
-      <td>-874.76</td>
-      <td>-853.68</td>
-      <td>-808.62</td>
-      <td>-777.88</td>
-      <td>-712.62</td>
-      <td>-694.01</td>
-      <td>-655.74</td>
-      <td>-599.74</td>
-      <td>-617.30</td>
-      <td>-602.98</td>
-      <td>-539.29</td>
-      <td>-672.71</td>
-      <td>-672.71</td>
-      <td>-594.49</td>
-      <td>-597.60</td>
-      <td>-560.77</td>
-      <td>-501.95</td>
-      <td>-461.62</td>
-      <td>-468.59</td>
-      <td>-513.24</td>
-      <td>-504.70</td>
-      <td>-521.95</td>
-      <td>-594.37</td>
-      <td>-401.66</td>
-      <td>-401.66</td>
-      <td>-357.24</td>
-      <td>-443.76</td>
-      <td>-438.54</td>
-      <td>-399.71</td>
-      <td>-384.65</td>
-      <td>-411.79</td>
-      <td>-510.54</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 3198 columns</p>
-</div>
-
-
-
-<div>
-
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>LABEL</th>
-      <th>FLUX.1</th>
-      <th>FLUX.2</th>
-      <th>FLUX.3</th>
-      <th>FLUX.4</th>
-      <th>FLUX.5</th>
-      <th>FLUX.6</th>
-      <th>FLUX.7</th>
-      <th>FLUX.8</th>
-      <th>FLUX.9</th>
-      <th>FLUX.10</th>
-      <th>FLUX.11</th>
-      <th>FLUX.12</th>
-      <th>FLUX.13</th>
-      <th>FLUX.14</th>
-      <th>FLUX.15</th>
-      <th>FLUX.16</th>
-      <th>FLUX.17</th>
-      <th>FLUX.18</th>
-      <th>FLUX.19</th>
-      <th>FLUX.20</th>
-      <th>FLUX.21</th>
-      <th>FLUX.22</th>
-      <th>FLUX.23</th>
-      <th>FLUX.24</th>
-      <th>FLUX.25</th>
-      <th>FLUX.26</th>
-      <th>FLUX.27</th>
-      <th>FLUX.28</th>
-      <th>FLUX.29</th>
-      <th>FLUX.30</th>
-      <th>FLUX.31</th>
-      <th>FLUX.32</th>
-      <th>FLUX.33</th>
-      <th>FLUX.34</th>
-      <th>FLUX.35</th>
-      <th>FLUX.36</th>
-      <th>FLUX.37</th>
-      <th>FLUX.38</th>
-      <th>FLUX.39</th>
-      <th>FLUX.40</th>
-      <th>...</th>
-      <th>FLUX.3157</th>
-      <th>FLUX.3158</th>
-      <th>FLUX.3159</th>
-      <th>FLUX.3160</th>
-      <th>FLUX.3161</th>
-      <th>FLUX.3162</th>
-      <th>FLUX.3163</th>
-      <th>FLUX.3164</th>
-      <th>FLUX.3165</th>
-      <th>FLUX.3166</th>
-      <th>FLUX.3167</th>
-      <th>FLUX.3168</th>
-      <th>FLUX.3169</th>
-      <th>FLUX.3170</th>
-      <th>FLUX.3171</th>
-      <th>FLUX.3172</th>
-      <th>FLUX.3173</th>
-      <th>FLUX.3174</th>
-      <th>FLUX.3175</th>
-      <th>FLUX.3176</th>
-      <th>FLUX.3177</th>
-      <th>FLUX.3178</th>
-      <th>FLUX.3179</th>
-      <th>FLUX.3180</th>
-      <th>FLUX.3181</th>
-      <th>FLUX.3182</th>
-      <th>FLUX.3183</th>
-      <th>FLUX.3184</th>
-      <th>FLUX.3185</th>
-      <th>FLUX.3186</th>
-      <th>FLUX.3187</th>
-      <th>FLUX.3188</th>
-      <th>FLUX.3189</th>
-      <th>FLUX.3190</th>
-      <th>FLUX.3191</th>
-      <th>FLUX.3192</th>
-      <th>FLUX.3193</th>
-      <th>FLUX.3194</th>
-      <th>FLUX.3195</th>
-      <th>FLUX.3196</th>
-      <th>FLUX.3197</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>2</td>
-      <td>119.88</td>
-      <td>100.21</td>
-      <td>86.46</td>
-      <td>48.68</td>
-      <td>46.12</td>
-      <td>39.39</td>
-      <td>18.57</td>
-      <td>6.98</td>
-      <td>6.63</td>
-      <td>-21.97</td>
-      <td>-23.17</td>
-      <td>-29.26</td>
-      <td>-33.99</td>
-      <td>-6.25</td>
-      <td>-28.12</td>
-      <td>-27.24</td>
-      <td>-32.28</td>
-      <td>-12.29</td>
-      <td>-16.57</td>
-      <td>-23.86</td>
-      <td>-5.69</td>
-      <td>9.24</td>
-      <td>35.52</td>
-      <td>81.20</td>
-      <td>116.49</td>
-      <td>133.99</td>
-      <td>148.97</td>
-      <td>174.15</td>
-      <td>187.77</td>
-      <td>215.30</td>
-      <td>246.80</td>
-      <td>-56.68</td>
-      <td>-56.68</td>
-      <td>-56.68</td>
-      <td>-52.05</td>
-      <td>-31.52</td>
-      <td>-31.15</td>
-      <td>-48.53</td>
-      <td>-38.93</td>
-      <td>-26.06</td>
-      <td>...</td>
-      <td>6.49</td>
-      <td>-2.55</td>
-      <td>12.26</td>
-      <td>-7.06</td>
-      <td>-23.53</td>
-      <td>2.54</td>
-      <td>30.21</td>
-      <td>38.87</td>
-      <td>-22.86</td>
-      <td>-22.86</td>
-      <td>-4.37</td>
-      <td>2.27</td>
-      <td>-16.27</td>
-      <td>-30.84</td>
-      <td>-7.21</td>
-      <td>-4.27</td>
-      <td>13.60</td>
-      <td>15.62</td>
-      <td>31.96</td>
-      <td>49.89</td>
-      <td>86.93</td>
-      <td>86.93</td>
-      <td>42.99</td>
-      <td>48.76</td>
-      <td>22.82</td>
-      <td>32.79</td>
-      <td>30.76</td>
-      <td>14.55</td>
-      <td>10.92</td>
-      <td>22.68</td>
-      <td>5.91</td>
-      <td>14.52</td>
-      <td>19.29</td>
-      <td>14.44</td>
-      <td>-1.62</td>
-      <td>13.33</td>
-      <td>45.50</td>
-      <td>31.93</td>
-      <td>35.78</td>
-      <td>269.43</td>
-      <td>57.72</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>2</td>
-      <td>5736.59</td>
-      <td>5699.98</td>
-      <td>5717.16</td>
-      <td>5692.73</td>
-      <td>5663.83</td>
-      <td>5631.16</td>
-      <td>5626.39</td>
-      <td>5569.47</td>
-      <td>5550.44</td>
-      <td>5458.80</td>
-      <td>5329.39</td>
-      <td>5191.38</td>
-      <td>5031.39</td>
-      <td>4769.89</td>
-      <td>4419.66</td>
-      <td>4218.92</td>
-      <td>3924.73</td>
-      <td>3605.30</td>
-      <td>3326.55</td>
-      <td>3021.20</td>
-      <td>2800.61</td>
-      <td>2474.48</td>
-      <td>2258.33</td>
-      <td>1951.69</td>
-      <td>1749.86</td>
-      <td>1585.38</td>
-      <td>1575.48</td>
-      <td>1568.41</td>
-      <td>1661.08</td>
-      <td>1977.33</td>
-      <td>2425.62</td>
-      <td>2889.61</td>
-      <td>3847.64</td>
-      <td>3847.64</td>
-      <td>3741.20</td>
-      <td>3453.47</td>
-      <td>3202.61</td>
-      <td>2923.73</td>
-      <td>2694.84</td>
-      <td>2474.22</td>
-      <td>...</td>
-      <td>-216.31</td>
-      <td>-3470.75</td>
-      <td>-4510.72</td>
-      <td>-5013.41</td>
-      <td>-3636.05</td>
-      <td>-2324.27</td>
-      <td>-2688.55</td>
-      <td>-2813.66</td>
-      <td>-586.22</td>
-      <td>-586.22</td>
-      <td>-756.80</td>
-      <td>-1090.23</td>
-      <td>-1388.61</td>
-      <td>-1745.36</td>
-      <td>-2015.28</td>
-      <td>-2359.06</td>
-      <td>-2516.66</td>
-      <td>-2699.31</td>
-      <td>-2777.55</td>
-      <td>-2732.97</td>
-      <td>1167.39</td>
-      <td>1167.39</td>
-      <td>1368.89</td>
-      <td>1434.80</td>
-      <td>1360.75</td>
-      <td>1148.44</td>
-      <td>1117.67</td>
-      <td>714.86</td>
-      <td>419.02</td>
-      <td>57.06</td>
-      <td>-175.66</td>
-      <td>-581.91</td>
-      <td>-984.09</td>
-      <td>-1230.89</td>
-      <td>-1600.45</td>
-      <td>-1824.53</td>
-      <td>-2061.17</td>
-      <td>-2265.98</td>
-      <td>-2366.19</td>
-      <td>-2294.86</td>
-      <td>-2034.72</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>2</td>
-      <td>844.48</td>
-      <td>817.49</td>
-      <td>770.07</td>
-      <td>675.01</td>
-      <td>605.52</td>
-      <td>499.45</td>
-      <td>440.77</td>
-      <td>362.95</td>
-      <td>207.27</td>
-      <td>150.46</td>
-      <td>85.49</td>
-      <td>-20.12</td>
-      <td>-35.88</td>
-      <td>-65.59</td>
-      <td>-15.12</td>
-      <td>16.60</td>
-      <td>-25.70</td>
-      <td>61.88</td>
-      <td>53.18</td>
-      <td>64.32</td>
-      <td>72.38</td>
-      <td>100.35</td>
-      <td>67.26</td>
-      <td>14.71</td>
-      <td>-16.41</td>
-      <td>-147.46</td>
-      <td>-231.27</td>
-      <td>-320.29</td>
-      <td>-407.82</td>
-      <td>-450.48</td>
-      <td>-146.99</td>
-      <td>-146.99</td>
-      <td>-146.99</td>
-      <td>-146.99</td>
-      <td>-166.30</td>
-      <td>-139.90</td>
-      <td>-96.41</td>
-      <td>-23.49</td>
-      <td>13.59</td>
-      <td>67.59</td>
-      <td>...</td>
-      <td>-129.34</td>
-      <td>-35.24</td>
-      <td>-70.13</td>
-      <td>-35.30</td>
-      <td>-56.48</td>
-      <td>-74.60</td>
-      <td>-115.18</td>
-      <td>-8.91</td>
-      <td>-37.59</td>
-      <td>-37.59</td>
-      <td>-37.43</td>
-      <td>-104.23</td>
-      <td>-101.45</td>
-      <td>-107.35</td>
-      <td>-109.82</td>
-      <td>-126.27</td>
-      <td>-170.32</td>
-      <td>-117.85</td>
-      <td>-32.30</td>
-      <td>-70.18</td>
-      <td>314.29</td>
-      <td>314.29</td>
-      <td>314.29</td>
-      <td>149.71</td>
-      <td>54.60</td>
-      <td>12.60</td>
-      <td>-133.68</td>
-      <td>-78.16</td>
-      <td>-52.30</td>
-      <td>-8.55</td>
-      <td>-19.73</td>
-      <td>17.82</td>
-      <td>-51.66</td>
-      <td>-48.29</td>
-      <td>-59.99</td>
-      <td>-82.10</td>
-      <td>-174.54</td>
-      <td>-95.23</td>
-      <td>-162.68</td>
-      <td>-36.79</td>
-      <td>30.63</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>2</td>
-      <td>-826.00</td>
-      <td>-827.31</td>
-      <td>-846.12</td>
-      <td>-836.03</td>
-      <td>-745.50</td>
-      <td>-784.69</td>
-      <td>-791.22</td>
-      <td>-746.50</td>
-      <td>-709.53</td>
-      <td>-679.56</td>
-      <td>-706.03</td>
-      <td>-720.56</td>
-      <td>-631.12</td>
-      <td>-659.16</td>
-      <td>-672.03</td>
-      <td>-665.06</td>
-      <td>-667.94</td>
-      <td>-660.84</td>
-      <td>-672.75</td>
-      <td>-644.91</td>
-      <td>-680.53</td>
-      <td>-620.50</td>
-      <td>-570.34</td>
-      <td>-530.00</td>
-      <td>-537.88</td>
-      <td>-578.38</td>
-      <td>-532.34</td>
-      <td>-532.38</td>
-      <td>-491.03</td>
-      <td>-485.03</td>
-      <td>-427.19</td>
-      <td>-380.84</td>
-      <td>-329.50</td>
-      <td>-286.91</td>
-      <td>-283.81</td>
-      <td>-298.19</td>
-      <td>-271.03</td>
-      <td>-268.50</td>
-      <td>-209.56</td>
-      <td>-180.44</td>
-      <td>...</td>
-      <td>110.88</td>
-      <td>16.50</td>
-      <td>-1286.59</td>
-      <td>-1286.59</td>
-      <td>-1286.59</td>
-      <td>-1286.59</td>
-      <td>-1286.59</td>
-      <td>-1286.59</td>
-      <td>-1286.59</td>
-      <td>-1286.59</td>
-      <td>-14.94</td>
-      <td>64.09</td>
-      <td>8.38</td>
-      <td>45.31</td>
-      <td>100.72</td>
-      <td>91.53</td>
-      <td>46.69</td>
-      <td>20.34</td>
-      <td>30.94</td>
-      <td>-36.81</td>
-      <td>-33.28</td>
-      <td>-69.62</td>
-      <td>-208.00</td>
-      <td>-280.28</td>
-      <td>-340.41</td>
-      <td>-337.41</td>
-      <td>-268.03</td>
-      <td>-245.00</td>
-      <td>-230.62</td>
-      <td>-129.59</td>
-      <td>-35.47</td>
-      <td>122.34</td>
-      <td>93.03</td>
-      <td>93.03</td>
-      <td>68.81</td>
-      <td>9.81</td>
-      <td>20.75</td>
-      <td>20.25</td>
-      <td>-120.81</td>
-      <td>-257.56</td>
-      <td>-215.41</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>2</td>
-      <td>-39.57</td>
-      <td>-15.88</td>
-      <td>-9.16</td>
-      <td>-6.37</td>
-      <td>-16.13</td>
-      <td>-24.05</td>
-      <td>-0.90</td>
-      <td>-45.20</td>
-      <td>-5.04</td>
-      <td>14.62</td>
-      <td>-19.52</td>
-      <td>-11.43</td>
-      <td>-49.80</td>
-      <td>25.84</td>
-      <td>11.62</td>
-      <td>3.18</td>
-      <td>-9.59</td>
-      <td>14.49</td>
-      <td>8.82</td>
-      <td>32.32</td>
-      <td>-28.90</td>
-      <td>-28.90</td>
-      <td>-14.09</td>
-      <td>-30.87</td>
-      <td>-18.99</td>
-      <td>-38.60</td>
-      <td>-27.79</td>
-      <td>9.65</td>
-      <td>29.60</td>
-      <td>7.88</td>
-      <td>42.87</td>
-      <td>27.59</td>
-      <td>27.05</td>
-      <td>20.26</td>
-      <td>29.48</td>
-      <td>9.71</td>
-      <td>22.84</td>
-      <td>25.99</td>
-      <td>-667.55</td>
-      <td>-1336.24</td>
-      <td>...</td>
-      <td>-171.62</td>
-      <td>-122.12</td>
-      <td>-32.01</td>
-      <td>-47.15</td>
-      <td>-56.45</td>
-      <td>-41.71</td>
-      <td>-34.13</td>
-      <td>-43.12</td>
-      <td>-53.63</td>
-      <td>-53.63</td>
-      <td>-53.63</td>
-      <td>-24.29</td>
-      <td>22.29</td>
-      <td>25.18</td>
-      <td>1.84</td>
-      <td>-22.29</td>
-      <td>-26.43</td>
-      <td>-12.12</td>
-      <td>-33.05</td>
-      <td>-21.66</td>
-      <td>-228.32</td>
-      <td>-228.32</td>
-      <td>-228.32</td>
-      <td>-187.35</td>
-      <td>-166.23</td>
-      <td>-115.54</td>
-      <td>-50.18</td>
-      <td>-37.96</td>
-      <td>-22.37</td>
-      <td>-4.74</td>
-      <td>-35.82</td>
-      <td>-37.87</td>
-      <td>-61.85</td>
-      <td>-27.15</td>
-      <td>-21.18</td>
-      <td>-33.76</td>
-      <td>-85.34</td>
-      <td>-81.46</td>
-      <td>-61.98</td>
-      <td>-69.34</td>
-      <td>-17.84</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 3198 columns</p>
-</div>
-</body>
-</html>
-
+### TARGET
 Our target column `LABEL` assigns each star with a 1 or a 2 to designate whether or not there is a confirmed exoplanet that was found in the star's orbit. This is precisely what we are trying to classify in our model below.
 
-Notice there are a total of only 42 stars that are labeled "2", ie confirmed exoplanet orbiting this star. 
-There are 37 exoplanet host stars in the training set, and only 5 in the test set. Such highly imbalanced classes will be something we need to deal with carefully in our model.
+Notice there are a total of only 42 stars that are labeled "2", ie confirmed exoplanet orbiting this star. There are 37 exoplanet host stars in the training set, and only 5 in the test set. Such highly imbalanced classes will be something we need to deal with carefully in our model.
 
-## Check Nulls
+## Explore
 
-
-```python
-# check for nulls
-print('Train Nulls:',train.isna().sum().value_counts())
-print('Test Nulls:',test.isna().sum().value_counts())
-```
-
-    Train Nulls: 0    3198
-    dtype: int64
-    Test Nulls: 0    3198
-    dtype: int64
-
-
-# Explore
-
-## Planet Host vs Non-Host Stars
+### Planet Host vs Non-Host Stars
 
 Since we are setting out to classify stars as being either a planet-host or non-host, it would be useful to compare the data visually and see if we can pick up on any significant differences in the flux values with just our eyeballs. The simplest way to do this is plot the signals of each target class for a couple of stars and look at the scatter plots and a line plots.
 
@@ -1429,103 +170,103 @@ display(tce1.head(),tce2.head(),no_tce1.head(), no_tce2.head())
     Name: 5085, dtype: float64
 
 
-# A Word on Units..
+### A Word on Units..
 
 After doing a little research (mostly by reading the K2 Handbook and visiting the MAST website where NASA houses all of its space telescope data) we learn that the flux values for campaign 3 that are in the Kaggle dataset have been put through a de-noising process. Prior to this particular de-noising process, the flux values would be called `SAP Flux` however in this case we are dealing with `PDC_SAP Flux`. At the moment the units may not seem to matter much, since we assume they are consist across all observations. However, as with anything relating to physics, and science for that matter, the units MATTER. All that to say, for now we are at least going to label the axes accurately so that later down the line if we want to compare this dataset to another from the archive, we will know the units! :)
 
 
+### atomic_vector_plotter()
+
 ```python
-# View what this function is doing here:
-# atomic_vector_plotter(): 
 
-# def atomic_vector_plotter(signal, label_col=None, classes=None, class_names=None, figsize=(15,5), 
-#     y_units=None, x_units=None):
-#         """
-#         Plots scatter and line plots of time series signal values.  
+def atomic_vector_plotter(signal, label_col=None, classes=None, class_names=None, figsize=(15,5), 
+     y_units=None, x_units=None):
+         """
+         Plots scatter and line plots of time series signal values.  
         
-#         **ARGS
-#         signal: pandas series or numpy array
-#         label_col: name of the label column if using labeled pandas series
-#             -use default None for numpy array or unlabeled series.
-#             -this is simply for customizing plot Title to include classification    
-#         classes: (optional- req labeled data) tuple if binary, array if multiclass
-#         class_names: tuple or array of strings denoting what the classes mean
-#         figsize: size of the figures (default = (15,5))
+         **ARGS
+         signal: pandas series or numpy array
+         label_col: name of the label column if using labeled pandas series
+             -use default None for numpy array or unlabeled series.
+             -this is simply for customizing plot Title to include classification    
+         classes: (optional- req labeled data) tuple if binary, array if multiclass
+         class_names: tuple or array of strings denoting what the classes mean
+         figsize: size of the figures (default = (15,5))
         
-#         ******
+         ******
         
-#         Ex1: Labeled timeseries passing 1st row of pandas dataframe
-#         > first create the signal:
-#         star_signal_alpha = x_train.iloc[0, :]
-#         > then plot:
-#         star_signals(star_signal_alpha, label_col='LABEL',classes=[1,2], 
-#                     class_names=['No Planet', 'Planet']), figsize=(15,5))
+        Ex1: Labeled timeseries passing 1st row of pandas dataframe
+         > first create the signal:
+         star_signal_alpha = x_train.iloc[0, :]
+         > then plot:
+         star_signals(star_signal_alpha, label_col='LABEL',classes=[1,2], 
+                     class_names=['No Planet', 'Planet']), figsize=(15,5))
+       
+         Ex2: numpy array without any labels
+         > first create the signal:
         
-#         Ex2: numpy array without any labels
-#         > first create the signal:
+         >then plot:
+         star_signals(signal, figsize=(15,5))
         
-#         >then plot:
-#         star_signals(signal, figsize=(15,5))
+         ######
+         TODO: 
+         -`signal` should take an array rather than pdseries
+         -could allow either array or series to be passed, conv to array if series 
+         ######
+         """
         
-#         ######
-#         TODO: 
-#         -`signal` should take an array rather than pdseries
-#         -could allow either array or series to be passed, conv to array if series 
-#         ######
-#         """
-        
-#         # pass None to label_col if unlabeled data, creates generic title
-#         if label_col is None:
-#             label = None
-#             title_scatter = "Scatterplot of Star Flux Signals"
-#             title_line = "Line Plot of Star Flux Signals"
-#             color='black'
+         # pass None to label_col if unlabeled data, creates generic title
+         if label_col is None:
+             label = None
+             title_scatter = "Scatterplot of Star Flux Signals"
+             title_line = "Line Plot of Star Flux Signals"
+             color='black'
             
-#         # store target column as variable 
-#         elif label_col is not None:
-#             label = signal[label_col]
-#             # for labeled timeseries
-#             if label == 1:
-#                 cn = class_names[0]
-#                 color='red'
+         # store target column as variable 
+         elif label_col is not None:
+             label = signal[label_col]
+             # for labeled timeseries
+             if label == 1:
+                 cn = class_names[0]
+                 color='red'
 
-#             elif label == 2:
-#                 cn = class_names[1] 
-#                 color='blue'
-#         #create appropriate title acc to class_names    
-#             title_scatter = f"Scatterplot for Star Flux Signal: {cn}"
-#             title_line = f"Line Plot for Star Flux Signal: {cn}"
+             elif label == 2:
+                 cn = class_names[1] 
+                color='blue'
+         #create appropriate title acc to class_names    
+             title_scatter = f"Scatterplot for Star Flux Signal: {cn}"
+             title_line = f"Line Plot for Star Flux Signal: {cn}"
         
-#         # Set x and y axis labels according to units
-#         # if the units are unknown, we will default to "Flux"
-#         if y_units == None:
-#             y_units = 'Flux'
-#         else:
-#             y_units = y_units
-#         # it is assumed this is a timeseries, default to "time"   
-#         if x_units == None:
-#             x_units = 'Time'
-#         else:
-#             x_units = x_units
+         # Set x and y axis labels according to units
+         # if the units are unknown, we will default to "Flux"
+         if y_units == None:
+             y_units = 'Flux'
+         else:
+             y_units = y_units
+         # it is assumed this is a timeseries, default to "time"   
+         if x_units == None:
+             x_units = 'Time'
+         else:
+             x_units = x_units
         
-#         # Scatter Plot 
+         # Scatter Plot 
         
-#         plt.figure(figsize=figsize)
-#         plt.scatter(pd.Series([i for i in range(1, len(signal))]), 
-#                     signal[1:], marker=4, color=color)
-#         plt.ylabel(y_units)
-#         plt.xlabel(x_units)
-#         plt.title(title_scatter)
-#         plt.show()
+         plt.figure(figsize=figsize)
+         plt.scatter(pd.Series([i for i in range(1, len(signal))]), 
+                     signal[1:], marker=4, color=color)
+         plt.ylabel(y_units)
+         plt.xlabel(x_units)
+         plt.title(title_scatter)
+         plt.show()
 
-#         # Line Plot
-#         plt.figure(figsize=figsize)
-#         plt.plot(pd.Series([i for i in range(1, len(signal))]), 
-#                 signal[1:], color=color)
-#         plt.ylabel(y_units)
-#         plt.xlabel(x_units)
-#         plt.title(title_line)
-#         plt.show()
+         # Line Plot
+         plt.figure(figsize=figsize)
+         plt.plot(pd.Series([i for i in range(1, len(signal))]), 
+                 signal[1:], color=color)
+         plt.ylabel(y_units)
+         plt.xlabel(x_units)
+         plt.title(title_line)
+         plt.show()
 ```
 
 
@@ -1572,7 +313,7 @@ Flux.atomic_vector_plotter(signal=no_tce2, label_col='LABEL', classes=[1,2],
 
 <img src="/assets/images/starskope/output_34_3.png" width=400>
 
-It's hard to make a fair comparison with these plots without being able to see much in detail. We need to "zoom in" - this can be accomplished through normalizing and scaling techniques, but the standard procedure for this type of data would be to perform phase-folding based on the estimated period of the transiting planets.
+It's hard to make a fair comparison with these plots without being able to see much in detail. We need to "zoom in" - this can be accomplished through normalizing and scaling techniques, but the standard procedure for this type of data would be to perform `phase-folding` based on the estimated period of the transiting planets.
 
 ## Pre-processing
 
@@ -1582,39 +323,39 @@ from spacekit.transformer import Transformer
 T = transformer.Transformer()
 ```
 
+### hypersonic_pliers()
 
 ```python
-# View what this function is doing here:
-# hypersonic_pliers()
 
-# def hypersonic_pliers(path_to_train, path_to_test):
+
+def hypersonic_pliers(path_to_train, path_to_test):
         
-#         """
-#         Using Numpy to extract data into 1-dimensional arrays
-#         separate target classes (y) for training and test data
-#         assumes y (target) is first column in dataframe
+         """
+         Using Numpy to extract data into 1-dimensional arrays
+         separate target classes (y) for training and test data
+         assumes y (target) is first column in dataframe
+       
+         #TODO: option to pass in column index loc for `y` if not default (0) 
+         #TODO: option for `y` to already be 0 or 1 (don't subtract 1)
+         #TODO: allow option for `y` to be categorical (convert via binarizer)
+         """
+         import numpy as np
+       
+         Train = np.loadtxt(path_to_train, skiprows=1, delimiter=',')
+         X_train = Train[:, 1:]
+         y_train = Train[:, 0, np.newaxis] - 1.
+       
+         Test = np.loadtxt(path_to_test, skiprows=1, delimiter=',')
+         X_test = Test[:, 1:]
+         y_test = Test[:, 0, np.newaxis] - 1.
         
-#         #TODO: option to pass in column index loc for `y` if not default (0) 
-#         #TODO: option for `y` to already be 0 or 1 (don't subtract 1)
-#         #TODO: allow option for `y` to be categorical (convert via binarizer)
-#         """
-#         import numpy as np
+         del Train,Test
+         print("X_train: ", X_train.shape)
+         print("y_train: ", y_train.shape)
+         print("X_test: ", X_test.shape)
+         print("y_test: ", y_test.shape)
         
-#         Train = np.loadtxt(path_to_train, skiprows=1, delimiter=',')
-#         X_train = Train[:, 1:]
-#         y_train = Train[:, 0, np.newaxis] - 1.
-        
-#         Test = np.loadtxt(path_to_test, skiprows=1, delimiter=',')
-#         X_test = Test[:, 1:]
-#         y_test = Test[:, 0, np.newaxis] - 1.
-        
-#         del Train,Test
-#         print("X_train: ", X_train.shape)
-#         print("y_train: ", y_train.shape)
-#         print("X_test: ", X_test.shape)
-#         print("y_test: ", y_test.shape)
-        
-#         return X_train, X_test, y_train, y_test
+         return X_train, X_test, y_train, y_test
 ```
 
 
@@ -1629,41 +370,41 @@ X_train,X_test,y_train,y_test = T.hypersonic_pliers(DATA+'/exoTrain.csv',
     y_test:  (570, 1)
 
 
-## Scaling
+### Scaling
 
 Scale each observation to zero mean and unit variance.
 
+### thermo_fusion_chisel()
 
 ```python
-# View what this function is doing here:
-# thermo_fusion_chisel()
 
-# def thermo_fusion_chisel(matrix1, matrix2=None):
-#             """
-#             Scales each array of a matrix to zero mean and unit variance.
-#             returns matrix/matrices of same shape as input but scaled
-#             matrix2 is optional - useful if data was already train-test split
-#             example: matrix1=X_train, matrix2=X_test
-            
-#             """
-#             import numpy as np
-            
-                
-#             matrix1 = ((matrix1 - np.mean(matrix1, axis=1).reshape(-1,1)) / 
-#                 np.std(matrix1, axis=1).reshape(-1,1))
-            
-#             print("Mean: ",matrix1[0].mean())
-#             print("Variance: ",matrix1[0].std())
-            
-#             if matrix2 is not None:
-#                 matrix2 = ((matrix2 - np.mean(matrix2, axis=1).reshape(-1,1)) / 
-#                     np.std(matrix2, axis=1).reshape(-1,1))
-            
-#                 print("Mean: ",matrix2[0].mean())
-#                 print("Variance: ",matrix2[0].std())
-#                 return matrix1,matrix2
-#             else:
-#                 return matrix1
+
+def thermo_fusion_chisel(matrix1, matrix2=None):
+             """
+             Scales each array of a matrix to zero mean and unit variance.
+             returns matrix/matrices of same shape as input but scaled
+             matrix2 is optional - useful if data was already train-test split
+             example: matrix1=X_train, matrix2=X_test
+           
+             """
+             import numpy as np
+           
+               
+             matrix1 = ((matrix1 - np.mean(matrix1, axis=1).reshape(-1,1)) / 
+                 np.std(matrix1, axis=1).reshape(-1,1))
+           
+             print("Mean: ",matrix1[0].mean())
+             print("Variance: ",matrix1[0].std())
+           
+             if matrix2 is not None:
+                 matrix2 = ((matrix2 - np.mean(matrix2, axis=1).reshape(-1,1)) / 
+                     np.std(matrix2, axis=1).reshape(-1,1))
+           
+                 print("Mean: ",matrix2[0].mean())
+                 print("Variance: ",matrix2[0].std())
+                 return matrix1,matrix2
+             else:
+                 return matrix1
 ```
 
 
@@ -1678,7 +419,7 @@ X_train, X_test = T.thermo_fusion_chisel(X_train, X_test)
     Variance:  1.0
 
 
-## De-noising
+### De-noising
 
 In order to reduce the amount of high frequency noise that is likely to have an adverse effect on the neural network's learning outcomes, we can pass a uniform 1-D filter on our scaled train and test data then stack the arrays along the second axis. There are other techniques we might want to apply for further de-noising but for now we'll start with this for the baseline.
 
@@ -1691,44 +432,42 @@ print(y_train.shape)
     (5087, 3197)
     (5087, 1)
 
-
+### babel_fish_dispenser()
 
 ```python
-# View what this function is doing here:
-# babel_fish_dispenser()
 
-# def babel_fish_dispenser(matrix1, matrix2=None, step_size=None, axis=2):
-#         """        
-#         Adds an input corresponding to the running average over a set number
-#         of time steps. This helps the neural network to ignore high frequency 
-#         noise by passing in a uniform 1-D filter and stacking the arrays. 
 
-#         **ARGS
-#         step_size: integer, # timesteps for 1D filter. defaults to 200
-#         axis: which axis to stack the arrays
+def babel_fish_dispenser(matrix1, matrix2=None, step_size=None, axis=2):
+         """        
+         Adds an input corresponding to the running average over a set number
+         of time steps. This helps the neural network to ignore high frequency 
+         noise by passing in a uniform 1-D filter and stacking the arrays. 
+         **ARGS
+         step_size: integer, # timesteps for 1D filter. defaults to 200
+         axis: which axis to stack the arrays
 
-#         ex:
-#         noise_filter(matrix1=X_train, matrix2=X_test, step_size=200)
-#         """
-#         import numpy as np
-#         from scipy.ndimage.filters import uniform_filter1d
+         ex:
+         noise_filter(matrix1=X_train, matrix2=X_test, step_size=200)
+         """
+         import numpy as np
+         from scipy.ndimage.filters import uniform_filter1d
 
-#         if step_size is None:
-#             step_size=200
+         if step_size is None:
+             step_size=200
 
-#         # calc input for flux signal rolling avgs 
-#         filter1 = uniform_filter1d(matrix1, axis=1, size=step_size)
-#         # store in array and stack on 2nd axis for each obs of X data
-#         matrix1 = np.stack([matrix1, filter1], axis=2)
+         # calc input for flux signal rolling avgs 
+         filter1 = uniform_filter1d(matrix1, axis=1, size=step_size)
+         # store in array and stack on 2nd axis for each obs of X data
+         matrix1 = np.stack([matrix1, filter1], axis=2)
 
-#         if matrix2 is not None:
-#             filter2 = uniform_filter1d(matrix2, axis=1, size=step_size)
-#             matrix2 = np.stack([matrix2, filter2], axis=2)
-#             print(matrix1.shape,matrix2.shape)
-#             return matrix1,matrix2
-#         else:
-#             print(matrix1.shape)
-#             return matrix1
+         if matrix2 is not None:
+             filter2 = uniform_filter1d(matrix2, axis=1, size=step_size)
+             matrix2 = np.stack([matrix2, filter2], axis=2)
+             print(matrix1.shape,matrix2.shape)
+             return matrix1,matrix2
+         else:
+             print(matrix1.shape)
+             return matrix1
 ```
 
 
@@ -1756,18 +495,7 @@ plt.plot(rolling)
     
     [-0.10910981 -0.10801068 -0.10926314 ... -0.18190533 -0.19232921
      -0.21176035]
-
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x1c428bf210>]
-
-
-
 <img src="/assets/images/starskope/output_48_2.png" width=400>
-
-
 
 ```python
 # viewed together...
@@ -1775,37 +503,27 @@ plt.plot(X_train[1][:,0])
 plt.plot(rolling)
 ```
 
-
-
-
-    [<matplotlib.lines.Line2D at 0x1c42a8f2d0>]
-
-
-
 <img src="/assets/images/starskope/output_49_1.png" width=400>
 
-
-# Model
-
-## Build Model
+## Model
 
 ### **Tactical Decisions**
 
 Since I'm building the baseline model from scratch, a few considerations need to be made. While we can run a gridsearch (or randomizedsearchCV) to get the parameters for us, we still need to decide what type of model would be most ideal for this dataset, knowing what we know so far based on the work done so far. From there, we can go with best practices, assess the initial outcomes, and tune the hyperparameters with each iteration. 
 
-**CNN**
+### **CNN**
 The baseline will consist of a one-dimensional convolutional neural network (CNN). This is ideal for working with this particular dataset in which we will pass one row of the timeseries flux values as an array. This is very similar to how we would process image data (and that's strategically useful if we want to develop the model in the future to handle Full-Frame Images from Tess, for instance, or spectographs of the flux frequences, for instance. 
 
-**1-Layer at a time**
+### **1-Layer at a time**
 We'll be using the Keras API which makes it easy to add in the layers one at a time. Each 1D convolutional layer corresponds to a local filter, and then a pooling layer reduces the data length by approximately a factor 4. At the end, there are two dense layers. Again, this is similar to the approach taken for a typical image classifier. 
 
-**Activation Function**
+### **Activation Function**
 The RELU activation function is closest to how real neurons actually work and often produces the best results compared to the other options, so we'll at least start with this for the baseline.
 
-**Batch Normalization**
+### **Batch Normalization**
 Finally, the batch normalization layers are what help to speed up convergence. 
 
-# `Model 1`
+## `Model 1`
 
 We'll begin creating a baseline model with a lower than usual learning rate and then speed things up and fine-tune parameters for optimization in the next iterations. (The lower learning rate will help to ensure convergence.) 
 
@@ -1835,7 +553,7 @@ y_train.shape
 
 
 
-## Train Model
+## build_cnn()
 
 
 ```python
@@ -1845,84 +563,80 @@ K = builder.Keras()
 
 
 ```python
-# View what this function is doing here:
-# build_cnn()
 
-# def build_cnn(X_train, X_test, y_train, y_test, kernel_size=None, 
-#               activation=None, input_shape=None, strides=None, 
-#               optimizer=Adam, learning_rate=None, loss=None, metrics=None):
-#     """
-#     Builds, compiles and fits a linear CNN using Keras API
+def build_cnn(X_train, X_test, y_train, y_test, kernel_size=None, 
+               activation=None, input_shape=None, strides=None, 
+               optimizer=Adam, learning_rate=None, loss=None, metrics=None):
+     """
+     Builds, compiles and fits a linear CNN using Keras API
+     """
+     import keras
+     from keras.utils.np_utils import to_categorical
+     from keras import models, layers, optimizers
+     from keras.models import Sequential, Model
+     from keras.layers import Conv1D, MaxPool1D, Dense, Dropout, Flatten, \
+     BatchNormalization, Input, concatenate, Activation
+     from keras.optimizers import Adam
+     from keras.wrappers.scikit_learn import KerasClassifier
+     from sklearn.model_selection import cross_val_score
 
-#     """
-#     import keras
-#     from keras.utils.np_utils import to_categorical
-#     # from keras.preprocessing.text import Tokenizer
-#     from keras import models, layers, optimizers
-#     from keras.models import Sequential, Model
-#     from keras.layers import Conv1D, MaxPool1D, Dense, Dropout, Flatten, \
-#     BatchNormalization, Input, concatenate, Activation
-#     from keras.optimizers import Adam
-#     from keras.wrappers.scikit_learn import KerasClassifier
-#     from sklearn.model_selection import cross_val_score
+     if input_shape is None:
+         input_shape = X_train.shape[1:]
+     if kernel_size is None:
+         kernel_size=11
+     if activation is None:
+         activation='relu'
+     if strides is None:
+         strides = 4
+     if learning_rate is None:
+         learning_rate = 1e-5
+     if loss is None:
+         loss='binary_crossentropy'
+     if metrics is None:
+         metrics=['accuracy']
 
-#     if input_shape is None:
-#         input_shape = X_train.shape[1:]
-#     if kernel_size is None:
-#         kernel_size=11
-#     if activation is None:
-#         activation='relu'
-#     if strides is None:
-#         strides = 4
-#     if learning_rate is None:
-#         learning_rate = 1e-5
-#     if loss is None:
-#         loss='binary_crossentropy'
-#     if metrics is None:
-#         metrics=['accuracy']
+     print("BUILDING MODEL...")
+     model=Sequential()
 
-#     print("BUILDING MODEL...")
-#     model=Sequential()
+     print("LAYER 1")
+     model.add(Conv1D(filters=8, kernel_size=kernel_size, 
+                      activation=activation, input_shape=input_shape))
+     model.add(MaxPool1D(strides=strides))
+     model.add(BatchNormalization())
 
-#     print("LAYER 1")
-#     model.add(Conv1D(filters=8, kernel_size=kernel_size, 
-#                     activation=activation, input_shape=input_shape))
-#     model.add(MaxPool1D(strides=strides))
-#     model.add(BatchNormalization())
+     print("LAYER 2")
+     model.add(Conv1D(filters=16, kernel_size=kernel_size, 
+                     activation=activation))
+     model.add(MaxPool1D(strides=strides))
+     model.add(BatchNormalization())
 
-#     print("LAYER 2")
-#     model.add(Conv1D(filters=16, kernel_size=kernel_size, 
-#                     activation=activation))
-#     model.add(MaxPool1D(strides=strides))
-#     model.add(BatchNormalization())
+     print("LAYER 3")
+     model.add(Conv1D(filters=32, kernel_size=kernel_size, 
+                     activation=activation))
+     model.add(MaxPool1D(strides=strides))
+     model.add(BatchNormalization())
 
-#     print("LAYER 3")
-#     model.add(Conv1D(filters=32, kernel_size=kernel_size, 
-#                     activation=activation))
-#     model.add(MaxPool1D(strides=strides))
-#     model.add(BatchNormalization())
+     print("LAYER 4")
+     model.add(Conv1D(filters=64, kernel_size=kernel_size, 
+                     activation=activation))
+     model.add(MaxPool1D(strides=strides))
+     model.add(Flatten())
 
-#     print("LAYER 4")
-#     model.add(Conv1D(filters=64, kernel_size=kernel_size, 
-#                     activation=activation))
-#     model.add(MaxPool1D(strides=strides))
-#     model.add(Flatten())
+     print("FULL CONNECTION")
+     model.add(Dropout(0.5))
+     model.add(Dense(64, activation=activation))
+     model.add(Dropout(0.25))
+     model.add(Dense(64, activation=activation))
 
-#     print("FULL CONNECTION")
-#     model.add(Dropout(0.5))
-#     model.add(Dense(64, activation=activation))
-#     model.add(Dropout(0.25))
-#     model.add(Dense(64, activation=activation))
+     print("ADDING COST FUNCTION")
+     model.add(Dense(1, activation='sigmoid'))
 
-#     print("ADDING COST FUNCTION")
-#     model.add(Dense(1, activation='sigmoid'))
+     ##### COMPILE #####
+     model.compile(optimizer=optimizer(learning_rate), loss=loss, 
+                 metrics=metrics)
+     print("COMPILED")  
 
-#     ##### COMPILE #####
-#     model.compile(optimizer=optimizer(learning_rate), loss=loss, 
-#                 metrics=metrics)
-#     print("COMPILED")  
-
-#     return model 
+     return model 
 ```
 
 
@@ -1947,84 +661,84 @@ m1 = K.build_cnn(X_train, X_test, y_train, y_test, kernel_size=11,
 
 To correct for the extremely unbalanced dataset, we'll ensure that the network sees 50% of the positive sample over each batch. We will also apply augmentation by rotating each of the samples randomly each time, thus generating new data. This is similar to image classification when we rotate or shift the samples each time.
 
+### fit_cnn()
 
 ```python
-# View what this function is doing here:
-# fit_cnn()
 
-# def fit_cnn(X_train,y_train, X_test, y_test, model, validation_data=None, 
-#                 verbose=None, epochs=None, steps_per_epoch=None, batch_size=None):
+
+def fit_cnn(X_train,y_train, X_test, y_test, model, validation_data=None, 
+                 verbose=None, epochs=None, steps_per_epoch=None, batch_size=None):
+       
+         if verbose is None:
+             verbose=2
+         if epochs is None:
+             epochs = 5
+         if validation_data is None:
+             validation_data=(X_test, y_test)
+         if steps_per_epoch is None:
+             steps_per_epoch = (X_train.shape[1]//batch_size)
+         if batch_size is None:
+             batch_size = 32
+
+         print("FITTING MODEL...")
         
-#         if verbose is None:
-#             verbose=2
-#         if epochs is None:
-#             epochs = 5
-#         if validation_data is None:
-#             validation_data=(X_test, y_test)
-#         if steps_per_epoch is None:
-#             steps_per_epoch = (X_train.shape[1]//batch_size)
-#         if batch_size is None:
-#             batch_size = 32
+         def batch_maker(X_train, y_train, batch_size=batch_size):
+                 """
+                 Gives equal number of positive and negative samples rotating randomly                
+                 The output of the generator must be either
+                 - a tuple `(inputs, targets)`
+                 - a tuple `(inputs, targets, sample_weights)`.
 
-#         print("FITTING MODEL...")
+                 This tuple (a single output of the generator) makes a single
+                 batch. Therefore, all arrays in this tuple must have the same
+                 length (equal to the size of this batch). Different batches may have 
+                 different sizes. 
+
+                 For example, the last batch of the epoch is commonly smaller than the others, 
+                 if the size of the dataset is not divisible by the batch size.
+                 The generator is expected to loop over its data indefinitely. 
+                 An epoch finishes when `steps_per_epoch` batches have been seen by the model.
+                
+                 """
+                 import numpy
+                 import random
+                 # hb: half-batch
+                 hb = batch_size // 2
+                
+                 # Returns a new array of given shape and type, without initializing.
+                 # x_train.shape = (5087, 3197, 2)
+                 xb = np.empty((batch_size, X_train.shape[1], X_train.shape[2]), dtype='float32')
+               
+                 #y_train.shape = (5087, 1)
+                 yb = np.empty((batch_size, y_train.shape[1]), dtype='float32')
+                
+                 pos = np.where(y_train[:,0] == 1.)[0]
+                 neg = np.where(y_train[:,0] == 0.)[0]
+
+                 # rotating each of the samples randomly
+                 while True:
+                     np.random.shuffle(pos)
+                     np.random.shuffle(neg)
+                
+                     xb[:hb] = X_train[pos[:hb]]
+                     xb[hb:] = X_train[neg[hb:batch_size]]
+                     yb[:hb] = y_train[pos[:hb]]
+                     yb[hb:] = y_train[neg[hb:batch_size]]
+                
+                     for i in range(batch_size):
+                         size = np.random.randint(xb.shape[1])
+                         xb[i] = np.roll(xb[i], size, axis=0)
+               
+                     yield xb, yb
         
-#         def batch_maker(X_train, y_train, batch_size=batch_size):
-#                 """
-#                 Gives equal number of positive and negative samples rotating randomly                
-#                 The output of the generator must be either
-#                 - a tuple `(inputs, targets)`
-#                 - a tuple `(inputs, targets, sample_weights)`.
+         history = model.fit_generator(batch_maker(X_train, y_train, batch_size),
+                                         validation_data=validation_data, 
+                                         verbose=verbose, epochs=epochs, 
+                                         steps_per_epoch=steps_per_epoch)
+         print("TRAINING COMPLETE")
+         model.summary()
 
-#                 This tuple (a single output of the generator) makes a single
-#                 batch. Therefore, all arrays in this tuple must have the same
-#                 length (equal to the size of this batch). Different batches may have 
-#                 different sizes. 
-
-#                 For example, the last batch of the epoch is commonly smaller than the others, 
-#                 if the size of the dataset is not divisible by the batch size.
-#                 The generator is expected to loop over its data indefinitely. 
-#                 An epoch finishes when `steps_per_epoch` batches have been seen by the model.
-                
-#                 """
-#                 import numpy
-#                 import random
-#                 # hb: half-batch
-#                 hb = batch_size // 2
-                
-#                 # Returns a new array of given shape and type, without initializing.
-#                 # x_train.shape = (5087, 3197, 2)
-#                 xb = np.empty((batch_size, X_train.shape[1], X_train.shape[2]), dtype='float32')
-                
-#                 #y_train.shape = (5087, 1)
-#                 yb = np.empty((batch_size, y_train.shape[1]), dtype='float32')
-                
-#                 pos = np.where(y_train[:,0] == 1.)[0]
-#                 neg = np.where(y_train[:,0] == 0.)[0]
-
-#                 # rotating each of the samples randomly
-#                 while True:
-#                     np.random.shuffle(pos)
-#                     np.random.shuffle(neg)
-                
-#                     xb[:hb] = X_train[pos[:hb]]
-#                     xb[hb:] = X_train[neg[hb:batch_size]]
-#                     yb[:hb] = y_train[pos[:hb]]
-#                     yb[hb:] = y_train[neg[hb:batch_size]]
-                
-#                     for i in range(batch_size):
-#                         size = np.random.randint(xb.shape[1])
-#                         xb[i] = np.roll(xb[i], size, axis=0)
-                
-#                     yield xb, yb
-        
-#         history = model.fit_generator(batch_maker(X_train, y_train, batch_size),
-#                                         validation_data=validation_data, 
-#                                         verbose=verbose, epochs=epochs, 
-#                                         steps_per_epoch=steps_per_epoch)
-#         print("TRAINING COMPLETE")
-#         model.summary()
-
-#         return history
+         return history
 ```
 
 
@@ -2223,40 +937,38 @@ sklearn.metrics.fowlkes_mallows_score(y_true,y_pred)
 ### Interpret Scores
 With only 5 epochs, the model performed high in precision. However, because this such an imbalanced dataset, recall and F1 score are more critical metrics and these could definitely be improved. We'll tune some of the hyperparameters, specifically adjusting the learning rate and increasing the number of epochs up to 40. 
 
-### History Metrics
+### History Metrics: keras_history()
 
 The baseline model is not meant to give us optimal results - the real test will be in our final model below. First let's take a look at some of the visuals to understand what the scores really mean. This will help us decide how to proceed in tuning the model appropriately.
 
 
 ```python
-# view function: keras_history()
 
-# def keras_history(history, figsize=(10,4)):
-#     """
-#     side by side sublots of training val accuracy and loss (left and right respectively)
-#     """
+def keras_history(history, figsize=(10,4)):
+     """
+     side by side sublots of training val accuracy and loss (left and right respectively)
+     """
     
-#     import matplotlib.pyplot as plt
-    
-#     fig,axes=plt.subplots(ncols=2,figsize=(15,6))
-#     axes = axes.flatten()
+     import matplotlib.pyplot as plt
+   
+     fig,axes=plt.subplots(ncols=2,figsize=(15,6))
+     axes = axes.flatten()
+     ax = axes[0]
+     ax.plot(history.history['accuracy'])
+     ax.plot(history.history['val_accuracy'])
+     ax.set_title('Model Accuracy')
+     ax.set_ylabel('Accuracy')
+     ax.set_xlabel('Epoch')
+     ax.legend(['Train', 'Test'], loc='upper left')
 
-#     ax = axes[0]
-#     ax.plot(history.history['accuracy'])
-#     ax.plot(history.history['val_accuracy'])
-#     ax.set_title('Model Accuracy')
-#     ax.set_ylabel('Accuracy')
-#     ax.set_xlabel('Epoch')
-#     ax.legend(['Train', 'Test'], loc='upper left')
-
-#     ax = axes[1]
-#     ax.plot(history.history['loss'])
-#     ax.plot(history.history['val_loss'])
-#     ax.set_title('Model Loss')
-#     ax.set_ylabel('Loss')
-#     ax.set_xlabel('Epoch')
-#     ax.legend(['Train', 'Test'], loc='upper left')
-#     plt.show()
+     ax = axes[1]
+     ax.plot(history.history['loss'])
+     ax.plot(history.history['val_loss'])
+     ax.set_title('Model Loss')
+     ax.set_ylabel('Loss')
+     ax.set_xlabel('Epoch')
+     ax.legend(['Train', 'Test'], loc='upper left')
+     plt.show()
 ```
 
 
@@ -2265,7 +977,7 @@ computer.keras_history(h1)
 ```
 
 
-![png](./assets/images/starskope/output_80_0.png)
+![png](/assets/images/starskope/output_80_0.png)
 
 
 With only a few epochs, and a small learning rate, it's obvious that our training parameters have a great deal of room for improvement. This is good - we will definitely need to adjust the learning rate. If that doesn't go far enough in producing desired results, we can also try using a different optimizer such as SGD instead of Adam. For now let's look at a few other key metrics.
@@ -2276,82 +988,81 @@ It's like a confusion matrix, without the confusion...
 
 
 ```python
-# View Function: fusion_matrix()
-# def fusion_matrix(matrix, classes=None, normalize=True, title='Fusion Matrix', cmap='Blues',
-#     print_raw=False): 
-#     """
-#     FUSION MATRIX!
-#     -------------
-#     It's like a confusion matrix...without the confusion.
-    
-#     matrix: can pass in matrix or a tuple (ytrue,ypred) to create on the fly 
-#     classes: class names for target variables
-#     """
-#     from sklearn import metrics                       
-#     from sklearn.metrics import confusion_matrix #ugh
-#     import itertools
-#     import numpy as np
-#     import matplotlib as mpl
-#     import matplotlib.pyplot as plt
-    
-#     # make matrix if tuple passed to matrix:
-#     if isinstance(matrix, tuple):
-#         y_true = matrix[0].copy()
-#         y_pred = matrix[1].copy()
-        
-#         if y_true.ndim>1:
-#             y_true = y_true.argmax(axis=1)
-#         if y_pred.ndim>1:
-#             y_pred = y_pred.argmax(axis=1)
-#         fusion = metrics.confusion_matrix(y_true, y_pred)
-#     else:
-#         fusion = matrix
-    
-#     # INTEGER LABELS
-#     if classes is None:
-#         classes=list(range(len(matrix)))
 
-#     #NORMALIZING
-#     # Check if normalize is set to True
-#     # If so, normalize the raw fusion matrix before visualizing
-#     if normalize:
-#         fusion = fusion.astype('float') / fusion.sum(axis=1)[:, np.newaxis]
-#         thresh = 0.5
-#         fmt='.2f'
-#     else:
-#         fmt='d'
-#         thresh = fusion.max() / 2.
+def fusion_matrix(matrix, classes=None, normalize=True, title='Fusion Matrix', cmap='Blues',
+     print_raw=False): 
+     """
+     FUSION MATRIX!
+     -------------
+     It's like a confusion matrix...without the confusion.
+   
+     matrix: can pass in matrix or a tuple (ytrue,ypred) to create on the fly 
+     classes: class names for target variables
+     """
+     from sklearn import metrics                       
+     from sklearn.metrics import confusion_matrix #ugh
+     import itertools
+     import numpy as np
+     import matplotlib as mpl
+     import matplotlib.pyplot as plt
+   
+     # make matrix if tuple passed to matrix:
+     if isinstance(matrix, tuple):
+         y_true = matrix[0].copy()
+         y_pred = matrix[1].copy()
+        
+         if y_true.ndim>1:
+             y_true = y_true.argmax(axis=1)
+         if y_pred.ndim>1:
+             y_pred = y_pred.argmax(axis=1)
+         fusion = metrics.confusion_matrix(y_true, y_pred)
+     else:
+         fusion = matrix
     
-#     # PLOT
-#     fig, ax = plt.subplots(figsize=(10,10))
-#     plt.imshow(fusion, cmap=cmap, aspect='equal')
+     # INTEGER LABELS
+     if classes is None:
+         classes=list(range(len(matrix)))
+
+     #NORMALIZING
+     # Check if normalize is set to True
+     # If so, normalize the raw fusion matrix before visualizing
+     if normalize:
+         fusion = fusion.astype('float') / fusion.sum(axis=1)[:, np.newaxis]
+         thresh = 0.5
+         fmt='.2f'
+     else:
+         fmt='d'
+         thresh = fusion.max() / 2.
     
-#     # Add title and axis labels 
-#     plt.title(title) 
-#     plt.ylabel('TRUE') 
-#     plt.xlabel('PRED')
+     # PLOT
+     fig, ax = plt.subplots(figsize=(10,10))
+     plt.imshow(fusion, cmap=cmap, aspect='equal')
     
-#     # Add appropriate axis scales
-#     tick_marks = np.arange(len(classes))
-#     plt.xticks(tick_marks, classes, rotation=45)
-#     plt.yticks(tick_marks, classes)
-#     #ax.set_ylim(len(fusion), -.5,.5) ## <-- This was messing up the plots!
+     # Add title and axis labels 
+     plt.title(title) 
+     plt.ylabel('TRUE') 
+     plt.xlabel('PRED')
     
-#     # Text formatting
-#     fmt = '.2f' if normalize else 'd'
-#     # Add labels to each cell
-#     #thresh = fusion.max() / 2.
-#     # iterate thru matrix and append labels  
-#     for i, j in itertools.product(range(fusion.shape[0]), range(fusion.shape[1])):
-#         plt.text(j, i, format(fusion[i, j], fmt),
-#                 horizontalalignment='center',
-#                 color='white' if fusion[i, j] > thresh else 'black',
-#                 size=14, weight='bold')
+     # Add appropriate axis scales
+     tick_marks = np.arange(len(classes))
+     plt.xticks(tick_marks, classes, rotation=45)
+     plt.yticks(tick_marks, classes)
     
-#     # Add a legend
-#     plt.colorbar()
-#     plt.show() 
-#     return fusion, fig
+     # Text formatting
+     fmt = '.2f' if normalize else 'd'
+     # Add labels to each cell
+     #thresh = fusion.max() / 2.
+     # iterate thru matrix and append labels  
+     for i, j in itertools.product(range(fusion.shape[0]), range(fusion.shape[1])):
+         plt.text(j, i, format(fusion[i, j], fmt),
+                 horizontalalignment='center',
+                 color='white' if fusion[i, j] > thresh else 'black',
+                 size=14, weight='bold')
+    
+     # Add a legend
+     plt.colorbar()
+     plt.show() 
+     return fusion, fig
 ```
 
 
@@ -2366,45 +1077,44 @@ m1_fusion = computer.fusion_matrix(matrix=(y_true,y_pred),
 
 The baseline model only managed to correctly identify 2 planets in the test set, while missing the other 3. The model incorrectly classified 215 non-TCEs as planets. 
 
-## ROC AUC
+## ROC AUC: roc_plots()
 
 Plot the ROC area under the curve
 
 
 ```python
-# view function: roc_plots()
 
 
-# def roc_plots(X,y,model):
-#     from sklearn import metrics
-#     from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score
+def roc_plots(X,y,model):
+     from sklearn import metrics
+     from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score
 
-#     y_true = y.flatten()
-#     y_hat = model.predict(X)
+     y_true = y.flatten()
+     y_hat = model.predict(X)
 
-#     fpr, tpr, thresholds = roc_curve(y_true, y_hat) 
+     fpr, tpr, thresholds = roc_curve(y_true, y_hat) 
 
-#     # Threshold Cutoff for predictions
-#     crossover_index = np.min(np.where(1.-fpr <= tpr))
-#     crossover_cutoff = thresholds[crossover_index]
-#     crossover_specificity = 1.-fpr[crossover_index]
+     # Threshold Cutoff for predictions
+     crossover_index = np.min(np.where(1.-fpr <= tpr))
+     crossover_cutoff = thresholds[crossover_index]
+     crossover_specificity = 1.-fpr[crossover_index]
 
-#     fig,axes=plt.subplots(ncols=2, figsize=(15,6))
-#     axes = axes.flatten()
+     fig,axes=plt.subplots(ncols=2, figsize=(15,6))
+     axes = axes.flatten()
 
-#     ax=axes[0]
-#     ax.plot(thresholds, 1.-fpr)
-#     ax.plot(thresholds, tpr)
-#     ax.set_title("Crossover at {0:.2f}, Specificity {1:.2f}".format(crossover_cutoff, crossover_specificity))
+     ax=axes[0]
+     ax.plot(thresholds, 1.-fpr)
+     ax.plot(thresholds, tpr)
+     ax.set_title("Crossover at {0:.2f}, Specificity {1:.2f}".format(crossover_cutoff, crossover_specificity))
 
-#     ax=axes[1]
-#     ax.plot(fpr, tpr)
-#     ax.set_title("ROC area under curve: {0:.2f}".format(roc_auc_score(y_true, y_hat)))
-#     plt.show()
+     ax=axes[1]
+     ax.plot(fpr, tpr)
+     ax.set_title("ROC area under curve: {0:.2f}".format(roc_auc_score(y_true, y_hat)))
+     plt.show()
     
-#     roc = roc_auc_score(y_true,y_hat)
+     roc = roc_auc_score(y_true,y_hat)
 
-#     return roc
+     return roc
 ```
 
 
@@ -2539,80 +1249,79 @@ h2 = K.fit_cnn(X_train,y_train, X_test, y_test, m2,
     _________________________________________________________________
 
 
-## Evaluate M2
+## Evaluate M2: compute()
 
 The `compute` function combines all the functions used above for calculating the metrics into one shot:
 
 
 ```python
-# view function: compute()
-# def compute(X, y, model, hist=None, preds=True, summary=True, fusion=True, 
-#             classes=None, report=True, roc=True):
-#     """
-#     evaluates model predictions and stores the output in a dict
-#     returns `results`
-#     """
-#     import pandas as pd
-#     import matplotlib.pyplot as plt
-#     from sklearn import metrics
-#     from sklearn.metrics import jaccard_score,accuracy_score, recall_score, fowlkes_mallows_score
 
-#     # initialize a spare improbability drive
-#     res = {}
-#     res['model'] = model.name
+def compute(X, y, model, hist=None, preds=True, summary=True, fusion=True, 
+             classes=None, report=True, roc=True):
+     """
+     evaluates model predictions and stores the output in a dict
+     returns `results`
+     """
+     import pandas as pd
+     import matplotlib.pyplot as plt
+     from sklearn import metrics
+     from sklearn.metrics import jaccard_score,accuracy_score, recall_score, fowlkes_mallows_score
+
+     # initialize a spare improbability drive
+     res = {}
+     res['model'] = model.name
     
-#     # class predictions 
-#     if preds:
-#         y_true = y.flatten()
-#         y_pred = model.predict_classes(X).flatten()
-#         res['preds'] = [y_pred]
+     # class predictions 
+     if preds:
+         y_true = y.flatten()
+         y_pred = model.predict_classes(X).flatten()
+         res['preds'] = [y_pred]
 
-#     if summary:
-#         summary = model.summary()
-#         res['summary'] = model.summary
+     if summary:
+         summary = model.summary()
+         res['summary'] = model.summary
+
+     # FUSION MATRIX
+     if fusion:
+         if classes is None:
+             classes=['0','1']
+         else:
+             classes=classes
+         # Plot fusion matrix
+         FM = fusion_matrix(matrix=(y_true,y_pred), 
+                                     classes=classes)
+         res['FM'] = FM
+
+     # ROC Area Under Curve
+     if roc:
+         ROC = roc_plots(X, y, model)
+         res['ROC'] = ROC
+
+     # CLASSIFICATION REPORT
+     if report:
+         num_dashes=20
+         print('\n')
+         print('---'*num_dashes)
+         print('\tCLASSIFICATION REPORT:')
+         print('---'*num_dashes)
+         # generate report
+         report = metrics.classification_report(y_true,y_pred)
+         res['report'] = report
+         print(report)
 
 
-#     # FUSION MATRIX
-#     if fusion:
-#         if classes is None:
-#             classes=['0','1']
-#         else:
-#             classes=classes
-#         # Plot fusion matrix
-#         FM = fusion_matrix(matrix=(y_true,y_pred), 
-#                                     classes=classes)
-#         res['FM'] = FM
-
-#     # ROC Area Under Curve
-#     if roc:
-#         ROC = roc_plots(X, y, model)
-#         res['ROC'] = ROC
-
-#     # CLASSIFICATION REPORT
-#     if report:
-#         num_dashes=20
-#         print('\n')
-#         print('---'*num_dashes)
-#         print('\tCLASSIFICATION REPORT:')
-#         print('---'*num_dashes)
-#         # generate report
-#         report = metrics.classification_report(y_true,y_pred)
-#         res['report'] = report
-#         print(report)
-
-
-#     # save to dict:
-#     res['jaccard'] = jaccard_score(y_true, y_pred)
-#     res['fowlkes'] = fowlkes_mallows_score(y_true,y_pred)
-#     res['accuracy'] = accuracy_score(y_true, y_pred)
-#     res['recall'] = recall_score(y_true, y_pred)
+     # save to dict:
+     res['jaccard'] = jaccard_score(y_true, y_pred)
+     res['fowlkes'] = fowlkes_mallows_score(y_true,y_pred)
+     res['accuracy'] = accuracy_score(y_true, y_pred)
+     res['recall'] = recall_score(y_true, y_pred)
     
-#     #Plot Model Training Results (PLOT KERAS HISTORY)
-#     if hist is not None:
-#         HIST = keras_history(hist)
-#         res['HIST'] = HIST
+     #Plot Model Training Results (PLOT KERAS HISTORY)
+     if hist is not None:
+         HIST = keras_history(hist)
+         res['HIST'] = HIST
 
-#     return res
+     return res
 ```
 
 
@@ -3040,16 +1749,16 @@ While it is possible to create a near-perfect classification model for detecting
 
 My recommendations are the following:
 
-   1. Use datasets from the MAST website (via API) to incorporate other calculations of the star's properties as features to be used for classification algorithms. Furthermore, attempt other types of transformations and normalizations on the data before running the model - for instance, apply Fourier transform and phase folding.
+1. Use datasets from the MAST website (via API) to incorporate other calculations of the star's properties as features to be used for classification algorithms. Furthermore, attempt other types of transformations and normalizations on the data before running the model - for instance, apply Fourier transform and phase folding.
 
-   2. Combine data from multiple campaigns and perhaps even multiple telescopes (for instance, matching sky coordinates and time intervals between K2, Kepler, and TESS for a batch of stars that have overlapping observations - this would be critical for finding transit periods that are longer than the campaigns of a single telecope's observation period).
+2. Combine data from multiple campaigns and perhaps even multiple telescopes (for instance, matching sky coordinates and time intervals between K2, Kepler, and TESS for a batch of stars that have overlapping observations - this would be critical for finding transit periods that are longer than the campaigns of a single telecope's observation period).
 
-   3. Explore using computer vision on not only the Full Frame images we can collect from telescopes like TESS, but also on spectographs of the flux values themselves. The beauty of machine learning is our ability to rely on the computer to pick up very small nuances in differences that we ourselves cannot see with our own eyes. 
+3. Explore using computer vision on not only the Full Frame images we can collect from telescopes like TESS, but also on spectographs of the flux values themselves. The beauty of machine learning is our ability to rely on the computer to pick up very small nuances in differences that we ourselves cannot see with our own eyes. 
    
-   4. Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we've seen applied the MNIST dataset - let's find out if the same is true for images of stars, be they the Full Frame Images or spectographs.
+4. Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we've seen applied the MNIST dataset - let's find out if the same is true for images of stars, be they the Full Frame Images or spectographs.
 
 # Future Work
 
-To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. In part II (notebook `[starskøpe-2]`) I use Restricted Boltzmann Machines on Fourier-transformed spectograph images of the Flux data for K2. These are then stacked on top of each other as layers in a Deep Boltzmann Machine neural network. In part III (notebook `[starskøpe-3]`) I will apply a similar technique using data from TESS.
+To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. In part II [starskøpe-2 I use Restricted Boltzmann Machines on Fourier-transformed spectograph images of the Flux data for K2. These are then stacked on top of each other as layers in a Deep Boltzmann Machine neural network. In part III (notebook `[starskøpe-3]`) I will apply a similar technique using data from TESS.
 
 For triage/vetting purposes, this model could be useful for scientists. However, I would like to extend the model's capability using a multiclassification algorithm that can tell us not only if there is a transiting body, but how many, as well as additional information about the star's properties. The latter could be done by training another model on stellar parameters, and then stacking the two together into one neural network.

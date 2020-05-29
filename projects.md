@@ -3,32 +3,16 @@ layout: page
 title: projects
 ---
 
-# `projects`
+# PROJECT DEMOS
 
-<h1>Latest Projects</h1>
+## DATASCIENCE
 
-<ul>
-  {% for post in site.projects %}
-    <li>
-      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-      <p>{{ post.excerpt }}</p>
-    </li>
-  {% endfor %}
-</ul>
+[King County Home Value Prediction](/projects/datascience/king-county/demo.html)
 
+## HARDWARE
 
-## coding
+[Building a PC](/projects/hardware/building-a-pc.html)
 
-* [`python`](/projects/python.html)
+## SOFTWARE
 
-* [`datascience`](/projects/datascience.html)
-
-* [`webdesign`](/projects/webdesign.html)
-
-* * *
-
-## tech
-
-* [`pc builds`](/projects/pc-builds.html)
-
-* [`linux`](/projects/linux.html)
+[Web Design](/projects/webdesign.html)
