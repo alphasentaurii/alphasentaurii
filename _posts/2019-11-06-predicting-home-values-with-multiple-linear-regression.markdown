@@ -5,17 +5,28 @@ date:   2019-11-06 10:23:47 -0800
 categories: datascience
 ---
 
+# Predicting Home Values with Multiple Linear Regression
+The goal of this project was to identify the best combination of variables for predicting the price of a residential home in King County, Washington, USA. The dataset included the market sale prices of 20,000 homes between May 2014 - May 2015. There were a total of 18 dependent variables (features) and one independent variable (target) - the actual sale price of the house when it was sold. 
 
-project links:
+# Non-technical Project Presentation 
 
-> [`slides`](/projects/king-county/slides/index.html)
+<div style="display:block; text-align:center; margin:100px auto; clear:both; top:100px; position:relative; z-index:9999;">
 
-> [`project repo`](https://github.com/hakkeray/predicting-home-values-with-multiple-linear-regression)
+<iframe src="https://player.vimeo.com/video/371786438" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts"></iframe>
+<br /><br /><br /><br /><br />
+</div>
 
-## PROJECT GOAL
-Identify best combination of variables for predicting property values (house prices) in King County, Washington, USA.
+# Non-technical Project Presentation (Slides)
 
-## INTRODUCTION
+Click below to navigate to the next slide.
+
+<div style="display:block; text-align:center; margin:100px auto; clear:both; top:100px; position:relative; z-index:9999;">
+<iframe src="/projects/king-county/slides/index.html"></iframe>
+</div>
+
+[`github repo`](https://github.com/hakkeray/predicting-home-values-with-multiple-linear-regression)
+
+## Background
 Ask any realtor what are the top 3 most important variables for measuring property value, and they will all say the same thing: 1) location, 2) location, and 3) location. I asked a friend who has been doing real estate for about 20 years (we'll call her "Mom") what other factors besides location tend to have some impact and she mentioned the following:
 
 1. **Square-Footage** almost every time, a bigger house is going to cost more than a smaller one.
@@ -69,4 +80,6 @@ DATAFRAME COLUMNS:
 - sqft_lot
 - sqft_living15
 - sqft_lot15
+
+
 

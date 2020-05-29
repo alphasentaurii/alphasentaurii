@@ -1,0 +1,22 @@
+I"ž<h1 id="predicting-home-values-in-king-county-washington">Predicting Home Values in King County, Washington</h1>
+
+<h2 id="project-goal">PROJECT GOAL</h2>
+<p>Identify best combination of variables for predicting property values of residential homes in King County, Washington, USA.</p>
+
+<h1 id="non-technical-project-presentation">Non-technical Project Presentation</h1>
+
+<div style="display:block; text-align:center; margin:100px auto; clear:both; top:100px; position:relative; z-index:9999;">
+
+<iframe src="https://player.vimeo.com/video/371786438" width="640" height="360" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" sandbox="allow-scripts"></iframe>
+<br /><br /><br /><br /><br />
+</div>
+
+<h1 id="non-technical-project-presentation-slides">Non-technical Project Presentation (Slides)</h1>
+
+<div style="display:block; text-align:center; margin:100px auto; clear:both; top:100px; position:relative; z-index:9999;">
+<iframe src="/projects/king-county/slides/index.html"></iframe>
+</div>
+
+<p><a href="https://github.com/hakkeray/predicting-home-values-with-multiple-linear-regression"><code class="highlighter-rouge">github repo</code></a></p>
+
+:ET
