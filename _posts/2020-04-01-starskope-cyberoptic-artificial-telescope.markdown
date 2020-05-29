@@ -72,7 +72,7 @@ My recommendations are the following:
 4. Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we've seen applied the MNIST dataset - let's find out if the same is true for images of stars, be they the Full Frame Images or spectographs.
 
 ## FUTURE WORK
-To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. Please go to the next post [starskope-2](/datascience/2020/05/06/starskope-2-spectrograph-image-classification.html) to see how I build a `convolutional neural network` to classify stars using spectrograph images of the flux values to find transiting exoplanets. Following this, I apply the same algorithm to spectrographs of Fourier transformed data.
+To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. Please go to the next post `[starskope-2](/datascience/2020/05/06/starskope-2-spectrograph-image-classification.html)` to see how I build a `convolutional neural network` to classify stars using spectrograph images of the flux values to find transiting exoplanets. Following this, I apply the same algorithm to spectrographs of Fourier transformed data.
 
 Additional future work following this project will be to develop my "cyberoptic artificial telescope" as a machine learning driven application that any astrophysicist can use to look at a single or collection of stars and have the model classify them according not only to exoplanet predictions, but also predict what type of star it is, and other key properties that would be of interest for astrophysical science applications.
 
@@ -370,11 +370,11 @@ X_train,X_test,y_train,y_test = T.hypersonic_pliers(DATA+'/exoTrain.csv',
     y_test:  (570, 1)
 
 
-### Scaling
+### Scaling: thermo_fusion_chisel()
 
 Scale each observation to zero mean and unit variance.
 
-### thermo_fusion_chisel()
+
 
 ```python
 
@@ -419,7 +419,7 @@ X_train, X_test = T.thermo_fusion_chisel(X_train, X_test)
     Variance:  1.0
 
 
-### De-noising
+### De-noising: babel_fish_dispenser()
 
 In order to reduce the amount of high frequency noise that is likely to have an adverse effect on the neural network's learning outcomes, we can pass a uniform 1-D filter on our scaled train and test data then stack the arrays along the second axis. There are other techniques we might want to apply for further de-noising but for now we'll start with this for the baseline.
 
@@ -432,7 +432,7 @@ print(y_train.shape)
     (5087, 3197)
     (5087, 1)
 
-### babel_fish_dispenser()
+
 
 ```python
 
@@ -845,33 +845,33 @@ y_true, y_pred = computer.get_preds(X_test,y_test, model=m1,verbose=True)
     
 
 
-### False -/+ Rates (Training)
+### False -/+ Rates (Training): fnfp()
 
 
 ```python
-# view function: fnfp()
 
-# def fnfp(X,y,model, training=False):
 
-#     import numpy as np
+def fnfp(X,y,model, training=False):
 
-#     y_pred = np.round( model.predict(X) )
+     import numpy as np
 
-#     pos_idx = y==1
-#     neg_idx = y==0
+     y_pred = np.round( model.predict(X) )
 
-#     #tp = np.sum(y_pred[pos_idx]==1)/y_pred.shape[0]
-#     fn = np.sum(y_pred[pos_idx]==0)/y_pred.shape[0]
+     pos_idx = y==1
+     neg_idx = y==0
 
-#     #tn = np.sum(y_pred[neg_idx]==0)/y_pred.shape[0]
-#     fp = np.sum(y_pred[neg_idx]==1)/y_pred.shape[0]
+     #tp = np.sum(y_pred[pos_idx]==1)/y_pred.shape[0]
+     fn = np.sum(y_pred[pos_idx]==0)/y_pred.shape[0]
 
-#     if training:
-#         print(f"FN Rate (Training): {round(fn*100,4)}%")
-#         print(f"FP Rate (Training): {round(fp*100,4)}%")
-#     else:
-#         print(f"FN Rate (Test): {round(fn*100,4)}%")
-#         print(f"FP Rate (Test): {round(fp*100,4)}%")
+     #tn = np.sum(y_pred[neg_idx]==0)/y_pred.shape[0]
+     fp = np.sum(y_pred[neg_idx]==1)/y_pred.shape[0]
+
+     if training:
+         print(f"FN Rate (Training): {round(fn*100,4)}%")
+         print(f"FP Rate (Training): {round(fp*100,4)}%")
+     else:
+         print(f"FN Rate (Test): {round(fn*100,4)}%")
+         print(f"FP Rate (Test): {round(fp*100,4)}%")
 ```
 
 
@@ -977,7 +977,7 @@ computer.keras_history(h1)
 ```
 
 
-![png](/assets/images/starskope/output_80_0.png)
+<img src="/assets/images/starskope/output_80_0.png" width=400>
 
 
 With only a few epochs, and a small learning rate, it's obvious that our training parameters have a great deal of room for improvement. This is good - we will definitely need to adjust the learning rate. If that doesn't go far enough in producing desired results, we can also try using a different optimizer such as SGD instead of Adam. For now let's look at a few other key metrics.
