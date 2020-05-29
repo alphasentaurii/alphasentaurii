@@ -8,7 +8,7 @@ categories: datascience
 ## Predicting Pulsars with Decision Trees and XG Boost
 Predicting Pulsars with Decision Trees and XG Boost is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or noise`. 
 
-![](/assets/images/pulsars/output_93_1.png)
+<img src="/assets/images/pulsars/output_93_1.png" width=400>
 
 HTRU2 is a data set which describes **a sample of pulsar candidates collected during the High Time Resolution Universe Survey.**
 
@@ -18,7 +18,7 @@ As pulsars rotate, their emission beams sweep across the sky which produces a de
 
 Each pulsar produces a slightly different emission pattern, which varies slightly with each rotation. Detection of a potential signal is known as a 'candidate', which is averaged over many rotations of the pulsar, as determined by the length of an observation. In the absence of additional info, each candidate could potentially describe a real pulsar. **However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.** Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.
 
-![](/assets/images/starskope/output/images/pulsars/output_20_2.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_20_2.png">
 
 The data set shared here contains **16,259 spurious examples caused by RFI/noise**, and **1,639 real pulsar examples**. Each row lists the variables first, and the class label is the final entry. The class labels used are 0 (negative) and 1 (positive).
 
@@ -65,7 +65,7 @@ If you want to contact me you can reach me at <rukeine@gmail.com>.
 
 ## License
 
-This project uses the following license: [MIT License](./LICENSE.md).
+This project uses the following license: [MIT License](/LICENSE.md).
 
 ## Outline
 
@@ -581,15 +581,11 @@ hotmap(df, figsize=(10,8))
 ```
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_20_0.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_20_0.png" width=400>
 
+<img src="/assets/images/starskope/output/images/pulsars/output_20_1.png" width=400>
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_20_1.png)
-
-
-
-![png](/assets/images/starskope/output/images/pulsars/output_20_2.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_20_2.png" width=400>
 
 
 Target Class Values are highly differentiated for the following features:
@@ -655,8 +651,7 @@ plt.show()
     [GREEN == PULSAR , BLUE == NON-PULSAR]
 
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_22_1.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_22_1.png" width=400>
 
 
 The mean and standard deviation of the Skewness Curve if also a good candidate predictor for our target class.
@@ -691,7 +686,7 @@ print ("***************************************")
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_24_1.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_24_1.png" width=400>
 
 
 
@@ -702,8 +697,7 @@ plt.show()
 ```
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_25_0.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_25_0.png" width=400>
 
 
 ```python
@@ -771,8 +765,7 @@ plt.subplots_adjust(wspace =.4)
 ```
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_27_0.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_27_0.png" width=400>
 
 
 ```python
@@ -800,8 +793,7 @@ print ("****************************************************")
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_28_1.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_28_1.png" width=400>
 
 
 ```python
@@ -835,8 +827,7 @@ plt.title("Area plot for attributes for pulsar stars vs non pulsar stars")
 plt.show()
 ```
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_29_0.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_29_0.png" width=400>
 
 
 
@@ -868,8 +859,7 @@ plt.show()
 ```
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_30_0.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_30_0.png" width=400>
 
 
 ```python
@@ -878,8 +868,7 @@ plt.show()
 ```
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_31_0.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_31_0.png" width=400>
 
 
 ```python
@@ -896,8 +885,7 @@ for i,j in itertools.zip_longest(columns,range(length)):
 ```
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_32_0.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_32_0.png" width=400>
 
 
 ```python
@@ -914,8 +902,7 @@ for i,j in itertools.zip_longest(columns,range(length)):
     plt.title(i)
 ```
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_33_0.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_33_0.png" width=400>
 
 
 
@@ -939,8 +926,7 @@ sns.scatterplot(x='MEAN_IP', y='KURTOSIS_IP',
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_34_1.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_34_1.png" width=400>
 
 
 ```python
@@ -962,8 +948,7 @@ sns.scatterplot(x='SKEWNESS_CURVE', y='KURTOSIS_IP',
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_35_1.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_35_1.png" width=400>
 
 
 ```python
@@ -985,8 +970,7 @@ sns.scatterplot(x='KURTOSIS_IP', y='KURTOSIS_CURVE',
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_36_1.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_36_1.png" width=400>
 
 
 ```python
@@ -1008,8 +992,7 @@ sns.scatterplot(x='KURTOSIS_IP', y='STD_IP',
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_37_1.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_37_1.png" width=400>
 
 
 ```python
@@ -1030,8 +1013,7 @@ sns.scatterplot(x='KURTOSIS_IP', y='KURTOSIS_CURVE',
 
 
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_38_1.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_38_1.png" width=400>
 
 
 # `MODEL`
@@ -1221,8 +1203,7 @@ Image(graph.create_png())
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_59_0.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_59_0.png" width=400>
 
 
 ## Make Predictions
@@ -1414,8 +1395,7 @@ plot_confusion_matrix(cnf_matrix, classes=['Non-Pulsar', 'Pulsar'], normalize=Tr
     Normalized confusion matrix
 
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_72_1.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_72_1.png" width=400>
 
 
 ## Parameter Tuning
@@ -1463,8 +1443,7 @@ plt.legend()
 plt.show()
 ```
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_75_0.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_75_0.png" width=400>
 
 
     Max tree depth optimal value does not improve beyond 3 for test data.
@@ -1512,8 +1491,7 @@ plt.legend()
 plt.show()
 ```
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_78_0.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_78_0.png" width=400>
 
 
     AUC does not improve beyond 0.2 for test data.
@@ -1561,8 +1539,7 @@ plt.show()
 ```
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_81_0.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_81_0.png" width=400>
 
     Highest AUC for both train and test data maximized at 0.10.
 
@@ -1607,8 +1584,7 @@ plt.legend()
 plt.show()
 ```
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_84_0.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_84_0.png" width=400>
 
 
     Increasing parameters has no clear effect on training data (flat AUC). 
@@ -1669,8 +1645,7 @@ Image(graph.create_png())
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_89_0.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_89_0.png" width=400>
 
 
 
@@ -1758,8 +1733,7 @@ modelX(dt_clf, X_train, y_train, X_test, y_test, "feat")
     
 
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_91_1.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_91_1.png" width=400>
 
 
 Kurtosis Integrated Profile ('KURTOSIS_IP') is by far the most important classifying feature when it comes to identifying Pulsars. Let's double check the other metrics with our scaled/transformed data:
@@ -1800,8 +1774,7 @@ modelX(dt_clf, X_train_transformed, y_train, X_test_transformed, y_test, "coef")
                            random_state=None, splitter='best')
 
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_93_1.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_93_1.png" width=400>
 
 
 `F1 Score`
@@ -1923,8 +1896,7 @@ modelX(xgb_clf, X_train_transformed, y_train, X_test_transformed, y_test, "coef"
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_106_1.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_106_1.png" width=400>
 
 ## GridSearchCV
 
@@ -2046,8 +2018,7 @@ plt.show()
 
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_113_1.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_113_1.png" width=400>
 
 ### Confusion matrix
 
@@ -2146,8 +2117,7 @@ plot_confusion_matrix(cnf_matrix, classes=['Non-Pulsar', 'Pulsar'], normalize=Tr
     Normalized confusion matrix
 
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_117_1.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_117_1.png" width=400>
 
 
 
@@ -2160,8 +2130,7 @@ plot_confusion_matrix(cnf_matrix, classes=['Non-Pulsar', 'Pulsar'], normalize=Fa
     Confusion matrix, without normalization
 
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_118_1.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_118_1.png" width=400>
 
 
 ## MSE and R2
@@ -2235,8 +2204,7 @@ plot_feature_importances(xgb_clf)
 ```
 
 
-![png](/assets/images/starskope/output/images/pulsars/output_124_0.png)
-
+<img src="/assets/images/starskope/output/images/pulsars/output_124_0.png" width=400>
 
 
 ```python
@@ -2285,8 +2253,7 @@ plot_importance(booster=xgb_clf)
 
 
 
-
-![png](/assets/images/starskope/output/images/pulsars/output_129_1.png)
+<img src="/assets/images/starskope/output/images/pulsars/output_129_1.png" width=400>
 
 
 # CONCLUSION

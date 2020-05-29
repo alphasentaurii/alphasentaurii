@@ -72,7 +72,7 @@ My recommendations are the following:
 4. Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we've seen applied the MNIST dataset - let's find out if the same is true for images of stars, be they the Full Frame Images or spectographs.
 
 ## FUTURE WORK
-To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. Please go to the next post `[starskope-2](/datascience/2020/05/06/starskope-2-spectrograph-image-classification.html)` to see how I build a `convolutional neural network` to classify stars using spectrograph images of the flux values to find transiting exoplanets. Following this, I apply the same algorithm to spectrographs of Fourier transformed data.
+To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. Please go to the next post [starskope-2](/datascience/2020/05/06/starskope-2-spectrograph-image-classification.html) to see how I build a `convolutional neural network` to classify stars using spectrograph images of the flux values to find transiting exoplanets. Following this, I apply the same algorithm to spectrographs of Fourier transformed data.
 
 Additional future work following this project will be to develop my "cyberoptic artificial telescope" as a machine learning driven application that any astrophysicist can use to look at a single or collection of stars and have the model classify them according not only to exoplanet predictions, but also predict what type of star it is, and other key properties that would be of interest for astrophysical science applications.
 
@@ -808,28 +808,28 @@ h1 = K.fit_cnn(X_train,y_train, X_test, y_test, m1,
 
 Let's assess the model thus far before tuning parameters. We'll create a few helper functions for calculating metrics and analyzing results visually. 
 
-## Class Predictions
+## Class Predictions: get_preds()
 
 
 
 
 ```python
-# View function: get_preds()
 
-# def get_preds(X,y,model=None,verbose=False):
-#     if model is None:
-#         model=model
-#     # class predictions 
-#     y_true = y.flatten()
-    
-#     y_pred = model.predict_classes(X).flatten() 
-#     preds = pd.Series(y_pred).value_counts(normalize=False)
-    
-#     if verbose:
-#         print(f"y_pred:\n {preds}")
-#         print("\n")
 
-#     return y_true, y_pred
+ def get_preds(X,y,model=None,verbose=False):
+     if model is None:
+         model=model
+     # class predictions 
+     y_true = y.flatten()
+   
+     y_pred = model.predict_classes(X).flatten() 
+     preds = pd.Series(y_pred).value_counts(normalize=False)
+    
+     if verbose:
+         print(f"y_pred:\n {preds}")
+         print("\n")
+
+     return y_true, y_pred
 ```
 
 
@@ -1759,6 +1759,7 @@ My recommendations are the following:
 
 # Future Work
 
-To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. In part II [starskøpe-2 I use Restricted Boltzmann Machines on Fourier-transformed spectograph images of the Flux data for K2. These are then stacked on top of each other as layers in a Deep Boltzmann Machine neural network. In part III (notebook `[starskøpe-3]`) I will apply a similar technique using data from TESS.
+To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. In part II [starskøpe-2](/datascience/2020/05/06/starskope-2-spectrograph-image-classification.html) I use Restricted Boltzmann Machines on Fourier-transformed spectograph images of the Flux data for K2. These are then stacked on top of each other as layers in a Deep Boltzmann Machine neural network. In part III [starskøpe-3](/datascience/2020/06/01/starskope-3-scraping-mast-api.html) I will apply a similar technique using data from TESS.
+
 
 For triage/vetting purposes, this model could be useful for scientists. However, I would like to extend the model's capability using a multiclassification algorithm that can tell us not only if there is a transiting body, but how many, as well as additional information about the star's properties. The latter could be done by training another model on stellar parameters, and then stacking the two together into one neural network.

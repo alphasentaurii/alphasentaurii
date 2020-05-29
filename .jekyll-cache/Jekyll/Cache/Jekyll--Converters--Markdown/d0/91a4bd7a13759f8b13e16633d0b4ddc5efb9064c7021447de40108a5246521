@@ -1,4 +1,4 @@
-I"�z<h2 id="building-a-cyberoptic-artificial-telescope-for-astrophysical-object-classification">Building a Cyberoptic Artificial Telescope for Astrophysical Object Classification</h2>
+I"�<h2 id="building-a-cyberoptic-artificial-telescope-for-astrophysical-object-classification">Building a Cyberoptic Artificial Telescope for Astrophysical Object Classification</h2>
 <blockquote>
   <p>“Mathematicians […] are often led astray when ‘studying’ physics because they lose sight of the physics. They say: <em>‘Look, these differential equations–the Maxwell equations–are all there is to electrodynamics; it is admitted by the physicists that there is nothing which is not contained in the equations. The equations are complicated, but after all they are only mathematical equations and if I understand them mathematically inside out, I will understand the physics inside out.’</em> Only it doesn’t work that way. Mathematicians who study physics with that point of view–and there have been many of them–usually make little contribution to physics and, in fact, little to mathematics. They fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations.”
 <strong>-Richard Feynman, <em>The Feynman Lectures on Physics: Volume 2</em>, Chapter 2-1: “Differential Calculus of Vector Fields”</strong></p>
@@ -356,11 +356,9 @@ X_test:  (570, 3197)
 y_test:  (570, 1)
 </code></pre></div></div>
 
-<h3 id="scaling">Scaling</h3>
+<h3 id="scaling-thermo_fusion_chisel">Scaling: thermo_fusion_chisel()</h3>
 
 <p>Scale each observation to zero mean and unit variance.</p>
-
-<h3 id="thermo_fusion_chisel">thermo_fusion_chisel()</h3>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 
@@ -402,7 +400,7 @@ Mean:  2.6670356049800446e-17
 Variance:  1.0
 </code></pre></div></div>
 
-<h3 id="de-noising">De-noising</h3>
+<h3 id="de-noising-babel_fish_dispenser">De-noising: babel_fish_dispenser()</h3>
 
 <p>In order to reduce the amount of high frequency noise that is likely to have an adverse effect on the neural network’s learning outcomes, we can pass a uniform 1-D filter on our scaled train and test data then stack the arrays along the second axis. There are other techniques we might want to apply for further de-noising but for now we’ll start with this for the baseline.</p>
 
@@ -413,8 +411,6 @@ Variance:  1.0
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(5087, 3197)
 (5087, 1)
 </code></pre></div></div>
-
-<h3 id="babel_fish_dispenser">babel_fish_dispenser()</h3>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 
@@ -762,25 +758,25 @@ _________________________________________________________________
 
 <p>Let’s assess the model thus far before tuning parameters. We’ll create a few helper functions for calculating metrics and analyzing results visually.</p>
 
-<h2 id="class-predictions">Class Predictions</h2>
+<h2 id="class-predictions-get_preds">Class Predictions: get_preds()</h2>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># View function: get_preds()
-</span>
-<span class="c1"># def get_preds(X,y,model=None,verbose=False):
-#     if model is None:
-#         model=model
-#     # class predictions 
-#     y_true = y.flatten()
-</span>    
-<span class="c1">#     y_pred = model.predict_classes(X).flatten() 
-#     preds = pd.Series(y_pred).value_counts(normalize=False)
-</span>    
-<span class="c1">#     if verbose:
-#         print(f"y_pred:\n {preds}")
-#         print("\n")
-</span>
-<span class="c1">#     return y_true, y_pred
-</span></code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+ <span class="k">def</span> <span class="nf">get_preds</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+     <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+         <span class="n">model</span><span class="o">=</span><span class="n">model</span>
+     <span class="c1"># class predictions 
+</span>     <span class="n">y_true</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+   
+     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict_classes</span><span class="p">(</span><span class="n">X</span><span class="p">).</span><span class="n">flatten</span><span class="p">()</span> 
+     <span class="n">preds</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_pred</span><span class="p">).</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    
+     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">f"y_pred:</span><span class="se">\n</span><span class="s"> </span><span class="si">{</span><span class="n">preds</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+     <span class="k">return</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span>
+</code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">computer</span><span class="p">.</span><span class="n">get_preds</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">m1</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
@@ -791,32 +787,32 @@ _________________________________________________________________
 dtype: int64
 </code></pre></div></div>
 
-<h3 id="false---rates-training">False -/+ Rates (Training)</h3>
+<h3 id="false---rates-training-fnfp">False -/+ Rates (Training): fnfp()</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># view function: fnfp()
-</span>
-<span class="c1"># def fnfp(X,y,model, training=False):
-</span>
-<span class="c1">#     import numpy as np
-</span>
-<span class="c1">#     y_pred = np.round( model.predict(X) )
-</span>
-<span class="c1">#     pos_idx = y==1
-#     neg_idx = y==0
-</span>
-<span class="c1">#     #tp = np.sum(y_pred[pos_idx]==1)/y_pred.shape[0]
-#     fn = np.sum(y_pred[pos_idx]==0)/y_pred.shape[0]
-</span>
-<span class="c1">#     #tn = np.sum(y_pred[neg_idx]==0)/y_pred.shape[0]
-#     fp = np.sum(y_pred[neg_idx]==1)/y_pred.shape[0]
-</span>
-<span class="c1">#     if training:
-#         print(f"FN Rate (Training): {round(fn*100,4)}%")
-#         print(f"FP Rate (Training): {round(fp*100,4)}%")
-#     else:
-#         print(f"FN Rate (Test): {round(fn*100,4)}%")
-#         print(f"FP Rate (Test): {round(fp*100,4)}%")
-</span></code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+<span class="k">def</span> <span class="nf">fnfp</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">model</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+     <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">round</span><span class="p">(</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="p">)</span>
+
+     <span class="n">pos_idx</span> <span class="o">=</span> <span class="n">y</span><span class="o">==</span><span class="mi">1</span>
+     <span class="n">neg_idx</span> <span class="o">=</span> <span class="n">y</span><span class="o">==</span><span class="mi">0</span>
+
+     <span class="c1">#tp = np.sum(y_pred[pos_idx]==1)/y_pred.shape[0]
+</span>     <span class="n">fn</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">pos_idx</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">y_pred</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+     <span class="c1">#tn = np.sum(y_pred[neg_idx]==0)/y_pred.shape[0]
+</span>     <span class="n">fp</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">neg_idx</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">y_pred</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+     <span class="k">if</span> <span class="n">training</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">f"FN Rate (Training): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">f"FP Rate (Training): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fp</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+     <span class="k">else</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">f"FN Rate (Test): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">f"FP Rate (Test): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fp</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+</code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">computer</span><span class="p">.</span><span class="n">fnfp</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
@@ -903,7 +899,7 @@ weighted avg       0.98      0.62      0.76       570
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">computer</span><span class="p">.</span><span class="n">keras_history</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/output_80_0.png" alt="png" /></p>
+<p><img src="/assets/images/starskope/output_80_0.png" width="400" /></p>
 
 <p>With only a few epochs, and a small learning rate, it’s obvious that our training parameters have a great deal of room for improvement. This is good - we will definitely need to adjust the learning rate. If that doesn’t go far enough in producing desired results, we can also try using a different optimizer such as SGD instead of Adam. For now let’s look at a few other key metrics.</p>
 
@@ -1633,7 +1629,7 @@ weighted avg       0.99      0.96      0.97       570
 
 <h1 id="future-work-1">Future Work</h1>
 
-<p>To continue this project, I’ll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. In part II [starskøpe-2 I use Restricted Boltzmann Machines on Fourier-transformed spectograph images of the Flux data for K2. These are then stacked on top of each other as layers in a Deep Boltzmann Machine neural network. In part III (notebook <code class="highlighter-rouge">[starskøpe-3]</code>) I will apply a similar technique using data from TESS.</p>
+<p>To continue this project, I’ll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. In part II <a href="/datascience/2020/05/06/starskope-2-spectrograph-image-classification.html">starskøpe-2</a> I use Restricted Boltzmann Machines on Fourier-transformed spectograph images of the Flux data for K2. These are then stacked on top of each other as layers in a Deep Boltzmann Machine neural network. In part III <a href="/datascience/2020/06/01/starskope-3-scraping-mast-api.html">starskøpe-3</a> I will apply a similar technique using data from TESS.</p>
 
 <p>For triage/vetting purposes, this model could be useful for scientists. However, I would like to extend the model’s capability using a multiclassification algorithm that can tell us not only if there is a transiting body, but how many, as well as additional information about the star’s properties. The latter could be done by training another model on stellar parameters, and then stacking the two together into one neural network.</p>
 :ET
