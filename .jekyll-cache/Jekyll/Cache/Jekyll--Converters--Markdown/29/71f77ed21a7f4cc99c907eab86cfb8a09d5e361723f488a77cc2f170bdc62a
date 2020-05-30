@@ -1,4 +1,4 @@
-I"Í<h1>Latest Posts</h1>
+I"<h1>Latest Posts</h1>
 
 <ul>
   
@@ -40,7 +40,7 @@
   
     <li>
       <h2><a href="/datascience/2019/12/07/thinking-outside-the-lego-box.html">Thinking Outside the Lego Box</a></h2>
-      <p><p>The Lego Model and Other Metaphysical Approaches to Data Science</p>
+      <p><h2 id="the-lego-model-and-other-metaphysical-approaches-to-data-science">The Lego Model and Other Metaphysical Approaches to Data Science</h2>
 </p>
     </li>
   

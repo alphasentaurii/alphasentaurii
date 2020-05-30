@@ -1,4 +1,4 @@
-I"S<h2 id="predicting-pulsars-with-decision-trees-and-xg-boost">Predicting Pulsars with Decision Trees and XG Boost</h2>
+I"�P<h2 id="predicting-pulsars-with-decision-trees-and-xg-boost">Predicting Pulsars with Decision Trees and XG Boost</h2>
 <p>Predicting Pulsars with Decision Trees and XG Boost is a <code class="highlighter-rouge">supervised machine learning feature classification project</code> that uses <code class="highlighter-rouge">Decision Trees and XGBoost</code> to <code class="highlighter-rouge">predict and classify signals as either a pulsar or noise</code>.</p>
 
 <p><img src="/assets/images/pulsars/output_93_1.png" width="400" /></p>
@@ -11,7 +11,7 @@
 
 <p>Each pulsar produces a slightly different emission pattern, which varies slightly with each rotation. Detection of a potential signal is known as a ‘candidate’, which is averaged over many rotations of the pulsar, as determined by the length of an observation. In the absence of additional info, each candidate could potentially describe a real pulsar. <strong>However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.</strong> Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.</p>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_20_2.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_20_2.png" width="400" /></p>
 
 <p>The data set shared here contains <strong>16,259 spurious examples caused by RFI/noise</strong>, and <strong>1,639 real pulsar examples</strong>. Each row lists the variables first, and the class label is the final entry. The class labels used are 0 (negative) and 1 (positive).</p>
 
@@ -532,11 +532,11 @@ Name: TARGET, dtype: int64
 <span class="n">hotmap</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 </code></pre></div></div>
 
-<p><img src="assets/images/starskope/images/pulsars/output_20_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_20_0.png" width="400" /></p>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_20_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_20_1.png" width="400" /></p>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_20_2.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_20_2.png" width="400" /></p>
 
 <p>Target Class Values are highly differentiated for the following features:</p>
 
@@ -601,7 +601,7 @@ Name: TARGET, dtype: int64
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[GREEN == PULSAR , BLUE == NON-PULSAR]
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_22_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_22_1.png" width="400" /></p>
 
 <p>The mean and standard deviation of the Skewness Curve if also a good candidate predictor for our target class.</p>
 
@@ -632,14 +632,14 @@ DISTIBUTION OF VARIABLES IN DATA SET
 ***************************************
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_24_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_24_1.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="p">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s">"TARGET"</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"pair plot for variables"</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_25_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_25_0.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">columns</span>
 </code></pre></div></div>
@@ -698,7 +698,7 @@ DISTIBUTION OF VARIABLES IN DATA SET
 <span class="n">plt</span><span class="p">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span> <span class="o">=</span><span class="p">.</span><span class="mi">4</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_27_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_27_0.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># BOXPLOTS
 </span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'TARGET'</span><span class="p">]]</span>
@@ -723,7 +723,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 ****************************************************
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_28_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_28_1.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># STACKPLOTS
 </span><span class="n">st</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">'TARGET'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">].</span><span class="n">reset_index</span><span class="p">()</span>
@@ -755,7 +755,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_29_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_29_0.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">13</span><span class="p">))</span>
@@ -783,13 +783,13 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_30_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_30_0.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="p">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'MEAN_IP'</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s">'STD_IP'</span><span class="p">],</span><span class="n">kind</span><span class="o">=</span><span class="s">"kde"</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_31_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_31_0.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'TARGET'</span><span class="p">]]</span>
 <span class="n">length</span>  <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
@@ -803,7 +803,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
     <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_32_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_32_0.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># BARPLOTS
 </span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'TARGET'</span><span class="p">]]</span>
@@ -818,7 +818,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
     <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_33_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_33_0.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -834,7 +834,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x123271080&gt;
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_34_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_34_1.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -849,7 +849,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x124630dd8&gt;
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_35_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_35_1.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -864,7 +864,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x127522588&gt;
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_36_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_36_1.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -879,7 +879,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1275220f0&gt;
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_37_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_37_1.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -894,7 +894,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1265d90f0&gt;
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_38_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_38_1.png" width="400" /></p>
 
 <h1 id="model"><code class="highlighter-rouge">MODEL</code></h1>
 
@@ -1051,7 +1051,7 @@ Saved XG Boost pipeline to file
 </span><span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="p">.</span><span class="n">create_png</span><span class="p">())</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_59_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_59_0.png" width="400" /></p>
 
 <h2 id="make-predictions">Make Predictions</h2>
 
@@ -1222,7 +1222,7 @@ FALSE NEGATIVES: 82 Pulsars misclassifed as noise
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Normalized confusion matrix
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_72_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_72_1.png" width="400" /></p>
 
 <h2 id="parameter-tuning">Parameter Tuning</h2>
 
@@ -1268,7 +1268,7 @@ FALSE NEGATIVES: 82 Pulsars misclassifed as noise
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_75_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_75_0.png" width="400" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Max tree depth optimal value does not improve beyond 3 for test data.
 </code></pre></div></div>
@@ -1315,7 +1315,7 @@ increment of 0.1
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_78_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_78_0.png" width="400" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AUC does not improve beyond 0.2 for test data.
 </code></pre></div></div>
@@ -1361,7 +1361,7 @@ with an increment of 0.1
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_81_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_81_0.png" width="400" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Highest AUC for both train and test data maximized at 0.10.
 </code></pre></div></div>
@@ -1406,7 +1406,7 @@ with an increment of 0.1
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_84_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_84_0.png" width="400" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Increasing parameters has no clear effect on training data (flat AUC). 
 Optimal value for test data is 5.
@@ -1457,7 +1457,7 @@ Optimal value for test data is 5.
 </span><span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="p">.</span><span class="n">create_png</span><span class="p">())</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_89_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_89_0.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">modelX</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">of_type</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
@@ -1539,7 +1539,7 @@ classification report :
 weighted avg       0.97      0.97      0.97      5907
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_91_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_91_1.png" width="400" /></p>
 
 <p>Kurtosis Integrated Profile (‘KURTOSIS_IP’) is by far the most important classifying feature when it comes to identifying Pulsars. Let’s double check the other metrics with our scaled/transformed data:</p>
 
@@ -1577,7 +1577,7 @@ weighted avg       0.95      0.95      0.95      5907
                        random_state=None, splitter='best')
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_93_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_93_1.png" width="400" /></p>
 
 <p><code class="highlighter-rouge">F1 Score</code>
 The F1 score (also F-score or F-measure) is a measure of a test’s accuracy. It considers both the precision p and the recall r of the test to compute the score: p is the number of correct positive results divided by the number of all positive results returned by the classifier, and r is the number of correct positive results divided by the number of all relevant samples (all samples that should have been identified as positive). The F1 score is the harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.</p>
@@ -1679,7 +1679,7 @@ weighted avg       0.98      0.98      0.98      5907
               silent=None, subsample=1, verbosity=1)
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_106_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_106_1.png" width="400" /></p>
 
 <h2 id="gridsearchcv">GridSearchCV</h2>
 
@@ -1791,7 +1791,7 @@ AUC for 0.7: 0.8839272493446382
 AUC for 0.8: 0.8839272493446382
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_113_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_113_1.png" width="400" /></p>
 
 <h3 id="confusion-matrix-1">Confusion matrix</h3>
 
@@ -1878,7 +1878,7 @@ AUC for 0.8: 0.8839272493446382
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Normalized confusion matrix
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_117_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_117_1.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot normalized confusion matrix
 </span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">cnf_matrix</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s">'Non-Pulsar'</span><span class="p">,</span> <span class="s">'Pulsar'</span><span class="p">],</span> <span class="n">normalize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
@@ -1888,7 +1888,7 @@ AUC for 0.8: 0.8839272493446382
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion matrix, without normalization
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_118_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_118_1.png" width="400" /></p>
 
 <h2 id="mse-and-r2">MSE and R2</h2>
 
@@ -1944,7 +1944,7 @@ dtype: float32
 <span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">xgb_clf</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_124_0.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_124_0.png" width="400" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Testing Accuracy for XG Boost Classifier: {:.4}%"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 </code></pre></div></div>
@@ -1981,7 +1981,7 @@ dtype: float32
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x12cac78d0&gt;
 </code></pre></div></div>
 
-<p><img src="/assets/images/starskope/images/pulsars/output_129_1.png" width="400" /></p>
+<p><img src="/assets/images/pulsars/output_129_1.png" width="400" /></p>
 
 <h1 id="conclusion">CONCLUSION</h1>
 

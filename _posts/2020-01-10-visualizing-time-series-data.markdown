@@ -9,7 +9,7 @@ categories: datascience
 
 Time Series Forecasting with SARIMAX and Gridsearch is a `housing market prediction model` that uses `seasonal ARIMA time-series analysis and GridsearchCV` to `recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York`.
 
-<img src="/assets/images/timeseries/images/10605.png" width=400>
+<img src="/assets/images/timeseries/10605.png" width=400>
 
 Prior to training, I set out to identify trends, seasonality, and autoregression elements within the Zillow Housing Market Dataset. I then use a fitting procedure to find the coefficients of a regression model, including several plots and statistical tests of the residual errors along the way. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels. 
 
@@ -130,21 +130,21 @@ INTERPRET
 
 Since commute time to Grand Central Station is part of the client's required criteria, I first had to look up which towns/zip codes were on which train lines. Grand Central has 3 main lines on Metro North Railroad: Hudson, Harlem, and New Haven. The first question I was interested in answering was if the average home prices for the zip codes that fall under these geographic sections display any trends. 
 
-<img src="/assets/images/timeseries/images/meanvalues_area.png" width=400>
+<img src="/assets/images/timeseries/meanvalues_area.png" width=400>
 
 ### New Haven line
 
 Note that this does not include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state. 
 
-<img src="/assets/images/timeseries/images/newhaven_mapTime.png" width=400>
+<img src="/assets/images/timeseries/newhaven_mapTime.png" width=400>
 
 ### Harlem Line
 
-<img src="/assets/images/timeseries/images/harlem_mapTime.png" width=400>
+<img src="/assets/images/timeseries/harlem_mapTime.png" width=400>
 
 ### Hudson Line
 
-<img src="/assets/images/timeseries/images/hudson_mapTime.png" width=400>
+<img src="/assets/images/timeseries/hudson_mapTime.png" width=400>
 
 ## Custom Time Series Analysis Functions (python)
 To generate the plots above (as well as others) I wrote a couple of custom functions in python:
@@ -254,13 +254,13 @@ def mapTime(d, xcol, ycol='MeanValue', X=None, vlines=None, MEAN=True):
 
 To check for seasonality and remove trends, I also wrote a custom function to generate all the necessary time series analysis plots in one shot. This is really handy for not having to repeat steps over and over again:
 
-<img src="/assets/images/timeseries/images/output_50_1.png" width=400>
-<img src="/assets/images/timeseries/images/output_50_2.png" width=400>
-<img src="/assets/images/timeseries/images/output_50_3.png" width=400>
-<img src="/assets/images/timeseries/images/output_50_4.png" width=400>
-<img src="/assets/images/timeseries/images/output_50_5.png" width=400>
-<img src="/assets/images/timeseries/images/output_50_6.png" width=400>
-<img src="/assets/images/timeseries/images/output_65_0.png" width=400>
+<img src="/assets/images/timeseries/output_50_1.png" width=400>
+<img src="/assets/images/timeseries/output_50_2.png" width=400>
+<img src="/assets/images/timeseries/output_50_3.png" width=400>
+<img src="/assets/images/timeseries/output_50_4.png" width=400>
+<img src="/assets/images/timeseries/output_50_5.png" width=400>
+<img src="/assets/images/timeseries/output_50_6.png" width=400>
+<img src="/assets/images/timeseries/output_65_0.png" width=400>
 
 All of the above are generated with the clockTime() function:
 
@@ -458,19 +458,19 @@ I then ran a gridsearch using a Seasonal ARIMA (SARIMAX) model to make forecast 
 
 Using PANDAS, I narrowed down the list by top 10 highest ROI zip codes. I then identified which of these had the lowest confidence intervals in order to ensure I was only selecting the most accurate results.
 
-<img src="/assets/images/timeseries/images/conf_roi_pred_3D.png" width=400>
+<img src="/assets/images/timeseries/conf_roi_pred_3D.png" width=400>
 
-<img src="/assets/images/timeseries/images/conf_roi_heatmap.png" width=400>
+<img src="/assets/images/timeseries/conf_roi_heatmap.png" width=400>
 
 The top five I selected based on the above criteria were 10549, 10573, 10604, 10605, 10706:
 
-<img src="/assets/images/timeseries/images/10549.png" width=400>
-<img src="/assets/images/timeseries/images/10573.png" width=400>
-<img src="/assets/images/timeseries/images/10604.png" width=400>
-<img src="/assets/images/timeseries/images/10605.png" width=400>
-<img src="/assets/images/timeseries/images/10706.png" width=400>
+<img src="/assets/images/timeseries/10549.png" width=400>
+<img src="/assets/images/timeseries/10573.png" width=400>
+<img src="/assets/images/timeseries/10604.png" width=400>
+<img src="/assets/images/timeseries/10605.png" width=400>
+<img src="/assets/images/timeseries/10706.png" width=400>
 
-<img src="/assets/images/timeseries/images/top5_final_mapTime.png" width=400>
+<img src="/assets/images/timeseries/top5_final_mapTime.png" width=400>
 
 ## Contact
 

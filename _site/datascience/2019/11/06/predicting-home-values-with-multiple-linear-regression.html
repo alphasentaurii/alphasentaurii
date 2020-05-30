@@ -9,10 +9,12 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="What are the best predictors of property value?" />
 <meta property="og:description" content="What are the best predictors of property value?" />
+<link rel="canonical" href="http://localhost:4000/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html" />
+<meta property="og:url" content="http://localhost:4000/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-11-06T10:23:47-08:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html","headline":"Predicting Home Values with Multiple Linear Regression","dateModified":"2019-11-06T10:23:47-08:00","datePublished":"2019-11-06T10:23:47-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html"},"description":"What are the best predictors of property value?","@context":"https://schema.org"}</script>
+{"datePublished":"2019-11-06T10:23:47-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html"},"@type":"BlogPosting","url":"http://localhost:4000/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html","headline":"Predicting Home Values with Multiple Linear Regression","dateModified":"2019-11-06T10:23:47-08:00","description":"What are the best predictors of property value?","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <html>
 <head>
@@ -554,11 +556,7 @@ margin:0px;
 
 <h2 id="goal">Goal</h2>
 
-<p>The goal was to identify a strategy for increasing the sale price or property value of a given home in this location.</p>
-
-<h2 id="strategy">Strategy</h2>
-
-<p>To achieve the above goal, I used a <code class="highlighter-rouge">multiple linear regression model</code> to identify the best combination of variables for predicting the <code class="highlighter-rouge">target</code>: price of a home at the time of sale.</p>
+<p>The goal was to identify a strategy for increasing the sale price or property value of a given home in this location. To achieve the above goal, I used a <code class="highlighter-rouge">multiple linear regression model</code> to identify the best combination of variables for predicting the <code class="highlighter-rouge">target</code>: price of a home at the time of sale.</p>
 
 <h2 id="dataset">Dataset</h2>
 
@@ -568,37 +566,35 @@ margin:0px;
 
 <p>The model eliminated most of these features, leaving me with just 3: square footage of the home’s living area, the graded score of the property, and the zip code as well as latitude and longitude where the property was located.</p>
 
-<h3 id="dataframe-columns">DATAFRAME COLUMNS:</h3>
 <ul>
   <li>id</li>
   <li>date</li>
   <li>
-    <p>price</p>
+    <h2 id="price">price</h2>
   </li>
   <li>waterfront</li>
   <li>
-    <p>view</p>
+    <h2 id="view">view</h2>
   </li>
   <li>yr_built</li>
   <li>yr_renovated</li>
-  <li>condition
-<strong>- grade</strong></li>
-</ul>
-
-<p><strong>- zipcode</strong></p>
-<ul>
+  <li>condition</li>
+  <li>
+    <h2 id="grade">grade</h2>
+  </li>
+  <li>zipcode</li>
   <li>lat</li>
   <li>
-    <p>long</p>
+    <h2 id="long">long</h2>
   </li>
   <li>bedrooms</li>
   <li>bathrooms</li>
   <li>
-    <p>floors</p>
+    <h2 id="floors">floors</h2>
   </li>
   <li>sqft_above</li>
-  <li>sqft_basement
-<strong>- sqft_living</strong></li>
+  <li>sqft_basement</li>
+  <li>sqft_living</li>
   <li>sqft_lot</li>
   <li>sqft_living15</li>
   <li>sqft_lot15</li>

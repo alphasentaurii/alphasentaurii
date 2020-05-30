@@ -48,11 +48,7 @@ When it comes to real estate, or selling anything for that matter, it's absolute
 
 ## Goal
 
-The goal was to identify a strategy for increasing the sale price or property value of a given home in this location.
-
-## Strategy
-
-To achieve the above goal, I used a `multiple linear regression model` to identify the best combination of variables for predicting the `target`: price of a home at the time of sale. 
+The goal was to identify a strategy for increasing the sale price or property value of a given home in this location. To achieve the above goal, I used a `multiple linear regression model` to identify the best combination of variables for predicting the `target`: price of a home at the time of sale. 
 
 ## Dataset
 
@@ -62,30 +58,30 @@ The dataset is comprised of over 20,000 home sales between May 2014 - May 2015. 
 
 The model eliminated most of these features, leaving me with just 3: square footage of the home's living area, the graded score of the property, and the zip code as well as latitude and longitude where the property was located.
 
-### DATAFRAME COLUMNS:
+
 - id
 - date
 - price
-
+---
 - waterfront
 - view
-
+---
 - yr_built
 - yr_renovated
 - condition
-**- grade**
-
-**- zipcode**
+- grade
+---
+- zipcode
 - lat
 - long
-
+---
 - bedrooms
 - bathrooms
 - floors
-
+---
 - sqft_above
 - sqft_basement
-**- sqft_living**
+- sqft_living
 - sqft_lot
 - sqft_living15
 - sqft_lot15

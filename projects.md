@@ -5,6 +5,8 @@ title: projects
 
 # PROJECT DEMOS
 
+WARNING: This page contains links to pages currently in progress. Proceed with caution.
+
 ## DATASCIENCE
 
 <!--

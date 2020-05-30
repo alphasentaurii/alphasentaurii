@@ -5,7 +5,12 @@ date:   2019-12-07 10:23:47 -0800
 categories: datascience
 ---
 
-The Lego Model and Other Metaphysical Approaches to Data Science
+## The Lego Model and Other Metaphysical Approaches to Data Science
+
+**TODO**
+* Clean up the hideous default `Jekyll` markdown formatting of this post
+* Add some pictures
+* Rewrite the entire post because I originally wrote it as a stream of consciousness too late at night and I forgot to say anything about legos, which was the intended topic...Oops.
 
 ## Box #1: Database Tables
 
@@ -52,136 +57,3 @@ There are more nuanced considerations which can be difficult to quantify such as
 3. Questioning How You Question: Rethinking System Design 
 
 If you thought I was going to provide an answer in this 3rd box, you forgot the whole reason I added this one, which is to make a point about focusing more on exploring the questions themselves rather than finding a solution that may or may not be the one you actually needed if your question was misguided to begin with. If this seems overly philosophical, that’s because the box we get stuck in is the assumption about the overall system we have already built for us. It’s a valuable if not annoying question that needs to be asked and usually is avoided - is the system we have for collecting and analyzing all this data the best system possible, and if we were to create a new system from scratch to increase the reliability of our results, what would that system look like? Such a question represents a fundamental line where data science and software architecture link together.
-
-
-```python
-
-blog = []
-
-for pages in website:
-   blog.append(pages)
-
-print(blog)   
-
-```
-
-
-Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
-
-[Link to another page](./another-page.html).
-
-There should be whitespace between paragraphs.
-
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
-
-# Header 1
-
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
-
-## Header 2
-
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
-
-### Header 3
-
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
-
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
-```
-
-#### Header 4
-
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-
-##### Header 5
-
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
-
-###### Header 6
-
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
-
-### There's a horizontal rule below this.
-
-* * *
-
-### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-
-### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```

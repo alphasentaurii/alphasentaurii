@@ -9,10 +9,12 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Time Series Forecasting with SARIMAX and Gridsearch" />
 <meta property="og:description" content="Time Series Forecasting with SARIMAX and Gridsearch" />
+<link rel="canonical" href="http://localhost:4000/datascience/2020/01/10/visualizing-time-series-data.html" />
+<meta property="og:url" content="http://localhost:4000/datascience/2020/01/10/visualizing-time-series-data.html" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-01-10T10:23:47-08:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"/datascience/2020/01/10/visualizing-time-series-data.html","headline":"Visualizing Time Series Data","dateModified":"2020-01-10T10:23:47-08:00","datePublished":"2020-01-10T10:23:47-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"/datascience/2020/01/10/visualizing-time-series-data.html"},"description":"Time Series Forecasting with SARIMAX and Gridsearch","@context":"https://schema.org"}</script>
+{"datePublished":"2020-01-10T10:23:47-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/datascience/2020/01/10/visualizing-time-series-data.html"},"@type":"BlogPosting","url":"http://localhost:4000/datascience/2020/01/10/visualizing-time-series-data.html","headline":"Visualizing Time Series Data","dateModified":"2020-01-10T10:23:47-08:00","description":"Time Series Forecasting with SARIMAX and Gridsearch","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <html>
 <head>
@@ -513,7 +515,7 @@ margin:0px;
 
 <p>Time Series Forecasting with SARIMAX and Gridsearch is a <code class="highlighter-rouge">housing market prediction model</code> that uses <code class="highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="highlighter-rouge">recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York</code>.</p>
 
-<p><img src="/assets/images/timeseries/images/10605.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/10605.png" width="400" /></p>
 
 <p>Prior to training, I set out to identify trends, seasonality, and autoregression elements within the Zillow Housing Market Dataset. I then use a fitting procedure to find the coefficients of a regression model, including several plots and statistical tests of the residual errors along the way. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels.</p>
 
@@ -660,21 +662,21 @@ $ jupyter notebook
 
 <p>Since commute time to Grand Central Station is part of the client’s required criteria, I first had to look up which towns/zip codes were on which train lines. Grand Central has 3 main lines on Metro North Railroad: Hudson, Harlem, and New Haven. The first question I was interested in answering was if the average home prices for the zip codes that fall under these geographic sections display any trends.</p>
 
-<p><img src="/assets/images/timeseries/images/meanvalues_area.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/meanvalues_area.png" width="400" /></p>
 
 <h3 id="new-haven-line">New Haven line</h3>
 
 <p>Note that this does not include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state.</p>
 
-<p><img src="/assets/images/timeseries/images/newhaven_mapTime.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/newhaven_mapTime.png" width="400" /></p>
 
 <h3 id="harlem-line">Harlem Line</h3>
 
-<p><img src="/assets/images/timeseries/images/harlem_mapTime.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/harlem_mapTime.png" width="400" /></p>
 
 <h3 id="hudson-line">Hudson Line</h3>
 
-<p><img src="/assets/images/timeseries/images/hudson_mapTime.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/hudson_mapTime.png" width="400" /></p>
 
 <h2 id="custom-time-series-analysis-functions-python">Custom Time Series Analysis Functions (python)</h2>
 <p>To generate the plots above (as well as others) I wrote a couple of custom functions in python:</p>
@@ -785,13 +787,13 @@ $ jupyter notebook
 
 <p>To check for seasonality and remove trends, I also wrote a custom function to generate all the necessary time series analysis plots in one shot. This is really handy for not having to repeat steps over and over again:</p>
 
-<p><img src="/assets/images/timeseries/images/output_50_1.png" width="400" />
-<img src="/assets/images/timeseries/images/output_50_2.png" width="400" />
-<img src="/assets/images/timeseries/images/output_50_3.png" width="400" />
-<img src="/assets/images/timeseries/images/output_50_4.png" width="400" />
-<img src="/assets/images/timeseries/images/output_50_5.png" width="400" />
-<img src="/assets/images/timeseries/images/output_50_6.png" width="400" />
-<img src="/assets/images/timeseries/images/output_65_0.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/output_50_1.png" width="400" />
+<img src="/assets/images/timeseries/output_50_2.png" width="400" />
+<img src="/assets/images/timeseries/output_50_3.png" width="400" />
+<img src="/assets/images/timeseries/output_50_4.png" width="400" />
+<img src="/assets/images/timeseries/output_50_5.png" width="400" />
+<img src="/assets/images/timeseries/output_50_6.png" width="400" />
+<img src="/assets/images/timeseries/output_65_0.png" width="400" /></p>
 
 <p>All of the above are generated with the clockTime() function:</p>
 
@@ -987,19 +989,19 @@ $ jupyter notebook
 
 <p>Using PANDAS, I narrowed down the list by top 10 highest ROI zip codes. I then identified which of these had the lowest confidence intervals in order to ensure I was only selecting the most accurate results.</p>
 
-<p><img src="/assets/images/timeseries/images/conf_roi_pred_3D.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/conf_roi_pred_3D.png" width="400" /></p>
 
-<p><img src="/assets/images/timeseries/images/conf_roi_heatmap.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/conf_roi_heatmap.png" width="400" /></p>
 
 <p>The top five I selected based on the above criteria were 10549, 10573, 10604, 10605, 10706:</p>
 
-<p><img src="/assets/images/timeseries/images/10549.png" width="400" />
-<img src="/assets/images/timeseries/images/10573.png" width="400" />
-<img src="/assets/images/timeseries/images/10604.png" width="400" />
-<img src="/assets/images/timeseries/images/10605.png" width="400" />
-<img src="/assets/images/timeseries/images/10706.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/10549.png" width="400" />
+<img src="/assets/images/timeseries/10573.png" width="400" />
+<img src="/assets/images/timeseries/10604.png" width="400" />
+<img src="/assets/images/timeseries/10605.png" width="400" />
+<img src="/assets/images/timeseries/10706.png" width="400" /></p>
 
-<p><img src="/assets/images/timeseries/images/top5_final_mapTime.png" width="400" /></p>
+<p><img src="/assets/images/timeseries/top5_final_mapTime.png" width="400" /></p>
 
 <h2 id="contact">Contact</h2>
 

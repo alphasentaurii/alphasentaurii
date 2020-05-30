@@ -31,6 +31,7 @@ I thought to myself: why am I afraid of death? If I were to die young — if I w
 I saw my eight-year old self giggling at the Mac Basic program I wrote on our family's Special Edition II (which still works by the way) - giggling because the user types their name in the input, and all the program does is assign them a number then calls them a “goofball”. 
 
 ### Goofball Confused?
+
 <img src="/assets/images/goofball-confused.jpg" width=400>
 
 ### "Closet Geek"
