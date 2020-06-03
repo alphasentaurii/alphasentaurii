@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "Pulsar Classification Algorithms"
+title:  "Detecting Dead Stars in Deep Space"
 date:   2020-02-02 02:02:02 -0800
 categories: datascience
 ---
 
-## Predicting Pulsars with Decision Trees and XG Boost
-Predicting Pulsars with Decision Trees and XG Boost is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or noise`.
+## Detecting Dead Stars in Deep Space
+Detecting Dead Stars in Deep Space is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
 
 <img src="/assets/images/pulsars/output_93_1.png" width=400>
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Starskøpe 1 - Cyberoptic Artificial Telescope"
+title:  "STARSKØPE: The Cyberoptic Artificial Telescope"
 date:   2020-04-01 11:11:11 -1111
 categories: datascience
 ---

@@ -1,9 +1,16 @@
 ---
 layout: post
-title:  "Predicting Home Values with Multiple Linear Regression"
+title:  "Predicting Home Values"
 date:   2019-11-06 10:23:47 -0800
 categories: datascience
 ---
+
+
+<div style="display:block; text-align:center; margin:100px auto; clear:both; top:10px; position:relative; z-index:9999;">
+
+<iframe src="https://player.vimeo.com/video/371786438" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts"></iframe>
+<br /><br /><br /><br /><br />
+</div>
 
 ## What are the best predictors of property value?
 
@@ -34,15 +41,7 @@ The selling-factors for real estate in one town are not necessarily going to hol
 ## The Client
 When it comes to real estate, or selling anything for that matter, it's absolutely critical to keep in mind what is going on in the market, what your target demographic is, and most of all, what do they want? For this project, the client is someone who "flips" houses and is looking to buy property in the Greater Seattle area. Our job is to help them identify which factors are most important to consider before they purchase a house for flipping (i.e. reselling for a higher price).
 
-# Project Summary Video Presentation 
-
-<div style="display:block; text-align:center; margin:100px auto; clear:both; top:10px; position:relative; z-index:9999;">
-
-<iframe src="https://player.vimeo.com/video/371786438" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts"></iframe>
-<br /><br /><br /><br /><br />
-</div>
-
-# PROJECT: Property Values in King County, Washington
+# Interactive Map: Property Values by Zip Code
 
 <img src="/assets/images/king-county/tableau-map-kingcounty.png" width=600>
 

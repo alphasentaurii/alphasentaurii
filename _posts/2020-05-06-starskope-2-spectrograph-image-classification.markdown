@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Starskøpe 2 - Spectrograph Image Classification"
+title:  "Spectrograph Image Classification"
 date:   2020-05-06 11:11:11 -1111
 categories: datascience
 ---

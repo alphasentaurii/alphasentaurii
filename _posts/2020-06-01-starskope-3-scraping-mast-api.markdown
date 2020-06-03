@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Starskøpe 3 - Scraping the MAST API"
+title:  "Scraping the MAST API"
 date:   2020-06-01 11:11:11 -1111
 categories: datascience
 ---
