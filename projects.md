@@ -10,8 +10,9 @@ title: projects
 [Starskøpe: Cyberoptic Artificial Telescope](/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html)
 
 [Detecting Dead Stars in Deep Space](/datascience/2020/02/02/pulsar-classification-algorithms.html)
+Machine Learning Classification Project using Decision Trees and XG Boost to discriminate between pulsars vs radio frequency interference (RFI) / noise.
 
-[Top 5 Zip Codes](/projects/datascience/top5-zipcodes/demo2.html)
+[Top 5 Zip Codes](/projects/datascience/top5-zipcodes/demo.html)
 
 Real Estate Forecast Project for Home Buyers in Westchester County, New York
 
