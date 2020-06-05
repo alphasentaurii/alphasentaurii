@@ -8,7 +8,9 @@ categories: datascience
 ## Detecting Dead Stars in Deep Space
 Detecting Dead Stars in Deep Space is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
 
+<html>
 <img src="/assets/images/pulsars/output_93_1.png" width=400>
+</html>
 
 HTRU2 is a data set which describes **a sample of pulsar candidates collected during the High Time Resolution Universe Survey.**
 

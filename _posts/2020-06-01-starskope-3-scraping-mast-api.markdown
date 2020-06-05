@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Scraping the MAST API"
+title:  "Scraping the MAST API via AWS"
 date:   2020-06-01 11:11:11 -1111
 categories: datascience
 ---
 
 The vision for `Starskøpe` : cyberoptic artificial telescope is to aggregate large datasets from multiple missions in order to give us a more accurate, more detailed picture of the stars and planets than what we have available to us in the limited view of a single picture from a single telescope at a single point in time.
 
-## Scraping the MAST API via Amazon Web Services (AWS)
+## STARSKØPE Phase 3 Objectives
 
 1. Use datasets from the MAST website (via API) to incorporate other calculations of the star's properties as features to be used for classification algorithms. Furthermore, attempt other types of transformations and normalizations on the data before running the model - for instance, apply a Fourier transform.
 
