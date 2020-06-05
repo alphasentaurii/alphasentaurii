@@ -12,7 +12,7 @@ categories: datascience
 > "Mathematicians [...] are often led astray when 'studying' physics because they lose sight of the physics. They say: *'Look, these differential equations--the Maxwell equations--are all there is to electrodynamics; it is admitted by the physicists that there is nothing which is not contained in the equations. The equations are complicated, but after all they are only mathematical equations and if I understand them mathematically inside out, I will understand the physics inside out.'* Only it doesn't work that way. Mathematicians who study physics with that point of view--and there have been many of them--usually make little contribution to physics and, in fact, little to mathematics. They fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations."
 **-Richard Feynman, *The Feynman Lectures on Physics: Volume 2*, Chapter 2-1: "Differential Calculus of Vector Fields"**
 
-<img src="/assets/images/starskope/feynman-bongos.jpg" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/feynman-bongos.jpg" width=400>
 
 ## INTRODUCTION
 
@@ -34,7 +34,7 @@ The specific questions this project seeks to answer are as follows:
 
 To answer the above questions, I started the analysis with a small labeled timeseries dataset from Kaggle posted by NASA several years ago. The reason I chose this particular dataset is because in terms of the type of information we typically need to know in order to solve a physics problem -- the primary one being UNITS, otherwise it's a math problem! -- this one is barren. The author who posted the dataset (`Winter Delta` or `W∆`) does however give us a few hints on how we *could* determine the units, and the dimensions, and a lot of other important physics-related information, if we do a little research. The biggest hint is that this dataset is from the K2 space telescope's Campaign 3 observations in which only 42 confirmed exoplanets are detected in a set of over 5,000 stars. Looking at the dataset on its own (before doing any digging), we are given little information about how long the time period covers, and we know do not know what the time intervals between flux values are. So far, this has not stopped any data scientists from attempting to tackle the classification model without gathering any additional information. 
 
- ![Threshold Crossing Event](http://hakkeray.com/assets/images/starskope/288_planetbleed1600.jpeg)
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/288_planetbleed1600.jpeg">
 copyright: NASA
 
 
@@ -281,16 +281,16 @@ Flux.atomic_vector_plotter(signal=tce2, label_col='LABEL', classes=[1,2],
          y_units='PDC_SAP Flux', x_units='Time') 
 ```
 
-<img src="/assets/images/starskope/output_32_0.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_32_0.png" width=400>
 
 
-<img src="/assets/images/starskope/output_32_1.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_32_1.png" width=400>
 
 
-<img src="/assets/images/starskope/output_32_2.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_32_2.png" width=400>
 
 
-<img src="/assets/images/starskope/output_32_3.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_32_3.png" width=400>
 
 This second star's flux signal pattern looks very different - are we to assume that each one of those dips is a transit event? Perhaps more than one planet is orbiting? Otherwise that would be a fairly short period. Let's compare these to the NON planet host stars:
 
@@ -304,13 +304,13 @@ Flux.atomic_vector_plotter(signal=no_tce2, label_col='LABEL', classes=[1,2],
                           y_units='PDC_SAP Flux', x_units='Time') 
 ```
 <html>
-<img src="/assets/images/starskope/output_34_0.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_34_0.png" width=400>
 
-<img src="/assets/images/starskope/output_34_1.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_34_1.png" width=400>
 
-<img src="/assets/images/starskope/output_34_2.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_34_2.png" width=400>
 
-<img src="/assets/images/starskope/output_34_3.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_34_3.png" width=400>
 </html>
 
 It's hard to make a fair comparison with these plots without being able to see much in detail. We need to "zoom in" - this can be accomplished through normalizing and scaling techniques, but the standard procedure for this type of data would be to perform `phase-folding` based on the estimated period of the transiting planets.
@@ -497,7 +497,7 @@ plt.plot(rolling)
      -0.21176035]
 
 <html>     
-<img src="/assets/images/starskope/output_48_2.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_48_2.png" width=400>
 </html>
 
 ```python
@@ -506,7 +506,7 @@ plt.plot(X_train[1][:,0])
 plt.plot(rolling)
 ```
 <html>
-<img src="/assets/images/starskope/output_49_1.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_49_1.png" width=400>
 </html>
 
 ## Model
@@ -981,7 +981,7 @@ computer.keras_history(h1)
 ```
 
 <html>
-<img src="/assets/images/starskope/output_80_0.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_80_0.png" width=400>
 </html>
 
 With only a few epochs, and a small learning rate, it's obvious that our training parameters have a great deal of room for improvement. This is good - we will definitely need to adjust the learning rate. If that doesn't go far enough in producing desired results, we can also try using a different optimizer such as SGD instead of Adam. For now let's look at a few other key metrics.
@@ -1077,7 +1077,7 @@ m1_fusion = computer.fusion_matrix(matrix=(y_true,y_pred),
 ```
 
 <html>
-<img src="/assets/images/starskope/output_84_0.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_84_0.png" width=400>
 </html>
 
 The baseline model only managed to correctly identify 2 planets in the test set, while missing the other 3. The model incorrectly classified 215 non-TCEs as planets. 
@@ -1128,7 +1128,7 @@ m1_roc = computer.roc_plots(X_test, y_test, m1)
 ```
 
 <html>
-<img src="/assets/images/starskope/output_88_0.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_88_0.png" width=400>
 </html>
 
 # `Model 2`
@@ -1337,11 +1337,11 @@ res_m2 = computer.compute(X=X_test, y=y_test, model=m2, hist=h2, preds=True,
                classes=['No Planet','Planet'],roc=True)
 ```
 <html>
-<img src="/assets/images/starskope/output_96_0.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_96_0.png" width=400>
 
 
 
-<img src="/assets/images/starskope/output_96_1.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_96_1.png" width=400>
 </html>
     
     
@@ -1360,7 +1360,7 @@ res_m2 = computer.compute(X=X_test, y=y_test, model=m2, hist=h2, preds=True,
 
 
 <html>
-<img src="/assets/images/starskope/output_96_3.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_96_3.png" width=400>
 </html>
 
 ```python
@@ -1527,9 +1527,9 @@ res_m3 = computer.compute(X=X_test, y=y_test, model=m3, hist=h3, preds=True,
 ```
 
 <html>
-<img src="/assets/images/starskope/output_105_0.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_105_0.png" width=400>
 
-<img src="/assets/images/starskope/output_105_1.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_105_1.png" width=400>
 </html>
 
     
@@ -1548,7 +1548,7 @@ res_m3 = computer.compute(X=X_test, y=y_test, model=m3, hist=h3, preds=True,
     
 
 <html>
-<img src="/assets/images/starskope/output_105_3.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_105_3.png" width=400>
 </html>
 
 It appears that increasing the learning rate did not help to improve the model's performance. While it still identified all 5 planets, it misclassified 4 non-planets as planets, two more than model 2. Let's see if we can decrease the False Positive Rate, while Maintaining the False Negative Rate at zero. We'll go back to Model 2's original learning rate of 3e-4, this time increasing the number of epochs instead.
@@ -1710,10 +1710,10 @@ res_m4 = computer.compute(X=X_test, y=y_test, model=m4, hist=h4, preds=True,
                classes=['No Planet','Planet'],roc=True)
 ```
 <html>
-<img src="/assets/images/starskope/output_113_0.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_113_0.png" width=400>
 
 
-<img src="/assets/images/starskope/output_113_1.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_113_1.png" width=400>
 </html>
 
     
@@ -1733,7 +1733,7 @@ res_m4 = computer.compute(X=X_test, y=y_test, model=m4, hist=h4, preds=True,
 
 
 <html>
-<img src="/assets/images/starskope/output_113_3.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_113_3.png" width=400>
 </html>
 
 # Interpret Results

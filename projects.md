@@ -9,11 +9,11 @@ title: projects
 
 ### [Starskøpe: The Cyberoptic Artificial Telescope](/projects/datascience/starskope/demo.html)
 
-Keras convolutional neural network for signal processing and image classification to find planets outside our solar system.
+Finding planets outside our solar system with an artificial neural network.
 
 ### [Detecting Dead Stars in Deep Space](/datascience/2020/02/02/pulsar-classification-algorithms.html)
 
-Machine Learning Classification Project using Decision Trees and XG Boost to discriminate between pulsars vs radio frequency interference (RFI) / noise.
+Discriminating between pulsars vs radio frequency interference (RFI) / noise.
 
 ### [Top 5 Zip Codes](/projects/datascience/top5-zipcodes/demo.html)
 

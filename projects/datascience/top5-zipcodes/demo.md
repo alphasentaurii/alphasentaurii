@@ -22,7 +22,7 @@ Prior to training, I set out to identify trends, seasonality, and autoregression
 
 <html>
 <body>
-<img src="/assets/images/timeseries/10605.png" width=600>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10605.png" width=600>
 </body>
 </html>
 
@@ -80,21 +80,21 @@ The process is repeated until a desirable level of fit is achieved on the in-sam
 
 Since commute time to Grand Central Station is part of the client's required criteria, I first had to look up which towns/zip codes were on which train lines. Grand Central has 3 main lines on Metro North Railroad: Hudson, Harlem, and New Haven. The first question I was interested in answering was if the average home prices for the zip codes that fall under these geographic sections display any trends. 
 
-<img src="/assets/images/timeseries/meanvalues_area.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/meanvalues_area.png" width=400>
 
 ### New Haven line
 
 Note that this does not include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state. 
 
-<img src="/assets/images/timeseries/newhaven_mapTime.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/newhaven_mapTime.png" width=400>
 
 ### Harlem Line
 
-<img src="/assets/images/timeseries/harlem_mapTime.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/harlem_mapTime.png" width=400>
 
 ### Hudson Line
 
-<img src="/assets/images/timeseries/hudson_mapTime.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/hudson_mapTime.png" width=400>
 
 ## GridsearchCV with SARIMAX
 
@@ -102,19 +102,19 @@ I then ran a gridsearch using a Seasonal ARIMA (SARIMAX) model to make forecast 
 
 Using PANDAS, I narrowed down the list by top 10 highest ROI zip codes. I then identified which of these had the lowest confidence intervals in order to ensure I was only selecting the most accurate results.
 
-<img src="/assets/images/timeseries/conf_roi_pred_3D.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/conf_roi_pred_3D.png" width=400>
 
-<img src="/assets/images/timeseries/conf_roi_heatmap.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/conf_roi_heatmap.png" width=400>
 
 The top five I selected based on the above criteria were 10549, 10573, 10604, 10605, 10706:
 
-<img src="/assets/images/timeseries/10549.png" width=400>
-<img src="/assets/images/timeseries/10573.png" width=400>
-<img src="/assets/images/timeseries/10604.png" width=400>
-<img src="/assets/images/timeseries/10605.png" width=400>
-<img src="/assets/images/timeseries/10706.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10549.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10573.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10604.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10605.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10706.png" width=400>
 
-<img src="/assets/images/timeseries/top5_final_mapTime.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/top5_final_mapTime.png" width=400>
 
 ## Contact
 

@@ -7,8 +7,6 @@ title: Starskøpe Project Demo
 <iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </html>
 
-View just the slides (interactive): [Non-Technical Presentation](slides.html)
-
 ## Questions
 
 At the beginning of every data science project, the first thing we do is inspect the dataset to understand what we’re looking at and what the variables mean. However, I like to ask myself a few basic questions before even beginning my research:

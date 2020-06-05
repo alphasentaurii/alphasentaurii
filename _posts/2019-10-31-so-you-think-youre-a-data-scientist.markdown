@@ -26,19 +26,19 @@ I thought to myself: why am I afraid of death? If I were to die young — if I w
 
 ### Ru's First DataFrame object (circa 1997)
 
-<img src="/assets/images/cynognathus.jpg" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/cynognathus.jpg" width=400>
 
 I saw my eight-year old self giggling at the Mac Basic program I wrote on our family's Special Edition II (which still works by the way) - giggling because the user types their name in the input, and all the program does is assign them a number then calls them a “goofball”. 
 
 ### Goofball Confused?
 
-<img src="/assets/images/goofball-confused.jpg" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/goofball-confused.jpg" width=400>
 
 ### "Closet Geek"
 
 I saw myself at age nine building a spaceship out of legos and submitting it to an official contest (I didn’t win, but I framed the honorary certificate they sent because it meant that much to  me, and I was proud of my little rocket). I heard my fifth-grade science teacher asking me what I wanted to be when I grew up and the unhesitating reply from my ten-year-old lips: “ASTRONAUT”. I didn’t see myself struggling to fit in for twenty years, but I saw my 32nd birthday when I successfully built a super-fast PC for 4K video production from the ground up. That moment when you  go to boot up and are silently praying you didn’t inadvertently short a circuit on the motherboard or put too much paste on the CPU when connecting the cooler. I saw myself re-configuring the home network for higher security and speed and realizing I might know more about computers than my brother or my dad - the designated family “nerds”. 
 
-<img src="/assets/images/building-my-first-pc.jpeg" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/building-my-first-pc.jpeg" width=400>
 
 ### New Frequencies 
 

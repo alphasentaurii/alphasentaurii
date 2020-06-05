@@ -43,7 +43,7 @@ When it comes to real estate, or selling anything for that matter, it's absolute
 
 # Interactive Map: Property Values by Zip Code
 
-<img src="/assets/images/king-county/tableau-map-kingcounty.png" width=600>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/tableau-map-kingcounty.png" width=600>
 
 ## Goal
 
@@ -91,17 +91,17 @@ Let's take a closer look at these "top 3" features.
 ### 1. Square-footage (Living area)
 This includes the square footage of the basement, but excludes square footage of the land around the home. Not surprisingly, it turns out that homes with a higher square footage of living space tend to have much higher property values. The bigger the house, the higher the sale price. You can see from the scatter plot below that as the property values increase upward, the square-footage also increases to the right.
 
-<img src="/assets/images/king-county/sqft-living-scatterplot.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/sqft-living-scatterplot.png" width=400>
 
 ### 2. Grade
 
 Next, I looked at something called `GRADE`. Each property in the dataset is associated with a score ranging from 1 to 13, 13 being the best. The factors that actually determine that score have to do with the quality of materials in the home, the wood, marble, etc., as well as the quality of carpentry and craftsmanship put into those materials. Much like the scatterplot we saw before, the box plot (below) shows how higher scores in Grade lead to higher property values. 
 
-<img src="/assets/images/king-county/grade-boxplot.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/grade-boxplot.png" width=400>
 
 In the plot below, it's also noticeable that there are far fewer homes that achieve a grade of 13, indicating these homes might be unique in some way, perhaps the architect is well-known, or the materials themselves are rare, all of which factors into the overall grade of the property regardless of how many bedrooms or square-footage of the land, etc. 
 
-<img src="/assets/images/king-county/grade-scatterplot.png" width=400>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/grade-scatterplot.png" width=400>
 
 # 3. Zip Code
 
