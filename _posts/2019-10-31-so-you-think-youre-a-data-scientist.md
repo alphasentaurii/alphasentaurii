@@ -25,7 +25,7 @@ I thought to myself: why am I afraid of death? If I were to die young — if I w
 
 ### Ru's First DataFrame object (circa 1997)
 
-<div class="img-responsive">
+<div style="width:400px">
 <img src="http://hakkeray.com/assets/images/cynognathus.jpg">
 </div>
 I saw my eight-year old self giggling at the Mac Basic program I wrote on our family's Special Edition II (which still works by the way) - giggling because the user types their name in the input, and all the program does is assign them a number then calls them a “goofball”. 
