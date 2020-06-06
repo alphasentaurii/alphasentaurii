@@ -3,20 +3,18 @@ layout: page
 title: Starskøpe Project Demo
 ---
 
-<html>
-<iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-</html>
-
-## Questions
-
 At the beginning of every data science project, the first thing we do is inspect the dataset to understand what we’re looking at and what the variables mean. However, I like to ask myself a few basic questions before even beginning my research:
 
 * Why are we doing this? What is the question or problem we need to answer and why is it important?
-* What type of data is available? how big of a dataset do we need to analyze?
-* What is the timeframe that data was collected, 
+* What type of data is available? How big of a dataset do we need to analyze?
+* What is the timeframe that data was collected?
 * Where was it collected from?
 
 Once I’ve thought through these questions, I can then start to consider how I should begin analysis.
+
+<html>
+<iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</html>
 
 ## Telescope Missions
 

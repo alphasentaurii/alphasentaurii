@@ -142,7 +142,7 @@ What's really important to keep in mind is that the model eliminated 15 possible
 
 # Recommendations
 
-So to recap, increasing the price of your home comes down to three critical factors: the square footage of the living area, the grade, which again comes down to materials and craftsmanship, and the location. However location is so important that no matter how much money you invest in building a bigger house, even with the most expensive and rare materials and a fancy architect, if it's not a "desirable" location, in this case, too far outside Seattle, you're not going to sell the house for the kind of price you'd otherwise get closer to the city. 
+So to recap, increasing the price of your home comes down to three critical factors: the square footage of the living area, the grade, which again comes down to materials and craftsmanship, and the location. However location is so important that no matter how much money you invest in building a bigger house, even with the most expensive and rare materials and a fancy architect, if it's not a "desirable" location, in this case, too far outside Seattle, you're not going to sell the house for the kind of price you'd otherwise get closer to the city.
 
 1. Homes with larger living areas are valued higher than smaller homes.
 2. Houses in certain zip codes are valued at higher prices than other zip codes.
