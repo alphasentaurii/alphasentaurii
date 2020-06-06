@@ -32,7 +32,7 @@ I saw my eight-year old self giggling at the Mac Basic program I wrote on our fa
 
 ### Goofball Confused?
 
-<img src="http://hakkeray.com/assets/images/goofball-confused.jpg" width=400px>
+<img src="http://hakkeray.com/assets/images/goofball-confused.jpg">
 
 ### "Closet Geek"
 
