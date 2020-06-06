@@ -5,12 +5,7 @@ date:   2019-11-06 10:23:47 -0800
 categories: datascience
 ---
 
-
-<div style="display:block; text-align:center; margin:100px auto; clear:both; top:10px; position:relative; z-index:9999;">
-
 <iframe src="https://player.vimeo.com/video/371786438" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts"></iframe>
-<br /><br /><br /><br /><br />
-</div>
 
 ## What are the best predictors of property value?
 
@@ -24,18 +19,23 @@ Ask any realtor what are the top 3 most important variables for measuring proper
 6. The Buyer
 
 ### 1. Square-Footage
+
 Almost every time, a bigger house is going to cost more than a smaller one.
 
 ### 2. Condition
+
 Condition of the house: "Is it a fixer-upper?"
 
 ### 3. Number of Bathrooms
+
 She specifically said number of bathrooms outweighs number of bedrooms: "although sometimes more bathrooms will mean more bedrooms, that's not always the case". This project is going to tell us mathematically if her assumptions are valid or not.
 
 ## Market Demand
+
 Mom also mentioned how market demand changes from generation to generation. For example, right now (Nov 2019) more and more 'millenials' are buying houses, but unlike their parents who might be more inclined toward buying a property with a lot of land sitting farther away from the city, millenials generally want the opposite. They want to be close to the hustle and bustle, they want "fixer-uppers" they can buy at a lower price and spend their money making it their own.
 
 ## Geographic Differences
+
 The selling-factors for real estate in one town are not necessarily going to hold true for a town on the other side of the country. In other words, we can't automatically assume the predictors we identify in this dataset are universal.
 
 ## The Client
@@ -43,7 +43,8 @@ When it comes to real estate, or selling anything for that matter, it's absolute
 
 # Interactive Map: Property Values by Zip Code
 
-<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/tableau-map-kingcounty.png" width=600>
+<div style="width:600px">
+<img src="http://hakkeray.com/assets/images/king-county/tableau-map-kingcounty.png"></div>
 
 ## Goal
 
@@ -86,22 +87,27 @@ The model eliminated most of these features, leaving me with just 3: square foot
 - sqft_lot15
 
 ## Top 3 Features
+
 Let's take a closer look at these "top 3" features.
 
 ### 1. Square-footage (Living area)
+
 This includes the square footage of the basement, but excludes square footage of the land around the home. Not surprisingly, it turns out that homes with a higher square footage of living space tend to have much higher property values. The bigger the house, the higher the sale price. You can see from the scatter plot below that as the property values increase upward, the square-footage also increases to the right.
 
-<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/sqft-living-scatterplot.png" width=400>
+<div style="width:400px">
+<img src="http://hakkeray.com/assets/images/king-county/sqft-living-scatterplot.png"></div>
 
 ### 2. Grade
 
 Next, I looked at something called `GRADE`. Each property in the dataset is associated with a score ranging from 1 to 13, 13 being the best. The factors that actually determine that score have to do with the quality of materials in the home, the wood, marble, etc., as well as the quality of carpentry and craftsmanship put into those materials. Much like the scatterplot we saw before, the box plot (below) shows how higher scores in Grade lead to higher property values. 
 
-<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/grade-boxplot.png" width=400>
+<div style="width:400px">
+<img src="http://hakkeray.com/assets/images/king-county/grade-boxplot.png"></div>
 
 In the plot below, it's also noticeable that there are far fewer homes that achieve a grade of 13, indicating these homes might be unique in some way, perhaps the architect is well-known, or the materials themselves are rare, all of which factors into the overall grade of the property regardless of how many bedrooms or square-footage of the land, etc. 
 
-<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/grade-scatterplot.png" width=400>
+<div style="width:400px">
+<img src="http://hakkeray.com/assets/images/king-county/grade-scatterplot.png"></div>
 
 # 3. Zip Code
 
@@ -117,6 +123,7 @@ So just to show you how that breaks down, below is a map of King County where th
 
 
 # Interactive Map
+
 <html>
 <body>
 <iframe src="https://public.tableau.com/views/HousePricesbyZipCodeinKingCountyWA/KingCounty?:display_count=y&publish=yes&:origin=viz_share_link" width=600 height=600 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -126,10 +133,6 @@ So just to show you how that breaks down, below is a map of King County where th
 # Look Up Median Home Values by Zip Code
 
 Now let's say you want to know which zip codes fall under a given range of home values. Maybe you only want to consider zip codes where the median value is $1,000,000 or higher. So I wrote a function for doing just that, and for King County, the million dollar question gives us only one zip code, 98039, and if we drop it down to say half a million for median home values, we get back 14 zip codes to choose from. 
-
-```python
-
-```
 
 # Conclusion
 
