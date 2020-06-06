@@ -6,9 +6,7 @@ categories: datascience
 author: Ru Keïn
 ---
 
-## Yet Another Existential Crisis
-
-It was the summer of 2019. I owned my own marketing and video production company, had my own apartment in Hollywood, friends that cared about me, and a girlfriend I loved. So why was I so miserable? Why was I waking up every day filled with dread, and staying awake at night, restless and consumed by anxiety? I hated the way I was living, but I was even more afraid of dying. "Yet Another Existential Crisis” - I thought I knew who I was now, I thought I loved myself. I didn’t.
+It was the summer of 2019. I owned my own marketing and video production company, had my own apartment in Hollywood, friends that cared about me, and a girlfriend I loved. So why was I so miserable? Why was I waking up every day filled with dread, and staying awake at night, restless and consumed by anxiety? I hated the way I was living, but I was even more afraid of dying. "Yet Another Existential Crisis” - I thought I knew who I was now, I thought I loved myself. Was all of it a lie?
 
 ## Hope vs. Faith
 
@@ -16,7 +14,8 @@ Any of us can look back at different points of our life and identify the breakin
 
 # Wild Imagination
 
-Peter Pan has always been one of my favorite childhood stories. I identify with not wanting to grow up because there’s nothing worse than being a grown-up with responsibilities and chores and low-level depression instigated by going to work every day for a job you hate. Like Peter, my wild imagination is one of my greatest assets. It helps me laugh at the absurdity and irony of life, because it’s easy to take ourselves too seriously and get bent out of shape about things that don’t really matter. Imagination is what gives us art, it’s why we have spaceships and a mission to Mars. We need to have our wild ideas that everyone thinks are impossible, and we need to have faith in what is infinite and unknown to our limited minds as mortal human beings. But Peter’s greatest asset is not that he believes in fairies and lives in a fantasy world of playtime — it’s that he has tremendous courage. He is not afraid of death — he welcomes it.  
+Peter Pan has always been one of my favorite childhood stories. I identify with not wanting to grow up because there’s nothing worse than being a grown-up with responsibilities and chores and low-level depression instigated by going to work every day for a job you hate. Like Peter, my wild imagination is one of my greatest assets. It helps me laugh at the absurdity and irony of life, because it’s easy to take ourselves too seriously and get bent out of shape about things that don’t really matter. Imagination is what gives us art, it’s why we have spaceships and a mission to Mars. We need to have our wild ideas that everyone thinks are impossible, and we need to have faith in what is infinite and unknown to our limited minds as mortal human beings. But Peter’s greatest asset is not that he believes in fairies and lives in a fantasy world of playtime — it’s that he has tremendous courage. He is not afraid of death — he welcomes it.
+
 >
 >## _This is the reason he can fly._
 >
@@ -25,8 +24,9 @@ I thought to myself: why am I afraid of death? If I were to die young — if I w
 
 
 ### Ru's First DataFrame object (circa 1997)
-
+<html>
 <img class="img-responsive" src="http://hakkeray.com/assets/images/cynognathus.jpg" width=400>
+</html>
 
 I saw my eight-year old self giggling at the Mac Basic program I wrote on our family's Special Edition II (which still works by the way) - giggling because the user types their name in the input, and all the program does is assign them a number then calls them a “goofball”. 
 
