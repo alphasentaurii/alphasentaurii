@@ -3,30 +3,19 @@ layout: page
 title: Starskøpe Project Demo
 ---
 
-At the beginning of every data science project, the first thing we do is inspect the dataset to understand what we’re looking at and what the variables mean. However, I like to ask myself a few basic questions before even beginning my research:
+## Project Vision
 
-* Why are we doing this? What is the question or problem we need to answer and why is it important?
-* What type of data is available? How big of a dataset do we need to analyze?
-* What is the timeframe that data was collected?
-* Where was it collected from?
-
-Once I’ve thought through these questions, I can then start to consider how I should begin analysis.
-
-<html>
-<iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-</html>
-
-## Telescope Missions
-
-Every telescope NASA launches has a certain mission objective: Kepler, K2, and TESS are looking for planets orbiting stars outside of our solar system, the High Time Resolution Survey is looking for pulsars (dead stars), whereas the James Webb Telescope when it launches will look for early formation of stars and galaxies. 
-
-## Telescope Technology
-
-Each telescope is built using specific technology for data capture that allows it to achieve its objective. In hunting for exoplanets using Kepler and K2 data, we can perform signal processing on light flux values from stars over long and short periods of time. With TESS, we can analyze full-frame images. 
-
-## Vision
+> Telescopic becomes cyberoptic, and human intelligence is extended by artificial intelligence.
 
 The main vision for STARSKØPE is to build a model that is not limited to analyzing data from just one telescope, but multiple telescopes. This would give us a wider window of time as well as a higher dimension of space (looking at one thing from multiple angles) in which to classify objects. In other words, we can use machine learning to break the barriers of time and space that limit astrophysical object classification to just one telescope, or one campaign. Telescopic becomes cyberoptic, and human intelligence is extended by artificial intelligence.
+
+<iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+## In-depth
+
+For a more in-depth story about this project and some code examples, check out [the blog post on Starskøpe: The Cyberoptic Artificial Telescope](/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html).
+
+***
 
 ## Mission
 
@@ -40,13 +29,22 @@ The mission for starskøpe is to build a Cyberoptic Artificial Telescope for Ast
 
 4. …as well as correct for any issues and errors that occurred during the campaign that data was being collected.
 
-## Hunting for Exoplanets (Glossary)
+## BACKGROUND
+
+### Telescope Missions
+
+Every telescope NASA launches has a certain mission objective: Kepler, K2, and TESS are looking for planets orbiting stars outside of our solar system, the High Time Resolution Survey is looking for pulsars (dead stars), whereas the James Webb Telescope when it launches will look for early formation of stars and galaxies.
+
+### Telescope Technology
+
+Each telescope is built using specific technology for data capture that allows it to achieve its objective. In hunting for exoplanets using Kepler and K2 data, we can perform signal processing on light flux values from stars over long and short periods of time. With TESS, we can analyze full-frame images. 
+
+## GLOSSARY
+
 Before taking off, let’s define a Couple of terms that may not be familiar to everyone. 
 
-
-
-
 ### Exoplanet
+
 An exoplanet is a planet outside of our solar system, and that’s what we’re looking for at least in this first phase of the project. 
 
 ### Flux
@@ -57,8 +55,6 @@ Flux is a variation or change in light values of stars in this case. We will ana
 
 TCE or Threshold Crossing Event is what you see in the drawing there, the big yellow thing is a star, the red line represents level of brightness of the light emitted by the star, and when the black dot (which is a planet orbiting the star) crosses in front, it blocks some of the light coming toward us (if we’re a telescope), so the values drop for a period of time, then go back up after the planet is no longer. So for this analysis, we’re looking for that drop.
 
----
-
 ## K2
 
 NASA’s K2 mission included 20 campaigns, and for this initial phase of the project we’re only looking at Campaign 3. 
@@ -67,7 +63,7 @@ NASA’s K2 mission included 20 campaigns, and for this initial phase of the pro
 
 Campaign 3 includes flux values of stars in just one patch of sky over a period of time. Each campaign was supposed to be about 80 days before the telescope moved on to another of stars, however, just to make things more complicated, Campaign 3 was only around 60 days due to a technical issue in its data processing (I believe it ran out of disk space!).
 
----
+***
 
 ## Model (Neural Network)
 Training a neural network - this would be the brain of the artificial telescope, we are teaching it to identify which stars host planets, and which ones do not.
@@ -76,13 +72,15 @@ Training a neural network - this would be the brain of the artificial telescope,
 
 This artist’s interpretation of  a TCE is slightly more accurate than the other drawing, at least as far as scale goes. 
 
+<div style="width:400px">
 <img class="responsive-img" src="http://hakkeray.com/assets/images/starskope/288_planetbleed1600.jpeg">
+</div>
 
 The training data including 3,197 flux observations for 5,087 stars: 37 of the stars have confirmed planets. The test data included 570 stars for testing the model: only 5 of the stars have confirmed planets.
 
 ### Highly Sparse Data
 
-So with 3,700 stars, our model needs to find just 42 confirmed planets. This means our data set is very sparse, which is actually a good thing because it means our model can help perform triage, filtering the most likely candidates of planet host stars, and dismissing the rest. All data comes from the K2 (Kepler) space telescope (NASA)
+So with 3,700 stars, our model needs to find just 42 confirmed planets. This means our data set is highly sparse, which is actually a good thing because it means our model can help perform triage, filtering the most likely candidates of planet host stars, and dismissing the rest. All data comes from NASA's K2 space telescope, the secondary phase of the Kepler mission.
 
 ### Training
 
@@ -124,6 +122,10 @@ To continue this project, I'll take another approach for detecting exoplanets us
 
 ## Future Vision
 The ultimate vision for this work will be to develop STARSKØPE into a front-end application that any astrophysicist can use to look at a single or collection of stars and have the model classify them according not only to exoplanet predictions, but also predict what type of star it is, and other key properties that would be of interest for astrophysical science applications.
+
+## Read More
+
+For a more in-depth story about this project and some code examples, check out [the blog post on Starskøpe: The Cyberoptic Artificial Telescope](/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html).
 
 ---
 

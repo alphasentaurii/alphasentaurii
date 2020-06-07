@@ -1,3 +1,0 @@
-I"´<h2 id="detecting-dead-stars-in-deep-space">Detecting Dead Stars in Deep Space</h2>
-<p>Detecting Dead Stars in Deep Space is a <code class="highlighter-rouge">supervised machine learning feature classification project</code> that uses <code class="highlighter-rouge">Decision Trees and XGBoost</code> to <code class="highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
-:ET

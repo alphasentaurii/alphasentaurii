@@ -5,24 +5,39 @@ date:   2020-02-02 02:02:02 -0800
 categories: datascience
 ---
 
-## Detecting Dead Stars in Deep Space
-Detecting Dead Stars in Deep Space is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
+This is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
 
 <div style="width:400px">
 <img src="http://hakkeray.com/assets/images/pulsars/output_93_1.png"></div>
 
+## HTRU2
+
 HTRU2 is a data set which describes **a sample of pulsar candidates collected during the High Time Resolution Universe Survey.**
+
+## Pulsars
 
 Pulsars are a rare type of Neutron star that produce radio emission detectable here on Earth. They are of considerable scientific interest as probes of space-time, the inter-stellar medium, and states of matter.
 
-As pulsars rotate, their emission beams sweep across the sky which produces a detectable pattern of broadband radio emission when crossing our line of sight. As pulsars rotate rapidly, this pattern repeats periodically. Thus pulsar search involves looking for periodic radio signals with large radio telescopes.
+## What happens when they rotate?
 
-Each pulsar produces a slightly different emission pattern, which varies slightly with each rotation. Detection of a potential signal is known as a 'candidate', which is averaged over many rotations of the pulsar, as determined by the length of an observation. In the absence of additional info, each candidate could potentially describe a real pulsar. **However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.** Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.
+Glad you asked. As pulsars rotate, their emission beams sweep across the sky which produces a detectable pattern of broadband radio emission when crossing our line of sight. As pulsars rotate rapidly, this pattern repeats periodically. Thus pulsar search involves looking for periodic radio signals with large radio telescopes.
+
+## So how do we detect pulsars?
+
+Each pulsar produces a slightly different emission pattern, which varies slightly with each rotation. Detection of a potential signal is known as a 'candidate', which is averaged over many rotations of the pulsar, as determined by the length of an observation. 
+
+## Sounds easy enough
+
+The problem is that, in the absence of additional info, each candidate could potentially describe a real pulsar. **However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.** Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.
 
 <div style="width:400px">
 <img src="http://hakkeray.com/assets/images/pulsars/output_20_2.png"></div>
 
+## The Dataset
+
 The data set shared here contains **16,259 spurious examples caused by RFI/noise**, and **1,639 real pulsar examples**. Each row lists the variables first, and the class label is the final entry. The class labels used are 0 (negative) and 1 (positive).
+
+## Features (variables)
 
 Each candidate is described by 8 continuous variables, and a single class variable. The first four are simple statistics obtained from the integrated pulse profile (folded profile). This is an array of continuous variables that describe a longitude-resolved version of the signal that has been averaged in both time and frequency. The remaining four variables are similarly obtained from the DM-SNR curve.
 
@@ -42,167 +57,13 @@ HTRU 2 Summary:
             * 1,639 positive examples
             * 16,259 negative examples
 
-## Prerequisites
 
-Before you begin, ensure you have met the following requirements:
-* You have installed the latest version of `Jupyter Notebook`
-* You have a `<Windows/Linux/Mac>` machine. 
-
-
-## Running the Time Series Forecasting with SARIMAX and Gridsearch Project
-
-To run this project locally, follow these steps:
-
-In the command line/terminal:
-
-```
-$ git clone https://github.com/hakkeray/timeseries-forecasting-with-sarimax-and-gridsearch
-$ cd timeseries-forecasting-with-sarimax-and-gridsearch
-$ jupyter notebook
-```
-
-## Contact
-
-If you want to contact me you can reach me at <rukeine@gmail.com>.
-
-## License
-
-This project uses the following license: [MIT License](/LICENSE.md).
-
-## Outline
-
-    * IMPORT PACKAGES + LIBRARIES
-    
-    * OBTAIN DATA
-    
-    * PRE-PROCESSING
-    
-    * EDA + VISUALIZATIONS
-    
-    * MODELING:
-        * MODEL 1: DECISION TREES
-        * MODEL 2: RANDOM FOREST
-        * MODEL 3: XGBOOST
-        * MODEL 4: GRIDSEARCH CV (ALL)
-        
-    * INTERPRET RESULTS
-    
-    * CONCLUSION + SUMMARY
-    
-    * FUTURE WORK
-
-
-# IMPORT
-
-
-```python
-# Import code packages and libraries
-# FLATIRON BOOTCAMP Package Library
-#!pip install -U fsds_100719
-import fsds_100719 as fs
-from fsds_100719.imports import * # will pre-load pd,np,plt,mpl,sns
-%matplotlib inline
-
-from sklearn.model_selection import train_test_split
-import seaborn as sns
-sns.set_style('whitegrid')
-plt.style.use('seaborn-bright')
-
-
-font_dict={'family':'monospace',
-          'size':14}
-mpl.rc('font',**font_dict)
-
-#ignore pink warnings
-import warnings
-warnings.filterwarnings('ignore')
-# Allow for large # columns
-pd.set_option('display.max_columns', 0)
-# pd.set_option('display.max_rows','')
-
-
-```
-
-    fsds_1007219  v0.7.4 loaded.  Read the docs: https://fsds.readthedocs.io/en/latest/ 
-
-
-<html>
-   <body>
-<style  type="text/css" >
-</style><table id="T_8f607e64_5280_11ea_a243_f40f2405a054" ><caption>Loaded Packages and Handles</caption><thead>    <tr>        <th class="col_heading level0 col0" >Handle</th>        <th class="col_heading level0 col1" >Package</th>        <th class="col_heading level0 col2" >Description</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row0_col0" class="data row0 col0" >dp</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row0_col1" class="data row0 col1" >IPython.display</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row0_col2" class="data row0 col2" >Display modules with helpful display and clearing commands.</td>
-            </tr>
-            <tr>
-                                <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row1_col0" class="data row1 col0" >fs</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row1_col1" class="data row1 col1" >fsds_100719</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row1_col2" class="data row1 col2" >Custom data science bootcamp student package</td>
-            </tr>
-            <tr>
-                                <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row2_col0" class="data row2 col0" >mpl</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row2_col1" class="data row2 col1" >matplotlib</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row2_col2" class="data row2 col2" >Matplotlib's base OOP module with formatting artists</td>
-            </tr>
-            <tr>
-                                <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row3_col0" class="data row3 col0" >plt</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row3_col1" class="data row3 col1" >matplotlib.pyplot</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row3_col2" class="data row3 col2" >Matplotlib's matlab-like plotting module</td>
-            </tr>
-            <tr>
-                                <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row4_col0" class="data row4 col0" >np</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row4_col1" class="data row4 col1" >numpy</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row4_col2" class="data row4 col2" >scientific computing with Python</td>
-            </tr>
-            <tr>
-                                <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row5_col0" class="data row5 col0" >pd</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row5_col1" class="data row5 col1" >pandas</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row5_col2" class="data row5 col2" >High performance data structures and tools</td>
-            </tr>
-            <tr>
-                                <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row6_col0" class="data row6 col0" >sns</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row6_col1" class="data row6 col1" >seaborn</td>
-                        <td id="T_8f607e64_5280_11ea_a243_f40f2405a054row6_col2" class="data row6 col2" >High-level data visualization library based on matplotlib</td>
-            </tr>
-    </tbody></table>
-   </body>
-   </html>
-
-```python
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from sklearn.pipeline import Pipeline
-from sklearn.externals import joblib
-from sklearn.linear_model import LogisticRegression
-from sklearn import svm
-from sklearn import tree
-
-from sklearn.tree import DecisionTreeClassifier 
-from sklearn.metrics import accuracy_score,roc_curve,auc,average_precision_score,recall_score,precision_score,f1_score,classification_report
-from sklearn.tree import export_graphviz
-from IPython.display import Image  
-from pydotplus import graph_from_dot_data
-from xgboost import XGBClassifier
-from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import GridSearchCV 
-```
-
-# OBTAIN
-
-
-```python
-# Load data
-df = pd.read_csv('pulsar_stars.csv')
-df.head()
-```
-
-
+# Inspect the dataset
 
 <html>
    <body>
 <div>
-</style>
+
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -286,246 +147,6 @@ df.head()
 </html>
 
 
-# SCRUB
-
-
-```python
-df.columns
-```
-
-
-
-
-    Index([' Mean of the integrated profile',
-           ' Standard deviation of the integrated profile',
-           ' Excess kurtosis of the integrated profile',
-           ' Skewness of the integrated profile', ' Mean of the DM-SNR curve',
-           ' Standard deviation of the DM-SNR curve',
-           ' Excess kurtosis of the DM-SNR curve', ' Skewness of the DM-SNR curve',
-           'target_class'],
-          dtype='object')
-
-
-
-
-```python
-# RENAMING COLUMNS
-df = df.rename(columns={
-    ' Mean of the integrated profile':'MEAN_IP',
-    ' Standard deviation of the integrated profile':'STD_IP', 
-    ' Excess kurtosis of the integrated profile':'KURTOSIS_IP', 
-    ' Skewness of the integrated profile':'SKEWNESS_IP', 
-    ' Mean of the DM-SNR curve':'MEAN_CURVE', 
-    ' Standard deviation of the DM-SNR curve':'STD_CURVE', 
-    ' Excess kurtosis of the DM-SNR curve':'KURTOSIS_CURVE',
-    ' Skewness of the DM-SNR curve': 'SKEWNESS_CURVE',
-    'target_class':'TARGET'})
-```
-
-
-```python
-# PRE-PROCESSING
-df.describe()
-```
-
-
-
-<html>
-   <body>
-<div>
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>MEAN_IP</th>
-      <th>STD_IP</th>
-      <th>KURTOSIS_IP</th>
-      <th>SKEWNESS_IP</th>
-      <th>MEAN_CURVE</th>
-      <th>STD_CURVE</th>
-      <th>KURTOSIS_CURVE</th>
-      <th>SKEWNESS_CURVE</th>
-      <th>TARGET</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>count</td>
-      <td>17898.000000</td>
-      <td>17898.000000</td>
-      <td>17898.000000</td>
-      <td>17898.000000</td>
-      <td>17898.000000</td>
-      <td>17898.000000</td>
-      <td>17898.000000</td>
-      <td>17898.000000</td>
-      <td>17898.000000</td>
-    </tr>
-    <tr>
-      <td>mean</td>
-      <td>111.079968</td>
-      <td>46.549532</td>
-      <td>0.477857</td>
-      <td>1.770279</td>
-      <td>12.614400</td>
-      <td>26.326515</td>
-      <td>8.303556</td>
-      <td>104.857709</td>
-      <td>0.091574</td>
-    </tr>
-    <tr>
-      <td>std</td>
-      <td>25.652935</td>
-      <td>6.843189</td>
-      <td>1.064040</td>
-      <td>6.167913</td>
-      <td>29.472897</td>
-      <td>19.470572</td>
-      <td>4.506092</td>
-      <td>106.514540</td>
-      <td>0.288432</td>
-    </tr>
-    <tr>
-      <td>min</td>
-      <td>5.812500</td>
-      <td>24.772042</td>
-      <td>-1.876011</td>
-      <td>-1.791886</td>
-      <td>0.213211</td>
-      <td>7.370432</td>
-      <td>-3.139270</td>
-      <td>-1.976976</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <td>25%</td>
-      <td>100.929688</td>
-      <td>42.376018</td>
-      <td>0.027098</td>
-      <td>-0.188572</td>
-      <td>1.923077</td>
-      <td>14.437332</td>
-      <td>5.781506</td>
-      <td>34.960504</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <td>50%</td>
-      <td>115.078125</td>
-      <td>46.947479</td>
-      <td>0.223240</td>
-      <td>0.198710</td>
-      <td>2.801839</td>
-      <td>18.461316</td>
-      <td>8.433515</td>
-      <td>83.064556</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <td>75%</td>
-      <td>127.085938</td>
-      <td>51.023202</td>
-      <td>0.473325</td>
-      <td>0.927783</td>
-      <td>5.464256</td>
-      <td>28.428104</td>
-      <td>10.702959</td>
-      <td>139.309331</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <td>max</td>
-      <td>192.617188</td>
-      <td>98.778911</td>
-      <td>8.069522</td>
-      <td>68.101622</td>
-      <td>223.392140</td>
-      <td>110.642211</td>
-      <td>34.539844</td>
-      <td>1191.000837</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</body>
-</html>
-
-
-
-```python
-df.info()
-```
-
-    <class 'pandas.core.frame.DataFrame'>
-    RangeIndex: 17898 entries, 0 to 17897
-    Data columns (total 9 columns):
-    MEAN_IP           17898 non-null float64
-    STD_IP            17898 non-null float64
-    KURTOSIS_IP       17898 non-null float64
-    SKEWNESS_IP       17898 non-null float64
-    MEAN_CURVE        17898 non-null float64
-    STD_CURVE         17898 non-null float64
-    KURTOSIS_CURVE    17898 non-null float64
-    SKEWNESS_CURVE    17898 non-null float64
-    TARGET            17898 non-null int64
-    dtypes: float64(8), int64(1)
-    memory usage: 1.2 MB
-
-
-
-```python
-# Check for null values
-df.isna().sum()
-```
-
-
-
-
-    MEAN_IP           0
-    STD_IP            0
-    KURTOSIS_IP       0
-    SKEWNESS_IP       0
-    MEAN_CURVE        0
-    STD_CURVE         0
-    KURTOSIS_CURVE    0
-    SKEWNESS_CURVE    0
-    TARGET            0
-    dtype: int64
-
-
-
-# EXPLORE
-
-Exploratory Data Analysis (EDA)
-
-
-```python
-df.shape
-```
-
-
-
-
-    (17898, 9)
-
-
-
-
-```python
-df['TARGET'].value_counts()
-```
-
-
-
-
-    0    16259
-    1     1639
-    Name: TARGET, dtype: int64
-
-
-
 ## Comparing Attributes
 
 ### `Hotmap( )`
@@ -583,10 +204,10 @@ hotmap(df, figsize=(10,8))
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_0.png">
-
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_1.png">
-
+<img src="http://hakkeray.com/assets/images/pulsars/output_20_0.png"></div>
+<div style="width:400px">
+<img src="http://hakkeray.com/assets/images/pulsars/output_20_1.png"></div>
+<div style="width:400px">
 <img src="http://hakkeray.com/assets/images/pulsars/output_20_2.png">
 </div>
 
@@ -1555,7 +1176,7 @@ plt.show()
     Increasing parameters has no clear effect on training data (flat AUC). 
     Optimal value for test data is 5.
 
-## Retrain classifer
+## Retrain classifier
 
 We'll now use the best values from each training phase above and feed it back to our classifier and see if have any improvement in predictive performance.
 
@@ -1758,7 +1379,7 @@ f1
 
 
 
-Because the data involves imbalanced classes, F1 score is most important metric for us to validate the model's accuracy. Let's compare the Decision Tree classifier performance to XGBoost next.
+Because the data involves imbalanced classes, F1 score is the most important metric for us to validate the model's accuracy. Let's compare the Decision Tree classifier performance to XGBoost next.
 
 # `XG Boost`
 
@@ -2198,11 +1819,11 @@ plot_importance(booster=xgb_clf)
 
 # CONCLUSION
 
-We began our analysis with a pipeline to determine the most accurate models for predicting a pulsar. After performing Standard Scaling on the dataset, we checked split our dataset into train-test prediction models for Logistic Regression, Support Vector Machines, Decision Trees and XG Boost. All were fairly accurate, with Decision Trees and XG Boost topping the list for accuracy scores.
+I began analysis with a pipeline to determine the most accurate models for predicting a pulsar. After performing Standard Scaling on the dataset, I split the dataset into train-test prediction models for Logistic Regression, Support Vector Machines, Decision Trees and XG Boost. All were fairly accurate, with Decision Trees and XG Boost topping the list for accuracy scores.
 
-We proceeded with a Decision Tree classifier with balanced class weights, which did fairly well, scoring 96% accuracy. However, because of the imbalanced classes, the F1 score is our most important validator for model accuracy, and the Decision Tree classifier scored 82%.
+I then proceeded with a Decision Tree classifier with balanced class weights, which did fairly well, scoring 96% accuracy. However, because of the imbalanced classes, the F1 score is our most important validator for model accuracy, and the Decision Tree classifier scored 82%.
 
-Moving on to XGBoost, we scored 98% accuracy with an 89% F1 score. We were able to successfully identify 466 pulsars, missing only 78 that we our model mistakenly identified as noise.
+Moving on to XGBoost, the model scored 98% accuracy with an 89% F1 score. The model successfully identify 466 pulsars, missing only 78 which it mistakenly identified as noise.
 
 # RECOMMENDATIONS
 
@@ -2216,6 +1837,5 @@ Moving on to XGBoost, we scored 98% accuracy with an 89% F1 score. We were able 
 # FUTURE WORK
 
 1. Improving the model, trying other ways of scaling, balancing class weights.
-
 
 2. Looking at stars right before they die - predicting whether or not it will become a pulsar or not (could be slightly impossible considering stars live for billions  of years…)
