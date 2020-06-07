@@ -1,37 +1,33 @@
-I"l*<h2 id="project-vision">Project Vision</h2>
+I"a*<h2 id="starskøpe-project-demo">Starskøpe Project Demo</h2>
 
-<blockquote>
-  <p>Telescopic becomes cyberoptic, and human intelligence is extended by artificial intelligence.</p>
-</blockquote>
+<p>The main vision for STARSKØPE is to build a model that is not limited to analyzing data from just one telescope, but multiple telescopes. In other words, we can use machine learning to break the barriers of time and space that limit astrophysical object classification to just one telescope, or one campaign. Telescopic becomes cyberoptic, and human intelligence is extended by artificial intelligence.</p>
 
-<p>The main vision for STARSKØPE is to build a model that is not limited to analyzing data from just one telescope, but multiple telescopes. This would give us a wider window of time as well as a higher dimension of space (looking at one thing from multiple angles) in which to classify objects. In other words, we can use machine learning to break the barriers of time and space that limit astrophysical object classification to just one telescope, or one campaign. Telescopic becomes cyberoptic, and human intelligence is extended by artificial intelligence.</p>
+<div>
+<iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 
-<iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+<h2 id="behind-the-scenes">Behind-the-Scenes</h2>
 
-<h2 id="in-depth">In-depth</h2>
+<p>For a more in-depth story about this project and some code examples, check out my blog post <a href="/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html">Starskøpe: The Cyberoptic Artificial Telescope</a>.</p>
 
-<p>For a more in-depth story about this project and some code examples, check out <a href="/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html">the blog post on Starskøpe: The Cyberoptic Artificial Telescope</a>.</p>
+<h2 id="mission">MISSION</h2>
 
-<hr />
+<h3 id="build-a-cyberoptic-artificial-telescope-for-astrophysical-object-classification">Build a Cyberoptic Artificial Telescope for Astrophysical Object Classification</h3>
 
-<h2 id="mission">Mission</h2>
+<h4 id="1-avoid-black-box-algorithms">1: Avoid “black box” algorithms</h4>
 
-<p>The mission for starskøpe is to build a Cyberoptic Artificial Telescope for Astrophysical Object Classification.</p>
+<p>In order to perform USEFUL and ACCURATE machine learning analysis on astrophysical data, we need to avoid “black box” algorithms which prevent us from understanding why the model classified objects the way it did. If we don’t ask the “WHY?” then we aren’t very good scientists.</p>
 
-<ol>
-  <li>
-    <p>In order to perform USEFUL and ACCURATE machine learning analysis on astrophysical data, we need to avoid “black box” algorithms which prevent us from understanding why the model classified objects the way it did. If we don’t ask the “WHY?” then we aren’t very good scientists.</p>
-  </li>
-  <li>
-    <p>The model also needs to Account for the physics, not just the math. In the most simple terms, if we don’t know and account for units and laws of physics in the equations, we lose enough points to fail the test.</p>
-  </li>
-  <li>
-    <p>The model needs to account for unique attributes and limitations associated with the telescope from which the data was collected,</p>
-  </li>
-  <li>
-    <p>…as well as correct for any issues and errors that occurred during the campaign that data was being collected.</p>
-  </li>
-</ol>
+<h4 id="2-account-for-the-physics">2: Account for the physics</h4>
+
+<p>The model also needs to Account for the physics, not just the math. In the most simple terms, if we don’t know and account for units and laws of physics in the equations, we lose enough points to fail the test.</p>
+
+<h4 id="3-account-for-the-telescope">3: Account for the telescope</h4>
+
+<p>The model needs to account for unique attributes and limitations associated with the telescope from which the data was collected,</p>
+
+<h4 id="4-correct-for-errors">4. Correct for errors</h4>
+
+<p>…as well as correct for any issues and errors that occurred during the campaign that data was being collected.</p>
 
 <h2 id="background">BACKGROUND</h2>
 
@@ -137,8 +133,6 @@
 <h2 id="read-more">Read More</h2>
 
 <p>For a more in-depth story about this project and some code examples, check out <a href="/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html">the blog post on Starskøpe: The Cyberoptic Artificial Telescope</a>.</p>
-
-<hr />
 
 <h2 id="appendix">Appendix</h2>
 

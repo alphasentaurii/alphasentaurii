@@ -1,16 +1,10 @@
-I"<p>Top Five Zip Codes is a <code class="highlighter-rouge">housing market prediction model</code> that uses <code class="highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="highlighter-rouge">recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York</code>.</p>
+I"<h1 id="top-5-zip-codes-project-demo">Top 5 Zip Codes Project Demo</h1>
 
-<html>
-<body>
-<div style="display:block; text-align:center; auto; clear:both; position:relative; z-index:9999;"><iframe src="https://player.vimeo.com/video/384921005" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+<p>Top Five Zip Codes is a <code class="highlighter-rouge">housing market prediction model</code> that uses <code class="highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="highlighter-rouge">recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York</code>.</p>
+
+<div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;"><iframe src="https://player.vimeo.com/video/384921005" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
 <br /><br /><br /><br /><br />
 </div>
-</body>
-</html>
-
-<h1 id="project-outline">Project Outline</h1>
-
-<p>Prior to training, I set out to identify trends, seasonality, and autoregression elements within the Zillow Housing Market Dataset. I then use a fitting procedure to find the coefficients of a regression model, including several plots and statistical tests of the residual errors along the way. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals (lowest risk), and shortest commute time from Grand Central Station.</p>
 
 <h2 id="business-case">Business Case</h2>
 
@@ -36,7 +30,6 @@
 <ol>
   <li>Maximum ROI (highest forecasted home value increase for lowest upfront cost)</li>
   <li>Confidence Intervals</li>
-  <li>Exogenous factors (requires external data)</li>
   <li>Risk mitigation: financial stability of homeowners and homes based on historic data</li>
 </ol>
 
@@ -44,62 +37,62 @@
 
 <p>Make forecast predictions for zip codes and their mean home values using Seasonal ARIMA time-series analysis.</p>
 
-<hr />
-
-<h2 id="mean-values-by-train-line">Mean Values by Train Line</h2>
+<h2 id="commute-times">Commute Times</h2>
 
 <p>Since commute time to Grand Central Station is part of the client’s required criteria, I first had to look up which towns/zip codes were on which train lines. Grand Central has 3 main lines on Metro North Railroad: Hudson, Harlem, and New Haven. The first question I was interested in answering was if the average home prices for the zip codes that fall under these geographic sections display any trends.</p>
 
-<div style="width:600px">
+<h3 id="mean-values-by-train-line">Mean Values by Train Line</h3>
+
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/meanvalues_area.png" /></div>
 
 <h3 id="new-haven-line">New Haven line</h3>
 
-<p>Note that this does not include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state.</p>
-
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/newhaven_mapTime.png" /></div>
+
+<p>Note that this does not include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state.</p>
 
 <h3 id="harlem-line">Harlem Line</h3>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/harlem_mapTime.png" /></div>
 
 <h3 id="hudson-line">Hudson Line</h3>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/hudson_mapTime.png" /></div>
 
 <h2 id="gridsearchcv-with-sarimax">GridsearchCV with SARIMAX</h2>
 
 <p>I then ran a gridsearch using a Seasonal ARIMA (SARIMAX) model to make forecast predictions on all 61 zip codes in Westchester County. Using PANDAS, I narrowed down the list by top 10 highest ROI zip codes. I then identified which of these had the lowest confidence intervals in order to ensure I was only selecting the most accurate results.</p>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/conf_roi_pred_3D.png" /></div>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/conf_roi_heatmap.png" /></div>
 
 <h2 id="top-five-zip-codes">TOP FIVE ZIP CODES</h2>
 
 <p>The top five I selected based on the above criteria were 10549, 10573, 10604, 10605, 10706:</p>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10549.png" /></div>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10573.png" /></div>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10604.png" /></div>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10605.png" /></div>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10706.png" /></div>
 
-<div style="width:600px">
+<div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/top5_final_mapTime.png" /></div>
 
 <h2 id="contact">Contact</h2>

@@ -3,31 +3,36 @@ layout: page
 title: Starskøpe Project Demo
 ---
 
-## Project Vision
+## Starskøpe Project Demo
 
-> Telescopic becomes cyberoptic, and human intelligence is extended by artificial intelligence.
+The main vision for STARSKØPE is to build a model that is not limited to analyzing data from just one telescope, but multiple telescopes. In other words, we can use machine learning to break the barriers of time and space that limit astrophysical object classification to just one telescope, or one campaign. Telescopic becomes cyberoptic, and human intelligence is extended by artificial intelligence.
 
-The main vision for STARSKØPE is to build a model that is not limited to analyzing data from just one telescope, but multiple telescopes. This would give us a wider window of time as well as a higher dimension of space (looking at one thing from multiple angles) in which to classify objects. In other words, we can use machine learning to break the barriers of time and space that limit astrophysical object classification to just one telescope, or one campaign. Telescopic becomes cyberoptic, and human intelligence is extended by artificial intelligence.
+<div>
+<iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
 
-<iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+## Behind-the-Scenes
 
-## In-depth
+For a more in-depth story about this project and some code examples, check out my blog post [Starskøpe: The Cyberoptic Artificial Telescope](/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html).
 
-For a more in-depth story about this project and some code examples, check out [the blog post on Starskøpe: The Cyberoptic Artificial Telescope](/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html).
+## MISSION
 
-***
+### Build a Cyberoptic Artificial Telescope for Astrophysical Object Classification
 
-## Mission
+#### 1: Avoid "black box" algorithms
 
-The mission for starskøpe is to build a Cyberoptic Artificial Telescope for Astrophysical Object Classification.
+In order to perform USEFUL and ACCURATE machine learning analysis on astrophysical data, we need to avoid “black box” algorithms which prevent us from understanding why the model classified objects the way it did. If we don’t ask the “WHY?” then we aren’t very good scientists.
 
-1. In order to perform USEFUL and ACCURATE machine learning analysis on astrophysical data, we need to avoid “black box” algorithms which prevent us from understanding why the model classified objects the way it did. If we don’t ask the “WHY?” then we aren’t very good scientists.
+#### 2: Account for the physics
 
-2. The model also needs to Account for the physics, not just the math. In the most simple terms, if we don’t know and account for units and laws of physics in the equations, we lose enough points to fail the test.
+The model also needs to Account for the physics, not just the math. In the most simple terms, if we don’t know and account for units and laws of physics in the equations, we lose enough points to fail the test.
 
-3. The model needs to account for unique attributes and limitations associated with the telescope from which the data was collected, 
+#### 3: Account for the telescope
 
-4. …as well as correct for any issues and errors that occurred during the campaign that data was being collected.
+The model needs to account for unique attributes and limitations associated with the telescope from which the data was collected, 
+
+#### 4. Correct for errors
+
+…as well as correct for any issues and errors that occurred during the campaign that data was being collected.
 
 ## BACKGROUND
 
@@ -126,8 +131,6 @@ The ultimate vision for this work will be to develop STARSKØPE into a front-end
 ## Read More
 
 For a more in-depth story about this project and some code examples, check out [the blog post on Starskøpe: The Cyberoptic Artificial Telescope](/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html).
-
----
 
 ## Appendix
 
