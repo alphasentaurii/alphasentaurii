@@ -1,7 +1,7 @@
-I"�	<p>This is a <code class="highlighter-rouge">supervised machine learning feature classification project</code> that uses <code class="highlighter-rouge">Decision Trees and XGBoost</code> to <code class="highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
+I"<p>This is a <code class="highlighter-rouge">supervised machine learning feature classification project</code> that uses <code class="highlighter-rouge">Decision Trees and XGBoost</code> to <code class="highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_93_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_93_1.png" /></div>
 
 <h2 id="htru2">HTRU2</h2>
 
@@ -24,7 +24,7 @@
 <p>The problem is that, in the absence of additional info, each candidate could potentially describe a real pulsar. <strong>However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.</strong> Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.</p>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_2.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_2.png" /></div>
 
 <h2 id="the-dataset">The Dataset</h2>
 
@@ -195,11 +195,11 @@
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_0.png" /></div>
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_1.png" /></div>
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_2.png" />
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_2.png" />
 </div>
 
 <p>Target Class Values are highly differentiated for the following features:</p>
@@ -265,7 +265,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[GREEN == PULSAR , BLUE == NON-PULSAR]
 </code></pre></div></div>
 
-<p><img src="http://hakkeray.com/assets/images/pulsars/output_22_1.png" /></p>
+<p><img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_22_1.png" /></p>
 
 <p>The mean and standard deviation of the Skewness Curve if also a good candidate predictor for our target class.</p>
 
@@ -297,7 +297,7 @@ DISTIBUTION OF VARIABLES IN DATA SET
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_24_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_24_1.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="p">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s">"TARGET"</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"pair plot for variables"</span><span class="p">)</span>
@@ -305,7 +305,7 @@ DISTIBUTION OF VARIABLES IN DATA SET
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_25_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_25_0.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">columns</span>
 </code></pre></div></div>
@@ -365,7 +365,7 @@ DISTIBUTION OF VARIABLES IN DATA SET
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_27_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_27_0.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># BOXPLOTS
 </span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'TARGET'</span><span class="p">]]</span>
@@ -391,7 +391,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_28_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_28_1.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># STACKPLOTS
 </span><span class="n">st</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">'TARGET'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">].</span><span class="n">reset_index</span><span class="p">()</span>
@@ -424,7 +424,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_29_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_29_0.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">13</span><span class="p">))</span>
@@ -453,14 +453,14 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_30_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_30_0.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="p">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'MEAN_IP'</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s">'STD_IP'</span><span class="p">],</span><span class="n">kind</span><span class="o">=</span><span class="s">"kde"</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_31_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_31_0.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'TARGET'</span><span class="p">]]</span>
 <span class="n">length</span>  <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
@@ -475,7 +475,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_32_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_32_0.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># BARPLOTS
 </span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'TARGET'</span><span class="p">]]</span>
@@ -490,7 +490,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
     <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </code></pre></div></div>
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_33_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_33_0.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -507,7 +507,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_34_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_34_1.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -523,7 +523,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_35_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_35_1.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -535,7 +535,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
                 <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </code></pre></div></div>
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_36_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_36_1.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -548,7 +548,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_37_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_37_1.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
 <span class="n">sns</span><span class="p">.</span><span class="n">despine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -561,7 +561,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_38_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_38_1.png" /></div>
 
 <h1 id="model"><code class="highlighter-rouge">MODEL</code></h1>
 
@@ -719,7 +719,7 @@ Saved XG Boost pipeline to file
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_59_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_59_0.png" /></div>
 
 <h2 id="make-predictions">Make Predictions</h2>
 
@@ -878,7 +878,7 @@ FALSE NEGATIVES: 82 Pulsars misclassifed as noise
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_72_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_72_1.png" /></div>
 
 <h2 id="parameter-tuning">Parameter Tuning</h2>
 
@@ -925,7 +925,7 @@ FALSE NEGATIVES: 82 Pulsars misclassifed as noise
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_75_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_75_0.png" /></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Max tree depth optimal value does not improve beyond 3 for test data.
 </code></pre></div></div>
@@ -973,7 +973,7 @@ increment of 0.1
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_78_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_78_0.png" /></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AUC does not improve beyond 0.2 for test data.
 </code></pre></div></div>
@@ -1020,7 +1020,7 @@ with an increment of 0.1
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_81_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_81_0.png" /></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Highest AUC for both train and test data maximized at 0.10.
 </code></pre></div></div>
@@ -1066,7 +1066,7 @@ with an increment of 0.1
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_84_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_84_0.png" /></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Increasing parameters has no clear effect on training data (flat AUC). 
 Optimal value for test data is 5.
@@ -1118,7 +1118,7 @@ Optimal value for test data is 5.
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_89_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_89_0.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">modelX</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">of_type</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
@@ -1201,7 +1201,7 @@ weighted avg       0.97      0.97      0.97      5907
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_91_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_91_1.png" /></div>
 
 <p>Kurtosis Integrated Profile (‘KURTOSIS_IP’) is by far the most important classifying feature when it comes to identifying Pulsars. Let’s double check the other metrics with our scaled/transformed data:</p>
 
@@ -1240,7 +1240,7 @@ weighted avg       0.95      0.95      0.95      5907
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_93_1.png" />
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_93_1.png" />
 </div>
 
 <p><code class="highlighter-rouge">F1 Score</code>
@@ -1344,7 +1344,7 @@ weighted avg       0.98      0.98      0.98      5907
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_106_1.png" />
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_106_1.png" />
 </div>
 
 <h2 id="gridsearchcv">GridSearchCV</h2>
@@ -1458,7 +1458,7 @@ AUC for 0.8: 0.8839272493446382
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_113_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_113_1.png" /></div>
 
 <h3 id="confusion-matrix-1">Confusion matrix</h3>
 
@@ -1533,7 +1533,7 @@ AUC for 0.8: 0.8839272493446382
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_117_1.png" />
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_117_1.png" />
 </div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot normalized confusion matrix
@@ -1545,7 +1545,7 @@ AUC for 0.8: 0.8839272493446382
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_118_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_118_1.png" /></div>
 
 <h2 id="mse-and-r2">MSE and R2</h2>
 
@@ -1602,7 +1602,7 @@ dtype: float32
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_124_0.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_124_0.png" /></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Testing Accuracy for XG Boost Classifier: {:.4}%"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 </code></pre></div></div>
@@ -1637,7 +1637,7 @@ dtype: float32
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_129_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_129_1.png" /></div>
 
 <h1 id="conclusion">CONCLUSION</h1>
 

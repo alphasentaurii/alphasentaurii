@@ -8,7 +8,7 @@ categories: datascience
 This is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_93_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_93_1.png"></div>
 
 ## HTRU2
 
@@ -31,7 +31,7 @@ Each pulsar produces a slightly different emission pattern, which varies slightl
 The problem is that, in the absence of additional info, each candidate could potentially describe a real pulsar. **However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.** Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_2.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_2.png"></div>
 
 ## The Dataset
 
@@ -204,11 +204,11 @@ hotmap(df, figsize=(10,8))
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_0.png"></div>
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_1.png"></div>
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_2.png">
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_2.png">
 </div>
 
 Target Class Values are highly differentiated for the following features:
@@ -274,7 +274,7 @@ plt.show()
     [GREEN == PULSAR , BLUE == NON-PULSAR]
 
 
-<img src="http://hakkeray.com/assets/images/pulsars/output_22_1.png">
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_22_1.png">
 
 
 The mean and standard deviation of the Skewness Curve if also a good candidate predictor for our target class.
@@ -309,7 +309,7 @@ print ("***************************************")
 
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_24_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_24_1.png"></div>
 
 
 
@@ -320,7 +320,7 @@ plt.show()
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_25_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_25_0.png"></div>
 
 
 ```python
@@ -388,7 +388,7 @@ plt.subplots_adjust(wspace =.4)
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_27_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_27_0.png"></div>
 
 
 ```python
@@ -416,7 +416,7 @@ print ("****************************************************")
 
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_28_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_28_1.png"></div>
 
 
 ```python
@@ -451,7 +451,7 @@ plt.show()
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_29_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_29_0.png"></div>
 
 
 
@@ -483,7 +483,7 @@ plt.show()
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_30_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_30_0.png"></div>
 
 
 ```python
@@ -492,7 +492,7 @@ plt.show()
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_31_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_31_0.png"></div>
 
 
 ```python
@@ -509,7 +509,7 @@ for i,j in itertools.zip_longest(columns,range(length)):
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_32_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_32_0.png"></div>
 
 
 ```python
@@ -526,7 +526,7 @@ for i,j in itertools.zip_longest(columns,range(length)):
     plt.title(i)
 ```
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_33_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_33_0.png"></div>
 
 
 
@@ -550,7 +550,7 @@ sns.scatterplot(x='MEAN_IP', y='KURTOSIS_IP',
 
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_34_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_34_1.png"></div>
 
 
 ```python
@@ -572,7 +572,7 @@ sns.scatterplot(x='SKEWNESS_CURVE', y='KURTOSIS_IP',
 
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_35_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_35_1.png"></div>
 
 
 ```python
@@ -586,7 +586,7 @@ sns.scatterplot(x='KURTOSIS_IP', y='KURTOSIS_CURVE',
                 data=df, ax=ax)
 ```
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_36_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_36_1.png"></div>
 
 
 ```python
@@ -601,7 +601,7 @@ sns.scatterplot(x='KURTOSIS_IP', y='STD_IP',
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_37_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_37_1.png"></div>
 
 
 ```python
@@ -616,7 +616,7 @@ sns.scatterplot(x='KURTOSIS_IP', y='KURTOSIS_CURVE',
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_38_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_38_1.png"></div>
 
 
 # `MODEL`
@@ -804,7 +804,7 @@ Image(graph.create_png())
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_59_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_59_0.png"></div>
 
 
 ## Make Predictions
@@ -978,7 +978,7 @@ plot_confusion_matrix(cnf_matrix, classes=['Non-Pulsar', 'Pulsar'], normalize=Tr
     Normalized confusion matrix
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_72_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_72_1.png"></div>
 
 
 ## Parameter Tuning
@@ -1027,7 +1027,7 @@ plt.show()
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_75_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_75_0.png"></div>
 
 
     Max tree depth optimal value does not improve beyond 3 for test data.
@@ -1076,7 +1076,7 @@ plt.show()
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_78_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_78_0.png"></div>
 
 
     AUC does not improve beyond 0.2 for test data.
@@ -1124,7 +1124,7 @@ plt.show()
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_81_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_81_0.png"></div>
 
     Highest AUC for both train and test data maximized at 0.10.
 
@@ -1170,7 +1170,7 @@ plt.show()
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_84_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_84_0.png"></div>
 
 
     Increasing parameters has no clear effect on training data (flat AUC). 
@@ -1229,7 +1229,7 @@ Image(graph.create_png())
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_89_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_89_0.png"></div>
 
 
 ```python
@@ -1316,7 +1316,7 @@ modelX(dt_clf, X_train, y_train, X_test, y_test, "feat")
     
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_91_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_91_1.png"></div>
 
 
 Kurtosis Integrated Profile ('KURTOSIS_IP') is by far the most important classifying feature when it comes to identifying Pulsars. Let's double check the other metrics with our scaled/transformed data:
@@ -1357,7 +1357,7 @@ modelX(dt_clf, X_train_transformed, y_train, X_test_transformed, y_test, "coef")
                            random_state=None, splitter='best')
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_93_1.png">
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_93_1.png">
 </div>
 
 `F1 Score`
@@ -1479,7 +1479,7 @@ modelX(xgb_clf, X_train_transformed, y_train, X_test_transformed, y_test, "coef"
 
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_106_1.png">
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_106_1.png">
 </div>
 
 ## GridSearchCV
@@ -1602,7 +1602,7 @@ plt.show()
 
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_113_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_113_1.png"></div>
 
 ### Confusion matrix
 
@@ -1684,7 +1684,7 @@ plot_confusion_matrix(cnf_matrix, classes=['Non-Pulsar', 'Pulsar'], normalize=Tr
     Normalized confusion matrix
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_117_1.png">
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_117_1.png">
 </div>
 
 
@@ -1697,7 +1697,7 @@ plot_confusion_matrix(cnf_matrix, classes=['Non-Pulsar', 'Pulsar'], normalize=Fa
     Confusion matrix, without normalization
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_118_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_118_1.png"></div>
 
 
 ## MSE and R2
@@ -1771,7 +1771,7 @@ plot_feature_importances(xgb_clf)
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_124_0.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_124_0.png"></div>
 
 
 ```python
@@ -1814,7 +1814,7 @@ plot_importance(booster=xgb_clf)
 ```
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_129_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_129_1.png"></div>
 
 
 # CONCLUSION

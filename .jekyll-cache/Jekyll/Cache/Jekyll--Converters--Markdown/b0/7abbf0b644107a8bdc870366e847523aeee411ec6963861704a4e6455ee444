@@ -1,4 +1,6 @@
-I"¢"<p>The goal of this data science project was to identify a strategy for increasing the sale price or property value of a given home in this location. To achieve the above goal, I used a <code class="highlighter-rouge">multiple linear regression model</code> to identify the best combination of variables for predicting the <code class="highlighter-rouge">target</code>: price of a home at the time of sale.</p>
+I"ù"<h2 id="predicting-home-values-project-demo">Predicting Home Values Project Demo</h2>
+
+<p>The goal of this data science project was to identify a strategy for increasing the sale price or property value of a given home in this location. To achieve the above goal, I used a <code class="highlighter-rouge">multiple linear regression model</code> to identify the best combination of variables for predicting the <code class="highlighter-rouge">target</code>: price of a home at the time of sale.</p>
 
 <h2 id="watch-the-presentation">Watch the Presentation</h2>
 

@@ -3,6 +3,8 @@ layout: page
 title:  "Predicting Home Values"
 ---
 
+## Predicting Home Values Project Demo
+
 The goal of this data science project was to identify a strategy for increasing the sale price or property value of a given home in this location. To achieve the above goal, I used a `multiple linear regression model` to identify the best combination of variables for predicting the `target`: price of a home at the time of sale.
 
 ## Watch the Presentation

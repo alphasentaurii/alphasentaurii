@@ -1,9 +1,8 @@
-I"<h1 id="top-5-zip-codes-project-demo">Top 5 Zip Codes Project Demo</h1>
+I"ø<h1 id="top-5-zip-codes-project-demo">Top 5 Zip Codes Project Demo</h1>
 
 <p>Top Five Zip Codes is a <code class="highlighter-rouge">housing market prediction model</code> that uses <code class="highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="highlighter-rouge">recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York</code>.</p>
 
 <div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;"><iframe src="https://player.vimeo.com/video/384921005" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-<br /><br /><br /><br /><br />
 </div>
 
 <h2 id="business-case">Business Case</h2>

@@ -44,7 +44,7 @@ When it comes to real estate, or selling anything for that matter, it's absolute
 # Interactive Map: Property Values by Zip Code
 
 <div style="width:600px">
-<img src="http://hakkeray.com/assets/images/king-county/tableau-map-kingcounty.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/tableau-map-kingcounty.png"></div>
 
 ## Goal
 
@@ -58,27 +58,21 @@ The dataset is comprised of over 20,000 home sales between May 2014 - May 2015. 
 
 The model eliminated most of these features, leaving me with just 3: square footage of the home's living area, the graded score of the property, and the zip code as well as latitude and longitude where the property was located.
 
-
 - id
 - date
 - price
----
 - waterfront
 - view
----
 - yr_built
 - yr_renovated
 - condition
 - grade
----
 - zipcode
 - lat
 - long
----
 - bedrooms
 - bathrooms
 - floors
----
 - sqft_above
 - sqft_basement
 - sqft_living
@@ -95,19 +89,19 @@ Let's take a closer look at these "top 3" features.
 This includes the square footage of the basement, but excludes square footage of the land around the home. Not surprisingly, it turns out that homes with a higher square footage of living space tend to have much higher property values. The bigger the house, the higher the sale price. You can see from the scatter plot below that as the property values increase upward, the square-footage also increases to the right.
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/king-county/sqft-living-scatterplot.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/sqft-living-scatterplot.png"></div>
 
 ### 2. Grade
 
 Next, I looked at something called `GRADE`. Each property in the dataset is associated with a score ranging from 1 to 13, 13 being the best. The factors that actually determine that score have to do with the quality of materials in the home, the wood, marble, etc., as well as the quality of carpentry and craftsmanship put into those materials. Much like the scatterplot we saw before, the box plot (below) shows how higher scores in Grade lead to higher property values. 
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/king-county/grade-boxplot.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/grade-boxplot.png"></div>
 
 In the plot below, it's also noticeable that there are far fewer homes that achieve a grade of 13, indicating these homes might be unique in some way, perhaps the architect is well-known, or the materials themselves are rare, all of which factors into the overall grade of the property regardless of how many bedrooms or square-footage of the land, etc. 
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/king-county/grade-scatterplot.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/king-county/grade-scatterplot.png"></div>
 
 # 3. Zip Code
 

@@ -3,17 +3,16 @@ layout: page
 title: Detecting Dead Stars Project Demo
 ---
 
+## Detecting Dead Stars Project Demo
+
 This is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
 
-<iframe src="https://player.vimeo.com/video/389320953" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<div>
+<iframe src="https://player.vimeo.com/video/389320953" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
 
 ## HTRU2
 
 HTRU2 is a data set which describes **a sample of pulsar candidates collected during the High Time Resolution Universe Survey.**
-
-
-<div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_93_1.png"></div>
 
 ## Pulsars
 
@@ -32,7 +31,7 @@ Each pulsar produces a slightly different emission pattern, which varies slightl
 The problem is that, in the absence of additional info, each candidate could potentially describe a real pulsar. **However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.** Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_2.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_2.png"></div>
 
 ## The Dataset
 
@@ -59,24 +58,25 @@ HTRU 2 Summary:
             * 16,259 negative examples
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_91_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_91_1.png"></div>
 
+## Feature Selection
 
 Kurtosis Integrated Profile ('KURTOSIS_IP') is by far the most important classifying feature when it comes to identifying Pulsars. Let's double check the other metrics with our scaled/transformed data:
 
 ## Normalized confusion matrix
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_117_1.png">
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_117_1.png">
 </div>
 
 
 ## Confusion matrix, without normalization
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_118_1.png"></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_118_1.png"></div>
 
-# CONCLUSION
+# Conclusion
 
 I began analysis with a pipeline to determine the most accurate models for predicting a pulsar. After performing Standard Scaling on the dataset, I split the dataset into train-test prediction models for Logistic Regression, Support Vector Machines, Decision Trees and XG Boost. All were fairly accurate, with Decision Trees and XG Boost topping the list for accuracy scores.
 
@@ -84,7 +84,7 @@ I then proceeded with a Decision Tree classifier with balanced class weights, wh
 
 Moving on to XGBoost, the model scored 98% accuracy with an 89% F1 score. The model successfully identify 466 pulsars, missing only 78 which it mistakenly identified as noise.
 
-# RECOMMENDATIONS
+# Recommendations
 
      * Focus on Kurtosis Integrated Profile
  
@@ -93,7 +93,7 @@ Moving on to XGBoost, the model scored 98% accuracy with an 89% F1 score. The mo
      * Validate model predictions with analysis of other celestial objects 
      producing cosmic rays to see if they show the same attributes.
 
-# FUTURE WORK
+# Future Work
 
 1. Improving the model, trying other ways of scaling, balancing class weights.
 

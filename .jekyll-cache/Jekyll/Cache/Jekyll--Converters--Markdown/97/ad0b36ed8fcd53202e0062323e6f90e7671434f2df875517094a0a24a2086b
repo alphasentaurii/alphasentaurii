@@ -1,13 +1,13 @@
-I"�<p>This is a <code class="highlighter-rouge">supervised machine learning feature classification project</code> that uses <code class="highlighter-rouge">Decision Trees and XGBoost</code> to <code class="highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
+I"R<h2 id="detecting-dead-stars-project-demo">Detecting Dead Stars Project Demo</h2>
 
-<iframe src="https://player.vimeo.com/video/389320953" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+<p>This is a <code class="highlighter-rouge">supervised machine learning feature classification project</code> that uses <code class="highlighter-rouge">Decision Trees and XGBoost</code> to <code class="highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
+
+<div>
+<iframe src="https://player.vimeo.com/video/389320953" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 
 <h2 id="htru2">HTRU2</h2>
 
 <p>HTRU2 is a data set which describes <strong>a sample of pulsar candidates collected during the High Time Resolution Universe Survey.</strong></p>
-
-<div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_93_1.png" /></div>
 
 <h2 id="pulsars">Pulsars</h2>
 
@@ -26,7 +26,7 @@
 <p>The problem is that, in the absence of additional info, each candidate could potentially describe a real pulsar. <strong>However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.</strong> Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.</p>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_20_2.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_2.png" /></div>
 
 <h2 id="the-dataset">The Dataset</h2>
 
@@ -55,22 +55,24 @@
 </code></pre></div></div>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_91_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_91_1.png" /></div>
+
+<h2 id="feature-selection">Feature Selection</h2>
 
 <p>Kurtosis Integrated Profile (‘KURTOSIS_IP’) is by far the most important classifying feature when it comes to identifying Pulsars. Let’s double check the other metrics with our scaled/transformed data:</p>
 
 <h2 id="normalized-confusion-matrix">Normalized confusion matrix</h2>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_117_1.png" />
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_117_1.png" />
 </div>
 
 <h2 id="confusion-matrix-without-normalization">Confusion matrix, without normalization</h2>
 
 <div style="width:400px">
-<img src="http://hakkeray.com/assets/images/pulsars/output_118_1.png" /></div>
+<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_118_1.png" /></div>
 
-<h1 id="conclusion">CONCLUSION</h1>
+<h1 id="conclusion">Conclusion</h1>
 
 <p>I began analysis with a pipeline to determine the most accurate models for predicting a pulsar. After performing Standard Scaling on the dataset, I split the dataset into train-test prediction models for Logistic Regression, Support Vector Machines, Decision Trees and XG Boost. All were fairly accurate, with Decision Trees and XG Boost topping the list for accuracy scores.</p>
 
@@ -78,7 +80,7 @@
 
 <p>Moving on to XGBoost, the model scored 98% accuracy with an 89% F1 score. The model successfully identify 466 pulsars, missing only 78 which it mistakenly identified as noise.</p>
 
-<h1 id="recommendations">RECOMMENDATIONS</h1>
+<h1 id="recommendations">Recommendations</h1>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> * Focus on Kurtosis Integrated Profile
  
@@ -88,7 +90,7 @@
  producing cosmic rays to see if they show the same attributes.
 </code></pre></div></div>
 
-<h1 id="future-work">FUTURE WORK</h1>
+<h1 id="future-work">Future Work</h1>
 
 <ol>
   <li>
