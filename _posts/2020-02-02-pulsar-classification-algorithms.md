@@ -5,14 +5,7 @@ date:   2020-02-02 02:02:02 -0800
 categories: datascience
 ---
 
-This is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
-
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_93_1.png"></div>
-
-## HTRU2
-
-HTRU2 is a data set which describes **a sample of pulsar candidates collected during the High Time Resolution Universe Survey.**
+A `supervised machine learning feature classification` project that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
 
 ## Pulsars
 
@@ -30,12 +23,12 @@ Each pulsar produces a slightly different emission pattern, which varies slightl
 
 The problem is that, in the absence of additional info, each candidate could potentially describe a real pulsar. **However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.** Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_2.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_20_2.png" alt="proportion of target variables" title="Proportion of Target Variables" width="400"/></div>
 
 ## The Dataset
 
-The data set shared here contains **16,259 spurious examples caused by RFI/noise**, and **1,639 real pulsar examples**. Each row lists the variables first, and the class label is the final entry. The class labels used are 0 (negative) and 1 (positive).
+HTRU2 is a data set which describes **a sample of pulsar candidates collected during the High Time Resolution Universe Survey.** The data set shared here contains **16,259 spurious examples caused by RFI/noise**, and **1,639 real pulsar examples**. Each row lists the variables first, and the class label is the final entry. The class labels used are 0 (negative) and 1 (positive).
 
 ## Features (variables)
 
@@ -203,32 +196,44 @@ def hotmap(df, figsize=(10,8)):
 hotmap(df, figsize=(10,8))
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_0.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_1.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_2.png">
+## Feature Correlation Heatmap
+
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_20_0.png" alt="feature correlation heatmap" title="Feature Correlation Heatmap" width="400"/>
 </div>
+
+## Descriptive Statistics Heatmap
+
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_20_1.png" alt="descriptive statistics heatmap" title="Descriptive Statistics Heatmap" width="400"/>
+</div>
+
+## Target Variable Proportions
+
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_20_2.png" alt="target variable proportions" title="Target Variable Proportions" width="400"/>
+</div>
+
+# Target Class Values
 
 Target Class Values are highly differentiated for the following features:
     
     * Kurtosis Integrated Profile
     * Skewness Integrated Profile
  
-Other candidates include:
+## Other candidates include:
   
     * Mean Curve
     * Standard Deviation Cruve
     * Kurtosis Curve
     * Skewness Curve
     
-Least likely to be important in distinguishing pulsars and RFI include:
+## Least likely to be important in distinguishing pulsars and RFI:
     
     * Mean Integrated Profile
     * Standard Deviation IP
    
-
+## Plot Mean and Standard Deviation of Features (function)
 
 ```python
 # LINEPLOTS
@@ -273,12 +278,17 @@ plt.show()
 
     [GREEN == PULSAR , BLUE == NON-PULSAR]
 
+## Plot Mean and Standard Deviation of Features (lineplots)
 
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_22_1.png">
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_22_1.png" alt="mean and std feature line plots" title="Mean and STD Feature Line Plots" width="400"/>
+</div>
 
+### Possible Candidate: Skewness Curve
 
-The mean and standard deviation of the Skewness Curve if also a good candidate predictor for our target class.
+The mean and standard deviation of the Skewness Curve appears to stand out as a possible predictor candidate for our target class.
 
+## Plot Feature Distributions (function)
 
 ```python
 # DISTRIBUTION
@@ -307,11 +317,13 @@ print ("***************************************")
     DISTIBUTION OF VARIABLES IN DATA SET
     ***************************************
 
+### Feature Distribution (visual)
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_24_1.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_24_1.png" alt="feature distribution plots" title="Feature Distribution Plots" width="400"/>
+</div>
 
-
+## Feature Pair Plots (function)
 
 ```python
 sns.pairplot(df,hue="TARGET")
@@ -319,23 +331,13 @@ plt.title("pair plot for variables")
 plt.show()
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_25_0.png"></div>
+### Feature Pair Plots
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_25_0.png" alt="feature pair plots" title="Feature Pair Plots" width="400"/>
+</div>
 
-```python
-df.columns
-```
-
-
-
-
-    Index(['MEAN_IP', 'STD_IP', 'KURTOSIS_IP', 'SKEWNESS_IP', 'MEAN_CURVE',
-           'STD_CURVE', 'KURTOSIS_CURVE', 'SKEWNESS_CURVE', 'TARGET'],
-          dtype='object')
-
-
-
+## Scatter plot for skewness and kurtosis of dmsnr_curve (function)
 
 ```python
 # SCATTERPLOTS
@@ -387,9 +389,13 @@ plt.title("Scatter plot for skewness and kurtosis of dmsnr_curve for target clas
 plt.subplots_adjust(wspace =.4)
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_27_0.png"></div>
+### Skewness and Kurtosis of dmsnr_curve (scatterplots)
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_27_0.png" alt="skewness and kurtosis scatterplots" title="Skewness and Kurtosis Scatterplots" width="400"/>
+</div>
+
+## Compare Features Using Boxplots (function)
 
 ```python
 # BOXPLOTS
@@ -414,10 +420,13 @@ print ("****************************************************")
     BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
     ****************************************************
 
+### Compare Features Using Boxplots (visual)
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_28_1.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_28_1.png" alt="compare features boxplots" title="Compare Features Boxplots" width="400"/>
+</div>
 
+## Area/Stack Plots (function)
 
 ```python
 # STACKPLOTS
@@ -449,11 +458,13 @@ plt.legend(loc="best")
 plt.title("Area plot for attributes for pulsar stars vs non pulsar stars")
 plt.show()
 ```
+### Compare Features with Stacked Area Plots (visual)
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_29_0.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_29_0.png" alt="compare features stacked area plots" title="Compare Features Stacked Area Plots" width="400"/>
+</div>
 
-
+## Compare Mean IP vs Standard Deviation IP vs Skewness Curve (function)
 
 ```python
 from mpl_toolkits.mplot3d import Axes3D
@@ -482,18 +493,26 @@ plt.title("MEAN_PROFILE VS STD_PROFILE VS SKEWNESS_DMSNR_CURVE",
 plt.show()
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_30_0.png"></div>
+## Compare Mean IP vs Standard Deviation IP vs Skewness Curve (3D Plot)
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_30_0.png" alt="compare mean IP vs std IP vs skewness curve" title="3D Plot Comparing Mean IP vs STD IP vs Skewness Curve" width="400"/>
+</div>
+
+## Mean Profile vs Standard Deviation Profile Jointplots (function)
 
 ```python
 sns.jointplot(df['MEAN_IP'],df['STD_IP'],kind="kde",scale=10)
 plt.show()
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_31_0.png"></div>
+## Mean Profile vs Standard Deviation Profile Jointplots (visual)
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_31_0.png" alt="Mean Profile vs STD Profile Jointplots" title="Mean Profile vs STD Profile Jointplots" width="400"/>
+</div>
+
+## Compare Features with Violin Plots (function)
 
 ```python
 columns = [x for x in df.columns if x not in ['TARGET']]
@@ -508,9 +527,13 @@ for i,j in itertools.zip_longest(columns,range(length)):
     plt.title(i)
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_32_0.png"></div>
+### Compare Features with Violin Plots (Visual)
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_32_0.png" alt="Compare Features with Violin Plots" title="Compare Features with Violin Plots" width="400"/>
+</div>
+
+## Compare Features with Barplots (function)
 
 ```python
 # BARPLOTS
@@ -525,10 +548,15 @@ for i,j in itertools.zip_longest(columns,range(length)):
                    palette=["blue","lime"],alpha=.7)
     plt.title(i)
 ```
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_33_0.png"></div>
+
+## Compare Features with Barplots (visual)
+
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_33_0.png" alt="Compare Features with Bar Plots" title="Compare Features with Bar Plots" width="400"/>
+</div>
 
 
+## Compare Mean Profile, Kurtosis Profile, Skewness Profile (function)
 
 ```python
 f, ax = plt.subplots(figsize=(6.5, 6.5))
@@ -542,16 +570,13 @@ sns.scatterplot(x='MEAN_IP', y='KURTOSIS_IP',
 
 ```
 
+## Comparing Mean Profile, Kurtosis Profile, Skewness Profile (scatterplot)
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_34_1.png" alt="Compare Mean, Kurtosis, Skewness Profiles Scatterplot" title="Compare Mean, Kurtosis, Skewness Profiles Scatterplot" width="400"/>
+</div>
 
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x123271080>
-
-
-
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_34_1.png"></div>
-
+## Compare Skewness Curve, Kurtosis Profile, Mean Curve (function)
 
 ```python
 f, ax = plt.subplots(figsize=(6.5, 6.5))
@@ -564,16 +589,13 @@ sns.scatterplot(x='SKEWNESS_CURVE', y='KURTOSIS_IP',
                 data=df, ax=ax)
 ```
 
+## Compare Skewness Curve, Kurtosis Profile, Mean Curve (scatterplot)
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_35_1.png" alt="Compare Skewness Curve, Kurtosis Profile, Mean Curve Scatterplot" title="Compare Skewness Curve, Kurtosis Profile, Mean Curve Scatterplot" width="400"/>
+</div>
 
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x124630dd8>
-
-
-
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_35_1.png"></div>
-
+## Compare Kurtosis Profile, Kurtosis Curve, Mean Curve (function)
 
 ```python
 f, ax = plt.subplots(figsize=(6.5, 6.5))
@@ -585,9 +607,14 @@ sns.scatterplot(x='KURTOSIS_IP', y='KURTOSIS_CURVE',
                 sizes=(1, 8), linewidth=0,
                 data=df, ax=ax)
 ```
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_36_1.png"></div>
 
+## Compare Kurtosis Profile, Kurtosis Curve, Mean Curve (scatterplot)
+
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_36_1.png" alt="Compare Kurtosis Profile, Kurtosis Curve, Mean Curve Scatterplot" title="Compare Kurtosis Profile, Kurtosis Curve, Mean Curve Scatterplot" width="400"/>
+</div>
+
+## Compare Kurtosis Profile vs Standard Deviation Profile (function)
 
 ```python
 f, ax = plt.subplots(figsize=(6.5, 6.5))
@@ -599,10 +626,13 @@ sns.scatterplot(x='KURTOSIS_IP', y='STD_IP',
                 sizes=(1, 8), linewidth=0,
                 data=df, ax=ax)
 ```
+## Compare Kurtosis Profile vs Standard Deviation Profile (scatterplot)
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_37_1.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_37_1.png" alt="Compare Kurtosis Profile vs Standard Deviation Profile Scatterplot" title="Compare Kurtosis Profile vs Standard Deviation Profile Scatterplot" width="400"/>
+</div>
 
+## Compare Kurtosis Profile vs Kurtosis Curve (function)
 
 ```python
 f, ax = plt.subplots(figsize=(6.5, 6.5))
@@ -615,9 +645,11 @@ sns.scatterplot(x='KURTOSIS_IP', y='KURTOSIS_CURVE',
                 data=df, ax=ax)
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_38_1.png"></div>
+## Compare Kurtosis Profile vs Kurtosis Curve (scatterplot)
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_38_1.png" alt="Compare Kurtosis Profile vs Kurtosis Curve Scatterplot" title="Compare Kurtosis Profile vs Kurtosis Curve Scatterplot" width="400"/>
+</div>
 
 # `MODEL`
 
@@ -803,9 +835,11 @@ graph = graph_from_dot_data(dot_data)
 Image(graph.create_png())
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_59_0.png"></div>
+## Decision Tree Dot Graph
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_59_0.png" alt="Decision Tree Dot Graph" title="Decision Tree Dot Graph" width="400"/>
+</div>
 
 ## Make Predictions
 
@@ -830,7 +864,7 @@ print('Accuracy is :{0}'.format(acc))
     Accuracy is :96.56339935669544
 
 
-### AUC
+### ROC_AUC (Receiver Operator Characteristics Area Under the Curve)
 
 
 ```python
@@ -975,11 +1009,11 @@ plot_confusion_matrix(cnf_matrix, classes=['Non-Pulsar', 'Pulsar'], normalize=Tr
                       title='Normalized confusion matrix')
 ```
 
-    Normalized confusion matrix
+## Normalized confusion matrix
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_72_1.png"></div>
-
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_72_1.png" alt="Normalized Confusion Matrix" title="Normalized Confusion Matrix" width="400"/>
+</div>
 
 ## Parameter Tuning
     
@@ -1026,9 +1060,11 @@ plt.legend()
 plt.show()
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_75_0.png"></div>
+## AUC Curve Plot
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_75_0.png" alt="Area Under the Curve" title="Area Under the Curve" width="400"/>
+</div>
 
     Max tree depth optimal value does not improve beyond 3 for test data.
 
@@ -1075,9 +1111,9 @@ plt.legend()
 plt.show()
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_78_0.png"></div>
-
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_78_0.png" alt="Area Under the Curve 2" title="Area Under the Curve 2" width="400"/>
+</div>
 
     AUC does not improve beyond 0.2 for test data.
 
@@ -1123,8 +1159,9 @@ plt.legend()
 plt.show()
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_81_0.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_81_0.png" alt="Area Under the Curve 3" title="Area Under the Curve 3" width="400"/>
+</div>
 
     Highest AUC for both train and test data maximized at 0.10.
 
@@ -1169,9 +1206,9 @@ plt.legend()
 plt.show()
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_84_0.png"></div>
-
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_84_0.png" alt="Area Under the Curve 4" title="Area Under the Curve 4" width="400"/>
+</div>
 
     Increasing parameters has no clear effect on training data (flat AUC). 
     Optimal value for test data is 5.
@@ -1228,9 +1265,9 @@ graph = graph_from_dot_data(dot_data)
 Image(graph.create_png())
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_89_0.png"></div>
-
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_89_0.png" alt="Dot Graph 2" title="Dot Graph 2" width="400"/>
+</div>
 
 ```python
 def modelX(algorithm, X_train, y_train, X_test, y_test, of_type):
@@ -1315,9 +1352,12 @@ modelX(dt_clf, X_train, y_train, X_test, y_test, "feat")
     weighted avg       0.97      0.97      0.97      5907
     
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_91_1.png"></div>
 
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_91_1.png" alt="Model Statistics" title="Model Statistics" width="400"/>
+</div>
+
+## Feature Importance: Kurtosis IP
 
 Kurtosis Integrated Profile ('KURTOSIS_IP') is by far the most important classifying feature when it comes to identifying Pulsars. Let's double check the other metrics with our scaled/transformed data:
 
@@ -1356,11 +1396,13 @@ modelX(dt_clf, X_train_transformed, y_train, X_test_transformed, y_test, "coef")
                            min_weight_fraction_leaf=0.0, presort=False,
                            random_state=None, splitter='best')
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_93_1.png">
+
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_93_1.png" alt="Model 2 Characteristics" title="Model 2 Characteristics" width="400"/>
 </div>
 
-`F1 Score`
+## F1 Score
+
 The F1 score (also F-score or F-measure) is a measure of a test's accuracy. It considers both the precision p and the recall r of the test to compute the score: p is the number of correct positive results divided by the number of all positive results returned by the classifier, and r is the number of correct positive results divided by the number of all relevant samples (all samples that should have been identified as positive). The F1 score is the harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.
 
 `Harmonic Mean`
@@ -1477,9 +1519,8 @@ modelX(xgb_clf, X_train_transformed, y_train, X_test_transformed, y_test, "coef"
                   reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=None,
                   silent=None, subsample=1, verbosity=1)
 
-
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_106_1.png">
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_106_1.png" alt="Model Characteristics" title="Model Characteristics" width="400"/>
 </div>
 
 ## GridSearchCV
@@ -1600,9 +1641,9 @@ plt.show()
     ----------------------------------------------
     AUC for 0.8: 0.8839272493446382
 
-
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_113_1.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_113_1.png" alt="Area Under the Curve" title="Area Under the Curve" width="400"/>
+</div>
 
 ### Confusion matrix
 
@@ -1683,10 +1724,9 @@ plot_confusion_matrix(cnf_matrix, classes=['Non-Pulsar', 'Pulsar'], normalize=Tr
 
     Normalized confusion matrix
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_117_1.png">
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_117_1.png" alt="Normalized Confusion Matrix" title="Normalized Confusion Matrix" width="400"/>
 </div>
-
 
 ```python
 # Plot normalized confusion matrix
@@ -1696,9 +1736,9 @@ plot_confusion_matrix(cnf_matrix, classes=['Non-Pulsar', 'Pulsar'], normalize=Fa
 
     Confusion matrix, without normalization
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_118_1.png"></div>
-
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_118_1.png" alt="Confusion Matrix" title="Confusion Matrix" width="400"/>
+</div>
 
 ## MSE and R2
 
@@ -1770,9 +1810,9 @@ def plot_feature_importances(model):
 plot_feature_importances(xgb_clf)
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_124_0.png"></div>
-
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_124_0.png" alt="Feature Importance" title="Feature Importance" width="400"/>
+</div>
 
 ```python
 print("Testing Accuracy for XG Boost Classifier: {:.4}%".format(accuracy_score(y_test, y_pred) * 100))
@@ -1813,15 +1853,20 @@ from xgboost import plot_importance
 plot_importance(booster=xgb_clf)
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_129_1.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_129_1.png" alt="feature importance labeled" title="Feature Importance Labeled" width="400"/>
+</div>
 
 
-# CONCLUSION
+# Summary
 
 I began analysis with a pipeline to determine the most accurate models for predicting a pulsar. After performing Standard Scaling on the dataset, I split the dataset into train-test prediction models for Logistic Regression, Support Vector Machines, Decision Trees and XG Boost. All were fairly accurate, with Decision Trees and XG Boost topping the list for accuracy scores.
 
+## Decision Tree Performance
+
 I then proceeded with a Decision Tree classifier with balanced class weights, which did fairly well, scoring 96% accuracy. However, because of the imbalanced classes, the F1 score is our most important validator for model accuracy, and the Decision Tree classifier scored 82%.
+
+## XGBoost Performance
 
 Moving on to XGBoost, the model scored 98% accuracy with an 89% F1 score. The model successfully identify 466 pulsars, missing only 78 which it mistakenly identified as noise.
 
@@ -1839,3 +1884,15 @@ Moving on to XGBoost, the model scored 98% accuracy with an 89% F1 score. The mo
 1. Improving the model, trying other ways of scaling, balancing class weights.
 
 2. Looking at stars right before they die - predicting whether or not it will become a pulsar or not (could be slightly impossible considering stars live for billions  of years…)
+
+## CODE
+
+[github repo](https://github.com/hakkeray/detecting-dead-stars-in-deep-space)
+
+## CONTACT 
+
+<a href="mailto:rukeine@gmail.com">rukeine@gmail.com</a>
+
+## LICENSE
+
+[MIT License](/LICENSE.html)
