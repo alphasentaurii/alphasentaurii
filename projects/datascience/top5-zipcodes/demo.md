@@ -41,57 +41,80 @@ Since commute time to Grand Central Station is part of the client's required cri
 
 ### Mean Values by Train Line
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/meanvalues_area.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/timeseries/meanvalues_area.png" alt="Mean Values by Train Line Area Plot" title="Mean Values by Train Line Area Plot" width="400"/>
+</div>
 
 ### New Haven line
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/newhaven_mapTime.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/timeseries/newhaven_mapTime.png" alt="New Haven Line Zip Code Timeseries" title="New Haven Line Zip Code Timeseries" width="400"/>
+</div>
+
+### NOTE
 
 Note that this does not include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state. 
 
 ### Harlem Line
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/harlem_mapTime.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/timeseries/harlem_mapTime.png" alt="Harlem Line Zip Code Timeseries" title="Harlem Line Zip Code Timeseries" width="400"/>
+</div>
 
 ### Hudson Line
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/hudson_mapTime.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/timeseries/hudson_mapTime.png" alt="Hudson Line Zip Code Timeseries" title="Hudson Line Zip Code Timeseries" width="400"/>
+</div>
 
-## GridsearchCV with SARIMAX
-
-I then ran a gridsearch using a Seasonal ARIMA (SARIMAX) model to make forecast predictions on all 61 zip codes in Westchester County. Using PANDAS, I narrowed down the list by top 10 highest ROI zip codes. I then identified which of these had the lowest confidence intervals in order to ensure I was only selecting the most accurate results.
-
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/conf_roi_pred_3D.png"></div>
-
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/conf_roi_heatmap.png"></div>
 
 ## TOP FIVE ZIP CODES
 
 The top five I selected based on the above criteria were 10549, 10573, 10604, 10605, 10706:
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10549.png"></div>
+## TOP FIVE RECOMMENDATIONS
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10573.png"></div>
+The top five results that fit the required criteria were 10549, 10573, 10604, 10605, 10706:
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10604.png"></div>
+## 10549
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10605.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10549.png" alt="timeseries 10549" title="timeseries 10549" width="400"/>
+</div>
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10706.png"></div>
+## 10573
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/top5_final_mapTime.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10573.png" alt="timeseries 10573" title="timeseries 10573" width="400"/>
+</div>
+
+## 10604
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10604.png" alt="timeseries 10604" title="timeseries 10604" width="400"/>
+</div>
+
+## 10605
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10605.png" alt="timeseries 10605" title="timeseries 10605" width="400"/>
+</div>
+
+## 10706
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10706.png" alt="timeseries 10706" title="timeseries 10706" width="400"/>
+</div>
+
+## Top Five Zip Codes in Westchester County
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/top5_final_mapTime.png" alt="top five zipcodes timeseries" title="top five zip codes timeseries" width="400"/>
+</div>
+
+## FUTURE WORK
+
+My client was keen on accounting for public school districts, which upon initial inspection would have required a great deal of manual plug and play. However, if there is an API or some other way to scrape this data from the web, I would definitely incorporate school districts as an exogenous factor for the sake of making recommendations for a client. Someone might actually *not* prefer schools with a rating of 10 as these tend to be predominantly all-white. My client in particular was looking for decent school districts below the 10-mark because she wants her child to grow up in a more ethnically-diverse community. Being able to account for such preferences would be part of the future work of this project.
 
 ## Contact
 

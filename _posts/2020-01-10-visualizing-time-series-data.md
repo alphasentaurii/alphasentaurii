@@ -3,16 +3,20 @@ layout: post
 title:  "Visualizing Time Series Data"
 date:   2020-01-10 10:23:47 -0800
 categories: datascience
+tags: timeseries real-estate
 ---
 
-# Time Series Forecasting with SARIMAX and Gridsearch
+`Time Series Forecasting with SARIMAX and Gridsearch` is a `housing market prediction model` that uses `seasonal ARIMA time-series analysis and GridsearchCV` to `recommend the top 5 zip codes` for purchasing a single-family home in Westchester, New York. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels. 
 
-Time Series Forecasting with SARIMAX and Gridsearch is a `housing market prediction model` that uses `seasonal ARIMA time-series analysis and GridsearchCV` to `recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York`.
+## Making Forecast Predictions by Zip Code
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10605.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10605.png" alt="forecast predictions by zip code" title="Forecast Predictions by Zip Code" width="400"/>
+</div>
 
-Prior to training, I set out to identify trends, seasonality, and autoregression elements within the Zillow Housing Market Dataset. I then use a fitting procedure to find the coefficients of a regression model, including several plots and statistical tests of the residual errors along the way. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels. 
+## Summary
+
+Prior to training, I set out to identify trends, seasonality, and autoregression elements within the Zillow Housing Market Dataset. I then use a fitting procedure to find the coefficients of a regression model, including several plots and statistical tests of the residual errors along the way. 
 
 ## Prerequisites
 
@@ -25,143 +29,158 @@ Before you begin, ensure you have met the following requirements:
 
 To run this project locally, follow these steps:
 
-In the command line/terminal:
+* In the command line/terminal:
 
 ```
 $ git clone https://github.com/hakkeray/timeseries-forecasting-with-sarimax-and-gridsearch
 $ cd timeseries-forecasting-with-sarimax-and-gridsearch
 $ jupyter notebook
 ```
-Please note that the Zillow data set contains millions of US Zipcodes. If you want to fork this project and follow along with some of the steps I took, you can apply the same model I did to a completely different county. The only part that you'll need to skip (or adjust) is the Metro North railroad section, since this only applies to Westchester County, New York. 
+
+Please note that the Zillow data set contains *millions* of US Zipcodes. If you want to fork this project and follow along with some of the steps I took, you can apply the same model I did to a completely different county. The only part that you'll need to skip (or adjust) is the Metro North railroad section, since this only applies to Westchester County, New York. 
 
 ## Business Case
 
-**Goal**
-
 Recommend top 5 zipcodes for client interested in buying a single-family home in Westchester County, NY within the next two years.
 
-**Required Parameters (CLIENT)**
+## Required Parameters (from Client)
 
 1. Timeframe: Purchase of new home would take place within the next two years
 2. Budget: Cost to buy not to exceed `800,000 USD` maximum
 3. Location: Zip Code search radius restricted to Westchester County, New York
 
-**Ideal Parameters (CLIENT)**
+## Ideal Parameters (from Client)
 
 * Commute: Towns/Villages having shortest/fastest commute New York City
 * School District: Zip codes include towns with A/A+ school district rating
 
-**Success Criteria for Model**
+## Success Criteria for Model
+
 1. Maximum ROI (highest forecasted home value increase for lowest upfront cost)
-2. Confidence Intervals
-3. Exogenous factors (requires external data)
-4. Risk mitigation: financial stability of homeowners and homes based on historic data
+2. Lowest Confidence Intervals (using the prediction mean)
+3. Risk mitigation: financial stability of homeowners and homes based on historic data
+
+## Objective
 
 Make forecast predictions for zip codes and their mean home values using Seasonal ARIMA time-series analysis.
 
+## Commute Times
+
+Since commute time to Grand Central Station is part of the client's required criteria, I first had to look up which towns/zip codes were on which train lines. Grand Central has 3 main lines on Metro North Railroad: Hudson, Harlem, and New Haven. The first question I was interested in answering was if the average home prices for the zip codes that fall under these geographic sections display any trends.
 
 ## Model
 
 Make forecast predictions for zip codes and their mean home values using Seasonal ARIMA time-series analysis.
 
-**Model Identification**
+### 1. Model Identification
+
 * Plots and summary statistics
 * Identify trends, seasonality, and autoregression elements
 * Get an idea of the amount of differencing and size of lag that will be required.
 
-**Parameter Estimation**
+### 2. Parameter Estimation
+
 * Use a fitting procedure to find the coefficients of the regression model.
 * split data into train and test sets.
 
-**Model Checking**
+### 3. Model Checking
+
 * Plots and statistical tests of the residual errors
 * Determine the amount and type of temporal structure not captured by the model.
 
-The process is repeated until a desirable level of fit is achieved on the in-sample or out-of-sample observations (e.g. training or test datasets).
+### 4. Forecasting
 
-**Forecasting**
 * Input complete time-series and get prediction values
 * Identify top 5 zip codes based on required criteria (above).
 
-
-
 ## Workflow
 
-IMPORT
+#### IMPORT
 - Import libraries, functions and dataset
 
-PREPROCESSING
+#### PREPROCESSING
 - Reshape data format (Wide to Long): `pd.melt()` function
 - convert datetime column to datetime objects
 - set datetime col to index
 
-RESAMPLING
+#### RESAMPLING
 - Groupby state, county, cities (`get_groups()`)
 - filter by zipcodes in selected New York cities in Westchester County
 - EDA & visualizations
 
-PARAMETERS
-- seasonal decompositon
+#### PARAMETERS
+- seasonal decomposition
 - decomposed residuals
 - plot time series
 - Check for stationarity
 - pmdarima (differencing)
 
-INITIAL MODEL
+#### INITIAL MODEL
 - Split train/test by integer index based on len(data)//test_size
-- train ARIMA model
+- Train ARIMA model
 - Model results/summary for each independent zipcode
 
-REVISED MODEL
+#### REVISED MODEL
 - Seasonal Arima (SARIMA)
 - Exogenous Data
 - SARIMAX
 
-FORECAST
+#### FORECAST
 - Get predictions for test set.
 - Get another set of predictions built off of train+test set combined.
 
-INTERPRET
+#### INTERPRET
 - Analyze Results
 - Summarize Findings
 - Make Recommendations
-
 
 ## Mean Values by Train Line
 
 Since commute time to Grand Central Station is part of the client's required criteria, I first had to look up which towns/zip codes were on which train lines. Grand Central has 3 main lines on Metro North Railroad: Hudson, Harlem, and New Haven. The first question I was interested in answering was if the average home prices for the zip codes that fall under these geographic sections display any trends. 
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/meanvalues_area.png"></div>
+### Area Plot
 
-### New Haven line
+<div style="background-color:white">
+<img src="/assets/images/timeseries/meanvalues_area.png" alt="Mean Values by Train Line Area Plot" title="Mean Values by Train Line Area Plot" width="400"/>
+</div>
 
-Note that this does not include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state. 
+### New Haven line 
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/newhaven_mapTime.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/timeseries/newhaven_mapTime.png" alt="New Haven Line Zip Code Timeseries" title="New Haven Line Zip Code Timeseries" width="400"/>
+</div>
+
+#### NOTE
+
+Note that the plot above _does not_ include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state.
 
 ### Harlem Line
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/harlem_mapTime.png"></div>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/harlem_mapTime.png" alt="Harlem Line Zip Code Timeseries" title="Harlem Line Zip Code Timeseries" width="400"/>
+</div>
 
 ### Hudson Line
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/hudson_mapTime.png"></div>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/hudson_mapTime.png" alt="Hudson Line Zip Code Timeseries" title="Hudson Line Zip Code Timeseries" width="400"/>
+</div>
 
 ## Custom Time Series Analysis Functions (python)
-To generate the plots above (as well as others) I wrote a couple of custom functions in python:
 
-* mapTime()
+Below is the `mapTime()` function I wrote for generating the timeseries plots above.
 
 #### `mapTime()`
 
 ```python
 def mapTime(d, xcol, ycol='MeanValue', X=None, vlines=None, MEAN=True):
     """
-    'Maps' a timeseries plot of zipcodes 
+    'Maps' a timeseries plot of zipcodes, you can input either a dataframe
+    or a dictionary of dataframes.
+
     
-    # fig,ax = mapTime(d=HUDSON, xcol='RegionName', ycol='MeanValue', MEAN=True, vlines=None)
+    # fig,ax = mapTime(d=HUDSON, xcol='RegionName', ycol='MeanValue', 
+                       MEAN=True, vlines=None)
     
     **ARGS
     d: takes a dictionary of dataframes OR a single dataframe
@@ -255,24 +274,53 @@ def mapTime(d, xcol, ycol='MeanValue', X=None, vlines=None, MEAN=True):
 
 ## Seasonality and Trends
 
-To check for seasonality and remove trends, I also wrote a custom function to generate all the necessary time series analysis plots in one shot. This is really handy for not having to repeat steps over and over again:
+To check for seasonality and remove trends, I also wrote a custom function to generate all the necessary time series analysis plots in one shot. This is really handy for not having to repeat steps over and over again (um, yes that is the point of any function...):
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/output_50_1.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/output_50_2.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/output_50_3.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/output_50_4.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/output_50_5.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/output_50_6.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/output_65_0.png"></div>
+### Autocorrelation
 
-All of the above are generated with the clockTime() function:
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_1.png" alt="autocorrelation" title="Autocorrelation" width="400"/>
+</div>
+
+### Differencing
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_2.png" alt="differencing" title="differencing" width="400"/>
+</div>
+
+### Seasonality
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_3.png" alt="seasonality" title="seasonality" width="400"/>
+</div>
+
+### Partial Autocorrelation
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_4.png" alt="partial autocorrelation" title="Partial Autocorrelation" width="400"/>
+</div>
+
+### Rolling Mean and Standard Deviation
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_5.png" alt="rolling mean and standard deviation" title="Rolling Mean and Standard Deviation" width="400"/>
+</div>
+
+### Check for Seasonality
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_6.png" alt="check for seasonality" title="Checking for Seasonality" width="400"/>
+</div>
+
+### Residual, Density, QQ, and Correlogram
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_65_0.png" alt="residual density qq and correlogram" title="Residual, Density, QQ, and Correlogram" width="400"/>
+</div>
+
+## Creating the Visuals with `clockTime()`
+
+All of the above are generated in one shot with the clockTime() function:
 
 ```python
 def clockTime(ts, lags, d, TS, y):
@@ -464,30 +512,63 @@ def clockTime(ts, lags, d, TS, y):
 
 ## GridsearchCV with SARIMAX
 
-I then ran a gridsearch using a Seasonal ARIMA (SARIMAX) model to make forecast predictions on all 66 zip codes in Westchester County.
+I then ran a gridsearch using a Seasonal ARIMA (SARIMAX) model to make forecast predictions on all 61 zip codes in Westchester County. Using PANDAS, I narrowed down the list by top 10 highest ROI zip codes. I then identified which of these had the lowest confidence intervals in order to ensure I was only selecting the most accurate results.
 
-Using PANDAS, I narrowed down the list by top 10 highest ROI zip codes. I then identified which of these had the lowest confidence intervals in order to ensure I was only selecting the most accurate results.
+### Confidence Intervals and ROI Predictions (3D Graph)
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/conf_roi_pred_3D.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/timeseries/conf_roi_pred_3D.png" alt="conf roi pred 3D" title="Confidence Intervals and ROI Predictions in 3D" width="400"/>
+</div>
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/conf_roi_heatmap.png"></div>
+### Confidence Intervals and ROI (Heatmap)
 
-The top five I selected based on the above criteria were 10549, 10573, 10604, 10605, 10706:
+<div style="background-color:white">
+<img src="/assets/images/timeseries/conf_roi_heatmap.png" alt="conf roi pred heatmap" title="Confidence Intervals and ROI Predictions Heatmap" width="400"/>
+</div>
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10549.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10573.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10604.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10605.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/10706.png"></div>
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/timeseries/top5_final_mapTime.png"></div>
+## TOP FIVE RECOMMENDATIONS
+
+The top five results that fit the required criteria were 10549, 10573, 10604, 10605, 10706:
+
+## 10549
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10549.png" alt="timeseries 10549" title="timeseries 10549" width="400"/>
+</div>
+
+## 10573
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10573.png" alt="timeseries 10573" title="timeseries 10573" width="400"/>
+</div>
+
+## 10604
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10604.png" alt="timeseries 10604" title="timeseries 10604" width="400"/>
+</div>
+
+## 10605
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10605.png" alt="timeseries 10605" title="timeseries 10605" width="400"/>
+</div>
+
+## 10706
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10706.png" alt="timeseries 10706" title="timeseries 10706" width="400"/>
+</div>
+
+## Top Five Zip Codes in Westchester County
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/top5_final_mapTime.png" alt="top five zipcodes timeseries" title="top five zip codes timeseries" width="400"/>
+</div>
+
+## FUTURE WORK
+
+My client was keen on accounting for public school districts, which upon initial inspection would have required a great deal of manual plug and play. However, if there is an API or some other way to scrape this data from the web, I would definitely incorporate school districts as an exogenous factor for the sake of making recommendations for a client. Someone might actually *not* prefer schools with a rating of 10 as these tend to be predominantly all-white. My client in particular was looking for decent school districts below the 10-mark because she wants her child to grow up in a more ethnically-diverse community. Being able to account for such preferences would be part of the future work of this project.
 
 ## Contact
 
@@ -495,4 +576,5 @@ If you want to contact me you can reach me at <rukeine@gmail.com>.
 
 ## License
 
-This project uses the following license: [MIT License](/LICENSE.md).
+This project uses the [MIT License](/LICENSE.md).
+

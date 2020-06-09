@@ -5,7 +5,7 @@ title: Starskøpe Project Demo
 
 ## Starskøpe Project Demo
 
-The main vision for STARSKØPE is to build a model that is not limited to analyzing data from just one telescope, but multiple telescopes. In other words, we can use machine learning to break the barriers of time and space that limit astrophysical object classification to just one telescope, or one campaign. Telescopic becomes cyberoptic, and human intelligence is extended by artificial intelligence.
+The main vision for `STARSKØPE` is to build a model that is not limited to analyzing data from just one telescope, but multiple telescopes. The question is: can we use machine learning to break the barriers of time and space that limit astrophysical object classification to just one telescope, or one campaign? _Where *Telescopic becomes cyberoptic*, and human intelligence is extended by artificial intelligence._
 
 <div>
 <iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
@@ -56,7 +56,7 @@ An exoplanet is a planet outside of our solar system, and that’s what we’re 
 
 Flux is a variation or change in light values of stars in this case. We will analyze flux values to make a prediction on whether or not a star may host a planet in its orbit.
 
-### TCE (Threshold Crossing Event
+### TCE (Threshold Crossing Event)
 
 TCE or Threshold Crossing Event is what you see in the drawing there, the big yellow thing is a star, the red line represents level of brightness of the light emitted by the star, and when the black dot (which is a planet orbiting the star) crosses in front, it blocks some of the light coming toward us (if we’re a telescope), so the values drop for a period of time, then go back up after the planet is no longer. So for this analysis, we’re looking for that drop.
 
@@ -68,18 +68,17 @@ NASA’s K2 mission included 20 campaigns, and for this initial phase of the pro
 
 Campaign 3 includes flux values of stars in just one patch of sky over a period of time. Each campaign was supposed to be about 80 days before the telescope moved on to another of stars, however, just to make things more complicated, Campaign 3 was only around 60 days due to a technical issue in its data processing (I believe it ran out of disk space!).
 
-***
-
 ## Model (Neural Network)
+
 Training a neural network - this would be the brain of the artificial telescope, we are teaching it to identify which stars host planets, and which ones do not.
 
 ## Dataset
 
 This artist’s interpretation of  a TCE is slightly more accurate than the other drawing, at least as far as scale goes. 
 
-<div style="width:400px">
-<img class="responsive-img" src="http://hakkeray.com/assets/images/starskope/288_planetbleed1600.jpeg">
-</div>
+### Threshold Crossing Event (Artist's Interpretation)
+
+<img src="/assets/images/starskope/288_planetbleed1600.jpeg" alt="Threshold Crossing Event" title="Planet Bleed: Threshold Crossing Event" width="400"/></div>
 
 The training data including 3,197 flux observations for 5,087 stars: 37 of the stars have confirmed planets. The test data included 570 stars for testing the model: only 5 of the stars have confirmed planets.
 
@@ -126,6 +125,7 @@ Some statistical measurements to mathematically assess the model’s performance
 To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectrographs of this same data set then look at a larger dataset using an API with AWS. I will start with a Keras convolutional neural network as I did in this first phase, but ultimately the goal is to use Restricted Boltzmann Machines for each model, and then layer each model together to build a Deep Boltzman Machine that combines light curves, spectrographs, and full frame images from all three telescopes (K2, Kepler and TESS) wherever there is overlap in their campaigns.
 
 ## Future Vision
+
 The ultimate vision for this work will be to develop STARSKØPE into a front-end application that any astrophysicist can use to look at a single or collection of stars and have the model classify them according not only to exoplanet predictions, but also predict what type of star it is, and other key properties that would be of interest for astrophysical science applications.
 
 ## Read More
@@ -148,11 +148,23 @@ For a more in-depth story about this project and some code examples, check out [
 
 ### Documentation
 
-* Kepler Instrument Handbook and Supplement: https://keplerscience.arc.nasa.gov/data/documentation/KSCI-19033-001.pdf
+* [Kepler Instrument Handbook and Supplement](https://keplerscience.arc.nasa.gov/data/documentation/KSCI-19033-001.pdf)
 
-* K2 Handbook: http://archive.stsci.edu/k2/manuals/k2_handbook.pdf
+* [K2 Handbook](http://archive.stsci.edu/k2/manuals/k2_handbook.pdf)
 
 
 ### Data
 
-* Exoplanet Hunting in Deep Space: https://github.com/winterdelta/KeplerAI
+* [Exoplanet Hunting in Deep Space](https://github.com/winterdelta/KeplerAI)
+
+## CODE
+
+[github repo](https://github.com/hakkeray/starskope)
+
+## CONTACT 
+
+<a href="mailto:rukeine@gmail.com">rukeine@gmail.com</a>
+
+## LICENSE
+
+[MIT License](/LICENSE.html)

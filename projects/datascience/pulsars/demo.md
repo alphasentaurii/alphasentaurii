@@ -3,16 +3,14 @@ layout: page
 title: Detecting Dead Stars Project Demo
 ---
 
-## Detecting Dead Stars Project Demo
+## PROJECT DEMO: Detecting Dead Stars in Deep Space
 
 This is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
 
-<div>
-<iframe src="https://player.vimeo.com/video/389320953" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
-
-## HTRU2
-
-HTRU2 is a data set which describes **a sample of pulsar candidates collected during the High Time Resolution Universe Survey.**
+<div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;">
+<iframe src="https://player.vimeo.com/video/389320953" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts"></iframe>
+    <br /><br />
+</div>
 
 ## Pulsars
 
@@ -30,12 +28,12 @@ Each pulsar produces a slightly different emission pattern, which varies slightl
 
 The problem is that, in the absence of additional info, each candidate could potentially describe a real pulsar. **However in practice almost all detections are caused by radio frequency interference (RFI) and noise, making legitimate signals hard to find.** Thus, legitimate pulsar examples are a minority positive class, and spurious examples the majority negative class.
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_20_2.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_20_2.png" alt="proportion of target variables" title="Proportion of Target Variables" width="400"/></div>
 
 ## The Dataset
 
-The data set shared here contains **16,259 spurious examples caused by RFI/noise**, and **1,639 real pulsar examples**. Each row lists the variables first, and the class label is the final entry. The class labels used are 0 (negative) and 1 (positive).
+HTRU2 is a data set which describes **a sample of pulsar candidates collected during the High Time Resolution Universe Survey.** The data set shared here contains **16,259 spurious examples caused by RFI/noise**, and **1,639 real pulsar examples**. Each row lists the variables first, and the class label is the final entry. The class labels used are 0 (negative) and 1 (positive).
 
 ## Features (variables)
 
@@ -57,30 +55,38 @@ HTRU 2 Summary:
             * 1,639 positive examples
             * 16,259 negative examples
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_91_1.png"></div>
-
 ## Feature Selection
 
 Kurtosis Integrated Profile ('KURTOSIS_IP') is by far the most important classifying feature when it comes to identifying Pulsars. Let's double check the other metrics with our scaled/transformed data:
 
+### Confusion Matrix, ROC_AUC, Feature Importances
+
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_91_1.png" alt="confusion matrix ROC AUC and feature importances" title="Confusion Matrix ROCAUC and Feature Importances" width="400"/>
+</div>
+
 ## Normalized confusion matrix
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_117_1.png">
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_117_1.png" alt="normalized confusion matrix" title="Normalized Confusion Matrix" width="400"/>
 </div>
 
 
 ## Confusion matrix, without normalization
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/pulsars/output_118_1.png"></div>
+<div style="background-color:white">
+<img src="/assets/images/pulsars/output_118_1.png" alt="confusion matrix" title="Confusion Matrix" width="400"/>
+</div>
 
-# Conclusion
+# Summary (Re-Cap)
 
 I began analysis with a pipeline to determine the most accurate models for predicting a pulsar. After performing Standard Scaling on the dataset, I split the dataset into train-test prediction models for Logistic Regression, Support Vector Machines, Decision Trees and XG Boost. All were fairly accurate, with Decision Trees and XG Boost topping the list for accuracy scores.
 
+## Decision Tree Performance
+
 I then proceeded with a Decision Tree classifier with balanced class weights, which did fairly well, scoring 96% accuracy. However, because of the imbalanced classes, the F1 score is our most important validator for model accuracy, and the Decision Tree classifier scored 82%.
+
+## XGBoost Performance
 
 Moving on to XGBoost, the model scored 98% accuracy with an 89% F1 score. The model successfully identify 466 pulsars, missing only 78 which it mistakenly identified as noise.
 
@@ -98,3 +104,15 @@ Moving on to XGBoost, the model scored 98% accuracy with an 89% F1 score. The mo
 1. Improving the model, trying other ways of scaling, balancing class weights.
 
 2. Looking at stars right before they die - predicting whether or not it will become a pulsar or not (could be slightly impossible considering stars live for billions  of years…)
+
+## CODE
+
+[github repo](https://github.com/hakkeray/detecting-dead-stars-in-deep-space)
+
+## CONTACT 
+
+<a href="mailto:rukeine@gmail.com">rukeine@gmail.com</a>
+
+## LICENSE
+
+[MIT License](/LICENSE.html)
