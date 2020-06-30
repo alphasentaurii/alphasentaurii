@@ -118,7 +118,7 @@ Some statistical measurements to mathematically assess the model’s performance
 
 3. Explore using computer vision on not only the Full Frame images we can collect from telescopes like TESS, but also on spectrographs of the flux values themselves.
 
-4. Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we've seen applied the MNIST dataset - let's find out if the same is true for images of stars or their spectrographs.  
+4. Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we've seen applied the MNIST dataset - let's find out if the same is true for images of stars or their spectrographs.
 
 ## Future Work
 

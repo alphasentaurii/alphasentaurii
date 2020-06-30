@@ -1,4 +1,4 @@
-I"b,<h2 id="starskøpe-project-demo">Starskøpe Project Demo</h2>
+I"\,<h2 id="starskøpe-project-demo">Starskøpe Project Demo</h2>
 
 <p>The main vision for <code class="highlighter-rouge">STARSKØPE</code> is to build a model that is not limited to analyzing data from just one telescope, but multiple telescopes. The question is: can we use machine learning to break the barriers of time and space that limit astrophysical object classification to just one telescope, or one campaign? <em>Where *Telescopic becomes cyberoptic*, and human intelligence is extended by artificial intelligence.</em></p>
 
@@ -118,7 +118,7 @@
     <p>Explore using computer vision on not only the Full Frame images we can collect from telescopes like TESS, but also on spectrographs of the flux values themselves.</p>
   </li>
   <li>
-    <p>Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we’ve seen applied the MNIST dataset - let’s find out if the same is true for images of stars or their spectrographs.  </p>
+    <p>Explore using autoencoded machine learning algorithms with Restricted Boltzmann Machines - this type of model has proven to be incredibly effective in the image analysis of handwriting as we’ve seen applied the MNIST dataset - let’s find out if the same is true for images of stars or their spectrographs.</p>
   </li>
 </ol>
 

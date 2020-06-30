@@ -5,8 +5,6 @@ date:   2020-04-01 11:11:11 -1111
 categories: datascience
 ---
 
-# Intro
-
 As I began preparing for this project I felt intuitively it would be somewhat ridiculous for me to build neural networks for classifying astrophysical data if I didn't fully grasp how and why the equations used to calculate my findings actually work.
 
 ## Let's Ask Mr. Feynman

@@ -2,7 +2,7 @@
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
   {%- include head.html -%}
-
+  
   <body>
     
     <div class="container">
@@ -11,7 +11,7 @@
         {% include navigation.html %}
         
     <main style="z-index: 99; position: relative;">
-      
+
       {{ content }}
       {%- include kali.html -%}
     </main>
