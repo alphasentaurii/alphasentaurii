@@ -1,5 +1,6 @@
 ---
 layout: page
-title:  "Top Five Zip Codes"
+title:  "Building a PC"
 ---
 
+# Building a PC
