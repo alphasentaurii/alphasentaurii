@@ -12,8 +12,7 @@ As I began preparing for this project I felt intuitively it would be somewhat ri
 > "Mathematicians [...] are often led astray when 'studying' physics because they lose sight of the physics. They say: *'Look, these differential equations--the Maxwell equations--are all there is to electrodynamics; it is admitted by the physicists that there is nothing which is not contained in the equations. The equations are complicated, but after all they are only mathematical equations and if I understand them mathematically inside out, I will understand the physics inside out.'* Only it doesn't work that way. Mathematicians who study physics with that point of view--and there have been many of them--usually make little contribution to physics and, in fact, little to mathematics. They fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations."
 **-Richard Feynman, *The Feynman Lectures on Physics: Volume 2*, Chapter 2-1: "Differential Calculus of Vector Fields"**
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/feynman-bongos.jpg"></div>
+<img src="/assets/images/starskope/feynman-bongos.jpg" alt="feynman bongos" title="Feynman Bongos" width="400"/>
 
 ## So...do we need physics?
 
@@ -22,8 +21,6 @@ The problem with the dataset I'm using for this project is that it came **withou
 ## That's not very nice.
 
 Then I thought that's a bizarre task to put someone up to - not very nice of them to take away our precious units. How the heck do we do phase-folding, and how do we filter out junk data points where K2's thrusters were firing?? After going very deep into Fourier transforms to identify the period through harmonic means (because I'm a musician and that seemed like an excellent rabbit-hole to go down), I thought, well, maybe the real test is to see if we can build a model that filters out all of the non-candidates without having to go to all that trouble of period estimation and phase-folding. Unfortunately (perhaps) I was able to identify all 5 planets in the test set **without any physics**. I'm still not totally convinced, but I ultimately concluded that even though the model worked, I would need to validate its accuracy by testing against a larger data set and seeing if my model still performed well. I could then compare it to a model that uses the physics, and the unique properties of the telescope, to clean and scrub the data as well as perform normalization *properly*. This is why there is a STARSKØPE 2 and 3 which you can read about in the posts following this one.
-
-## Watch the Presentation Instead
 
 <div style="max-width:100%">
 <iframe src="https://player.vimeo.com/video/401277721" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
@@ -40,8 +37,7 @@ Some specific questions this project seeks to answer are as follows:
 
 4. How do we test and validate that?
   
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/288_planetbleed1600.jpeg"></div>
+<img src="/assets/images/starskope/288_planetbleed1600.jpeg" alt="planet threshold crossing event" title="Planet Threshold Crossing Event" width="400"/>
 copyright: NASA
 
 ## W∆
@@ -301,23 +297,38 @@ Flux.atomic_vector_plotter(signal=tce2, label_col='LABEL', classes=[1,2],
          y_units='PDC_SAP Flux', x_units='Time') 
 ```
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_32_0.png">
+## Scatterplots with Confirmed Planets:
+
+### Scatterplot with Planet (1)
+
+<div style="background-color:white">
+<img src="/assets/images/starskope/output_32_0.png" alt="scatterplot with planet 1" title="Scatterplot with Planet 1" width="400"/>
 </div>
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_32_1.png">
+### Line Plot with Planet (1)
+
+<div style="background-color:white">
+<img src="/assets/images/starskope/output_32_1.png" alt="line plot with planet 1" title="Line Plot with Planet 1" width="400"/>
 </div>
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_32_2.png">
+## Scatterplot with Planet (2)
+
+<div style="background-color:white">
+<img src="/assets/images/starskope/output_32_2.png" alt="scatterplot with planet 2" title="Scatterplot with Planet 2" width="400"/>
 </div>
 
-<div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_32_3.png">
+## Line Plot with Planet (2)
+
+<div style="background-color:white">
+<img src="/assets/images/starskope/output_32_3.png" alt="line plot with planet 2" title="Flux Signal Scatterplot with Planet 1" width="400"/>
 </div>
 
-This second star's flux signal pattern looks very different - are we to assume that each one of those dips is a transit event? Perhaps more than one planet is orbiting? Otherwise that would be a fairly short period. Let's compare these to the NON planet host stars:
+
+### Signal Patterns
+
+This second star's flux signal pattern looks very different - are we to assume that each one of those dips is a transit event? Could there be more than one planet is orbiting? Let's compare these to the NON planet host stars.
+
+## Non-planet Scatterplots
 
 ```python
 Flux.atomic_vector_plotter(signal=no_tce1, label_col='LABEL', classes=[1,2],
@@ -338,12 +349,9 @@ Flux.atomic_vector_plotter(signal=no_tce2, label_col='LABEL', classes=[1,2],
 <div style="width:400px">
 <img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_34_3.png"></div>
 
-### WHAT ABOUT PHASE-FOLDING?!
-
-It's hard to make a fair comparison with these plots without being able to see much in detail. We need to "zoom in" - this can be accomplished through normalizing and scaling techniques, but the standard procedure for this type of data would be to perform `phase-folding` based on the estimated period of the transiting planets. Unfortunately, without any units, it's *difficult* to apply period estimation and therefore we shall have to save the phase-folding for the next phase of this project when we get our data from the MAST website instead of good ole Kaggle.
-
 ## Pre-processing
 
+We'll use NumPy to extract data into 1-dimensional arrays and separate target classes (y) for training and test data.
 
 ```python
 from spacekit.transformer import Transformer

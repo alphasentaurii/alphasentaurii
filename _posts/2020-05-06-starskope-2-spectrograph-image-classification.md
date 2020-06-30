@@ -9,6 +9,9 @@ For the next phase of the Starskøpe planet hunting project, I used `Google Cola
 
  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ZRUudjsf0ofOMVjhzfF239Df3BaO2jqp#scrollTo=n0aJxtzZMCSI&uniqifier=4)
 
+<div style="width:400px">
+<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/spec-transform.png"></div>
+
 ## Phase 3: Scrape MAST via API on AWS
 
 In order to improve model, therefore, the next step was to generate a larger dataset of images, using not only all the data from Kaggle, but also import additional signal datasets from the MAST API. Traditionally, this can be done from the MAST website directly. However, it is now possible to scrape the data for free from AWS where it is being (at least temporarily) housed. 
