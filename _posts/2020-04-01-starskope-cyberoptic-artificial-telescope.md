@@ -5,6 +5,8 @@ date:   2020-04-01 11:11:11 -1111
 categories: datascience
 ---
 
+# Intro
+
 As I began preparing for this project I felt intuitively it would be somewhat ridiculous for me to build neural networks for classifying astrophysical data if I didn't fully grasp how and why the equations used to calculate my findings actually work.
 
 ## Let's Ask Mr. Feynman
@@ -12,7 +14,10 @@ As I began preparing for this project I felt intuitively it would be somewhat ri
 > "Mathematicians [...] are often led astray when 'studying' physics because they lose sight of the physics. They say: *'Look, these differential equations--the Maxwell equations--are all there is to electrodynamics; it is admitted by the physicists that there is nothing which is not contained in the equations. The equations are complicated, but after all they are only mathematical equations and if I understand them mathematically inside out, I will understand the physics inside out.'* Only it doesn't work that way. Mathematicians who study physics with that point of view--and there have been many of them--usually make little contribution to physics and, in fact, little to mathematics. They fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations."
 **-Richard Feynman, *The Feynman Lectures on Physics: Volume 2*, Chapter 2-1: "Differential Calculus of Vector Fields"**
 
-<img src="/assets/images/starskope/feynman-bongos.jpg" alt="feynman bongos" title="Feynman Bongos" width="400"/>
+<div>
+<img src="/assets/images/starskope/feynman-bongos.jpg" alt="feynman bongos" title="Feynman Bongos" width="400"></div>
+
+> Feynman circa 1962 (photographer unknown) courtesy of Ralph Leighton. Source: _Feynman's Tips on Physics_ 
 
 ## So...do we need physics?
 
