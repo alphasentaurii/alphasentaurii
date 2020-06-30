@@ -94,10 +94,7 @@ So just to show you how that breaks down, below is a map of King County where th
 
 #### Interactive Map
 
-
-<div>
 <iframe src="https://public.tableau.com/views/HousePricesbyZipCodeinKingCountyWA/KingCounty?:display_count=y&publish=yes&:origin=viz_share_link" width=600 height=600 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
 
 
 #### Look Up Median Home Values by Zip Code

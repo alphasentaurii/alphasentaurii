@@ -1,4 +1,4 @@
-I"T&<h2 id="project-demo-predicting-home-values">PROJECT DEMO: Predicting Home Values</h2>
+I" &<h2 id="project-demo-predicting-home-values">PROJECT DEMO: Predicting Home Values</h2>
 
 <p>The goal of this data science project was to identify a strategy for increasing the sale price or property value of a home in King County, Washington.</p>
 
@@ -90,11 +90,7 @@
 
 <h4 id="interactive-map">Interactive Map</h4>
 
-<html>
-<div style="max-width:600px">
 <iframe src="https://public.tableau.com/views/HousePricesbyZipCodeinKingCountyWA/KingCounty?:display_count=y&amp;publish=yes&amp;:origin=viz_share_link" width="600" height="600" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
-</div>
-</html>
 
 <h4 id="look-up-median-home-values-by-zip-code">Look Up Median Home Values by Zip Code</h4>
 
