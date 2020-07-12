@@ -7,39 +7,18 @@ title: Northwind SQL Database Project Demo
 
 # Northwind SQL Database Project
 
-![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/northwind-sql-database-project)
-![GitHub license](https://img.shields.io/github/license/hakkeray/northwind-sql-database-project?color=black)
-
 The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `hypothesis testing` in order to `recommend business strategies` for increasing sales and reducing costs for the fictitious "Northwind" company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.
 
-![northwind](https://github.com/hakkeray/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true)
 
-## Prerequisites
+<div style="background-color:white">
+<img src="https://github.com/hakkeray/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="Northwind ERD" title="Northwind ERD" width="400"/></div>
 
-Before you begin, ensure you have met the following requirements:
-
-* You have installed the latest version of `Jupyter Notebook`
-* You have a `<Windows/Linux/Mac>` machine.
-
-### FSDS - standard data science tools
-
-You can do a quick install of all the standard data science libraries (matplotlib, pandas, etc) using the FSDS pypi package from `James Irving`:
-
-```bash
-pip install -U fsds_100719
-```
-
-## Running the Northwind SQL Database Project
-
-To run this project locally, follow these steps:
-
-In the command line/terminal:
-
-```bash
-git clone https://github.com/hakkeray/northwind-sql-database-project
-cd northwind-sql-database-project
-jupyter notebook
-```
+<!--
+<div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;">
+<iframe src="https://player.vimeo.com/video/389320953" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts"></iframe>
+    <br /><br />
+</div>
+-->
 
 ## Hypothesis Testing
 
