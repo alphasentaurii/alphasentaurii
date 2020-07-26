@@ -1,0 +1,496 @@
+I"t<h1 id="digdag-mysql-tutorial">Digdag MySQL Tutorial</h1>
+<p>In this project, we’ll create a digdag workflow that executes an embulk script for ingesting csv files to a MySQL database. We’ll then write SQL queries to prepare and analyze the data.</p>
+
+<h2 id="about-embulk-and-digdag">About Embulk and Digdag</h2>
+
+<p>Embulk and Digdag are open source libraries for data ingestion and data pipeline orchestration, respectively. These libraries were invented at Treasure Data and are foundational to the Treasure Data product.
+Practicing MySQL queries using open source libraries Digdag and Embulk.</p>
+
+<p><img src="https://img.shields.io/github/repo-size/hakkeray/digdag" alt="GitHub repo size" />
+<img src="https://img.shields.io/github/license/hakkeray/digdag?color=black" alt="GitHub license" /></p>
+
+<p>The <code class="highlighter-rouge">Digdag</code> project demonstrates how to use <code class="highlighter-rouge">SQL queries</code> with <code class="highlighter-rouge">digdag</code> and <code class="highlighter-rouge">embulk</code> open source libraries for ingesting and analyzing data. We’ll load a MySQL database from CSV files and perform data analysis using automated workflows with digdag via SQL queries.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>Before you begin, ensure you have met the following requirements:</p>
+
+<ul>
+  <li>You have access to <code class="highlighter-rouge">sudo</code> privileges</li>
+  <li>You have installed <code class="highlighter-rouge">Java</code> version 8</li>
+  <li>You have a <code class="highlighter-rouge">&lt;Windows/Linux/Mac&gt;</code> machine.</li>
+</ul>
+
+<h2 id="running-the-digdag-project">Running the Digdag Project</h2>
+
+<p>To run this project locally, follow these steps:</p>
+
+<p>In the command line/terminal:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/hakkeray/digdag
+<span class="nv">$ </span><span class="nb">cd </span>digdag/embulk_to_mysql
+<span class="nv">$ </span>digdag run embulk_to_mysql.dig <span class="nt">--rerun</span> <span class="nt">-O</span> log/task
+</code></pre></div></div>
+
+<h2 id="directory-structure">Directory structure</h2>
+<p>.
+├── README.md
+└── embulk_to_mysql
+      └── embulk_to_mysql.dig
+      └── tasks
+            └── seed_customers.yml
+            └── seed_pageviews.yml
+            └── config_customers.yml
+            └── config_pageviews.yml
+      └── queries
+            └── create_customers.sql
+            └── update_customers.sql
+            └── create_pageviews.sql
+            └── count_pageviews.sql
+            └── top_3_users.sql
+      └── data
+            └── customers
+                  └── customers_1.csv
+                  └── customers_2.csv
+            └── pageviews
+                  └── pageviews_1.csv
+                  └── pageviews_2.csv</p>
+
+<h3 id="installing-java-re">Installing Java RE</h3>
+
+<p>Check which version of Java you’re running. If you get an runtime error saying Java is not installed (when you go to run digdag or embulk) follow the steps below.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>java <span class="nt">-version</span>
+</code></pre></div></div>
+
+<p>*Note: these are the steps for installing Java 9 from Oracle on an AWS remote server running Debian 9. If you’re using a different environment you will need to adjust accordingly.</p>
+
+<ol>
+  <li>
+    <p>Download the tar file from <img src="https://www.oracle.com/java/technologies/javase/javase9-archive-downloads.html" alt="Oracle" />: jdk-9.0.4_linux-x64_bin.tar.gz</p>
+  </li>
+  <li>Copy (<code class="highlighter-rouge">scp</code>) the tar file to the remote server</li>
+  <li>Unzip tar file into your JVM directory (you may need to create first)</li>
+  <li>Install Java</li>
+  <li>Set Java directory</li>
+  <li>Check version</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo mkdir</span> /usr/lib/jvm
+
+<span class="nv">$ </span><span class="nb">sudo tar </span>zxvf jre-8u261-linux-x64.tar.gz <span class="nt">-C</span> /usr/lib/jvm
+
+<span class="nv">$ </span><span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> <span class="s2">"/usr/bin/java"</span> <span class="s2">"java"</span> <span class="s2">"/usr/lib/jvm/jre1.8.0_261/bin/java"</span> 1
+
+<span class="nv">$ </span><span class="nb">sudo </span>update-alternatives <span class="nt">--set</span> java /usr/lib/jvm/jre1.8.0_261/bin/java
+
+<span class="nv">$ </span>java <span class="nt">-version</span>
+java version <span class="s2">"1.8.0_261"</span>
+Java<span class="o">(</span>TM<span class="o">)</span> SE Runtime Environment <span class="o">(</span>build 1.8.0_261-b12<span class="o">)</span>
+Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>build 25.261-b12, mixed mode<span class="o">)</span>
+</code></pre></div></div>
+
+<p><em>For more in-depth doc on JAVA go here:</em>
+https://docs.datastax.com/en/jdk-install/doc/jdk-install/installOracleJdkDeb.html</p>
+
+<h3 id="switch-to-root">Switch to root</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-s</span>
+</code></pre></div></div>
+
+<h3 id="install-digdag">Install <code class="highlighter-rouge">digdag</code></h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-o</span> ~/bin/digdag <span class="nt">--create-dirs</span> <span class="nt">-L</span> <span class="s2">"https://dl.digdag.io/digdag-latest"</span>
+<span class="nv">$ </span><span class="nb">chmod</span> +x ~/bin/digdag
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'export PATH="$HOME/bin:$PATH"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+</code></pre></div></div>
+
+<h4 id="check-installation-was-successful">Check installation was successful</h4>
+
+<p>Check to make sure <code class="highlighter-rouge">digdag</code> is installed correctly:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>digdag <span class="nt">--help</span>
+</code></pre></div></div>
+<h3 id="install-embulk">Install Embulk</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">--create-dirs</span> <span class="nt">-o</span> ~/.embulk/bin/embulk <span class="nt">-L</span> <span class="s2">"https://dl.embulk.org/embulk-latest.jar"</span>
+<span class="nb">chmod</span> +x ~/.embulk/bin/embulk
+<span class="nb">echo</span> <span class="s1">'export PATH="$HOME/.embulk/bin:$PATH"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">source</span> ~/.bashrc
+</code></pre></div></div>
+
+<h3 id="install-mariadbmysql">Install MariaDB/MySQL</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>mariadb-server <span class="nt">-y</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>mysql-secure-installation
+Enter current password <span class="k">for </span>root <span class="o">(</span>enter <span class="k">for </span>none<span class="o">)</span>: <span class="o">[</span>enter]
+Set root password? <span class="o">[</span>Y/n] n
+ ... skipping.
+Remove anonymous <span class="nb">users</span>? <span class="o">[</span>Y/n] y
+Disallow root login remotely? <span class="o">[</span>Y/n] y
+Remove <span class="nb">test </span>database and access to it? <span class="o">[</span>Y/n] y
+Reload privilege tables now? <span class="o">[</span>Y/n] y
+</code></pre></div></div>
+
+<h4 id="create-database">Create Database</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>mariadb
+
+Welcome to the MariaDB monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span><span class="nb">.</span>
+Your MariaDB connection <span class="nb">id </span>is 53
+Server version: 10.3.22-MariaDB-0+deb10u1 Debian 10
+
+Copyright <span class="o">(</span>c<span class="o">)</span> 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type <span class="s1">'help;'</span> or <span class="s1">'\h'</span> <span class="k">for </span>help. Type <span class="s1">'\c'</span> to clear the current input statement.
+
+MariaDB&gt; CREATE DATABASE td_coding_challenge DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci<span class="p">;</span>
+Query OK, 1 row affected <span class="o">(</span>0.003 sec<span class="o">)</span>
+
+MariaDB&gt; GRANT ALL ON td_coding_challenge.<span class="k">*</span> TO <span class="s1">'digdag'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'digdag'</span> WITH GRANT OPTION<span class="p">;</span>
+Query OK, 0 rows affected <span class="o">(</span>0.000 sec<span class="o">)</span>
+
+MariaDB&gt; FLUSH PRIVILEGES<span class="p">;</span>
+Query OK, 0 rows affected <span class="o">(</span>0.000 sec<span class="o">)</span>
+
+MariaDB&gt; <span class="nb">exit</span>
+</code></pre></div></div>
+
+<h4 id="test-non-root-user-login">Test non-root user login</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mariadb <span class="nt">-u</span> digdag <span class="nt">-p</span>
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span><span class="nb">.</span>
+Your MariaDB connection <span class="nb">id </span>is 54
+Server version: 10.3.22-MariaDB-0+deb10u1 Debian 10
+
+Copyright <span class="o">(</span>c<span class="o">)</span> 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type <span class="s1">'help;'</span> or <span class="s1">'\h'</span> <span class="k">for </span>help. Type <span class="s1">'\c'</span> to clear the current input statement.
+
+MariaDB <span class="o">[(</span>none<span class="o">)]&gt;</span> SHOW DATABASES<span class="p">;</span>
++---------------------+
+| Database            |
++---------------------+
+| information_schema  |
+| td_coding_challenge |
++---------------------+
+2 rows <span class="k">in </span><span class="nb">set</span> <span class="o">(</span>0.000 sec<span class="o">)</span>
+
+MariaDB <span class="o">[(</span>none<span class="o">)]&gt;</span> <span class="nb">exit</span>
+</code></pre></div></div>
+
+<h2 id="install-plugins">Install Plugin(s)</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>embulk gem <span class="nb">install </span>embulk-output-mysql
+</code></pre></div></div>
+
+<h1 id="data-ingestion">Data Ingestion</h1>
+
+<h2 id="create-embulk-scripts">Create EMBULK Scripts</h2>
+
+<p><em>Requirements</em></p>
+
+<ul>
+  <li>Files that have a prefix of “customers” should ingest to a table called “customers_tmp”</li>
+  <li>Files that have a prefix of “pageviews” should ingest to a table called “pageviews_tmp”</li>
+  <li>Ensure that all records from all files are ingested to the appropriate tables.</li>
+  <li>Any timestamps should be ingested to the database as <code class="highlighter-rouge">string/varchar</code></li>
+</ul>
+
+<h3 id="customers-embulk-script">Customers Embulk Script</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>nano seed_customers.yml
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># seed_customers.yml</span>
+<span class="k">in</span>:
+  <span class="nb">type</span>: file
+  path_prefix: ./data/customers/
+  parser:
+    charset: UTF-8
+    newline: CRLF
+    <span class="nb">type</span>: csv
+    delimiter: <span class="s1">','</span>
+    quote:: <span class="s1">'"'</span>
+    escape: null
+    null_string: <span class="s1">'NULL'</span>
+    skip_header_lines: 1
+    columns:
+    - <span class="o">{</span>name: user_id, <span class="nb">type</span>: string<span class="o">}</span>
+    - <span class="o">{</span>name: first_name, <span class="nb">type</span>: string<span class="o">}</span>
+    - <span class="o">{</span>name: last_name, <span class="nb">type</span>: string<span class="o">}</span>
+    - <span class="o">{</span>name: job_title, <span class="nb">type</span>: string<span class="o">}</span>
+out:
+  <span class="nb">type</span>: mysql
+  host: localhost
+  user: digdag
+  password: digdag
+  database: td_coding_challenge
+  table: customers_tmp
+  mode: insert
+</code></pre></div></div>
+
+<h3 id="pageviews-embulk-script">Pageviews Embulk Script</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>nano seed_pageviews.yml
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># seed_pageviews.yml</span>
+<span class="k">in</span>:
+  <span class="nb">type</span>: file
+  path_prefix: ./data/pageviews/
+  parser:
+    charset: UTF-8
+    newline: CRLF
+    <span class="nb">type</span>: csv
+    delimiter: <span class="s1">','</span>
+    quote:: <span class="s1">'"'</span>
+    escape: null
+    null_string: <span class="s1">'NULL'</span>
+    skip_header_lines: 1
+    columns:
+    - <span class="o">{</span>name: user_id, <span class="nb">type</span>: string<span class="o">}</span>
+    - <span class="o">{</span>name: url, <span class="nb">type</span>: string<span class="o">}</span>
+    - <span class="o">{</span>name: user_agent, <span class="nb">type</span>: string<span class="o">}</span>
+    - <span class="o">{</span>name: timestamp, <span class="nb">type</span>: string, format: varchar<span class="o">}</span>
+out:
+  <span class="nb">type</span>: mysql
+  host: localhost
+  user: digdag
+  password: digdag
+  database: td_coding_challenge
+  table: pageviews_tmp
+  mode: insert
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="sql-queries">SQL Queries</h2>
+
+<h3 id="customers-table">Customers Table</h3>
+
+<p>Creates a new table called <code class="highlighter-rouge">customers</code> that:</p>
+<ul>
+  <li>Includes all columns from customers_tmp</li>
+  <li>Parses the “user_agent” column to add a new column called ‘operating_system’ that contains one of the following values (“Windows”, “Macintosh”, “Linux”, or “Other”).</li>
+</ul>
+
+<p><code class="highlighter-rouge">create_customers.sql</code></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--create_customers.sql</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">customers</span> 
+<span class="k">SELECT</span> <span class="k">c</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span> <span class="k">c</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span> <span class="k">c</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span> <span class="k">c</span><span class="p">.</span><span class="n">job_title</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">user_agent</span> <span class="k">AS</span> <span class="n">operating_system</span> 
+<span class="k">FROM</span> <span class="n">pageviews_tmp</span> <span class="n">p</span> 
+<span class="k">JOIN</span> <span class="n">customers_tmp</span> <span class="k">c</span> 
+<span class="k">ON</span> <span class="n">p</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">user_id</span> 
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">user_id</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">update_customers.sql</code></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--update_customers.sql</span>
+<span class="k">UPDATE</span> <span class="n">customers</span> 
+<span class="k">SET</span> <span class="n">operating_system</span> <span class="o">=</span> <span class="s1">'Macintosh'</span> 
+<span class="k">WHERE</span> <span class="n">operating_system</span> <span class="k">LIKE</span> <span class="s1">'%Mac%'</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">customers</span> 
+<span class="k">SET</span> <span class="n">operating_system</span> <span class="o">=</span> <span class="s1">'Linux'</span> 
+<span class="k">WHERE</span> <span class="n">operating_system</span> <span class="k">LIKE</span> <span class="s1">'%X11%'</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">customers</span> 
+<span class="k">SET</span> <span class="n">operating_system</span> <span class="o">=</span> <span class="s1">'Windows'</span> 
+<span class="k">WHERE</span> <span class="n">operating_system</span> <span class="k">LIKE</span> <span class="s1">'%Windows%'</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">customers</span> 
+<span class="k">SET</span> <span class="n">operating_system</span> <span class="o">=</span> <span class="s1">'Other'</span>
+<span class="k">WHERE</span> <span class="n">operating_system</span> <span class="k">NOT</span> <span class="n">REGEXP</span> <span class="s1">'Macintosh|Linux|Windows'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="pageviews-table">Pageviews Table</h3>
+
+<p>Creates a new table called <code class="highlighter-rouge">pageviews</code> that:</p>
+<ul>
+  <li>Includes all columns from pageviews_tmp</li>
+  <li>Excludes all records where job_title contains “Sales”</li>
+</ul>
+
+<p><code class="highlighter-rouge">create_pageviews.sql</code></p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--create_pageviews.sql</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">pageviews</span> 
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pageviews_tmp</span>
+<span class="k">WHERE</span> <span class="n">user_id</span> <span class="k">IN</span> 
+<span class="p">(</span><span class="k">SELECT</span> <span class="n">user_id</span>
+<span class="k">FROM</span> <span class="n">customers</span>
+<span class="k">WHERE</span> <span class="n">job_title</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%Sales%'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="count-pageviews">Count Pageviews</h3>
+
+<p>Returns the total number of pageviews from users who are browsing with a Windows operating system or have “Engineer” in their job title.</p>
+
+<p><code class="highlighter-rouge">count_pageviews.sql</code></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--count_pageviews.sql--</span>
+<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">AS</span> <span class="n">total_views</span> 
+<span class="k">FROM</span> <span class="n">pageviews</span> 
+<span class="k">WHERE</span> <span class="n">user_id</span> 
+<span class="k">IN</span> 
+<span class="p">(</span><span class="k">SELECT</span> <span class="n">user_id</span> 
+<span class="k">FROM</span> <span class="n">customers</span> 
+<span class="k">WHERE</span> <span class="n">operating_system</span> <span class="o">=</span> <span class="s1">'Windows'</span> 
+<span class="k">OR</span> <span class="n">job_title</span> <span class="k">LIKE</span> <span class="s1">'%Engineer%'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Returns:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+-------------+
+| total_views |
++-------------+
+|        576  |
++-------------+
+1 row <span class="k">in </span><span class="nb">set</span> <span class="o">(</span>0.009 sec<span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="top-3-users-and-last-page-viewed">Top 3 Users and Last Page Viewed</h3>
+
+<p>Returns top 3 user_id’s (ranked by total pageviews) who have viewed a web page with a “.gov” domain extension and the url of last page they viewed.</p>
+
+<p><code class="highlighter-rouge">top_3_users.sql</code></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--top_3_users.sql</span>
+<span class="k">WITH</span> <span class="n">p2</span> <span class="k">AS</span><span class="p">(</span>
+<span class="k">SELECT</span> <span class="n">user_id</span><span class="p">,</span> <span class="k">max</span><span class="p">(</span><span class="nb">timestamp</span><span class="p">)</span> <span class="n">last_timestamp</span> 
+<span class="k">FROM</span> <span class="n">pageviews</span> 
+<span class="k">WHERE</span> <span class="n">user_id</span> <span class="k">IN</span> 
+<span class="p">(</span><span class="k">SELECT</span> <span class="n">user_id</span> 
+<span class="k">FROM</span> <span class="n">pageviews</span> 
+<span class="k">WHERE</span> <span class="n">url</span> <span class="k">LIKE</span> <span class="s1">'%.gov%'</span><span class="p">)</span> 
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">user_id</span> 
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">DESC</span> 
+<span class="k">LIMIT</span> <span class="mi">3</span><span class="p">)</span> 
+<span class="k">SELECT</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">url</span> <span class="n">last_page_viewed</span> 
+<span class="k">FROM</span> <span class="n">pageviews</span> 
+<span class="k">WHERE</span> <span class="n">user_id</span> <span class="k">IN</span> 
+<span class="p">(</span><span class="k">SELECT</span> <span class="n">user_id</span> 
+<span class="k">FROM</span> <span class="n">p2</span> 
+<span class="k">WHERE</span> <span class="nb">timestamp</span><span class="o">=</span><span class="n">last_timestamp</span><span class="p">)</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="nb">timestamp</span> <span class="k">DESC</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Returns:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+--------------------------------------+--------------------------------------------+
+| user_id                              | last_page_viewed                           |
++--------------------------------------+--------------------------------------------+
+| 5d9b8515-823e-49b8-ad44-5c91ef23462f | https://microsoft.com/morbi/porttitor.aspx |
+| 6cf36c9e-1fa7-491d-a6e1-9c785d68a3d0 | http://nps.gov/quis/odio/consequat.json    |
+| 752119fa-50dc-4011-8f13-23aa8d78eb18 | http://goo.ne.jp/nunc.html                 |
++--------------------------------------+--------------------------------------------+
+3 rows <span class="k">in </span><span class="nb">set</span> <span class="o">(</span>0.011 sec<span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="write-a-digdag-workflow">Write a digdag workflow</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>digdag init embulk_to_mysql.dig
+<span class="nv">$ </span><span class="nb">cd </span>embulk_to_mysql.dig
+<span class="nv">$ </span>nano embulk_to_mysql.dig
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># embulk_to_mysql.dig</span>
+timezone: UTC
+
+_export:
+  workflow_name: <span class="s2">"embulk_to_mysql"</span>
+  start_msg:     <span class="s2">"digdag </span><span class="k">${</span><span class="nv">workflow_name</span><span class="k">}</span><span class="s2"> start"</span>
+  end_msg:       <span class="s2">"digdag </span><span class="k">${</span><span class="nv">workflow_name</span><span class="k">}</span><span class="s2"> finish"</span>
+  error_msg:     <span class="s2">"digdag </span><span class="k">${</span><span class="nv">workflow_name</span><span class="k">}</span><span class="s2"> error"</span>
+  host: localhost
+  port: 3306
+  user: digdag
+  password: digdag
+  database: td_coding_challenge
+  strict_transaction: <span class="nb">false
+  </span>q1: queries/page_count.txt
+  q2: queries/top_users.txt
+
++start:
+  <span class="nb">echo</span><span class="o">&gt;</span>: <span class="k">${</span><span class="nv">start_msg</span><span class="k">}</span>
+
+<span class="c"># Data Preparation</span>
+
++embulk_guess:
+  _parallel: <span class="nb">true</span>
+
+  +guess_customers:
+    sh&gt;: embulk guess tasks/seed_customers.yml <span class="nt">-o</span> tasks/config_customers.yml
+
+  +guess_pageviews:
+    sh&gt;: embulk guess tasks/seed_pageviews.yml <span class="nt">-o</span> tasks/config_pageviews.yml
+
++embulk_run:
+  _parallel: <span class="nb">true</span>
+  
+  +config_customers:
+    sh&gt;: embulk run tasks/config_customers.yml
+
+  +config_pageviews:
+    sh&gt;: embulk run tasks/config_pageviews.yml
+
+<span class="c"># Data Ingestion</span>
+
++create_tables:
+  +create_customers:
+    sh&gt;: mysql <span class="nt">-u</span><span class="k">${</span><span class="nv">user</span><span class="k">}</span> <span class="nt">-p</span><span class="k">${</span><span class="nv">password</span><span class="k">}</span> <span class="k">${</span><span class="nv">database</span><span class="k">}</span> &lt; queries/create_customers.sql
+
+  +update_customers:
+    sh&gt;: mysql <span class="nt">-u</span><span class="k">${</span><span class="nv">user</span><span class="k">}</span> <span class="nt">-p</span><span class="k">${</span><span class="nv">password</span><span class="k">}</span> <span class="k">${</span><span class="nv">database</span><span class="k">}</span> &lt; queries/update_customers.sql
+
+  +create_pageviews:
+    sh&gt;: mysql <span class="nt">-u</span><span class="k">${</span><span class="nv">user</span><span class="k">}</span> <span class="nt">-p</span><span class="k">${</span><span class="nv">password</span><span class="k">}</span> <span class="k">${</span><span class="nv">database</span><span class="k">}</span> &lt; queries/create_pageviews.sql
+
+<span class="c"># Data Analysis</span>
++analysis:
+  _parallel: <span class="nb">true</span>
+  
+  +count_pageviews:
+    sh&gt;: mysql <span class="nt">-u</span><span class="k">${</span><span class="nv">user</span><span class="k">}</span> <span class="nt">-p</span><span class="k">${</span><span class="nv">password</span><span class="k">}</span> <span class="k">${</span><span class="nv">database</span><span class="k">}</span> &lt; queries/count_pageviews.sql <span class="o">&gt;</span> <span class="k">${</span><span class="nv">q1</span><span class="k">}</span>
+  
+  +top_3_users:
+    sh&gt;: mysql <span class="nt">-u</span><span class="k">${</span><span class="nv">user</span><span class="k">}</span> <span class="nt">-p</span><span class="k">${</span><span class="nv">password</span><span class="k">}</span> <span class="k">${</span><span class="nv">database</span><span class="k">}</span> &lt; queries/top_3_users.sql <span class="o">&gt;</span> <span class="k">${</span><span class="nv">q2</span><span class="k">}</span>
+
+<span class="c"># Print Results</span>
++output:
+  _parallel: <span class="nb">true</span>
+
+  +q1:
+    sh&gt;: <span class="nb">cat</span> <span class="k">${</span><span class="nv">q1</span><span class="k">}</span>
+  +q2:
+    sh&gt;: <span class="nb">cat</span> <span class="k">${</span><span class="nv">q2</span><span class="k">}</span>
+
+<span class="c"># End of Workflow</span>
++end:
+  <span class="nb">echo</span><span class="o">&gt;</span>: <span class="k">${</span><span class="nv">end_msg</span><span class="k">}</span>
+
+_error:
+  <span class="nb">echo</span><span class="o">&gt;</span>: <span class="k">${</span><span class="nv">error_msg</span><span class="k">}</span>
+</code></pre></div></div>
+
+<h2 id="run-digdag-workflow">Run Digdag workflow</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># If this isn't your first time running the workflow, use the --rerun flag </span>
+<span class="nv">$ </span>digdag secrets <span class="nt">--local</span> <span class="nt">--set</span> mysql.password<span class="o">=</span>digdag
+<span class="nv">$ </span>digdag run embulk_to_mysql.dig <span class="nt">--rerun</span> <span class="nt">-O</span> log/task
+</code></pre></div></div>
+
+<h1 id="contact">Contact</h1>
+<p>If you want to contact me you can reach me at rukeine@gmail.com.</p>
+
+<h1 id="license">License</h1>
+<p>This project uses the following license: MIT License.</p>
+<h1 id="_-__-_---_">_ __ _   _</h1>
+<h1 id="_--__---">/_/\ | ‘__| | | |</h1>
+<h1 id="-----_-">[===] | |  | |_| |</h1>
+<h1 id="-----__">./  |<em>|   _</em>,_|</h1>
+
+:ET
