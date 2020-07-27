@@ -6,17 +6,16 @@ categories: datascience
 ---
 
 # Digdag MySQL Tutorial
-In this project, we'll create a digdag workflow that executes an embulk script for ingesting csv files to a MySQL database. We'll then write SQL queries to prepare and analyze the data.
+In this project, we'll create a digdag workflow that executes an embulk script for ingesting csv files to a MySQL database. We'll then write SQL queries to prepare and analyze the data. 
 
 ## About Embulk and Digdag
 
 Embulk and Digdag are open source libraries for data ingestion and data pipeline orchestration, respectively. These libraries were invented at Treasure Data and are foundational to the Treasure Data product.
-Practicing MySQL queries using open source libraries Digdag and Embulk.
+
+The `Digdag` project demonstrates how to use `SQL queries` with `digdag` and `embulk` open source libraries for ingesting and analyzing data. We'll load a MySQL database from CSV files and perform data analysis using automated workflows with digdag via SQL queries.
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/digdag)
 ![GitHub license](https://img.shields.io/github/license/hakkeray/digdag?color=black)
-
-The `Digdag` project demonstrates how to use `SQL queries` with `digdag` and `embulk` open source libraries for ingesting and analyzing data. We'll load a MySQL database from CSV files and perform data analysis using automated workflows with digdag via SQL queries.
 
 ## Prerequisites
 
@@ -26,17 +25,6 @@ Before you begin, ensure you have met the following requirements:
 * You have installed `Java` version 8
 * You have a `<Windows/Linux/Mac>` machine.
 
-## Running the Digdag Project
-
-To run this project locally, follow these steps:
-
-In the command line/terminal:
-
-```bash
-$ git clone https://github.com/hakkeray/digdag
-$ cd digdag/embulk_to_mysql
-$ digdag run embulk_to_mysql.dig --rerun -O log/task
-```
 
 ## Directory structure
 .
@@ -112,13 +100,21 @@ $ chmod +x ~/bin/digdag
 $ echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 ```
 
-#### Check installation was successful
+### Check installation was successful
 
 Check to make sure `digdag` is installed correctly:
 
 ```bash
 $ digdag --help
 ```
+
+### Create digdag project
+
+```bash
+$ digdag init embulk_to_mysql
+$ cd embulk_to_mysql
+```
+
 ### Install Embulk
 
 ```bash
@@ -126,6 +122,12 @@ curl --create-dirs -o ~/.embulk/bin/embulk -L "https://dl.embulk.org/embulk-late
 chmod +x ~/.embulk/bin/embulk
 echo 'export PATH="$HOME/.embulk/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
+```
+
+## Install Plugin(s)
+
+```bash
+$ embulk gem install embulk-output-mysql
 ```
 
 ### Install MariaDB/MySQL
@@ -190,12 +192,6 @@ MariaDB [(none)]> SHOW DATABASES;
 2 rows in set (0.000 sec)
 
 MariaDB [(none)]> exit
-```
-
-## Install Plugin(s)
-
-```bash
-$ embulk gem install embulk-output-mysql
 ```
 
 # Data Ingestion
@@ -496,7 +492,7 @@ _error:
   echo>: ${error_msg}
 ```
 
-## Run Digdag workflow
+## Running the Digdag workflow
 
 ```bash
 # If this isn't your first time running the workflow, use the --rerun flag 

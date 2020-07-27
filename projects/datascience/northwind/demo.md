@@ -5,8 +5,6 @@ title: Northwind SQL Database Project Demo
 
 ## PROJECT DEMO: Northwind SQL Database
 
-# Northwind SQL Database Project
-
 The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `hypothesis testing` in order to `recommend business strategies` for increasing sales and reducing costs for the fictitious "Northwind" company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.
 
 

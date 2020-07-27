@@ -5,14 +5,10 @@ date:   2020-07-11 11:11:11 -1800
 categories: datascience
 ---
 
-# SQL Northwind Database
-
-Practicing SQL queries using the Northwind Database from Microsoft.
+The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `hypothesis testing` in order to `recommend business strategies` for increasing sales and reducing costs for the fictitious "Northwind" company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/northwind-sql-database-project)
 ![GitHub license](https://img.shields.io/github/license/hakkeray/northwind-sql-database-project?color=black)
-
-The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `hypothesis testing` in order to `recommend business strategies` for increasing sales and reducing costs for the fictitious "Northwind" company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.
 
 ![northwind](https://github.com/hakkeray/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true)
 

@@ -21,9 +21,11 @@ The `Digdag` project demonstrates how to use `SQL queries` with `digdag` and `em
 
 Before you begin, ensure you have met the following requirements:
 
+* You have a `<Windows/Linux/Mac>` machine.
 * You have access to `sudo` privileges
 * You have installed `Java` version 8
-* You have a `<Windows/Linux/Mac>` machine.
+* You have installed the digdag and embulk open source tools
+* You have postgresql installed and configured
 
 ## Running the Digdag Project
 
@@ -97,27 +99,30 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.261-b12, mixed mode)
  *For more in-depth doc on JAVA go here:*
 https://docs.datastax.com/en/jdk-install/doc/jdk-install/installOracleJdkDeb.html
 
-### Switch to root
-
-```bash
-$ sudo -s
-```
-
 ### Install `digdag`
 
 ```bash
+$ sudo -s
 $ curl -o ~/bin/digdag --create-dirs -L "https://dl.digdag.io/digdag-latest"
 $ chmod +x ~/bin/digdag
 $ echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 ```
 
-#### Check installation was successful
+### Check installation was successful
 
 Check to make sure `digdag` is installed correctly:
 
 ```bash
 $ digdag --help
 ```
+
+### Create digdag project
+
+```bash
+$ digdag init embulk_to_pg
+$ cd embulk_to_pg
+```
+
 ### Install Embulk
 
 ```bash
@@ -127,74 +132,99 @@ echo 'export PATH="$HOME/.embulk/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### Install MariaDB/MySQL
+### Install Postgres
 
 ```bash
-$ sudo apt install mariadb-server -y
-$ sudo apt install mysql-secure-installation
-Enter current password for root (enter for none): [enter]
-Set root password? [Y/n] n
- ... skipping.
-Remove anonymous users? [Y/n] y
-Disallow root login remotely? [Y/n] y
-Remove test database and access to it? [Y/n] y
-Reload privilege tables now? [Y/n] y
+$ sudo apt install postgresql postgresql-contrib
+$ sudo -u postgres psql -c "SELECT version();"
+
 ```
+
+The postgres user is created automatically when you install PostgreSQL. This user is the superuser for the PostgreSQL instance and it is equivalent to the MySQL root user.
 
 #### Create Database
 
+Log in to the PostgreSQL server as the postgres user
+
 ```bash
-$ sudo mariadb
+$ sudo su - postgres
+$ psql
+```
+*Note: you can use the sudo command to access the prompt without switching users. The postgres user is typically used only from the local host and it is recommended not to set the password for this user:*
 
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 53
-Server version: 10.3.22-MariaDB-0+deb10u1 Debian 10
-
-Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-MariaDB> CREATE DATABASE td_coding_challenge DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-Query OK, 1 row affected (0.003 sec)
-
-MariaDB> GRANT ALL ON td_coding_challenge.* TO 'digdag'@'localhost' IDENTIFIED BY 'digdag' WITH GRANT OPTION;
-Query OK, 0 rows affected (0.000 sec)
-
-MariaDB> FLUSH PRIVILEGES;
-Query OK, 0 rows affected (0.000 sec)
-
-MariaDB> exit
+```bash
+sudo -u postgres psql
 ```
 
-#### Test non-root user login
+Create Database and Grant Access Privileges
+```bash
+sudo su - postgres -c "createuser digdag"
+sudo su - postgres -c "createdb td_coding_challenge"
+
+sudo -u postgres psql
+
+> grant all privileges on database johndb to john;
+> \q
+```
+
+Enable remote access to PostgreSQL server
+
+By default the PostgreSQL server listens only on the local interface 127.0.0.1. To enable remote access to your PostgreSQL server open the configuration file postgresql.conf and add listen_addresses = '*' in the CONNECTIONS AND AUTHENTICATION section.
 
 ```bash
-$ mariadb -u digdag -p
-Enter password: 
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 54
-Server version: 10.3.22-MariaDB-0+deb10u1 Debian 10
+sudo vim /etc/postgresql/9.6/main/postgresql.conf
+```
+```vim
+/etc/postgresql/9.6/main/postgresql.conf
+#------------------------------------------------------------------------------
+# CONNECTIONS AND AUTHENTICATION
+#------------------------------------------------------------------------------
 
-Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+# - Connection Settings -
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+listen_addresses = '*'     # what IP address(es) to listen on;
 
-MariaDB [(none)]> SHOW DATABASES;
-+---------------------+
-| Database            |
-+---------------------+
-| information_schema  |
-| td_coding_challenge |
-+---------------------+
-2 rows in set (0.000 sec)
+```
+```bash
+$ sudo service postgresql restart
+```
 
-MariaDB [(none)]> exit
+Verify changes
+
+```bash
+ss -nlt | grep 5432
+```
+As you can see from the output above the PostgreSQL server is listening on all interfaces (0.0.0.0).
+
+```bash
+LISTEN   0         128                 0.0.0.0:5432             0.0.0.0:*
+LISTEN   0         128                    [::]:5432                [::]:*
+```
+
+The last step is to configure the server to accept remote connections by editing the pg_hba.conf file.
+
+```bash
+/etc/postgresql/9.6/main/pg_hba.conf
+```
+
+```bash
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# The user jane will be able to access all databases from all locations using a md5 password
+host    all             jane            0.0.0.0/0                md5
+
+# The user jane will be able to access only the janedb from all locations using a md5 password
+host    janedb          jane            0.0.0.0/0                md5
+
+# The user jane will be able to access all databases from a trusted location (192.168.1.134) without a password
+host    all             jane            192.168.1.134            trust
 ```
 
 ## Install Plugin(s)
 
 ```bash
-$ embulk gem install embulk-output-mysql
+$ embulk gem install embulk-input-postgresql
+$ embulk gem install embulk-output-postgresql
 ```
 
 # Data Ingestion
@@ -424,14 +454,15 @@ _export:
   start_msg:     "digdag ${workflow_name} start"
   end_msg:       "digdag ${workflow_name} finish"
   error_msg:     "digdag ${workflow_name} error"
-  host: localhost
-  port: 3306
-  user: digdag
-  password: digdag
-  database: td_coding_challenge
-  strict_transaction: false
-  q1: queries/page_count.txt
-  q2: queries/top_users.txt
+  postgresql:
+    host: localhost
+    port: 3306
+    user: digdag
+    password: digdag
+    database: td_coding_challenge
+    strict_transaction: false
+    q1: queries/page_count.txt
+    q2: queries/top_users.txt
 
 +start:
   echo>: ${start_msg}
@@ -460,32 +491,28 @@ _export:
 
 +create_tables:
   +create_customers:
-    sh>: mysql -u${user} -p${password} ${database} < queries/create_customers.sql
+    pg>: queries/create_customers.sql
+    _preview: true
 
   +update_customers:
-    sh>: mysql -u${user} -p${password} ${database} < queries/update_customers.sql
+    pg>: queries/update_customers.sql
+    _preview: true
 
   +create_pageviews:
-    sh>: mysql -u${user} -p${password} ${database} < queries/create_pageviews.sql
+    pg>: queries/create_pageviews.sql
+    _preview: true
 
 # Data Analysis
 +analysis:
   _parallel: true
   
   +count_pageviews:
-    sh>: mysql -u${user} -p${password} ${database} < queries/count_pageviews.sql > ${q1}
+    pg>: queries/count_pageviews.sql > ${q1}
+    _preview: true
   
   +top_3_users:
-    sh>: mysql -u${user} -p${password} ${database} < queries/top_3_users.sql > ${q2}
-
-# Print Results
-+output:
-  _parallel: true
-
-  +q1:
-    sh>: cat ${q1}
-  +q2:
-    sh>: cat ${q2}
+    pg>: queries/top_3_users.sql > ${q2}
+    _preview: true
 
 # End of Workflow
 +end:
@@ -499,8 +526,9 @@ _error:
 
 ```bash
 # If this isn't your first time running the workflow, use the --rerun flag 
-$ digdag secrets --local --set mysql.password=digdag
-$ digdag run embulk_to_mysql.dig --rerun -O log/task
+$ sudo -s
+$ digdag secrets --local --set pg.password=digdag
+$ digdag run embulk_to_pg.dig --rerun -O log/task
 ```
 
 # Contact
