@@ -14,15 +14,14 @@ Embulk and Digdag are open source libraries for data ingestion and data pipeline
 
 The `Digdag` project demonstrates how to use `SQL queries` with `digdag` and `embulk` open source libraries for ingesting and analyzing data. We'll load a MySQL database from CSV files and perform data analysis using automated workflows with digdag via SQL queries.
 
-![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/digdag)
-![GitHub license](https://img.shields.io/github/license/hakkeray/digdag?color=black)
+![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/digdag-mysql)
+![GitHub license](https://img.shields.io/github/license/hakkeray/digdag-mysql?color=black)
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
 * You have access to `sudo` privileges
-* You have installed `Java` version 8
 * You have a `<Windows/Linux/Mac>` machine.
 
 
@@ -50,7 +49,9 @@ Before you begin, ensure you have met the following requirements:
                   └── pageviews_1.csv
                   └── pageviews_2.csv
 
-### Installing Java RE
+### Installing Java 8
+
+*Note: these are the steps for installing Java 8 from Oracle on an AWS remote server running Debian 10. If you're using a different environment you will need to adjust accordingly.*
 
 Check which version of Java you're running. If you get an runtime error saying Java is not installed (when you go to run digdag or embulk) follow the steps below.
 
@@ -58,61 +59,49 @@ Check which version of Java you're running. If you get an runtime error saying J
 $ java -version
 ```
 
-*Note: these are the steps for installing Java 9 from Oracle on an AWS remote server running Debian 9. If you're using a different environment you will need to adjust accordingly.
-
-1. Download the tar file from ![Oracle](https://www.oracle.com/java/technologies/javase/javase9-archive-downloads.html): jdk-9.0.4_linux-x64_bin.tar.gz
-
-2. Copy (`scp`) the tar file to the remote server
+1. Download the tar file from [Oracle](https://www.oracle.com/java/technologies/javase/javase9-archive-downloads.html): jdk-9.0.4_linux-x64_bin.tar.gz
+2. Secure copy (`scp`) the tar file to the remote server
 3. Unzip tar file into your JVM directory (you may need to create first)
 4. Install Java
 5. Set Java directory
 6. Check version
 
 ```bash
-$ sudo mkdir /usr/lib/jvm
-
-$ sudo tar zxvf jre-8u261-linux-x64.tar.gz -C /usr/lib/jvm
-
-$ sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jre1.8.0_261/bin/java" 1
-
-$ sudo update-alternatives --set java /usr/lib/jvm/jre1.8.0_261/bin/java
+$ sudo -s # root privileges
+$ mkdir /usr/lib/jvm # create java folder
+$ tar zxvf jre-8u261-linux-x64.tar.gz -C /usr/lib/jvm # unzip tar file into jvm
+# install java
+$ update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jre1.8.0_261/bin/java" 1
+# set java directory
+$ update-alternatives --set java /usr/lib/jvm/jre1.8.0_261/bin/java
 
 $ java -version
+
 java version "1.8.0_261"
 Java(TM) SE Runtime Environment (build 1.8.0_261-b12)
 Java HotSpot(TM) 64-Bit Server VM (build 25.261-b12, mixed mode)
 ```
 
- *For more in-depth doc on JAVA go here:*
-https://docs.datastax.com/en/jdk-install/doc/jdk-install/installOracleJdkDeb.html
-
-### Switch to root
-
-```bash
-$ sudo -s
-```
-
 ### Install `digdag`
 
 ```bash
+$ sudo -s # use root privileges 
 $ curl -o ~/bin/digdag --create-dirs -L "https://dl.digdag.io/digdag-latest"
 $ chmod +x ~/bin/digdag
 $ echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
-```
 
-### Check installation was successful
-
-Check to make sure `digdag` is installed correctly:
-
-```bash
+# Check to make sure `digdag` is installed correctly:
 $ digdag --help
 ```
 
 ### Create digdag project
 
 ```bash
+$ cd ~/
+$ mkdir digdag-mysql
+$ cd digdag-mysql
 $ digdag init embulk_to_mysql
-$ cd embulk_to_mysql
+$ cd digdag-mysql/embulk_to_mysql
 ```
 
 ### Install Embulk
@@ -157,10 +146,10 @@ Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-MariaDB> CREATE DATABASE td_coding_challenge DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+MariaDB> CREATE DATABASE treasure_data DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 Query OK, 1 row affected (0.003 sec)
 
-MariaDB> GRANT ALL ON td_coding_challenge.* TO 'digdag'@'localhost' IDENTIFIED BY 'digdag' WITH GRANT OPTION;
+MariaDB> GRANT ALL ON treasure_data.* TO 'digdag'@'localhost' IDENTIFIED BY 'digdag' WITH GRANT OPTION;
 Query OK, 0 rows affected (0.000 sec)
 
 MariaDB> FLUSH PRIVILEGES;
@@ -187,7 +176,7 @@ MariaDB [(none)]> SHOW DATABASES;
 | Database            |
 +---------------------+
 | information_schema  |
-| td_coding_challenge |
+| treasure_data       |
 +---------------------+
 2 rows in set (0.000 sec)
 
@@ -208,7 +197,8 @@ MariaDB [(none)]> exit
 ### Customers Embulk Script
 
 ```bash
-$ nano seed_customers.yml
+$ mkdir tasks
+$ nano tasks/seed_customers.yml
 ```
 
 ```bash
@@ -235,7 +225,7 @@ out:
   host: localhost
   user: digdag
   password: digdag
-  database: td_coding_challenge
+  database: treasure_data
   table: customers_tmp
   mode: insert
 ```
@@ -243,7 +233,7 @@ out:
 ### Pageviews Embulk Script
 
 ```bash
-$ nano seed_pageviews.yml
+$ nano tasks/seed_pageviews.yml
 ```
 
 ```bash
@@ -270,7 +260,7 @@ out:
   host: localhost
   user: digdag
   password: digdag
-  database: td_coding_challenge
+  database: treasure_data
   table: pageviews_tmp
   mode: insert
 ```
@@ -285,19 +275,33 @@ Creates a new table called `customers` that:
 - Includes all columns from customers_tmp
 - Parses the “user_agent” column to add a new column called ‘operating_system’ that contains one of the following values ("Windows", "Macintosh", "Linux", or "Other"). 
 
+```bash
+$ mkdir queries
+$ nano queries/create_customers.sql
+```
+
 `create_customers.sql`
 
 ```sql
---create_customers.sql
-CREATE TABLE customers 
-SELECT c.user_id, c.first_name, c.last_name, c.job_title, p.user_agent AS operating_system 
-FROM pageviews_tmp p 
-JOIN customers_tmp c 
-ON p.user_id = c.user_id 
-GROUP BY user_id;
+--create_customers.sql--
+CREATE TABLE customers
+WITH t AS (SELECT user_id, MAX(timestamp) as time 
+FROM pageviews_tmp 
+GROUP BY user_id)
+, s AS (SELECT p.user_id, p.user_agent, p.timestamp 
+  FROM pageviews_tmp p 
+  JOIN t ON p.user_id = t.user_id 
+  AND p.timestamp = t.time) 
+SELECT c.user_id, c.first_name, c.last_name, c.job_title, s.user_agent AS operating_system 
+FROM customers_tmp c 
+JOIN s ON c.user_id = s.user_id
 ```
 
 `update_customers.sql`
+
+```bash
+$ nano queries/update_customers.sql
+```
 
 ```sql
 --update_customers.sql
@@ -324,20 +328,28 @@ Creates a new table called `pageviews` that:
 - Includes all columns from pageviews_tmp
 - Excludes all records where job_title contains “Sales”
 
+```bash
+$ nano queries/create_pageviews.sql
+```
+
 `create_pageviews.sql`
 ```sql
 --create_pageviews.sql
 CREATE TABLE pageviews 
 SELECT * FROM pageviews_tmp
-WHERE user_id IN 
-(SELECT user_id
-FROM customers
-WHERE job_title NOT LIKE '%Sales%');
+WHERE user_id IN (
+    SELECT user_id
+		FROM customers_tmp
+		WHERE job_title NOT LIKE '%Sales%');
 ```
 
 ### Count Pageviews
 
 Returns the total number of pageviews from users who are browsing with a Windows operating system or have “Engineer” in their job title.
+
+```bash
+$ nano queries/count_pageviews.sql
+```
 
 `count_pageviews.sql`
 
@@ -346,11 +358,12 @@ Returns the total number of pageviews from users who are browsing with a Windows
 SELECT COUNT(url) AS total_views 
 FROM pageviews 
 WHERE user_id 
-IN 
-(SELECT user_id 
-FROM customers 
-WHERE operating_system = 'Windows' 
-OR job_title LIKE '%Engineer%');
+IN (
+  SELECT user_id 
+  FROM customers 
+  WHERE operating_system = 'Windows' 
+  OR job_title LIKE '%Engineer%'
+  )
 ```
 
 Returns:
@@ -359,7 +372,7 @@ Returns:
 +-------------+
 | total_views |
 +-------------+
-|        576  |
+|        456  |
 +-------------+
 1 row in set (0.009 sec)
 ```
@@ -368,26 +381,34 @@ Returns:
 
 Returns top 3 user_id’s (ranked by total pageviews) who have viewed a web page with a “.gov” domain extension and the url of last page they viewed.
 
+```bash
+$ nano queries/top_3_users.sql
+```
+
 `top_3_users.sql`
 
 ```sql
 --top_3_users.sql
-WITH p2 AS(
-SELECT user_id, max(timestamp) last_timestamp 
-FROM pageviews 
-WHERE user_id IN 
-(SELECT user_id 
-FROM pageviews 
-WHERE url LIKE '%.gov%') 
-GROUP BY user_id 
-ORDER BY COUNT(url) DESC 
-LIMIT 3) 
+WITH p2 AS (
+	SELECT user_id, max(timestamp) last_timestamp 
+	FROM pageviews 
+	WHERE user_id 
+    IN (
+        SELECT user_id 
+        FROM pageviews 
+        WHERE url LIKE '%.gov%'
+        ) 
+	GROUP BY user_id 
+	ORDER BY COUNT(url) DESC 
+    LIMIT 3)
 SELECT user_id, url last_page_viewed 
 FROM pageviews 
-WHERE user_id IN 
-(SELECT user_id 
-FROM p2 
-WHERE timestamp=last_timestamp)
+WHERE user_id 
+IN (
+    SELECT user_id 
+	FROM p2 
+	WHERE timestamp=last_timestamp
+    )
 ORDER BY timestamp DESC;
 ```
 
@@ -407,8 +428,6 @@ Returns:
 ## Write a digdag workflow
 
 ```bash
-$ digdag init embulk_to_mysql.dig
-$ cd embulk_to_mysql.dig
 $ nano embulk_to_mysql.dig
 ```
 
