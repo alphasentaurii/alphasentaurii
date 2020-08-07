@@ -1,0 +1,15 @@
+I"!<p>Predicting stroke outcomes using brain MRI images on AWS Redshift</p>
+
+<p>https://www.kaggle.com/c/trends-assessment-prediction/data</p>
+
+<h1 id="import-data">Import data</h1>
+
+<p>Use the kaggle API to download dataset</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kaggle competitions download <span class="nt">-c</span> trends-assessment-prediction
+</code></pre></div></div>
+
+<h1 id="aws-redshift">AWS Redshift</h1>
+
+<p>Amazon offers 2 months free to AWS users (assuming this is your first time using it).  Login to the console and go to the AWS Redshift Console. Click <code class="highlighter-rouge">Create Cluster</code> then select the free tier and a DC2.Large cluster. This will give you up to 160GB SSD.</p>
+:ET
