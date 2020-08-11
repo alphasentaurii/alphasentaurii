@@ -1,0 +1,318 @@
+I"�L<ul>
+  <li>Create a notebook instance</li>
+  <li>Prepare the data</li>
+  <li>Train the model to learn from the data</li>
+  <li>Deploy the model</li>
+  <li>Evaluate your ML model’s performance *</li>
+</ul>
+
+<p>Application to another application:</p>
+
+<p>Send request (with some info/data)
+Get response
+data
+service
+Examples include:</p>
+
+<p>Financial transactions
+Posting to Twitter
+Controlling IOT
+Always a software-to-software interaction</p>
+
+<p>Typical way of getting data (usually JSON or XML)</p>
+
+<p>Access Permissions</p>
+
+<p>User allowed to ask?
+API Call/Request</p>
+
+<p>Code used to make API call to implement complicated tasks/features
+Methods: what questions can we ask?
+Parameters: more info to be sent
+Repsonse</p>
+
+<p>Result of request</p>
+
+<p>Client
+Web Example</p>
+
+<p>Defines what user sees, so it must:</p>
+
+<p>Define the page visuals
+Methods for responding to user interactions
+Server
+Web Example</p>
+
+<p>Listens to requests (through HTTP):</p>
+
+<p>Authenticates client/user
+Looks at requests
+Performs actions/processes needed
+Sends response to client (possibly with more data)</p>
+
+<h1 id="example">Example</h1>
+
+<p>We can use requests library to get web page form data, files, and parameters</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c1"># Getting response from request
+</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'neurovault.org/api/collections/?DOI=10.1016/j.neurobiolaging.2012.11.002'</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+
+<span class="c1"># requests.models.Response
+</span>
+<span class="n">requests</span><span class="p">.</span><span class="n">codes</span><span class="p">.</span><span class="n">ok</span>
+<span class="c1"># 200
+</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Response Code:'</span><span class="p">,</span> <span class="n">resp</span><span class="p">.</span><span class="n">status_code</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Is it OK?'</span><span class="p">,</span> <span class="n">resp</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">requests</span><span class="p">.</span><span class="n">codes</span><span class="p">.</span><span class="n">ok</span><span class="p">)</span>
+
+<span class="c1"># Response Code: 200
+# Is it OK? True
+</span></code></pre></div></div>
+
+<h1 id="response-components">Response Components</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Full HTML Doc
+</span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="c1"># print(resp.text[:1000])
+</span>
+<span class="c1"># Headers
+</span><span class="n">pprint</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">headers</span><span class="p">)</span>
+
+<span class="c1"># Convert to a dictionary from `requests.structures.CaseInsensitiveDict`
+</span><span class="n">headers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">headers</span><span class="p">)</span>
+<span class="c1"># {'Date': 'Tue, 05 Nov 2019 17:15:34 GMT', 'Expires': '-1', 'Cache-Control': 'private, max-age=0', 'Content-Type': 'text/html; charset=ISO-8859-1', 'P3P': 'CP="This is not a P3P policy! See g.co/p3phelp for more info."', 'Content-Encoding': 'gzip', 'Server': 'gws', 'X-XSS-Protection': '0', 'X-Frame-Options': 'SAMEORIGIN', 'Set-Cookie': '1P_JAR=2019-11-05-17; expires=Thu, 05-Dec-2019 17:15:34 GMT; path=/; domain=.google.com; SameSite=none, NID=190=Ua-DtcriEneGu6FdMGvevh3Ce6POTpJVN-YyZGXyhJ57WCdWL3KLwnsbhfXostgvG3viaO21MzjJ1p8hHEEEC-k-i7ecTzCXgIHuZC6Klcpypw4ArGSl7sBLNYpeJL_cto2Mt4O0NFWU9XAorz9sQ60eGVMCfvldn0RRPS2iB2c; expires=Wed, 06-May-2020 17:15:34 GMT; path=/; domain=.google.com; HttpOnly', 'Transfer-Encoding': 'chunked'}
+</span>
+<span class="k">print</span><span class="p">(</span><span class="n">headers</span><span class="p">[</span><span class="s">'Date'</span><span class="p">])</span> <span class="c1"># Date response was sent
+</span><span class="k">print</span><span class="p">(</span><span class="n">headers</span><span class="p">[</span><span class="s">'Server'</span><span class="p">])</span> <span class="c1"># Server type
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Passing parameters
+</span>
+<span class="n">credentials</span> <span class="o">=</span> <span class="p">{</span><span class="s">'user_name'</span><span class="p">:</span> <span class="n">ru</span><span class="p">,</span> <span class="s">'password'</span><span class="p">:</span> <span class="s">'password'</span><span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">credentials</span><span class="p">)</span>
+
+<span class="c1"># Note we can only do this becasue r.text() is in JSON format
+</span><span class="n">results</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="c1"># Don't show your IP
+</span><span class="n">results</span><span class="p">[</span><span class="s">'origin'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">url</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+<span class="s">"""
+http://httpbin.org/get?user_name=luigi&amp;password=i%3C3peach
+{'args': {'password': 'i&lt;3peach', 'user_name': 'luigi'},
+ 'headers': {'Accept': '*/*',
+  'Accept-Encoding': 'gzip, deflate',
+  'Host': 'httpbin.org',
+  'User-Agent': 'python-requests/2.21.0'},
+ 'origin': None,
+ 'url': 'https://httpbin.org/get?user_name=luigi&amp;password=i&lt;3peach'
+"""</span>
+</code></pre></div></div>
+
+<h1 id="http-post">HTTP Post</h1>
+
+<p>Allows multiple requests to be sent simultaneously</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="p">.</span><span class="n">mount</span><span class="p">(</span><span class="s">'/content/drive'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">filepath_stroke</span> <span class="o">=</span> <span class="s">'/content/drive/My Drive/Colab Notebooks/data/train/imgA.png'</span>
+<span class="n">filepath_normal</span> <span class="o">=</span> <span class="s">'/content/drive/My Drive/Colab Notebooks/data/train/imgB.jpg'</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">'http://httpbin.org/post'</span>
+<span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s">'image'</span><span class="p">,</span> <span class="p">(</span><span class="s">'imgA.png'</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath_stroke</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">),</span> <span class="s">'image/png'</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s">'image'</span><span class="p">,</span> <span class="p">(</span><span class="s">'imgB.png'</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath_normal</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">),</span> <span class="s">'image/jpg'</span><span class="p">))</span>
+<span class="p">]</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">file_list</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="oauth-open-authorization">OAuth (Open Authorization)</h1>
+
+<p>Most common form of authorization for large datasets. Allows access without password (authentication separate from authorization).</p>
+
+<ul>
+  <li>Get credentials &amp; authorize application (before OAuth)</li>
+  <li>Authorize permissions requested</li>
+  <li>Redirect use back w/ authorization code</li>
+  <li>Aquisition user “recieves” access token</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'lifx'</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s">'token_name'</span><span class="p">:</span> <span class="s">'Lifx'</span><span class="p">,</span>
+            <span class="s">'token'</span><span class="p">:</span> <span class="s">'c33cf42e79aaf8afc8b647e13b07ff9fe668587c41c722ae6896462f835190ab'</span><span class="p">,</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Specific to today
+</span><span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s">'lifx'</span><span class="p">][</span><span class="s">'token'</span><span class="p">]</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"Authorization"</span><span class="p">:</span> <span class="s">"Bearer %s"</span> <span class="o">%</span> <span class="n">token</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.lifx.com/v1/lights/all'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+
+<span class="n">lights</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">lights</span><span class="p">)</span>
+
+
+<span class="s">"""
+
+[{'brightness': 1,
+  'color': {'hue': 0, 'kelvin': 3500, 'saturation': 0},
+  'connected': True,
+  'effect': 'OFF',
+  'group': {'id': '3d5a822c35807538baf71c686df1f22e', 'name': 'Room 2'},
+  'id': 'd073d533cbad',
+  'label': "Mom's Room",
+  'last_seen': '2019-11-05T17:24:16Z',
+  'location': {'id': '00fbb492ce852678eda5704d3470229d', 'name': 'My Home'},
+  'power': 'on',
+  'product': {'capabilities': {'has_chain': False,
+    'has_color': False,
+    'has_ir': False,
+    'has_matrix': False,
+    'has_multizone': False,
+    'has_variable_color_temp': True,
+    'max_kelvin': 4000,
+    'min_kelvin': 1500},
+   'company': 'LIFX',
+   'identifier': 'lifx_mini_day_and_dusk',
+   'name': 'LIFX Mini Day and Dusk'},
+  'seconds_since_seen': 0,
+  'uuid': '02e3bd5b-ecb8-4bb0-b6e5-b648392f16ec'},
+ {'brightness': 1,
+  'color': {'hue': 0, 'kelvin': 3500, 'saturation': 0.003997863736934462},
+  'connected': False,
+  'effect': 'OFF',
+  'group': {'id': 'c390740109f7aae4526905966a30a803', 'name': 'Room 1'},
+  'id': 'd073d5348133',
+  'label': "Matt's Room",
+  'last_seen': '2019-05-25T23:56:09Z',
+  'location': {'id': '00fbb492ce852678eda5704d3470229d', 'name': 'My Home'},
+  'power': 'off',
+  'product': {'capabilities': {'has_chain': False,
+    'has_color': True,
+    'has_ir': False,
+    'has_matrix': False,
+    'has_multizone': False,
+    'has_variable_color_temp': True,
+    'max_kelvin': 9000,
+    'min_kelvin': 2500},
+   'company': 'LIFX',
+   'identifier': 'lifx_mini2',
+   'name': 'LIFX Mini'},
+  'seconds_since_seen': 14146087,
+  'uuid': '027d2582-b8f5-45f6-835b-8c6660b6571c'}]
+"""</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lights_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">lights</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">light</span> <span class="ow">in</span> <span class="n">lights</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">light</span><span class="p">[</span><span class="s">'label'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1"># Power ON
+</span><span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"states"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s">"selector"</span> <span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">lights</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s">'id'</span><span class="p">]),</span>
+        <span class="s">"power"</span><span class="p">:</span> <span class="s">"on"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">'https://api.lifx.com/v1/lights/states'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="c1"># Power OFF
+</span><span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"states"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s">"selector"</span> <span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">lights</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s">'id'</span><span class="p">]),</span>
+        <span class="s">"power"</span><span class="p">:</span> <span class="s">"off"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">'https://api.lifx.com/v1/lights/states'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="using-amazon-s3-command-line-interface-rest-api">Using Amazon S3 Command Line Interface REST API</h1>
+
+<ul>
+  <li>create IAM user</li>
+  <li>set permissions</li>
+  <li>create bucket</li>
+  <li>
+    <p>get object from bucket</p>
+  </li>
+  <li>
+    <p><em>Bucket</em> – A top-level Amazon S3 folder.</p>
+  </li>
+  <li>
+    <p><em>Prefix</em> – An Amazon S3 folder in a bucket.</p>
+  </li>
+  <li><em>Object</em> – Any item that’s hosted in an Amazon S3 bucket.</li>
+</ul>
+
+<h1 id="install-aws-cli">Install AWS CLI</h1>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Macintosh</span>
+<span class="nv">$ </span>curl <span class="s2">"https://awscli.amazonaws.com/AWSCLIV2.pkg"</span> <span class="nt">-o</span> <span class="s2">"AWSCLIV2.pkg"</span>
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 20.9M  100 20.9M    0     0  16.9M      0  0:00:01  0:00:01 <span class="nt">--</span>:--:-- 16.9M
+
+<span class="nv">$ </span><span class="nb">sudo </span>installer <span class="nt">-pkg</span> AWSCLIV2.pkg <span class="nt">-target</span> / <span class="c">#/usr/local/bin/</span>
+installer: Package name is AWS Command Line Interface
+installer: Installing at base path /
+installer: The <span class="nb">install </span>was successful.
+
+
+<span class="c"># verify installation</span>
+<span class="nv">$ </span>which aws
+/usr/local/bin/aws <span class="c"># Mojave</span>
+/Users/hakkeray/.local/bin/aws <span class="c"># Sierra</span>
+
+<span class="c"># check version</span>
+<span class="nv">$ </span>aws <span class="nt">--version</span>
+aws-cli/2.0.23 Python/3.7.4 Darwin/18.7.0 botocore/2.0.0
+
+<span class="c"># Linux</span>
+<span class="nv">$ </span>curl <span class="s2">"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"</span> <span class="nt">-o</span> <span class="s2">"awscliv2.zip"</span>
+<span class="nv">$ </span>unzip awscliv2.zip
+<span class="nv">$ </span><span class="nb">sudo</span> ./aws/install
+
+<span class="c"># verify</span>
+<span class="nv">$ </span>aws <span class="nt">--version</span>
+aws-cli/2.0.23 Python/3.7.4 Linux/4.14.133-113.105.amzn2.x86_64 botocore/2.0.0
+</code></pre></div></div>
+<h1 id="create-bucket">Create bucket</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a bucket</span>
+<span class="nv">$ </span>aws s3 mb &lt;target&gt; <span class="o">[</span><span class="nt">--options</span><span class="o">]</span>
+<span class="nv">$ </span>aws s3 mb s3://bucket-name
+</code></pre></div></div>
+
+:ET
