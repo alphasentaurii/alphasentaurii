@@ -1,0 +1,205 @@
+I"�r<p>Predicting stroke outcomes using brain MRI images on AWS Redshift</p>
+
+<h1 id="project-goal">Project Goal</h1>
+<p>Predict age and assessment values from two domains using features derived from brain MRI images as inputs.</p>
+
+<h1 id="background-neuroimaging">Background: Neuroimaging</h1>
+<p>Human brain research is among the most complex areas of study for scientists. We know that age and other factors can affect its function and structure, but more research is needed into what specifically occurs within the brain. With much of the research using MRI scans, data scientists are well positioned to support future insights. In particular, neuroimaging specialists look for measurable markers of behavior, health, or disorder to help identify relevant brain regions and their contribution to typical or symptomatic effects.</p>
+
+<h1 id="background-trends-competition">Background: TReNDS Competition</h1>
+<p>TReNDS is meant to encourage approaches able to predict age plus additional continuous individual-level assessment values, given multimodal brain features such as 3D functional spatial maps from resting-state functional MRI, static functional network connectivity (FNC) matrices, and source-based morphometry (SBM) loading values from structural MRI. For this task, one of the largest datasets of unbiased multimodal brain imaging features is made available. Given a set of multimodal imaging features, the developed predictors should output age and assessment predictions.</p>
+
+<h1 id="fmri-scans">fMRI Scans</h1>
+<p>An fMRI scan is a functional magnetic resonance imaging scan that measures and maps the brain’s activity. An fMRI scan uses the same technology as an MRI scan. An MRI is a noninvasive test that uses a strong magnetic field and radio waves to create an image of the brain. The image an MRI scan produces is just of organs/tissue, but an fMRI will produce an image showing the blood flow in the brain. By showing the blood flow it will display which parts of the brain are being stimulated.</p>
+
+<h1 id="predictions">Predictions</h1>
+<p>We need to predict values for following output variables:</p>
+
+<ul>
+  <li>age</li>
+  <li>domain1_var1</li>
+  <li>domain1_var2</li>
+  <li>domain2_var1</li>
+  <li>domain2_var2</li>
+</ul>
+
+<h1 id="data-set">Data Set</h1>
+<p><code class="highlighter-rouge">TReNDS Neuroimaging</code> : Multiscanner normative age and assessments prediction with brain function, structure, and connectivity.</p>
+
+<p>https://www.kaggle.com/c/trends-assessment-prediction/data</p>
+
+<h1 id="background">Background</h1>
+<p>Models are expected to generalize on data from a different scanner/site (site 2). All subjects from site 2 were assigned to the test set, so their scores are not available. While there are fewer site 2 subjects than site 1 subjects in the test set, the total number of subjects from site 2 will not be revealed until after the end of the competition. To make it more interesting, the IDs of some site 2 subjects have been revealed below. Use this to inform your models about site effects. Site effects are a form of bias. To generalize well, models should learn features that are not related to or driven by site effects.</p>
+
+<h2 id="files">Files</h2>
+<p>The .mat files for this competition can be read in python using h5py, and the .nii file can be read in python using nilearn.</p>
+
+<ul>
+  <li>fMRI_train - a folder containing 53 3D spatial maps for train samples in .mat format</li>
+  <li>fMRI_test - a folder containing 53 3D spatial maps for test samples in .mat format</li>
+  <li>fnc.csv - static FNC correlation features for both train and test samples</li>
+  <li>loading.csv - sMRI SBM loadings for both train and test samples</li>
+  <li>train_scores.csv - age and assessment values for train samples</li>
+  <li>sample_submission.csv - a sample submission file in the correct format</li>
+  <li>reveal_ID_site2.csv - a list of subject IDs whose data was collected with a different scanner than the train samples</li>
+  <li>fMRI_mask.nii - a 3D binary spatial map</li>
+  <li>ICN_numbers.txt - intrinsic connectivity network numbers for each fMRI spatial map; matches FNC names</li>
+</ul>
+
+<h1 id="disclaimer-from-kaggle">Disclaimer (from Kaggle)</h1>
+
+<p>The scores (see train_scores.csv) are not the original age and raw assessment values. They have been transformed and de-identified to help protect subject identity and minimize the risk of unethical usage of the data. Nonetheless, they are directly derived from the original assessment values and, thus, associations with the provided features is equally likely.</p>
+
+<p>Before transformation, the age in the training set is rounded to nearest year for privacy reasons. However, age is not rounded to year (higher precision) in the test set. Thus, heavily overfitting to the training set age will very likely have a negative impact on your submissions.</p>
+
+<h1 id="how-features-were-obtained">How Features Were Obtained</h1>
+<p>An unbiased strategy was utilized to obtain the provided features. This means that a separate, unrelated large imaging dataset was utilized to learn feature templates. Then, these templates were “projected” onto the original imaging data of each subject used for this competition using spatially constrained independent component analysis (scICA) via group information guided ICA (GIG-ICA).</p>
+
+<h1 id="1st-set">1st set</h1>
+<p><code class="highlighter-rouge">Source-based morphometry (SBM) loadings</code>: These are subject-level weights from a group-level ICA decomposition of gray matter concentration maps from structural MRI (sMRI) scans.</p>
+
+<h1 id="2nd-set">2nd set</h1>
+<p><code class="highlighter-rouge">Static functional network connectivity (FNC) matrices</code>: These are the subject-level cross-correlation values among 53 component timecourses estimated from GIG-ICA of resting state functional MRI (fMRI).</p>
+
+<h1 id="3rd-set">3rd set</h1>
+<p><code class="highlighter-rouge">Component spatial maps (SM)</code>: These are the subject-level 3D images of 53 spatial networks estimated from GIG-ICA of resting state functional MRI (fMRI).</p>
+
+<h1 id="optional-use-aws-redshift-for-data-repository">Optional: Use AWS Redshift for Data Repository</h1>
+<p>See my blog post on <a href="configuring and querying AWS Redshift">/blog/datascience/2020/08/08/aws-redshift-configuration.html</a> for housing the data (~160GB) instead of using your local machine.</p>
+
+<h1 id="kaggle-cli">Kaggle CLI</h1>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>kaggle
+</code></pre></div></div>
+
+<h1 id="import-data">Import data</h1>
+
+<p>Use the kaggle API to download dataset</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kaggle competitions download <span class="nt">-c</span> trends-assessment-prediction
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">PIL</span>
+
+<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="n">go</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">joypy</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="p">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">"ignore"</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">nilearn</span> <span class="k">as</span> <span class="n">nl</span>
+<span class="kn">import</span> <span class="nn">nilearn.plotting</span> <span class="k">as</span> <span class="n">nlpl</span>
+<span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="n">nib</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">'/kaggle/input/trends-assessment-prediction/'</span><span class="p">)</span>
+
+
+<span class="p">[</span><span class="s">'train_scores.csv'</span><span class="p">,</span>
+ <span class="s">'fMRI_test'</span><span class="p">,</span>
+ <span class="s">'fMRI_mask.nii'</span><span class="p">,</span>
+ <span class="s">'reveal_ID_site2.csv'</span><span class="p">,</span>
+ <span class="s">'fnc.csv'</span><span class="p">,</span>
+ <span class="s">'fMRI_train'</span><span class="p">,</span>
+ <span class="s">'loading.csv'</span><span class="p">,</span>
+ <span class="s">'ICN_numbers.csv'</span><span class="p">,</span>
+ <span class="s">'sample_submission.csv'</span><span class="p">]</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BASE_PATH</span> <span class="o">=</span> <span class="s">'../input/trends-assessment-prediction'</span>
+
+<span class="c1"># image and mask directories
+</span><span class="n">train_data_dir</span> <span class="o">=</span> <span class="s">f'</span><span class="si">{</span><span class="n">BASE_PATH</span><span class="si">}</span><span class="s">/fMRI_train'</span>
+<span class="n">test_data_dir</span> <span class="o">=</span> <span class="s">f'</span><span class="si">{</span><span class="n">BASE_PATH</span><span class="si">}</span><span class="s">/fMRI_test'</span>
+
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Reading data...'</span><span class="p">)</span>
+<span class="n">loading_data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">f'</span><span class="si">{</span><span class="n">BASE_PATH</span><span class="si">}</span><span class="s">/loading.csv'</span><span class="p">)</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">f'</span><span class="si">{</span><span class="n">BASE_PATH</span><span class="si">}</span><span class="s">/train_scores.csv'</span><span class="p">)</span>
+<span class="n">sample_submission</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">f'</span><span class="si">{</span><span class="n">BASE_PATH</span><span class="si">}</span><span class="s">/sample_submission.csv'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Reading data completed'</span><span class="p">)</span>
+
+<span class="n">Reading</span> <span class="n">data</span><span class="p">...</span>
+<span class="n">Reading</span> <span class="n">data</span> <span class="n">completed</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">display</span><span class="p">(</span><span class="n">train_data</span><span class="p">.</span><span class="n">head</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Shape of train_data :"</span><span class="p">,</span> <span class="n">train_data</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="n">Id</span>	    <span class="n">age</span>	     <span class="n">domain1_var1</span> <span class="n">domain1_var2</span> <span class="n">domain2_var1</span> <span class="n">domain2_var2</span>
+<span class="mi">0</span>	<span class="mi">10001</span>	<span class="mf">57.436077</span>	<span class="mf">30.571975</span>	<span class="mf">62.553736</span>	<span class="mf">53.325130</span>	<span class="mf">51.427998</span>
+<span class="mi">1</span>	<span class="mi">10002</span>	<span class="mf">59.580851</span>	<span class="mf">50.969456</span>	<span class="mf">67.470628</span>	<span class="mf">60.651856</span>	<span class="mf">58.311361</span>
+<span class="mi">2</span>	<span class="mi">10004</span>	<span class="mf">71.413018</span>	<span class="mf">53.152498</span>	<span class="mf">58.012103</span>	<span class="mf">52.418389</span>	<span class="mf">62.536641</span>
+<span class="mi">3</span>	<span class="mi">10005</span>	<span class="mf">66.532630</span>	<span class="n">NaN</span>	        <span class="n">NaN</span>	        <span class="mf">52.108977</span>	<span class="mf">69.993075</span>
+<span class="mi">4</span>	<span class="mi">10007</span>	<span class="mf">38.617381</span>	<span class="mf">49.197021</span>	<span class="mf">65.674285</span>	<span class="mf">40.151376</span>	<span class="mf">34.096421</span>
+
+<span class="n">Shape</span> <span class="n">of</span> <span class="n">train_data</span> <span class="p">:</span> <span class="p">(</span><span class="mi">5877</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">display</span><span class="p">(</span><span class="n">loading_data</span><span class="p">.</span><span class="n">head</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Shape of loading_data :"</span><span class="p">,</span> <span class="n">loading_data</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">Id</span>	<span class="n">IC_01</span>	<span class="n">IC_07</span>	<span class="n">IC_05</span>	<span class="n">IC_16</span>	<span class="n">IC_26</span>	<span class="n">IC_06</span>	<span class="n">IC_10</span>	<span class="n">IC_09</span>	<span class="n">IC_18</span>	<span class="p">...</span>	<span class="n">IC_08</span>	<span class="n">IC_03</span>	<span class="n">IC_21</span>	<span class="n">IC_28</span>	<span class="n">IC_11</span>	<span class="n">IC_20</span>	<span class="n">IC_30</span>	<span class="n">IC_22</span>	<span class="n">IC_29</span>	<span class="n">IC_14</span>
+<span class="mi">0</span>	<span class="mi">10001</span>	<span class="mf">0.006070</span>	<span class="mf">0.014466</span>	<span class="mf">0.004136</span>	<span class="mf">0.000658</span>	<span class="o">-</span><span class="mf">0.002742</span>	<span class="mf">0.005033</span>	<span class="mf">0.016720</span>	<span class="mf">0.003484</span>	<span class="mf">0.001797</span>	<span class="p">...</span>	<span class="mf">0.018246</span>	<span class="mf">0.023711</span>	<span class="mf">0.009177</span>	<span class="o">-</span><span class="mf">0.013929</span>	<span class="mf">0.030696</span>	<span class="mf">0.010496</span>	<span class="mf">0.002892</span>	<span class="o">-</span><span class="mf">0.023235</span>	<span class="mf">0.022177</span>	<span class="mf">0.017192</span>
+<span class="mi">1</span>	<span class="mi">10002</span>	<span class="mf">0.009087</span>	<span class="mf">0.009291</span>	<span class="mf">0.007049</span>	<span class="o">-</span><span class="mf">0.002076</span>	<span class="o">-</span><span class="mf">0.002227</span>	<span class="mf">0.004605</span>	<span class="mf">0.012277</span>	<span class="mf">0.002946</span>	<span class="mf">0.004086</span>	<span class="p">...</span>	<span class="mf">0.014635</span>	<span class="mf">0.022556</span>	<span class="mf">0.012004</span>	<span class="o">-</span><span class="mf">0.011814</span>	<span class="mf">0.022479</span>	<span class="mf">0.005739</span>	<span class="mf">0.002880</span>	<span class="o">-</span><span class="mf">0.016609</span>	<span class="mf">0.025543</span>	<span class="mf">0.014524</span>
+<span class="mi">2</span>	<span class="mi">10003</span>	<span class="mf">0.008151</span>	<span class="mf">0.014684</span>	<span class="mf">0.010444</span>	<span class="o">-</span><span class="mf">0.005293</span>	<span class="o">-</span><span class="mf">0.002913</span>	<span class="mf">0.015042</span>	<span class="mf">0.017745</span>	<span class="mf">0.003930</span>	<span class="o">-</span><span class="mf">0.008021</span>	<span class="p">...</span>	<span class="mf">0.019565</span>	<span class="mf">0.030616</span>	<span class="mf">0.018184</span>	<span class="o">-</span><span class="mf">0.010469</span>	<span class="mf">0.029799</span>	<span class="mf">0.015435</span>	<span class="mf">0.005211</span>	<span class="o">-</span><span class="mf">0.028882</span>	<span class="mf">0.031427</span>	<span class="mf">0.018164</span>
+<span class="mi">3</span>	<span class="mi">10004</span>	<span class="mf">0.004675</span>	<span class="mf">0.000957</span>	<span class="mf">0.006154</span>	<span class="o">-</span><span class="mf">0.000429</span>	<span class="o">-</span><span class="mf">0.001222</span>	<span class="mf">0.011755</span>	<span class="mf">0.013010</span>	<span class="mf">0.000193</span>	<span class="mf">0.008075</span>	<span class="p">...</span>	<span class="mf">0.002658</span>	<span class="mf">0.022266</span>	<span class="mf">0.005956</span>	<span class="o">-</span><span class="mf">0.010595</span>	<span class="mf">0.024078</span>	<span class="o">-</span><span class="mf">0.000319</span>	<span class="mf">0.005866</span>	<span class="o">-</span><span class="mf">0.015182</span>	<span class="mf">0.024476</span>	<span class="mf">0.014760</span>
+<span class="mi">4</span>	<span class="mi">10005</span>	<span class="o">-</span><span class="mf">0.000398</span>	<span class="mf">0.006878</span>	<span class="mf">0.009051</span>	<span class="mf">0.000369</span>	<span class="mf">0.000336</span>	<span class="mf">0.010679</span>	<span class="mf">0.010352</span>	<span class="mf">0.003637</span>	<span class="mf">0.004180</span>	<span class="p">...</span>	<span class="mf">0.009702</span>	<span class="mf">0.017257</span>	<span class="mf">0.005454</span>	<span class="o">-</span><span class="mf">0.008591</span>	<span class="mf">0.019416</span>	<span class="mf">0.000786</span>	<span class="mf">0.002692</span>	<span class="o">-</span><span class="mf">0.019814</span>	<span class="mf">0.017105</span>	<span class="mf">0.013316</span>
+<span class="mi">5</span> <span class="n">rows</span> <span class="err">×</span> <span class="mi">27</span> <span class="n">columns</span>
+
+<span class="n">Shape</span> <span class="n">of</span> <span class="n">loading_data</span> <span class="p">:</span> <span class="p">(</span><span class="mi">11754</span><span class="p">,</span> <span class="mi">27</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># checking missing data
+</span><span class="n">total</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">().</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+<span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">train_data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">()</span><span class="o">/</span><span class="n">train_data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="n">count</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">).</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+<span class="n">missing_train_data</span>  <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span> <span class="n">percent</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s">'Total'</span><span class="p">,</span> <span class="s">'Percent'</span><span class="p">])</span>
+<span class="n">missing_train_data</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+
+	<span class="n">Total</span>	<span class="n">Percent</span>
+<span class="n">domain1_var2</span>	<span class="mi">438</span>	<span class="mf">7.452782</span>
+<span class="n">domain1_var1</span>	<span class="mi">438</span>	<span class="mf">7.452782</span>
+<span class="n">domain2_var2</span>	<span class="mi">39</span>	<span class="mf">0.663604</span>
+<span class="n">domain2_var1</span>	<span class="mi">39</span>	<span class="mf">0.663604</span>
+<span class="n">age</span>	<span class="mi">0</span>	<span class="mf">0.000000</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">total</span> <span class="o">=</span> <span class="n">loading_data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">().</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+<span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">loading_data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">()</span><span class="o">/</span><span class="n">loading_data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="n">count</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">).</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+<span class="n">missing_loading_data</span>  <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span> <span class="n">percent</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s">'Total'</span><span class="p">,</span> <span class="s">'Percent'</span><span class="p">])</span>
+<span class="n">missing_loading_data</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">plot_bar</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">''</span><span class="p">,</span> <span class="n">show_percent</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">size</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+    <span class="n">sns</span><span class="p">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">feature</span><span class="p">].</span><span class="n">value_counts</span><span class="p">().</span><span class="n">index</span><span class="p">).</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">df</span><span class="p">[</span><span class="n">feature</span><span class="p">].</span><span class="n">value_counts</span><span class="p">().</span><span class="n">values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s">'bright'</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">show_percent</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">.</span><span class="n">patches</span><span class="p">:</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">get_height</span><span class="p">()</span>
+            <span class="n">ax</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">get_x</span><span class="p">()</span><span class="o">+</span><span class="n">p</span><span class="p">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+                    <span class="n">height</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s">'{:1.2f}%'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">height</span><span class="o">/</span><span class="n">total</span><span class="p">),</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s">"center"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Number of Occurrences'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">plot_bar</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="s">'age'</span><span class="p">,</span> <span class="s">'age count and %age plot'</span><span class="p">,</span> <span class="n">show_percent</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>   
+</code></pre></div></div>
+:ET

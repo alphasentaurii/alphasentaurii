@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "AWS Redshift Database Management"
-date:   2020-08-10 11:11:11 -1800
+date:   2020-08-24 11:11:11 -1800
 categories: datascience
 ---
 
@@ -35,7 +35,11 @@ IAM Redshift Access Configuration (optional)
 
 # Create SSH Key for Remote Access (optional)
 
+- Step 1: Retrieve the cluster public key and cluster node IP addresses
+
 If you don't want to use a password, you can (more securely) access the DB remotely using a key. From the AWS Redshift management console, Go to `Clusters` and click on the cluster we just created. Scroll down to the bottom and copy the SSH public key. On your local machine, create a text file and paste the public key. Save it as something like `redshift_key`. 
+
+- Step 2: Add the Amazon Redshift cluster public key to the host's authorized keys file
 
 In the console, under the Nodes section, copy the public IP address and in the command line/terminal, ssh into the Redshift instance with the DB management user you created above, the public key, and the ip address, for example:
 
@@ -43,18 +47,53 @@ In the console, under the Nodes section, copy the public IP address and in the c
 $ cd ~/.ssh
 $ sudo nano redshift_key
 # Paste key contents and save
-$ ssh -i redshift_key jester@52.54.242.95
+
+# change permissions
+$ chmod 0400 redshift_key
+
+$ ssh -L localhost:8888:localhost:8888 -i redshift_key ec2-user@ec2-3-236-65-85.compute-1.amazonaws.com
 ```
+
+Add to config file
+```bash
+$ sudo nano config #if using a Mac
+#
+Host 52.54.242.95
+   User jester
+   IdentityFile ~/.ssh/redshift_key
+```
+
+You add the Amazon Redshift cluster public key to the host's authorized keys file so that the host will recognize the Amazon Redshift cluster and accept the SSH connection.
+
+# Modify Security Groups
+
+For Amazon EC2 , modify the instance's security groups to add ingress rules to accept the Amazon Redshift IP addresses. For other hosts, modify the firewall so that your Amazon Redshift nodes are able to establish SSH connections to the remote host.
+
+# Load from AWS S3 Bucket
+
+Loading data into your Amazon Redshift database tables from data files in an Amazon S3 bucket
+
+1. Create an Amazon S3 bucket and then upload the data files to the bucket.
+
+2. Launch an Amazon Redshift cluster and create database tables.
+
+3. Use COPY commands to load the tables from the data files on Amazon S3.
+
+
+# Run the COPY command to load the data
+
+From an Amazon Redshift database, run the COPY command to load the data into an Amazon Redshift table.
 
 # Login to AWS Remotely
 
+Replace "jester" with your Redshift Master username and the ip address with the public IP of your EC2 node.
 ```bash 
-ssh -i key_name username@ipaddress
+$ ssh -i redshift_key jester@52.54.242.95
 ```
 
 # Import data
 
-Use the kaggle API to download dataset
+Use API to download dataset
 
 ```bash
 $ kaggle competitions download -c trends-assessment-prediction
