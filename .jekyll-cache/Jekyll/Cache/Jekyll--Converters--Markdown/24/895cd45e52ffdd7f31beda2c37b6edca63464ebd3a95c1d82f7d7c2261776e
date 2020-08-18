@@ -1,6 +1,12 @@
-I"ƒ<h1>Latest Posts</h1>
+I"^<h1>Latest Posts</h1>
 
 <ul>
+  
+    <li>
+      <h2><a href="/datascience/2020/08/17/tensorflow-deep-learning-on-aws-ec2.html">Tensorflow Deep Learning on AWS EC2</a></h2>
+      <p><p>Configure <code class="highlighter-rouge">AWS Deep Learning</code> EC2 Container image for <code class="highlighter-rouge">TensorFlow</code> model training on a <code class="highlighter-rouge">CPU instance</code> with <code class="highlighter-rouge">Python 3.6</code> and run a machine learning model.</p>
+</p>
+    </li>
   
     <li>
       <h2><a href="/datascience/2020/08/11/neuroimaging-api-for-machine-learning.html">Neuroimaging API for Machine Learning</a></h2>
