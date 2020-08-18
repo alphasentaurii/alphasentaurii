@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Neuroimaging API for Machine Learning"
-date:   2020-08-17 11:11:11 -1800
+date:   2020-08-10 11:11:11 -1800
 categories: datascience
 ---
 
