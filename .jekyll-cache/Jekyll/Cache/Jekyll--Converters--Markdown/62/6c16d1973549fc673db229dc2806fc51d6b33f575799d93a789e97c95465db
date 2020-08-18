@@ -1,29 +1,40 @@
-I"
-<h1>Latest Posts</h1>
+I"�<h1>Latest Posts</h1>
 
 <ul>
   
     <li>
-      <h2><a href="/datascience/2020/08/03/stroke-statistics.html">Stroke Statistics</a></h2>
+      <h2><a href="/datascience/2020/08/11/neuroimaging-api-for-machine-learning.html">Neuroimaging API for Machine Learning</a></h2>
+      <p><ul>
+  <li>Create a notebook instance</li>
+  <li>Prepare the data</li>
+  <li>Train the model to learn from the data</li>
+  <li>Deploy the model</li>
+  <li>Evaluate your ML model’s performance *</li>
+</ul>
+</p>
+    </li>
+  
+    <li>
+      <h2><a href="/datascience/2020/08/04/stroke-statistics.html">Stroke Statistics</a></h2>
       <p><p>Predict age and assessment values from two domains using features derived from brain MRI images as inputs.</p>
 </p>
     </li>
   
     <li>
-      <h2><a href="/datascience/2020/07/26/digdag-postgresql-tutorial.html">Digdag PostgreSQL Tutorial</a></h2>
+      <h2><a href="/datascience/2020/07/27/digdag-postgresql-tutorial.html">Digdag PostgreSQL Tutorial</a></h2>
       <p><p>The <code class="highlighter-rouge">Digdag Postgres</code> project demonstrates how to use <code class="highlighter-rouge">SQL queries</code> with <code class="highlighter-rouge">digdag</code> and <code class="highlighter-rouge">embulk</code> open source libraries for automation of ingesting and analyzing data using a PostgreSQL database.</p>
 </p>
     </li>
   
     <li>
-      <h2><a href="/datascience/2020/07/20/digdag-mysql-tutorial.html">Digdag MySQL Tutorial</a></h2>
+      <h2><a href="/datascience/2020/07/21/digdag-mysql-tutorial.html">Digdag MySQL Tutorial</a></h2>
       <p><h1 id="digdag-mysql-tutorial">Digdag MySQL Tutorial</h1>
 <p>In this project, we’ll create a digdag workflow that executes an embulk script for ingesting csv files to a MySQL database. We’ll then write SQL queries to prepare and analyze the data.</p>
 </p>
     </li>
   
     <li>
-      <h2><a href="/datascience/2020/07/11/sql-northwind-database.html">SQL Northwind Database</a></h2>
+      <h2><a href="/datascience/2020/07/12/sql-northwind-database.html">SQL Northwind Database</a></h2>
       <p><p>The <code class="highlighter-rouge">Northwind SQL Database Project</code> demonstrates how to use <code class="highlighter-rouge">SQL queries</code> and <code class="highlighter-rouge">hypothesis testing</code> in order to <code class="highlighter-rouge">recommend business strategies</code> for increasing sales and reducing costs for the fictitious “Northwind” company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.</p>
 </p>
     </li>
