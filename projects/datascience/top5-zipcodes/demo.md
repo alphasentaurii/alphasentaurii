@@ -7,6 +7,12 @@ title:  "Top Five Zip Codes"
 
 Top Five Zip Codes is a `housing market prediction model` that uses `seasonal ARIMA time-series analysis and GridsearchCV` to `recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York`.
 
+# Interactive Dashboard:
+
+To see the dashboard in action, go to [RealtyRabbit](https://realty-rabbit.herokuapp.com/).
+
+# Video 
+
 <div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;"><iframe src="https://player.vimeo.com/video/384921005" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>
 
