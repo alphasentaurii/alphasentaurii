@@ -78,7 +78,8 @@ This artist’s interpretation of  a TCE is slightly more accurate than the othe
 
 ### Threshold Crossing Event (Artist's Interpretation)
 
-<img src="/assets/images/starskope/288_planetbleed1600.jpeg" alt="Threshold Crossing Event" title="Planet Bleed: Threshold Crossing Event" width="400"/></div>
+<div><img src="/assets/images/starskope/288_planetbleed1600.jpeg" alt="Threshold Crossing Event" title="Planet Bleed: Threshold Crossing Event" width="400"/></div>
+
 
 The training data including 3,197 flux observations for 5,087 stars: 37 of the stars have confirmed planets. The test data included 570 stars for testing the model: only 5 of the stars have confirmed planets.
 
@@ -90,7 +91,15 @@ So with 3,700 stars, our model needs to find just 42 confirmed planets. This mea
 
 So we give our telescope the 60 days of flux values for about 5000 stars and we tell it hey this one has a planet…
 
+<div style="background-color:white">
+<img src="/assets/images/starskope/output_32_1.png" alt="signal timeseries plot - planet" title="" width="400"/>
+</div>
+
 this one doesn’t…
+
+<div style="background-color:white">
+<img src="/assets/images/starskope/output_34_3.png" alt="signal timeseries plot - no planet" title="" width="400"/>
+</div>
 
 And do that over and over 5000 times. By the way this timeseries data originally didn’t include any units for flux or time - I looked them up in the Kepler Handbook, crunched the numbers and used the Astropy and Astroquery libraries to create the correct timestamps and I’ll be using those in the next phase of the project. 
 
