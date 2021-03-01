@@ -1,4 +1,4 @@
-I"W<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+I"¶<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="n">blog</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">pages</span> <span class="ow">in</span> <span class="n">website</span><span class="p">:</span>
@@ -8,7 +8,7 @@
 
 </code></pre></div></div>
 
-<p>Text can be <strong>bold</strong>, <em>italic</em>, <del>strikethrough</del> or <code class="highlighter-rouge">keyword</code>.</p>
+<p>Text can be <strong>bold</strong>, <em>italic</em>, <del>strikethrough</del> or <code class="language-plaintext highlighter-rouge">keyword</code>.</p>
 
 <p><a href="./another-page.html">Link to another page</a>.</p>
 
@@ -82,12 +82,12 @@
     </tr>
     <tr>
       <td style="text-align: left">ok</td>
-      <td style="text-align: left">good <code class="highlighter-rouge">oreos</code></td>
+      <td style="text-align: left">good <code class="language-plaintext highlighter-rouge">oreos</code></td>
       <td style="text-align: left">hmm</td>
     </tr>
     <tr>
       <td style="text-align: left">ok</td>
-      <td style="text-align: left">good <code class="highlighter-rouge">zoute</code> drop</td>
+      <td style="text-align: left">good <code class="language-plaintext highlighter-rouge">zoute</code> drop</td>
       <td style="text-align: left">yumm</td>
     </tr>
   </tbody>
@@ -166,9 +166,9 @@
 <dd>Green</dd>
 </dl>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The final element.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The final element.
 </code></pre></div></div>
 :ET

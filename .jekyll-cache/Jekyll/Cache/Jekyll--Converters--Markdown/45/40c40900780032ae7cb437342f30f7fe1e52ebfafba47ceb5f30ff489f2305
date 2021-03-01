@@ -1,4 +1,4 @@
-I" &<h2 id="project-demo-predicting-home-values">PROJECT DEMO: Predicting Home Values</h2>
+I"l&<h2 id="project-demo-predicting-home-values">PROJECT DEMO: Predicting Home Values</h2>
 
 <p>The goal of this data science project was to identify a strategy for increasing the sale price or property value of a home in King County, Washington.</p>
 
@@ -9,7 +9,7 @@
 
 <h2 id="dataset">Dataset</h2>
 
-<p>The dataset is comprised of over 20,000 home sales between May 2014 - May 2015. In addition to the price at time of sale, each observation (or row) was associated with 18 dependent variables (or <code class="highlighter-rouge">features</code>). For my analysis, I was interested in identifying <strong>which combination of variables</strong> are the best predictors of high property values. Hence the term <em>multiple</em> linear regression (a simple linear regression model would inaccurately only account for one factor.</p>
+<p>The dataset is comprised of over 20,000 home sales between May 2014 - May 2015. In addition to the price at time of sale, each observation (or row) was associated with 18 dependent variables (or <code class="language-plaintext highlighter-rouge">features</code>). For my analysis, I was interested in identifying <strong>which combination of variables</strong> are the best predictors of high property values. Hence the term <em>multiple</em> linear regression (a simple linear regression model would inaccurately only account for one factor.</p>
 
 <h2 id="features">Features</h2>
 
@@ -53,7 +53,7 @@
 
 <h3 id="2-grade">2. Grade</h3>
 
-<p>Next, I looked at <code class="highlighter-rouge">GRADE</code>. Each property in the dataset is associated with a score ranging from 1 to 13, 13 being the best. The factors that actually determine that score have to do with the quality of materials in the home, the wood, marble, etc., as well as the quality of carpentry and craftsmanship put into those materials. Much like the scatterplot we saw before, the box plot (below) shows how higher scores in Grade lead to higher property values.</p>
+<p>Next, I looked at <code class="language-plaintext highlighter-rouge">GRADE</code>. Each property in the dataset is associated with a score ranging from 1 to 13, 13 being the best. The factors that actually determine that score have to do with the quality of materials in the home, the wood, marble, etc., as well as the quality of carpentry and craftsmanship put into those materials. Much like the scatterplot we saw before, the box plot (below) shows how higher scores in Grade lead to higher property values.</p>
 
 <h4 id="grade-boxplot-increases-with-price">Grade (Boxplot) Increases with Price</h4>
 
@@ -72,7 +72,7 @@
 
 <h4 id="3-location-location-location">3. Location, Location, Location</h4>
 
-<p>Now, don’t take it just from me - if you ask any realtor what are the three most important factors for selling your home at the highest possible value, they’ll all say the same thing: Location, Location, and Location. What I can tell you is that this is in fact mathematically true, according the model: median home values increase or decrease depending on the <code class="highlighter-rouge">zip code</code>.</p>
+<p>Now, don’t take it just from me - if you ask any realtor what are the three most important factors for selling your home at the highest possible value, they’ll all say the same thing: Location, Location, and Location. What I can tell you is that this is in fact mathematically true, according the model: median home values increase or decrease depending on the <code class="language-plaintext highlighter-rouge">zip code</code>.</p>
 
 <h3 id="3-location--grade-">3. Location + Grade ?</h3>
 
@@ -124,7 +124,7 @@
 
 <h2 id="show-me-the-code">Show Me The CODE</h2>
 
-<p><a href="https://github.com/hakkeray/predicting-home-values-with-multiple-linear-regression"><code class="highlighter-rouge">github repo</code></a></p>
+<p><a href="https://github.com/hakkeray/predicting-home-values-with-multiple-linear-regression"><code class="language-plaintext highlighter-rouge">github repo</code></a></p>
 
 <h2 id="contact">CONTACT</h2>
 <p><a href="mailto:rukeine@gmail.com">rukeine@gmail.com</a></p>

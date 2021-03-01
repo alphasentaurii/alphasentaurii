@@ -1,0 +1,22 @@
+I"¦<ul>
+  <li>Transformer: tools for converting and preprocessing signals as numpy arrays
+    <ul>
+      <li>hypersonic_pliers:</li>
+      <li>thermo_fusion_chisel:</li>
+      <li>babel_fish_dispenser: adds a 1D uniform noise filter using timesteps</li>
+      <li>fast_fourier: fast fourier transform utility function</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="spacekittransformer">spacekit.Transformer()</h2>
+<p>tools for converting and preprocessing signals as numpy arrays</p>
+
+<h3 id="hypersonic_pliers">hypersonic_pliers</h3>
+
+<h3 id="thermo_fusion_chisel">thermo_fusion_chisel</h3>
+
+<h3 id="babel_fish_dispenser">babel_fish_dispenser</h3>
+
+<h3 id="fast_fourier">fast_fourier</h3>
+:ET

@@ -1,4 +1,4 @@
-I"o0<p>Ask any realtor what are the top 3 most important variables for measuring property value, and they will all say the same thing: 1) location, 2) location, and 3) location. I asked a friend who has been doing real estate for about 20 years (we’ll call her “Mom”) what other factors besides location tend to have some impact and she mentioned the following:</p>
+I"�0<p>Ask any realtor what are the top 3 most important variables for measuring property value, and they will all say the same thing: 1) location, 2) location, and 3) location. I asked a friend who has been doing real estate for about 20 years (we’ll call her “Mom”) what other factors besides location tend to have some impact and she mentioned the following:</p>
 
 <ol>
   <li>Square-footage</li>
@@ -40,11 +40,11 @@
 
 <h2 id="goal">Goal</h2>
 
-<p>The goal was to identify a strategy for increasing the sale price or property value of a given home in this location. To achieve the above goal, I used a <code class="highlighter-rouge">multiple linear regression model</code> to identify the best combination of variables for predicting the <code class="highlighter-rouge">target</code>: price of a home at the time of sale.</p>
+<p>The goal was to identify a strategy for increasing the sale price or property value of a given home in this location. To achieve the above goal, I used a <code class="language-plaintext highlighter-rouge">multiple linear regression model</code> to identify the best combination of variables for predicting the <code class="language-plaintext highlighter-rouge">target</code>: price of a home at the time of sale.</p>
 
 <h2 id="dataset">Dataset</h2>
 
-<p>The dataset is comprised of over 20,000 home sales between May 2014 - May 2015. In addition to the price at time of sale, each observation (or row) was associated with 18 dependent variables (or <code class="highlighter-rouge">features</code>). For my analysis, I was interested in identifying <strong>which combination of variables</strong> are the best predictors of high property values. Hence the term <em>multiple</em> linear regression (a simple linear regression model would inaccurately only account for one factor.</p>
+<p>The dataset is comprised of over 20,000 home sales between May 2014 - May 2015. In addition to the price at time of sale, each observation (or row) was associated with 18 dependent variables (or <code class="language-plaintext highlighter-rouge">features</code>). For my analysis, I was interested in identifying <strong>which combination of variables</strong> are the best predictors of high property values. Hence the term <em>multiple</em> linear regression (a simple linear regression model would inaccurately only account for one factor.</p>
 
 <h2 id="features">Features</h2>
 
@@ -90,7 +90,7 @@
 
 <h3 id="2-grade">2. Grade</h3>
 
-<p>Next, I looked at something called <code class="highlighter-rouge">GRADE</code>. Each property in the dataset is associated with a score ranging from 1 to 13, 13 being the best. The factors that actually determine that score have to do with the quality of materials in the home, the wood, marble, etc., as well as the quality of carpentry and craftsmanship put into those materials. Much like the scatterplot we saw before, the box plot (below) shows how higher scores in Grade lead to higher property values.</p>
+<p>Next, I looked at something called <code class="language-plaintext highlighter-rouge">GRADE</code>. Each property in the dataset is associated with a score ranging from 1 to 13, 13 being the best. The factors that actually determine that score have to do with the quality of materials in the home, the wood, marble, etc., as well as the quality of carpentry and craftsmanship put into those materials. Much like the scatterplot we saw before, the box plot (below) shows how higher scores in Grade lead to higher property values.</p>
 
 <h4 id="grade-boxplot-increases-with-price">Grade (Boxplot) Increases with Price</h4>
 
@@ -109,7 +109,7 @@
 
 <h4 id="3-location-location-location">3. Location, Location, Location</h4>
 
-<p>Now, don’t take it just from me - if you ask any realtor what are the three most important factors for selling your home at the highest possible value, they’ll all say the same thing: Location, Location, and Location. What I can tell you is that this is in fact mathematically true, according the model: median home values increase or decrease depending on the <code class="highlighter-rouge">zip code</code>.</p>
+<p>Now, don’t take it just from me - if you ask any realtor what are the three most important factors for selling your home at the highest possible value, they’ll all say the same thing: Location, Location, and Location. What I can tell you is that this is in fact mathematically true, according the model: median home values increase or decrease depending on the <code class="language-plaintext highlighter-rouge">zip code</code>.</p>
 
 <h3 id="3-location--grade-">3. Location + Grade ?</h3>
 

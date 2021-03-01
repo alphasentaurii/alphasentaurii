@@ -1,4 +1,4 @@
-I"Ìð<p><code class="highlighter-rouge">Time Series Forecasting with SARIMAX and Gridsearch</code> is a <code class="highlighter-rouge">housing market prediction model</code> that uses <code class="highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="highlighter-rouge">recommend the top 5 zip codes</code> for purchasing a single-family home in Westchester, New York. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels.</p>
+I"Ãñ<p><code class="language-plaintext highlighter-rouge">Time Series Forecasting with SARIMAX and Gridsearch</code> is a <code class="language-plaintext highlighter-rouge">housing market prediction model</code> that uses <code class="language-plaintext highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="language-plaintext highlighter-rouge">recommend the top 5 zip codes</code> for purchasing a single-family home in Westchester, New York. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels.</p>
 
 <h2 id="making-forecast-predictions-by-zip-code">Making Forecast Predictions by Zip Code</h2>
 
@@ -14,8 +14,8 @@
 
 <p>Before you begin, ensure you have met the following requirements:</p>
 <ul>
-  <li>You have installed the latest version of <code class="highlighter-rouge">Jupyter Notebook</code></li>
-  <li>You have a <code class="highlighter-rouge">&lt;Windows/Linux/Mac&gt;</code> machine.</li>
+  <li>You have installed the latest version of <code class="language-plaintext highlighter-rouge">Jupyter Notebook</code></li>
+  <li>You have a <code class="language-plaintext highlighter-rouge">&lt;Windows/Linux/Mac&gt;</code> machine.</li>
 </ul>
 
 <h2 id="running-the-time-series-forecasting-with-sarimax-and-gridsearch-project">Running the Time Series Forecasting with SARIMAX and Gridsearch Project</h2>
@@ -26,7 +26,7 @@
   <li>In the command line/terminal:</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/hakkeray/timeseries-forecasting-with-sarimax-and-gridsearch
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/hakkeray/timeseries-forecasting-with-sarimax-and-gridsearch
 $ cd timeseries-forecasting-with-sarimax-and-gridsearch
 $ jupyter notebook
 </code></pre></div></div>
@@ -41,7 +41,7 @@ $ jupyter notebook
 
 <ol>
   <li>Timeframe: Purchase of new home would take place within the next two years</li>
-  <li>Budget: Cost to buy not to exceed <code class="highlighter-rouge">800,000 USD</code> maximum</li>
+  <li>Budget: Cost to buy not to exceed <code class="language-plaintext highlighter-rouge">800,000 USD</code> maximum</li>
   <li>Location: Zip Code search radius restricted to Westchester County, New York</li>
 </ol>
 
@@ -110,14 +110,14 @@ $ jupyter notebook
 
 <h4 id="preprocessing">PREPROCESSING</h4>
 <ul>
-  <li>Reshape data format (Wide to Long): <code class="highlighter-rouge">pd.melt()</code> function</li>
+  <li>Reshape data format (Wide to Long): <code class="language-plaintext highlighter-rouge">pd.melt()</code> function</li>
   <li>convert datetime column to datetime objects</li>
   <li>set datetime col to index</li>
 </ul>
 
 <h4 id="resampling">RESAMPLING</h4>
 <ul>
-  <li>Groupby state, county, cities (<code class="highlighter-rouge">get_groups()</code>)</li>
+  <li>Groupby state, county, cities (<code class="language-plaintext highlighter-rouge">get_groups()</code>)</li>
   <li>filter by zipcodes in selected New York cities in Westchester County</li>
   <li>EDA &amp; visualizations</li>
 </ul>
@@ -192,9 +192,9 @@ $ jupyter notebook
 
 <h2 id="custom-time-series-analysis-functions-python">Custom Time Series Analysis Functions (python)</h2>
 
-<p>Below is the <code class="highlighter-rouge">mapTime()</code> function I wrote for generating the timeseries plots above.</p>
+<p>Below is the <code class="language-plaintext highlighter-rouge">mapTime()</code> function I wrote for generating the timeseries plots above.</p>
 
-<h4 id="maptime"><code class="highlighter-rouge">mapTime()</code></h4>
+<h4 id="maptime"><code class="language-plaintext highlighter-rouge">mapTime()</code></h4>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mapTime</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">xcol</span><span class="p">,</span> <span class="n">ycol</span><span class="o">=</span><span class="s">'MeanValue'</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">vlines</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">MEAN</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="s">"""
@@ -341,7 +341,7 @@ $ jupyter notebook
 <img src="/assets/images/timeseries/output_65_0.png" alt="residual density qq and correlogram" title="Residual, Density, QQ, and Correlogram" width="400" />
 </div>
 
-<h2 id="creating-the-visuals-with-clocktime">Creating the Visuals with <code class="highlighter-rouge">clockTime()</code></h2>
+<h2 id="creating-the-visuals-with-clocktime">Creating the Visuals with <code class="language-plaintext highlighter-rouge">clockTime()</code></h2>
 
 <p>All of the above are generated in one shot with the clockTime() function:</p>
 

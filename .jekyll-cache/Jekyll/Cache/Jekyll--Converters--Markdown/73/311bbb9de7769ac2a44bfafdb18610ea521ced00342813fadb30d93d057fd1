@@ -1,6 +1,6 @@
-I"�<h2 id="project-demo-northwind-sql-database">PROJECT DEMO: Northwind SQL Database</h2>
+I"t$<h2 id="project-demo-northwind-sql-database">PROJECT DEMO: Northwind SQL Database</h2>
 
-<p>The <code class="highlighter-rouge">Northwind SQL Database Project</code> demonstrates how to use <code class="highlighter-rouge">SQL queries</code> and <code class="highlighter-rouge">hypothesis testing</code> in order to <code class="highlighter-rouge">recommend business strategies</code> for increasing sales and reducing costs for the fictitious “Northwind” company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.</p>
+<p>The <code class="language-plaintext highlighter-rouge">Northwind SQL Database Project</code> demonstrates how to use <code class="language-plaintext highlighter-rouge">SQL queries</code> and <code class="language-plaintext highlighter-rouge">hypothesis testing</code> in order to <code class="language-plaintext highlighter-rouge">recommend business strategies</code> for increasing sales and reducing costs for the fictitious “Northwind” company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.</p>
 
 <div style="background-color:white">
 <img src="https://github.com/hakkeray/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="Northwind ERD" title="Northwind ERD" width="400" /></div>
@@ -103,7 +103,7 @@
     <ul>
       <li>T Test (1-sample)
         <ul>
-          <li><code class="highlighter-rouge">stats.ttest_1samp()</code></li>
+          <li><code class="language-plaintext highlighter-rouge">stats.ttest_1samp()</code></li>
         </ul>
       </li>
       <li>T Test (2-sample)
@@ -357,7 +357,7 @@
 </span><span class="n">df_orderDetail</span><span class="p">[</span><span class="s">'Discount'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.00    1317
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.00    1317
 0.05     185
 0.10     173
 0.20     161
@@ -378,7 +378,7 @@ Name: Discount, dtype: int64
 </span><span class="n">df_orderDetail</span><span class="p">[</span><span class="s">'discounted'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0    1317
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0    1317
 1     838
 Name: discounted, dtype: int64
 </code></pre></div></div>
@@ -394,7 +394,7 @@ Name: discounted, dtype: int64
 <span class="n">diff</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5.394523243866239
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5.394523243866239
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># visually inspect differences in mean and StDev of distributions
@@ -415,7 +415,7 @@ Name: discounted, dtype: int64
 <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Distribution of Full Price vs Discount Order Quantity"</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">fdict</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Distribution of Full Price vs Discount Order Quantity')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Distribution of Full Price vs Discount Order Quantity')
 </code></pre></div></div>
 
 <p><img src="output_25_1.png" alt="png" /></p>
@@ -426,7 +426,7 @@ Name: discounted, dtype: int64
 <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Discount Levels and Order Qty'</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s">'family'</span><span class="p">:</span> <span class="s">'PT Mono'</span><span class="p">,</span> <span class="s">'size'</span><span class="p">:</span><span class="mi">16</span><span class="p">})</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Discount Levels and Order Qty')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Discount Levels and Order Qty')
 </code></pre></div></div>
 
 <p><img src="output_26_1.png" alt="png" /></p>
@@ -446,7 +446,7 @@ Name: discounted, dtype: int64
 <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Order Quantity Sample Sizes: Full Price vs Discount"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Order Quantity Sample Sizes: Full Price vs Discount')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Order Quantity Sample Sizes: Full Price vs Discount')
 </code></pre></div></div>
 
 <p><img src="output_30_1.png" alt="png" /></p>
@@ -458,7 +458,7 @@ Name: discounted, dtype: int64
 </span><span class="n">stat</span><span class="p">.</span><span class="n">normaltest</span><span class="p">(</span><span class="n">fullprice</span><span class="p">),</span> <span class="n">stat</span><span class="p">.</span><span class="n">normaltest</span><span class="p">(</span><span class="n">discount</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(NormaltestResult(statistic=544.5770045551502, pvalue=5.579637380545965e-119),
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(NormaltestResult(statistic=544.5770045551502, pvalue=5.579637380545965e-119),
  NormaltestResult(statistic=261.528012299789, pvalue=1.6214878452829618e-57))
 </code></pre></div></div>
 
@@ -468,7 +468,7 @@ Name: discounted, dtype: int64
 </span><span class="n">stat</span><span class="p">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">fullprice</span><span class="p">,</span> <span class="n">discount</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MannwhitneyuResult(statistic=461541.0, pvalue=6.629381826999866e-11)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MannwhitneyuResult(statistic=461541.0, pvalue=6.629381826999866e-11)
 </code></pre></div></div>
 
 <h3 id="statistical-test">Statistical Test</h3>
@@ -1110,7 +1110,7 @@ Name: discounted, dtype: int64
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Cohen_d</span><span class="p">(</span><span class="n">discount</span><span class="p">,</span> <span class="n">fullprice</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.2862724481729282
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.2862724481729282
 </code></pre></div></div>
 
 <h3 id="post-hoc-tests">Post-hoc Tests</h3>
@@ -1132,7 +1132,7 @@ Name: discounted, dtype: int64
 
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>9
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>9
 </code></pre></div></div>
 
 <div>
@@ -1198,7 +1198,7 @@ Name: discounted, dtype: int64
 <span class="k">print</span><span class="p">(</span><span class="s">"Avg Forfeited Per Order $"</span><span class="p">,</span> <span class="n">df</span><span class="p">.</span><span class="n">revLoss</span><span class="p">.</span><span class="nb">sum</span><span class="p">()</span><span class="o">/</span><span class="n">df</span><span class="p">.</span><span class="n">NumOrders</span><span class="p">.</span><span class="nb">sum</span><span class="p">())</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Total Revenue Forfeited $ 448373.27
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Total Revenue Forfeited $ 448373.27
 Number of Orders Affected  653
 Avg Forfeited Per Order $ 686.6359418070444
 </code></pre></div></div>
@@ -1711,7 +1711,7 @@ Avg Forfeited Per Order $ 686.6359418070444
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fs</span><span class="p">.</span><span class="n">ft</span><span class="p">.</span><span class="n">hakkeray</span><span class="p">.</span><span class="n">hot_stats</span><span class="p">(</span><span class="n">df_country</span><span class="p">,</span> <span class="s">'ShipCountry'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------&gt;
 HOT!STATS
 &lt;--------
 
@@ -1762,14 +1762,14 @@ Name: ShipCountry, dtype: int64
 <span class="n">countries</span><span class="p">.</span><span class="n">keys</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dict_keys(['Argentina', 'Austria', 'Belgium', 'Brazil', 'Canada', 'Denmark', 'Finland', 'France', 'Germany', 'Ireland', 'Italy', 'Mexico', 'Norway', 'Poland', 'Portugal', 'Spain', 'Sweden', 'Switzerland', 'UK', 'USA', 'Venezuela'])
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dict_keys(['Argentina', 'Austria', 'Belgium', 'Brazil', 'Canada', 'Denmark', 'Finland', 'France', 'Germany', 'Ireland', 'Italy', 'Mexico', 'Norway', 'Poland', 'Portugal', 'Spain', 'Sweden', 'Switzerland', 'UK', 'USA', 'Venezuela'])
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_countries</span> <span class="o">=</span> <span class="n">df_country</span><span class="p">[[</span><span class="s">'ShipCountry'</span><span class="p">,</span><span class="s">'Quantity'</span><span class="p">,</span><span class="s">'discounted'</span><span class="p">]].</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">df_countries</span><span class="p">.</span><span class="n">ShipCountry</span><span class="p">.</span><span class="n">value_counts</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USA            352
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USA            352
 Germany        328
 Brazil         203
 France         184
@@ -1899,103 +1899,103 @@ Name: ShipCountry, dtype: int64
 <span class="n">stat_dict</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Argentina does not contain one of the groups.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Argentina does not contain one of the groups.
 Austria
 </code></pre></div></div>
 
 <p><img src="output_64_1.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Belgium
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Belgium
 </code></pre></div></div>
 
 <p><img src="output_64_3.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Brazil
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Brazil
 </code></pre></div></div>
 
 <p><img src="output_64_5.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Canada
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Canada
 </code></pre></div></div>
 
 <p><img src="output_64_7.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Canada PREFERS DISCOUNTS!
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Canada PREFERS DISCOUNTS!
 Denmark
 </code></pre></div></div>
 
 <p><img src="output_64_9.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Finland
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Finland
 </code></pre></div></div>
 
 <p><img src="output_64_11.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>France
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>France
 </code></pre></div></div>
 
 <p><img src="output_64_13.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Germany
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Germany
 </code></pre></div></div>
 
 <p><img src="output_64_15.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ireland
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ireland
 </code></pre></div></div>
 
 <p><img src="output_64_17.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Italy
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Italy
 </code></pre></div></div>
 
 <p><img src="output_64_19.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mexico
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mexico
 </code></pre></div></div>
 
 <p><img src="output_64_21.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Norway PREFERS DISCOUNTS!
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Norway PREFERS DISCOUNTS!
 Portugal
 </code></pre></div></div>
 
 <p><img src="output_64_23.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Spain
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Spain
 </code></pre></div></div>
 
 <p><img src="output_64_25.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Spain PREFERS DISCOUNTS!
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Spain PREFERS DISCOUNTS!
 Sweden
 </code></pre></div></div>
 
 <p><img src="output_64_27.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Switzerland
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Switzerland
 </code></pre></div></div>
 
 <p><img src="output_64_29.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UK
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UK
 </code></pre></div></div>
 
 <p><img src="output_64_31.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UK PREFERS DISCOUNTS!
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UK PREFERS DISCOUNTS!
 USA
 </code></pre></div></div>
 
 <p><img src="output_64_33.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USA PREFERS DISCOUNTS!
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USA PREFERS DISCOUNTS!
 Venezuela
 </code></pre></div></div>
 
 <p><img src="output_64_35.png" alt="png" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Canada': 0.0010297982736886485,
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Canada': 0.0010297982736886485,
  'Norway': 0.04480094051665529,
  'Spain': 0.0025087181106716217,
  'UK': 0.00031794803200322925,
@@ -2005,7 +2005,7 @@ Venezuela
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">stat_dict</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Canada': 0.0010297982736886485,
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Canada': 0.0010297982736886485,
  'Norway': 0.04480094051665529,
  'Spain': 0.0025087181106716217,
  'UK': 0.00031794803200322925,
@@ -2022,7 +2022,7 @@ Venezuela
 <span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">([</span><span class="s">'Full Price'</span><span class="p">,</span><span class="s">'Discounted'</span><span class="p">])</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.legend.Legend at 0x1a25ab2978&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.legend.Legend at 0x1a25ab2978&gt;
 </code></pre></div></div>
 
 <p><img src="output_67_1.png" alt="png" /></p>
@@ -2031,7 +2031,7 @@ Venezuela
 </span><span class="n">stat</span><span class="p">.</span><span class="n">normaltest</span><span class="p">(</span><span class="n">grp0</span><span class="p">),</span> <span class="n">stat</span><span class="p">.</span><span class="n">normaltest</span><span class="p">(</span><span class="n">grp1</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(NormaltestResult(statistic=9.316225653095811, pvalue=0.009484344125890621),
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(NormaltestResult(statistic=9.316225653095811, pvalue=0.009484344125890621),
  NormaltestResult(statistic=10.255309993341813, pvalue=0.005930451108115991))
 </code></pre></div></div>
 
@@ -2039,7 +2039,7 @@ Venezuela
 </span><span class="n">stat</span><span class="p">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">grp0</span><span class="p">,</span> <span class="n">grp1</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MannwhitneyuResult(statistic=1632.5, pvalue=0.44935140740973323)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MannwhitneyuResult(statistic=1632.5, pvalue=0.44935140740973323)
 </code></pre></div></div>
 
 <p><strong>Canada, Spain, UK and the USA have pvalues &lt; 0.05 indicating there is a relationship between discount and order quantity and the null hypothesis is rejected for these individual countries.</strong></p>
@@ -2052,7 +2052,7 @@ Venezuela
 <span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">stats</span><span class="p">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
   'rank is %d' % (J, J_), ValueWarning)
 /Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
   'rank is %d' % (J, J_), ValueWarning)
@@ -2111,7 +2111,7 @@ Venezuela
         <span class="bp">None</span> 
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Countries with p-values &lt; 0.05 - Null Hypothesis Rejected:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Countries with p-values &lt; 0.05 - Null Hypothesis Rejected:
 
 	Canada: 0.001
 
@@ -2126,7 +2126,7 @@ Venezuela
 
 <p>Countries with p-values &lt; 0.05 - Null Hypothesis Rejected:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Canada: 0.001
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Canada: 0.001
 
 Spain: 0.0025
 
@@ -2146,7 +2146,7 @@ USA: 0.0199
 <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Average Discount Order Quantity by Country'</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s">'family'</span><span class="p">:</span> <span class="s">'PT Mono'</span><span class="p">,</span> <span class="s">'size'</span><span class="p">:</span><span class="mi">16</span><span class="p">})</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Discount Order Quantity by Country')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Discount Order Quantity by Country')
 </code></pre></div></div>
 
 <p><img src="output_76_1.png" alt="png" /></p>
@@ -2263,7 +2263,7 @@ USA: 0.0199
 </table>
 </div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Order Quantity by Country: Fullprice vs Discount Orders')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Order Quantity by Country: Fullprice vs Discount Orders')
 </code></pre></div></div>
 
 <p><img src="output_81_2.png" alt="png" /></p>
@@ -2371,7 +2371,7 @@ USA: 0.0199
 </table>
 </div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Count of Fullprice vs Discount Orders by Country')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Count of Fullprice vs Discount Orders by Country')
 </code></pre></div></div>
 
 <p><img src="output_83_2.png" alt="png" /></p>
@@ -2482,7 +2482,7 @@ USA: 0.0199
 </table>
 </div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Order Quantity by Country: Fullprice vs Discount')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Order Quantity by Country: Fullprice vs Discount')
 </code></pre></div></div>
 
 <p><img src="output_85_2.png" alt="png" /></p>
@@ -2517,7 +2517,7 @@ USA: 0.0199
 <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Order Count by Country'</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s">'family'</span><span class="p">:</span> <span class="s">'PT Mono'</span><span class="p">,</span> <span class="s">'size'</span><span class="p">:</span><span class="mi">16</span><span class="p">})</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Order Count by Country')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Order Count by Country')
 </code></pre></div></div>
 
 <p><img src="output_88_1.png" alt="png" /></p>
@@ -2561,7 +2561,7 @@ JOIN OrderDetail od USING(OrderId);"""</span><span class="p">)</span>
 <span class="n">df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2078
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2078
 </code></pre></div></div>
 
 <div>
@@ -2893,7 +2893,7 @@ JOIN OrderDetail od USING(OrderId);"""</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Average Order Revenue by Region'</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s">'family'</span><span class="p">:</span> <span class="s">'PT Mono'</span><span class="p">,</span> <span class="s">'size'</span><span class="p">:</span><span class="mi">16</span><span class="p">})</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Order Revenue by Region')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Order Revenue by Region')
 </code></pre></div></div>
 
 <p><img src="output_108_1.png" alt="png" /></p>
@@ -3151,7 +3151,7 @@ JOIN OrderDetail od USING(OrderId);"""</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">na_se</span><span class="p">,</span> <span class="n">se_we</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.5891669383438923 -0.5462384714677272
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.5891669383438923 -0.5462384714677272
 </code></pre></div></div>
 
 <h2 id="post-hoc-tests-2">Post-Hoc Tests</h2>
@@ -3440,7 +3440,7 @@ However, further analysis would be needed to confirm these findings. For example
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pd</span><span class="p">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_months</span><span class="p">[</span><span class="s">'OrderDate'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s">'%Y/%m/%d'</span><span class="p">).</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0   2012-07-04
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0   2012-07-04
 1   2012-07-04
 2   2012-07-04
 3   2012-07-05
@@ -3955,7 +3955,7 @@ Name: OrderDate, dtype: datetime64[ns]
 
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Monthly Order Qty')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Monthly Order Qty')
 </code></pre></div></div>
 
 <p><img src="output_136_1.png" alt="png" /></p>
@@ -3975,7 +3975,7 @@ Name: OrderDate, dtype: datetime64[ns]
 
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Monthly Order Qty')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Monthly Order Qty')
 </code></pre></div></div>
 
 <p><img src="output_137_1.png" alt="png" /></p>
@@ -4260,7 +4260,7 @@ Name: OrderDate, dtype: datetime64[ns]
 <span class="n">df</span><span class="p">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2155
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2155
 </code></pre></div></div>
 
 <div>
@@ -4459,7 +4459,7 @@ Name: OrderDate, dtype: datetime64[ns]
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">CategoryId</span><span class="p">.</span><span class="n">value_counts</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1    404
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1    404
 4    366
 3    334
 8    330
@@ -4475,13 +4475,13 @@ Name: CategoryId, dtype: int64
 <span class="n">categories</span><span class="p">.</span><span class="n">keys</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dict_keys(['Beverages', 'Condiments', 'Confections', 'Dairy Products', 'Grains/Cereals', 'Meat/Poultry', 'Produce', 'Seafood'])
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dict_keys(['Beverages', 'Condiments', 'Confections', 'Dairy Products', 'Grains/Cereals', 'Meat/Poultry', 'Produce', 'Seafood'])
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_category</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_category</span><span class="p">[</span><span class="s">'CategoryName'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'Beverages'</span><span class="p">][</span><span class="s">'Revenue'</span><span class="p">].</span><span class="nb">sum</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>267868.17999999993
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>267868.17999999993
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#create dict of months and order quantity totals
@@ -4494,7 +4494,7 @@ Name: CategoryId, dtype: int64
 <span class="n">rev_per_cat</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Beverages': 267868.17999999993,
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Beverages': 267868.17999999993,
  'Condiments': 106047.08500000002,
  'Confections': 167357.22499999995,
  'Dairy Products': 234507.285,

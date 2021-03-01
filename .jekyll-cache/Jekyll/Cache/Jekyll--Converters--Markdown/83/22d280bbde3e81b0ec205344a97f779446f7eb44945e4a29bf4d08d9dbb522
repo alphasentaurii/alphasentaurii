@@ -1,12 +1,12 @@
-I"�<p>Configure <code class="highlighter-rouge">AWS Deep Learning</code> EC2 Container image for <code class="highlighter-rouge">TensorFlow</code> model training on a <code class="highlighter-rouge">CPU instance</code> with <code class="highlighter-rouge">Python 3.6</code> and run a machine learning model.</p>
+I"Ɛ<p>Configure <code class="language-plaintext highlighter-rouge">AWS Deep Learning</code> EC2 Container image for <code class="language-plaintext highlighter-rouge">TensorFlow</code> model training on a <code class="language-plaintext highlighter-rouge">CPU instance</code> with <code class="language-plaintext highlighter-rouge">Python 3.6</code> and run a machine learning model.</p>
 
 <h1 id="iam-policy">IAM Policy</h1>
-<p>Navigate to AWS IAM Console and select or create a user. Add the following permissions under <code class="highlighter-rouge">Attach Existing Policies Directly</code>:</p>
+<p>Navigate to AWS IAM Console and select or create a user. Add the following permissions under <code class="language-plaintext highlighter-rouge">Attach Existing Policies Directly</code>:</p>
 <ul>
   <li>ECS_FullAccess</li>
 </ul>
 
-<p>Add inline policy and save as <code class="highlighter-rouge">ECR</code>:</p>
+<p>Add inline policy and save as <code class="language-plaintext highlighter-rouge">ECR</code>:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
        </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
@@ -98,7 +98,7 @@ Login Succeeded
 
 </code></pre></div></div>
 
-<h1 id="run-tensorflow-training-on-cpu-instances-with-python-36">Run <code class="highlighter-rouge">TensorFlow</code> training on <code class="highlighter-rouge">CPU instances</code> with <code class="highlighter-rouge">Python 3.6</code>.</h1>
+<h1 id="run-tensorflow-training-on-cpu-instances-with-python-36">Run <code class="language-plaintext highlighter-rouge">TensorFlow</code> training on <code class="language-plaintext highlighter-rouge">CPU instances</code> with <code class="language-plaintext highlighter-rouge">Python 3.6</code>.</h1>
 
 <p>We’ll run AWS Deep Learning Container images on your EC2 instance using the command below. This command will automatically pull the Deep Learning Container image if it doesn’t exist locally.</p>
 

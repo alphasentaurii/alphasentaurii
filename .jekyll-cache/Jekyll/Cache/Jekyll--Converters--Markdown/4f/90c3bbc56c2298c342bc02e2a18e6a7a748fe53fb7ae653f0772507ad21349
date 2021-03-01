@@ -1,6 +1,6 @@
-I"Å<h1 id="project-demo-top-5-zip-codes">PROJECT DEMO: Top 5 Zip Codes</h1>
+I"Õ<h1 id="project-demo-top-5-zip-codes">PROJECT DEMO: Top 5 Zip Codes</h1>
 
-<p>Top Five Zip Codes is a <code class="highlighter-rouge">housing market prediction model</code> that uses <code class="highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="highlighter-rouge">recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York</code>.</p>
+<p>Top Five Zip Codes is a <code class="language-plaintext highlighter-rouge">housing market prediction model</code> that uses <code class="language-plaintext highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="language-plaintext highlighter-rouge">recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York</code>.</p>
 
 <h1 id="interactive-dashboard">Interactive Dashboard:</h1>
 
@@ -19,7 +19,7 @@
 
 <ol>
   <li>Timeframe: Purchase of new home would take place within the next two years</li>
-  <li>Budget: Cost to buy not to exceed <code class="highlighter-rouge">800,000 USD</code> maximum</li>
+  <li>Budget: Cost to buy not to exceed <code class="language-plaintext highlighter-rouge">800,000 USD</code> maximum</li>
   <li>Location: Zip Code search radius restricted to Westchester County, New York</li>
 </ol>
 

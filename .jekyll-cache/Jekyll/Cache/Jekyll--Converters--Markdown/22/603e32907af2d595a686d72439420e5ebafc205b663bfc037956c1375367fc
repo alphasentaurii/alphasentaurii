@@ -1,0 +1,1535 @@
+I"y�<p>For the next phase of the Starskøpe planet hunting project, I used <code class="language-plaintext highlighter-rouge">Google Colabs</code> to generate spectrograph images of the same star flux signals dataset from Kaggle. Due to memory constraints, I started out by only using a portion of this already small dataset as a test round. I ran the images through a <code class="language-plaintext highlighter-rouge">Keras 2D Convolutional Network</code> using Tensorflow, similar to the 1D CNN I built in the first phase of the project. The accuracy score was lower (0.86 vs .99), but this was to be expected due to the constraints of the dataset.</p>
+
+<div>
+<img src="/assets/images/starskope/specs/test/planets/spec_2.png" alt="spec-test-planet-2" title="spec-test-planet-2" width="400" />
+</div>
+
+<h1 id="results">Results</h1>
+
+<p>The training set for this data included 37 non-planet star flux signal values and 37 planet host star flux signals. The test set contained only 5 planet host-stars and 5 non-planet host stars. This unusually small dataset allowed for testing the algorithm quickly and efficiently on Google Colabs. In a separate notebook, I used Google Colabs Pro to run the model with the full dataset from Kaggle, which contained over 3000 non-planet host stars with 37 planet host stars in the training set, and over 500 non-planet host stars with 5 planet host stars in the test set. Using the full dataset, the model did not successfully identify any planets, most likely due to the highly imbalanced classes. With the smaller subset of data used here, the model achieved an accuracy of 0.80, weighted precision score of 0.86, weighted recall of 0.80 and weighted F1 score of 0.79. (‘Weighted’ means combined average for both classes: <code class="language-plaintext highlighter-rouge">0</code> means non-planet star, <code class="language-plaintext highlighter-rouge">1</code> means a planet host star.)</p>
+
+<div>
+<img src="/assets/images/starskope/spec-fusion-matrix-1.png" alt="fusion matrix 1" title="fusion matrix 1" width="400" />
+</div>
+
+<hr />
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CLASSIFICATION REPORT: ------------------------------------------------------------
+          precision    recall  f1-score   support
+
+       0       1.00      0.60      0.75         5
+       1       0.71      1.00      0.83         5
+
+accuracy                           0.80        10    macro avg       0.86      0.80      0.79        10 weighted avg       0.86      0.80      0.79        10
+</code></pre></div></div>
+
+<h1 id="future-work">Future Work</h1>
+
+<p>In order to increase the size of the data set (that is, add more planet host stars), we can use an API to retrieve data from the MAST collection hosted on AWS, which is what I set out out to do in <a href="/datascience/2020/06/01/starskope-3-scraping-mast-api.html">Starskøpe-3</a>. We can also try another approach using a completely different model, for example training a Deep Boltzmann Machine using stacked RBMs as an autoencoder, similar to the methods used successfully on the MNIST handwriting image project.</p>
+
+<p><a href="https://colab.research.google.com/drive/1ZRUudjsf0ofOMVjhzfF239Df3BaO2jqp#scrollTo=n0aJxtzZMCSI&amp;uniqifier=4"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" /></a></p>
+
+<h1 id="import-libraries">Import Libraries</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="n">mpl</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span>
+
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">set_style</span><span class="p">(</span><span class="s">'whitegrid'</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'seaborn-bright'</span><span class="p">)</span>
+ 
+<span class="n">font_dict</span><span class="o">=</span><span class="p">{</span><span class="s">'family'</span><span class="p">:</span><span class="s">'"Titillium Web", monospace'</span><span class="p">,</span><span class="s">'size'</span><span class="p">:</span><span class="mi">16</span><span class="p">}</span>
+<span class="n">mpl</span><span class="p">.</span><span class="n">rc</span><span class="p">(</span><span class="s">'font'</span><span class="p">,</span><span class="o">**</span><span class="n">font_dict</span><span class="p">)</span>
+
+<span class="c1">#ignore pink warnings
+</span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="p">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">'ignore'</span><span class="p">)</span>
+<span class="c1"># Allow for large # columns
+</span><span class="n">pd</span><span class="p">.</span><span class="n">set_option</span><span class="p">(</span><span class="s">'display.max_columns'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c1"># pd.set_option('display.max_rows','')
+</span></code></pre></div></div>
+
+<p>Import dataset which has already been split into train and test sets, exoTrain.csv.zip and exoTest.csv.zip (I compressed them from their original csv format since the training set is &gt; 240 MB so we’ll to unzip them).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># navigating to dataset on google colabs - step 1 mount drive
+</span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="p">.</span><span class="n">mount</span><span class="p">(</span><span class="s">'/gdrive'</span><span class="p">,</span><span class="n">force_remount</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Navigate to data folder and unzip the csv zipped files</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">cd</span> <span class="o">/</span><span class="n">gdrive</span><span class="o">/</span><span class="n">My</span> <span class="n">Drive</span><span class="o">/</span><span class="n">Colab</span> <span class="n">Notebooks</span><span class="o">/</span><span class="n">starskope</span><span class="o">/</span><span class="n">data</span><span class="s">'/
+!unzip -q '</span><span class="n">exoTrain</span><span class="p">.</span><span class="n">csv</span><span class="p">.</span><span class="nb">zip</span><span class="s">'
+!unzip -q '</span><span class="n">exoTest</span><span class="p">.</span><span class="n">csv</span><span class="p">.</span><span class="nb">zip</span><span class="s">'
+%ls
+</span></code></pre></div></div>
+
+<p>Read in train and test files then <code class="language-plaintext highlighter-rouge">cd</code> back to root dir</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'exoTrain.csv'</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'exoTest.csv'</span><span class="p">)</span>
+<span class="o">%</span><span class="n">cd</span> <span class="p">..</span><span class="o">/</span>
+</code></pre></div></div>
+
+<p><em>/gdrive/My Drive/Colab Notebooks/starskope</em></p>
+
+<h1 id="setting-up-file-names-paths-and-directories-for-images">Setting up File Names, Paths and Directories for Images</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create datasets for spectrographs
+</span><span class="n">train_planets</span> <span class="o">=</span> <span class="n">train</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="s">'LABEL'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">train_negatives</span> <span class="o">=</span> <span class="n">train</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="s">'LABEL'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">test_planets</span> <span class="o">=</span> <span class="n">test</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="s">'LABEL'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">test_negatives</span> <span class="o">=</span> <span class="n">test</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="s">'LABEL'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># remove label columns before creating images
+</span><span class="n">test_planets</span> <span class="o">=</span> <span class="n">test_planets</span><span class="p">.</span><span class="n">copy</span><span class="p">().</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'LABEL'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">test_negatives</span> <span class="o">=</span> <span class="n">test_negatives</span><span class="p">.</span><span class="n">copy</span><span class="p">().</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'LABEL'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">train_planets</span> <span class="o">=</span> <span class="n">train_planets</span><span class="p">.</span><span class="n">copy</span><span class="p">().</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'LABEL'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">train_negatives</span> <span class="o">=</span> <span class="n">train_negatives</span><span class="p">.</span><span class="n">copy</span><span class="p">().</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'LABEL'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">mkdir</span> <span class="n">specs</span>
+<span class="o">%</span><span class="n">mkdir</span> <span class="n">specs</span><span class="o">/</span><span class="n">train</span>
+<span class="o">%</span><span class="n">mkdir</span> <span class="n">specs</span><span class="o">/</span><span class="n">test</span>
+
+<span class="o">%</span><span class="n">mkdir</span> <span class="n">specs</span><span class="o">/</span><span class="n">train</span><span class="o">/</span><span class="n">planets</span>
+<span class="o">%</span><span class="n">mkdir</span> <span class="n">specs</span><span class="o">/</span><span class="n">train</span><span class="o">/</span><span class="n">negatives</span>
+<span class="o">%</span><span class="n">mkdir</span> <span class="n">specs</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">planets</span>
+<span class="o">%</span><span class="n">mkdir</span> <span class="n">specs</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">negatives</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># setup paths for storing images in folders created above 
+</span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="n">train_outpath</span> <span class="o">=</span> <span class="s">"./specs/train"</span>
+<span class="n">test_outpath</span> <span class="o">=</span> <span class="s">"./specs/test"</span>
+
+<span class="n">train_planets_outpath</span> <span class="o">=</span> <span class="s">"./specs/train/planets"</span>
+<span class="n">train_negatives_outpath</span> <span class="o">=</span> <span class="s">"./specs/train/negatives"</span>
+<span class="n">test_planets_outpath</span> <span class="o">=</span> <span class="s">"./specs/test/planets"</span>
+<span class="n">test_negatives_outpath</span> <span class="o">=</span> <span class="s">"./specs/test/negatives"</span>
+</code></pre></div></div>
+
+<h1 id="convert-signal-data-into-spectrographs">Convert signal data into spectrographs</h1>
+
+<p>This is a function I wrote for converting a flux signal into a spectrogram (using matplotlib’s <code class="language-plaintext highlighter-rouge">specgram</code> plotting tool)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">specgrams_for_ML</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">outpath</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span><span class="n">mode</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="s">"""Creates 9x9 square spectrograph image of a signal passed as array
+    Ideal for machine learning image classification (no axes or colorbar)
+
+    signal: takes an array. ex: signal = np.array(test_data.loc[0]) 
+    Fs = default is 2
+    NFFT: default is 256
+    noverlap: default is None
+    mode: 'PSD', 'phase', 'magnitude', 'angle'
+    cmap: see matplotlib specgram for options (there's a ton)
+    * default is 'binary' which is black and white
+    * my favorites are: 'magma', 'inferno' and 'jet'
+
+    create black and white specgram:
+    specgram_for_ML(signal)
+
+    # TODO : option to generate fourier-transform specgrams
+    fourier transform
+    rf = np.fft.rfft(signal)
+    rf = np.fft.rfftfreq(n=signal.size,d=1/9)
+    rfshift = np.fft.fftshift(rf)
+    rfspec, rfqs, t, m = make_specgram(rfshift,Fs=2,cmap='magma',mode='psd',save_for_ML=True)
+    """</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s">'psd'</span>
+    <span class="k">if</span> <span class="n">cmap</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="s">'binary'</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dataframe</span><span class="p">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">signal</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataframe</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">specgram</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">NFFT</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span><span class="s">'spec_{0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="test-data-planets">Test Data: Planets</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">specgrams_for_ML</span><span class="p">(</span><span class="n">test_planets</span><span class="p">,</span> <span class="n">test_planets_outpath</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span>
+                 <span class="n">mode</span><span class="o">=</span><span class="s">'phase'</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s">'magma'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/planets/spec_0.png" alt="spec-test-planet-0" title="spec-test-planet-0" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/planets/spec_1.png" alt="spec-test-planet-1" title="spec-test-planet-1" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/planets/spec_2.png" alt="spec-test-planet-2" title="spec-test-planet-2" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/planets/spec_3.png" alt="spec-test-planet-3" title="spec-test-planet-3" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/planets/spec_4.png" alt="spec-test-planet-4" title="spec-test-planet-4" width="400" />
+</div>
+
+<h1 id="test-data-negatives-no-planets">Test Data: Negatives (no planets)</h1>
+<p>Note - for the first run-through we can match class weights by creating only 5 negatives to go with only 5 positives. Obviously we’d need to use a bigger dataset than 10 total test observations, however for now I’m just demonstrating the process of converting to specgrams and runnning the model.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># limiting to 5 to match class weights
+</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_negatives</span><span class="p">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">signal</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_negatives</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">specgram</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">NFFT</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'phase'</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s">'magma'</span><span class="p">)</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">test_negatives_outpath</span><span class="p">,</span><span class="s">'spec_{0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">)</span>
+        <span class="n">counter</span><span class="o">+=</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/negatives/spec_5.png" alt="spec-test-planet-0" title="spec-test-planet-0" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/negatives/spec_6.png" alt="spec-test-planet-1" title="spec-test-planet-1" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/negatives/spec_7.png" alt="spec-test-planet-2" title="spec-test-planet-2" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/negatives/spec_8.png" alt="spec-test-planet-3" title="spec-test-planet-3" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/specs/test/negatives/spec_9.png" alt="spec-test-planet-4" title="spec-test-planet-4" width="400" />
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">specgrams_for_ML</span><span class="p">(</span><span class="n">train_planets</span><span class="p">,</span> <span class="n">train_planets_outpath</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span>
+                 <span class="n">mode</span><span class="o">=</span><span class="s">'phase'</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s">'magma'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Again, match class weights by limiting the negatives in training set to just 37.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># limiting to 37 to match class weights
+</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_negatives</span><span class="p">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="mi">37</span><span class="p">:</span>
+        <span class="n">signal</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_negatives</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">specgram</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">NFFT</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'phase'</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s">'magma'</span><span class="p">)</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">train_negatives_outpath</span><span class="p">,</span><span class="s">'spec_{0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">)</span>
+        <span class="n">counter</span><span class="o">+=</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<h1 id="preparing-images-using-flow">Preparing Images using Flow</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Install Pillow and OpenCV
+</span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pillow</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">opencv</span><span class="o">-</span><span class="n">contrib</span><span class="o">-</span><span class="n">python</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># converting an image with the Keras API
+</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">keras.preprocessing</span> <span class="kn">import</span> <span class="n">image</span>
+<span class="kn">from</span> <span class="nn">imageio</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">resize</span>
+<span class="kn">import</span> <span class="nn">cv2</span><span class="p">,</span><span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span> <span class="nn">keras.preprocessing.image</span> <span class="kn">import</span> <span class="n">load_img</span>
+<span class="kn">from</span> <span class="nn">keras.preprocessing.image</span> <span class="kn">import</span> <span class="n">img_to_array</span>
+<span class="kn">from</span> <span class="nn">keras.preprocessing.image</span> <span class="kn">import</span> <span class="n">array_to_img</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">base_folder</span> <span class="o">=</span> <span class="s">r'specs/'</span>
+<span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">base_folder</span><span class="p">)</span>
+
+<span class="n">train_base_dir</span> <span class="o">=</span> <span class="n">base_folder</span><span class="o">+</span><span class="s">'train/'</span>
+<span class="n">test_base_dir</span> <span class="o">=</span> <span class="n">base_folder</span><span class="o">+</span><span class="s">'test/'</span>
+
+<span class="n">train_planets_dir</span> <span class="o">=</span> <span class="n">train_base_dir</span><span class="o">+</span><span class="s">'planets/'</span>
+<span class="n">train_negatives_dir</span> <span class="o">=</span> <span class="n">train_base_dir</span><span class="o">+</span><span class="s">'negatives/'</span>
+
+<span class="n">test_planets_dir</span> <span class="o">=</span> <span class="n">test_base_dir</span><span class="o">+</span><span class="s">'planets/'</span>
+<span class="n">test_negatives_dir</span> <span class="o">=</span> <span class="n">test_base_dir</span><span class="o">+</span><span class="s">'negatives/'</span>
+
+<span class="n">planet_train_files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="n">train_planets_dir</span><span class="o">+</span><span class="s">'*.png'</span><span class="p">)</span>
+<span class="n">negative_train_files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="n">train_negatives_dir</span><span class="o">+</span><span class="s">'*.png'</span><span class="p">)</span>
+<span class="n">all_train_files</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">planet_train_files</span><span class="p">,</span> <span class="o">*</span><span class="n">negative_train_files</span><span class="p">]</span>
+
+<span class="n">planet_test_files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="n">test_planets_dir</span><span class="o">+</span><span class="s">'*.png'</span><span class="p">)</span>
+<span class="n">negative_test_files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="n">test_negatives_dir</span><span class="o">+</span><span class="s">'*.png'</span><span class="p">)</span>
+<span class="n">all_test_files</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">planet_test_files</span><span class="p">,</span> <span class="o">*</span><span class="n">negative_test_files</span><span class="p">]</span>
+
+<span class="n">all_filename_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">planet_train_files</span><span class="p">,</span> <span class="n">negative_train_files</span><span class="p">,</span>
+                     <span class="n">planet_test_files</span><span class="p">,</span> <span class="n">negative_test_files</span><span class="p">]</span>
+
+</code></pre></div></div>
+
+<h1 id="helper-functions">Helper functions</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">load_img_cv2</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">RGB</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">cv2</span>
+    <span class="n">IMG</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">RGB</span><span class="p">:</span> 
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2RGB</span>
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span>
+        
+    <span class="k">return</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">IMG</span><span class="p">,</span> <span class="n">cmap</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">keras.preprocessing</span> <span class="kn">import</span> <span class="n">image</span>
+<span class="kn">from</span> <span class="nn">imageio</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">resize</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="c1"># From James Irving : https://colab.research.google.com/drive/1fwXPY3IDHxNiv7YgOpt3p5BvUaO4VruB#scrollTo=L5CNHxnagDjo
+</span>
+<span class="c1"># defining a function to read images and convert to array
+</span><span class="k">def</span> <span class="nf">read_img</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">3</span><span class="p">)):</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">load_img</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">target_size</span><span class="o">=</span><span class="n">target_size</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">img_to_array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img</span>
+
+<span class="c1"># Read in training and test filenames to produce X and y data splits.
+</span>
+<span class="k">def</span> <span class="nf">load_train_test_val</span><span class="p">(</span><span class="n">planet_train_filenames</span><span class="p">,</span> <span class="n">negative_train_filenames</span><span class="p">,</span> 
+                        <span class="n">planet_test_filenames</span><span class="p">,</span> <span class="n">negative_test_filenames</span><span class="p">,</span> 
+                        <span class="n">val_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">img_size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">3</span><span class="p">)):</span>
+    <span class="c1"># y labels are encoded as 0=negatives, 1=planets
+</span>    <span class="c1"># returns X_train, X_test, y_train, y_test, y_val
+</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+    
+    <span class="n">display</span><span class="p">(</span><span class="s">'[i] LOADING IMAGES'</span><span class="p">)</span>
+    <span class="n">train_img</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">train_label</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">img_path</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">planet_train_files</span><span class="p">):</span>
+        <span class="n">train_img</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">read_img</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">target_size</span><span class="o">=</span><span class="n">img_size</span><span class="p">))</span>
+        <span class="n">train_label</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        
+    <span class="k">for</span> <span class="n">img_path</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">negative_train_files</span><span class="p">):</span>
+        <span class="n">train_img</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">read_img</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">target_size</span><span class="o">=</span><span class="n">img_size</span><span class="p">))</span>
+        <span class="n">train_label</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        
+    <span class="n">test_img</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">test_label</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">img_path</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">planet_test_files</span><span class="p">):</span>
+        <span class="n">test_img</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">read_img</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">target_size</span><span class="o">=</span><span class="n">img_size</span><span class="p">))</span>
+        <span class="n">test_label</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        
+    <span class="k">for</span> <span class="n">img_path</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">negative_test_files</span><span class="p">):</span>
+        <span class="n">test_img</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">read_img</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">target_size</span><span class="o">=</span><span class="n">img_size</span><span class="p">))</span>
+        <span class="n">test_label</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        
+    <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_img</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_label</span><span class="p">)</span>
+    
+    <span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_img</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_label</span><span class="p">)</span>
+    
+    <span class="n">X_train</span><span class="p">,</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    
+    <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">[i] Length of Splits:'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">f"X_train=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="si">}</span><span class="s">, X_test=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="si">}</span><span class="s">, X_val=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y_val</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">X_train</span><span class="p">,</span><span class="n">X_test</span><span class="p">,</span><span class="n">X_val</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_val</span><span class="o">=</span><span class="n">load_train_test_val</span><span class="p">(</span><span class="n">planet_train_files</span><span class="p">,</span> 
+                                                              <span class="n">negative_train_files</span><span class="p">,</span>
+                                                              <span class="n">planet_test_files</span><span class="p">,</span> 
+                                                              <span class="n">negative_test_files</span><span class="p">,</span> 
+                                                              <span class="n">val_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> 
+                                                              <span class="n">img_size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>‘[i] LOADING IMAGES’
+100%|██████████| 37/37 [00:07&lt;00:00,  4.80it/s]
+100%|██████████| 37/37 [00:07&lt;00:00,  4.85it/s]
+100%|██████████| 5/5 [00:01&lt;00:00,  4.92it/s]
+100%|██████████| 5/5 [00:01&lt;00:00,  4.75it/s]</p>
+
+<p>[i] Length of Splits:
+X_train=66, X_test=10, X_val=8</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create function for ImageDataGenerators for train, test and val data.
+# returns training_set, test_set, val_set
+</span><span class="k">def</span> <span class="nf">train_test_val_datagens</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span>
+                            <span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>  <span class="n">train_datagen_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                                <span class="n">shear_range</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                                <span class="n">zoom_range</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                                <span class="n">horizontal_flip</span><span class="o">=</span><span class="bp">True</span><span class="p">)):</span>
+    <span class="s">"""Creates ImageDataGenerators for train,test,val data.
+    Returns: training_set,test_set,val_set"""</span>
+    <span class="c1">## Create training and test data
+</span>    <span class="kn">from</span> <span class="nn">keras.preprocessing.image</span> <span class="kn">import</span> <span class="n">ImageDataGenerator</span>
+    
+    <span class="n">train_datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">rescale</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="o">**</span><span class="n">train_datagen_kws</span><span class="p">)</span>
+    <span class="n">test_datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">rescale</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
+    <span class="n">val_datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">rescale</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
+    
+    <span class="n">training_set</span> <span class="o">=</span> <span class="n">train_datagen</span><span class="p">.</span><span class="n">flow</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">BATCH_SIZE</span><span class="p">)</span>
+    <span class="n">test_set</span> <span class="o">=</span> <span class="n">test_datagen</span><span class="p">.</span><span class="n">flow</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">BATCH_SIZE</span><span class="p">)</span>
+    <span class="n">val_set</span> <span class="o">=</span> <span class="n">val_datagen</span><span class="p">.</span><span class="n">flow</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_val</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">BATCH_SIZE</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">training_set</span><span class="p">,</span> <span class="n">test_set</span><span class="p">,</span> <span class="n">val_set</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_test_val_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y_val</span><span class="p">]</span>
+
+<span class="n">training_set</span><span class="p">,</span><span class="n">test_set</span><span class="p">,</span><span class="n">val_set</span><span class="o">=</span><span class="n">train_test_val_datagens</span><span class="p">(</span><span class="o">*</span><span class="n">train_test_val_vars</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_shapes_dict</span><span class="p">(</span><span class="n">training_set</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Batchsize"</span><span class="p">,</span> <span class="s">"img_width"</span><span class="p">,</span> <span class="s">"img_height"</span><span class="p">,</span> <span class="s">"img_dim"</span><span class="p">]</span>
+    <span class="n">SHAPES</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">shapes</span><span class="p">,</span> <span class="n">training_set</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="n">shape</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'SHAPES DICT:'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">training_set</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">[i] Labels for batch (1=negative, 2=planet'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">training_set</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        
+    <span class="k">return</span> <span class="n">SHAPES</span> 
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SHAPES</span> <span class="o">=</span> <span class="n">get_shapes_dict</span><span class="p">(</span><span class="n">training_set</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>SHAPES DICT:
+{‘Batchsize’: 32, ‘img_width’: 64, ‘img_height’: 64, ‘img_dim’: 3}
+(32, 64, 64, 3)</p>
+
+<p>[i] Labels for batch (1=negative, 2=planet
+[1 1 1 1 1 1 1 1 0 0 0 1 0 0 1 0 1 1 0 0 1 1 1 0 0 1 1 1 0 0 0 0]</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">complete_image_processing</span><span class="p">(</span><span class="o">*</span><span class="n">train_test_filenames</span><span class="p">,</span><span class="n">img_size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">val_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                              <span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="n">train_datagen_kws</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                                <span class="n">shear_range</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> 
+                                <span class="n">zoom_range</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+                                <span class="n">horizontal_flip</span> <span class="o">=</span> <span class="bp">True</span><span class="p">),</span><span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="s">"""Calls all 3 image prep functions and returns training,test,val datagens,
+    plus SHAPES dict."""</span>    
+    <span class="c1"># img_params = list(locals())
+</span>    <span class="c1"># print(img_params[1:])
+</span>    <span class="c1"># if verbose:
+</span>        <span class="c1"># print('\n[i] Creating training ImageDataGenerator using:')
+</span>        <span class="c1"># [print(f"{img_params[i]}") for i in range(len(img_params))];
+</span>
+
+    <span class="c1"># print(len(train_test_filenames))
+</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_test_filenames</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">'Must provide 4 filenames'</span><span class="p">)</span>
+    <span class="n">train_test_val_vars</span> <span class="o">=</span> <span class="n">load_train_test_val</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">train_test_filenames</span><span class="p">,</span> <span class="n">val_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">img_size</span><span class="o">=</span><span class="n">img_size</span><span class="p">)</span>
+
+    <span class="n">training_set</span><span class="p">,</span><span class="n">test_set</span><span class="p">,</span><span class="n">val_set</span> <span class="o">=</span> <span class="n">train_test_val_datagens</span><span class="p">(</span><span class="o">*</span><span class="n">train_test_val_vars</span><span class="p">,</span>
+                                                            <span class="n">BATCH_SIZE</span><span class="o">=</span><span class="n">BATCH_SIZE</span><span class="p">)</span>
+
+    <span class="n">SHAPES</span> <span class="o">=</span> <span class="n">get_shapes_dict</span><span class="p">(</span><span class="n">training_set</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">training_set</span><span class="p">,</span><span class="n">test_set</span><span class="p">,</span><span class="n">val_set</span><span class="p">,</span><span class="n">SHAPES</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">training_set</span><span class="p">,</span><span class="n">test_set</span><span class="p">,</span><span class="n">val_set</span><span class="p">,</span><span class="n">SHAPES</span> <span class="o">=</span> \
+<span class="n">complete_image_processing</span><span class="p">(</span><span class="o">*</span><span class="n">all_filename_vars</span><span class="p">,</span> <span class="n">img_size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">BATCH_SIZE</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>‘[i] LOADING IMAGES’
+100%|██████████| 37/37 [00:00&lt;00:00, 166.17it/s]
+100%|██████████| 37/37 [00:00&lt;00:00, 167.31it/s]
+100%|██████████| 5/5 [00:00&lt;00:00, 151.31it/s]
+100%|██████████| 5/5 [00:00&lt;00:00, 163.76it/s]</p>
+
+<p>[i] Length of Splits:
+X_train=66, X_test=10, X_val=8
+SHAPES DICT:
+{‘Batchsize’: 64, ‘img_width’: 64, ‘img_height’: 64, ‘img_dim’: 3}
+(64, 64, 64, 3)</p>
+
+<p>[i] Labels for batch (1=negative, 2=planet
+[1 0 1 0 0 1 0 1 0 0 0 1 1 0 1 0 1 0 1 0 0 0 0 0 1 0 1 1 0 0 1 0 0 1 1 0 1
+ 1 0 1 0 1 1 0 1 1 1 1 0 0 0 0 1 0 0 0 1 0 1 1 1 1 0 0]</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Timer</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">time_fmt</span><span class="o">=</span><span class="s">'%m/%d/%y - %T'</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">tzlocal</span>
+        <span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="n">dt</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">tz</span> <span class="o">=</span> <span class="n">tzlocal</span><span class="p">.</span><span class="n">get_localzone</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">fmt</span><span class="o">=</span> <span class="n">time_fmt</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_created</span> <span class="o">=</span> <span class="n">dt</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">tz</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+            
+    <span class="k">def</span> <span class="nf">get_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="n">dt</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">tz</span><span class="p">)</span>
+
+
+        
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_laps_completed</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+            <span class="k">print</span><span class="p">(</span><span class="s">f'[i] Timer started at </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">start</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fmt</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_laps_completed</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">elapsed</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">-</span>  <span class="bp">self</span><span class="p">.</span><span class="n">start</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+            <span class="k">print</span><span class="p">(</span><span class="s">f'[i] Timer stopped at </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">end</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fmt</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">f'  - Total Time: </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">elapsed</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    
+</code></pre></div></div>
+
+<h1 id="using-colabs-pro-gpu">Using Colabs Pro GPU</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#https://colab.research.google.com/notebooks/pro.ipynb
+</span><span class="n">gpu_info</span> <span class="o">=</span> <span class="err">!</span><span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span>
+<span class="n">gpu_info</span> <span class="o">=</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">gpu_info</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">gpu_info</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">'failed'</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">'Select the Runtime → "Change runtime type" menu to enable a GPU accelerator, '</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">'and then re-execute this cell.'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">gpu_info</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Sun May  3 08:47:23 2020     <br />
++—————————————————————————–+
+| NVIDIA-SMI 440.64.00    Driver Version: 418.67       CUDA Version: 10.1     |
+|——————————-+———————-+———————-+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  Tesla P100-PCIE…  Off  | 00000000:00:04.0 Off |                    0 |
+| N/A   42C    P0    26W / 250W |      0MiB / 16280MiB |      0%      Default |
++——————————-+———————-+———————-+</p>
+
+<p>+—————————————————————————–+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++—————————————————————————–+</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">psutil</span> <span class="kn">import</span> <span class="n">virtual_memory</span>
+<span class="n">ram_gb</span> <span class="o">=</span> <span class="n">virtual_memory</span><span class="p">().</span><span class="n">total</span> <span class="o">/</span> <span class="mf">1e9</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Your runtime has {:.1f} gigabytes of available RAM</span><span class="se">\n</span><span class="s">'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ram_gb</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">ram_gb</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">'To enable a high-RAM runtime, select the Runtime → "Change runtime type"'</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">'menu, and then select High-RAM in the Runtime shape dropdown. Then, '</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">'re-execute this cell.'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">'You are using a high-RAM runtime!'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Your runtime has 27.4 gigabytes of available RAM</p>
+
+<p>You are using a high-RAM runtime!</p>
+
+<h1 id="cnn">CNN</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!pip install fsds_100719
+</span><span class="kn">from</span> <span class="nn">fsds_100719.imports</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">clock</span> <span class="o">=</span> <span class="n">fs</span><span class="p">.</span><span class="n">jmi</span><span class="p">.</span><span class="n">Clock</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># # Part 1 - Building the CNN
+</span>
+<span class="n">clock</span><span class="p">.</span><span class="n">tic</span><span class="p">(</span><span class="s">''</span><span class="p">)</span>
+<span class="c1"># # Importing the Keras libraries and packages
+</span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">MaxPooling2D</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Flatten</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+
+<span class="c1"># # Initialising the CNN
+</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+
+<span class="c1"># # Step 1 - Convolution
+</span><span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                             <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_width'</span><span class="p">],</span>
+                                            <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_height'</span><span class="p">],</span>
+                                            <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_dim'</span><span class="p">]),</span>
+                             <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+
+<span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                      <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_width'</span><span class="p">],</span> 
+                                     <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_height'</span><span class="p">],</span>
+                                     <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_dim'</span><span class="p">]),</span>
+                       <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+<span class="c1"># # Step 2 - Pooling
+</span><span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+<span class="c1"># # Adding a second convolutional layer
+</span><span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                      <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+<span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+<span class="c1"># # Step 3 - Flattening
+</span><span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">())</span>
+
+<span class="c1"># # Step 4 - Full connection
+</span><span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span> <span class="o">=</span> <span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+
+<span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s">'sigmoid'</span><span class="p">))</span>
+
+<span class="c1"># # Compiling the CNN
+</span><span class="n">classifier</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">optimizer</span> <span class="o">=</span> <span class="s">'adam'</span><span class="p">,</span> 
+                   <span class="n">loss</span> <span class="o">=</span> <span class="s">'binary_crossentropy'</span><span class="p">,</span>
+                   <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s">'accuracy'</span><span class="p">])</span>
+<span class="c1"># print()
+</span><span class="n">display</span><span class="p">(</span><span class="n">classifier</span><span class="p">.</span><span class="n">summary</span><span class="p">())</span>
+
+
+<span class="c1"># # Part 2 - Fitting the CNN to the images
+</span>
+<span class="n">history</span> <span class="o">=</span><span class="n">classifier</span><span class="p">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">training_set</span><span class="p">,</span>
+                         <span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
+                         <span class="n">epochs</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+                         <span class="n">validation_data</span> <span class="o">=</span> <span class="n">val_set</span><span class="p">,</span><span class="c1">#test_set,
+</span>                         <span class="n">validation_steps</span> <span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">workers</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">clock</span><span class="p">.</span><span class="n">toc</span><span class="p">(</span><span class="s">''</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>— CLOCK STARTED @:    05/03/20 - 08:48:04 AM           Label:            — 
+Model: “sequential_2”
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+Layer (type)                 Output Shape              Param # <br />
+=================================================================
+conv2d_1 (Conv2D)            (None, 62, 62, 64)        1792    <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_2 (Conv2D)            (None, 60, 60, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_1 (MaxPooling2 (None, 30, 30, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_3 (Conv2D)            (None, 28, 28, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_2 (MaxPooling2 (None, 14, 14, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+flatten_1 (Flatten)          (None, 12544)             0       <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+dense_1 (Dense)              (None, 64)                802880  <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+dense_2 (Dense)              (None, 1)                 65      <br />
+=================================================================
+Total params: 878,593
+Trainable params: 878,593
+Non-trainable params: 0
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_____
+None
+Epoch 1/3
+500/500 [==============================] - 31s 61ms/step - loss: 0.5879 - accuracy: 0.6630 - val_loss: 0.3231 - val_accuracy: 0.7500
+Epoch 2/3
+500/500 [==============================] - 24s 48ms/step - loss: 0.2982 - accuracy: 0.8691 - val_loss: 0.9494 - val_accuracy: 0.6250
+Epoch 3/3
+500/500 [==============================] - 24s 49ms/step - loss: 0.1016 - accuracy: 0.9618 - val_loss: 1.4923 - val_accuracy: 0.7500
+— TOTAL DURATION   =  1 min, 27.978 sec — 
+Summary Table of Clocked Processes
+TOTAL	05/03/20 - 08:48:04 AM	1 min, 27.978 sec</p>
+
+<h1 id="spacekit-computer-function">SPACEKIT Computer() Function</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1"># ********* STARSKØPE.SPACEKIT.COMPUTER ********* #
+</span><span class="s">""" 
+helper functions for computing predictions and scores 
+for evaluating a machine learning model.
+TODO       
+- save metrics to textfile/pickle objs and/or dictionaries
+"""</span>
+<span class="c1"># -----------------
+# STATIC CLASS METHODS 
+# -----------------
+# * predictions 
+#   get_preds()
+#   fnfp()
+#
+# * Plots
+#   keras_history()
+#   fusion_matrix()
+#   roc_plots()
+# 
+# * One-shot All the above
+#   compute()
+#
+# ********* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ ********* #
+</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="n">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">jaccard_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span> 
+
+
+
+<span class="k">def</span> <span class="nf">get_preds</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span>
+    <span class="c1"># class predictions 
+</span>    <span class="n">y_true</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict_classes</span><span class="p">(</span><span class="n">X</span><span class="p">).</span><span class="n">flatten</span><span class="p">()</span> 
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_pred</span><span class="p">).</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"y_pred:</span><span class="se">\n</span><span class="s"> </span><span class="si">{</span><span class="n">preds</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span>
+
+
+<span class="k">def</span> <span class="nf">fnfp</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">model</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">round</span><span class="p">(</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="p">)</span>
+
+    <span class="n">pos_idx</span> <span class="o">=</span> <span class="n">y</span><span class="o">==</span><span class="mi">1</span>
+    <span class="n">neg_idx</span> <span class="o">=</span> <span class="n">y</span><span class="o">==</span><span class="mi">0</span>
+
+    <span class="c1">#tp = np.sum(y_pred[pos_idx]==1)/y_pred.shape[0]
+</span>    <span class="n">fn</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">pos_idx</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">y_pred</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1">#tn = np.sum(y_pred[neg_idx]==0)/y_pred.shape[0]
+</span>    <span class="n">fp</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">neg_idx</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">y_pred</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">training</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"FN Rate (Training): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"FP Rate (Training): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fp</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"FN Rate (Test): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"FP Rate (Test): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fp</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">keras_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">)):</span>
+    <span class="s">"""
+    side by side sublots of training val accuracy and loss (left and right respectively)
+    """</span>
+    
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+    
+    <span class="n">fig</span><span class="p">,</span><span class="n">axes</span><span class="o">=</span><span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'accuracy'</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'val_accuracy'</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Model Accuracy'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Accuracy'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Epoch'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">([</span><span class="s">'Train'</span><span class="p">,</span> <span class="s">'Test'</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s">'upper left'</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'loss'</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'val_loss'</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Model Loss'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Loss'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Epoch'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">([</span><span class="s">'Train'</span><span class="p">,</span> <span class="s">'Test'</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s">'upper left'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+
+ <span class="c1"># FUSION_MATRIX()
+</span>    
+<span class="k">def</span> <span class="nf">fusion_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">'Fusion Matrix'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'Blues'</span><span class="p">,</span>
+    <span class="n">print_raw</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span> 
+    <span class="s">"""
+    FUSION MATRIX!
+    -------------
+    It's like a confusion matrix...without the confusion.
+    
+    matrix: can pass in matrix or a tuple (ytrue,ypred) to create on the fly 
+    classes: class names for target variables
+    """</span>
+    <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>                       
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span> <span class="c1">#ugh
+</span>    <span class="kn">import</span> <span class="nn">itertools</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+    <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="n">mpl</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+    
+    <span class="c1"># make matrix if tuple passed to matrix:
+</span>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">copy</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">y_true</span><span class="p">.</span><span class="n">ndim</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">y_true</span> <span class="o">=</span> <span class="n">y_true</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y_pred</span><span class="p">.</span><span class="n">ndim</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">fusion</span> <span class="o">=</span> <span class="n">metrics</span><span class="p">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fusion</span> <span class="o">=</span> <span class="n">matrix</span>
+    
+    <span class="c1"># INTEGER LABELS
+</span>    <span class="k">if</span> <span class="n">classes</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">classes</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)))</span>
+
+    <span class="c1">#NORMALIZING
+</span>    <span class="c1"># Check if normalize is set to True
+</span>    <span class="c1"># If so, normalize the raw fusion matrix before visualizing
+</span>    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">fusion</span> <span class="o">=</span> <span class="n">fusion</span><span class="p">.</span><span class="n">astype</span><span class="p">(</span><span class="s">'float'</span><span class="p">)</span> <span class="o">/</span> <span class="n">fusion</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="n">np</span><span class="p">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="n">fmt</span><span class="o">=</span><span class="s">'.2f'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fmt</span><span class="o">=</span><span class="s">'d'</span>
+    
+    <span class="c1"># PLOT
+</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">fusion</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s">'equal'</span><span class="p">)</span>
+    
+    <span class="c1"># Add title and axis labels 
+</span>    <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'TRUE'</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'PRED'</span><span class="p">)</span>
+    
+    <span class="c1"># Add appropriate axis scales
+</span>    <span class="n">tick_marks</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+    <span class="c1">#ax.set_ylim(len(fusion), -.5,.5) ## &lt;-- This was messing up the plots!
+</span>    
+    <span class="c1"># Text formatting
+</span>    <span class="n">fmt</span> <span class="o">=</span> <span class="s">'.2f'</span> <span class="k">if</span> <span class="n">normalize</span> <span class="k">else</span> <span class="s">'d'</span>
+    <span class="c1"># Add labels to each cell
+</span>    <span class="n">thresh</span> <span class="o">=</span> <span class="n">fusion</span><span class="p">.</span><span class="nb">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span>
+    <span class="c1"># iterate thru matrix and append labels  
+</span>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">fusion</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">range</span><span class="p">(</span><span class="n">fusion</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">format</span><span class="p">(</span><span class="n">fusion</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">fmt</span><span class="p">),</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s">'white'</span> <span class="k">if</span> <span class="n">fusion</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">thresh</span> <span class="k">else</span> <span class="s">'black'</span><span class="p">,</span>
+                <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
+    
+    <span class="c1"># Add a legend
+</span>    <span class="n">plt</span><span class="p">.</span><span class="n">colorbar</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span> 
+    <span class="k">return</span> <span class="n">fusion</span><span class="p">,</span> <span class="n">fig</span>
+
+
+
+<span class="k">def</span> <span class="nf">roc_plots</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">model</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">accuracy_score</span>
+
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">y_hat</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">)</span> 
+
+    <span class="c1"># Threshold Cutoff for predictions
+</span>    <span class="n">crossover_index</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">fpr</span> <span class="o">&lt;=</span> <span class="n">tpr</span><span class="p">))</span>
+    <span class="n">crossover_cutoff</span> <span class="o">=</span> <span class="n">thresholds</span><span class="p">[</span><span class="n">crossover_index</span><span class="p">]</span>
+    <span class="n">crossover_specificity</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">-</span><span class="n">fpr</span><span class="p">[</span><span class="n">crossover_index</span><span class="p">]</span>
+
+    <span class="n">fig</span><span class="p">,</span><span class="n">axes</span><span class="o">=</span><span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="mf">1.</span><span class="o">-</span><span class="n">fpr</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Crossover at {0:.2f}, Specificity {1:.2f}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">crossover_cutoff</span><span class="p">,</span> <span class="n">crossover_specificity</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"ROC area under curve: {0:.2f}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">)))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="n">roc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="n">y_hat</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">roc</span>
+
+
+    <span class="c1">### COMPUTE SCORES ###
+</span>
+<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">preds</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fusion</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+            <span class="n">classes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">report</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">roc</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="s">"""
+    evaluates model predictions and stores the output in a dict
+    returns `results`
+    """</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+    <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">jaccard_score</span><span class="p">,</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">fowlkes_mallows_score</span>
+
+    <span class="c1"># initialize a spare improbability drive
+</span>    <span class="n">res</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">res</span><span class="p">[</span><span class="s">'model'</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">name</span>
+    
+    <span class="c1"># class predictions 
+</span>    <span class="k">if</span> <span class="n">preds</span><span class="p">:</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict_classes</span><span class="p">(</span><span class="n">X</span><span class="p">).</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">res</span><span class="p">[</span><span class="s">'preds'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_pred</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">summary</span><span class="p">:</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">summary</span><span class="p">()</span>
+        <span class="n">res</span><span class="p">[</span><span class="s">'summary'</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">summary</span>
+
+
+    <span class="c1"># FUSION MATRIX
+</span>    <span class="k">if</span> <span class="n">fusion</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">classes</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s">'0'</span><span class="p">,</span><span class="s">'1'</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">classes</span><span class="o">=</span><span class="n">classes</span>
+        <span class="c1"># Plot fusion matrix
+</span>        <span class="n">FM</span> <span class="o">=</span> <span class="n">fusion_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="o">=</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="n">y_pred</span><span class="p">),</span> 
+                                    <span class="n">classes</span><span class="o">=</span><span class="n">classes</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">[</span><span class="s">'FM'</span><span class="p">]</span> <span class="o">=</span> <span class="n">FM</span>
+
+    <span class="c1"># ROC Area Under Curve
+</span>    <span class="k">if</span> <span class="n">roc</span><span class="p">:</span>
+        <span class="n">ROC</span> <span class="o">=</span> <span class="n">roc_plots</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">[</span><span class="s">'ROC'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ROC</span>
+
+    <span class="c1"># CLASSIFICATION REPORT
+</span>    <span class="k">if</span> <span class="n">report</span><span class="p">:</span>
+        <span class="n">num_dashes</span><span class="o">=</span><span class="mi">20</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'---'</span><span class="o">*</span><span class="n">num_dashes</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\t</span><span class="s">CLASSIFICATION REPORT:'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'---'</span><span class="o">*</span><span class="n">num_dashes</span><span class="p">)</span>
+        <span class="c1"># generate report
+</span>        <span class="n">report</span> <span class="o">=</span> <span class="n">metrics</span><span class="p">.</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">[</span><span class="s">'report'</span><span class="p">]</span> <span class="o">=</span> <span class="n">report</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+
+
+    <span class="c1"># save to dict:
+</span>    <span class="n">res</span><span class="p">[</span><span class="s">'jaccard'</span><span class="p">]</span> <span class="o">=</span> <span class="n">jaccard_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">res</span><span class="p">[</span><span class="s">'fowlkes'</span><span class="p">]</span> <span class="o">=</span> <span class="n">fowlkes_mallows_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">res</span><span class="p">[</span><span class="s">'accuracy'</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">res</span><span class="p">[</span><span class="s">'recall'</span><span class="p">]</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    
+    <span class="c1">#Plot Model Training Results (PLOT KERAS HISTORY)
+</span>    <span class="k">if</span> <span class="n">hist</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">HIST</span> <span class="o">=</span> <span class="n">keras_history</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">[</span><span class="s">'HIST'</span><span class="p">]</span> <span class="o">=</span> <span class="n">HIST</span>
+
+    <span class="k">return</span> <span class="n">res</span>
+
+</code></pre></div></div>
+
+<p>The functions above can be called in one-fell-swoop from spacekit’s computer.compute()</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res1</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">classifier</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">history</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Model: “sequential_2”
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+Layer (type)                 Output Shape              Param # <br />
+=================================================================
+conv2d_1 (Conv2D)            (None, 62, 62, 64)        1792    <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_2 (Conv2D)            (None, 60, 60, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_1 (MaxPooling2 (None, 30, 30, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_3 (Conv2D)            (None, 28, 28, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_2 (MaxPooling2 (None, 14, 14, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+flatten_1 (Flatten)          (None, 12544)             0       <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+dense_1 (Dense)              (None, 64)                802880  <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+dense_2 (Dense)              (None, 1)                 65      <br />
+=================================================================
+Total params: 878,593
+Trainable params: 878,593
+Non-trainable params: 0
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_____</p>
+
+<div style="background-color:white">
+<img src="/assets/images/starskope/spec-fusion-matrix-1.png" alt="fusion matrix 1" title="fusion matrix 1" width="400" />
+</div>
+
+<hr />
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CLASSIFICATION REPORT: ------------------------------------------------------------
+          precision    recall  f1-score   support
+
+       0       1.00      0.60      0.75         5
+       1       0.71      1.00      0.83         5
+
+accuracy                           0.80        10    macro avg       0.86      0.80      0.79        10 weighted avg       0.86      0.80      0.79        10
+</code></pre></div></div>
+
+<div>
+<img src="/assets/images/starskope/spec-m1-roc-auc.png" alt="m1 roc auc" title="m1 roc auc" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/spec-m1-acc-loss.png" alt="m1 acc loss" title="m1 aacc loss" width="400" />
+</div>
+
+<h1 id="save-model--model-weights">Save Model / Model Weights</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">cd_gdrive_mkdirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="o">=</span><span class="s">'data/models/planet_vs_neg/'</span><span class="p">):</span>
+    
+    <span class="s">"""cd to /gdrive/My Drive/ to allow for saving files to google drive
+    Also makes all subfolders in 'model_subfolder'"""</span>
+    
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="c1">## To save to Gdrive, must first chdir to My Drive (so there's no spaces in fpath)
+</span>    <span class="n">curdir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">curdir</span><span class="p">)</span>
+    <span class="n">data_folder</span> <span class="o">=</span><span class="s">r'/gdrive/My Drive/Colab Notebooks/starskope/data'</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">data_folder</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f'ERROR: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="p">,</span><span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Directories created.'</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Error making directories'</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="k">print</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">curdir</span><span class="p">))</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model_subfolder</span><span class="o">=</span><span class="s">'data/models/planet_vs_neg/'</span>
+<span class="n">cd_gdrive_mkdirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="o">=</span><span class="n">model_subfolder</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span><span class="n">model_subfolder</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">model_subfolder</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="implementing-keras-early-stopping">Implementing Keras Early-Stopping</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># checkpoint
+</span><span class="kn">from</span> <span class="nn">keras.callbacks</span> <span class="kn">import</span> <span class="n">ModelCheckpoint</span><span class="p">,</span> <span class="n">EarlyStopping</span><span class="p">,</span> <span class="n">CSVLogger</span>
+
+<span class="k">def</span> <span class="nf">create_csvlogger</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">CSVLogger</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s">','</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">create_checkpoint</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s">'val_accuracy'</span><span class="p">,</span>
+                      <span class="n">model_subfolder</span><span class="o">=</span><span class="s">'data/models/planet_vs_neg/'</span><span class="p">):</span>
+    <span class="n">filepath</span><span class="o">=</span><span class="n">model_subfolder</span><span class="o">+</span><span class="s">"weights-improvement-{epoch:02d}-{"</span><span class="o">+</span><span class="n">monitor</span><span class="o">+</span><span class="s">":.2f}.hdf5"</span>
+    <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="n">monitor</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                                 <span class="n">save_best_only</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'max'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">checkpoint</span>
+
+<span class="k">def</span> <span class="nf">create_early_stopping</span><span class="p">(</span><span class="n">monitor</span> <span class="o">=</span> <span class="s">'val_accuracy'</span><span class="p">,</span><span class="n">min_delta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">patience</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                          <span class="n">verbose</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">restore_best_weights</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
+    <span class="n">earlystop</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">earlystop</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># def get_callbacks():
+</span><span class="n">model_subfolder</span><span class="o">=</span><span class="s">'data/models/planet_vs_neg/'</span>
+<span class="n">cd_gdrive_mkdirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="o">=</span><span class="n">model_subfolder</span><span class="p">)</span>
+<span class="n">callbacks_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">create_checkpoint</span><span class="p">(</span><span class="s">'val_accuracy'</span><span class="p">),</span>
+                  <span class="n">create_early_stopping</span><span class="p">(),</span>
+                  <span class="n">create_csvlogger</span><span class="p">(</span><span class="n">model_subfolder</span><span class="o">+</span><span class="s">'callback_log.csv'</span><span class="p">)]</span>
+<span class="n">callbacks_list</span>
+</code></pre></div></div>
+
+<p>Directories created.
+/gdrive/My Drive/Colab Notebooks/starskope/data
+[&lt;keras.callbacks.callbacks.ModelCheckpoint at 0x7fae86050748&gt;,
+ &lt;keras.callbacks.callbacks.EarlyStopping at 0x7fae86050780&gt;,
+ &lt;keras.callbacks.callbacks.CSVLogger at 0x7fae860507b8&gt;]</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># filepath=model_subfolder+
+</span><span class="n">monitor</span> <span class="o">=</span> <span class="s">'val_accuracy'</span>
+<span class="n">filepath</span><span class="o">=</span><span class="n">model_subfolder</span><span class="o">+</span><span class="s">"weights-improvement-{epoch:02d}-{"</span><span class="o">+</span><span class="n">monitor</span><span class="o">+</span><span class="s">":.2f}.hdf5"</span>
+<span class="c1">#filepath
+# model_subfolder
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model_subfolder</span><span class="o">=</span><span class="s">'data/models/planet_vs_neg/'</span>
+<span class="n">cd_gdrive_mkdirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="o">=</span><span class="n">model_subfolder</span><span class="p">)</span>
+<span class="n">callbacks_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">create_checkpoint</span><span class="p">(</span><span class="s">'val_accuracy'</span><span class="p">),</span>
+                  <span class="n">create_early_stopping</span><span class="p">(),</span>
+                  <span class="n">create_csvlogger</span><span class="p">(</span><span class="n">model_subfolder</span><span class="o">+</span><span class="s">'callback_log.csv'</span><span class="p">)]</span>
+<span class="n">callbacks_list</span>
+</code></pre></div></div>
+
+<h1 id="keras-cnn-with-callbacks">Keras CNN with Callbacks</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Part 1 - Building the CNN
+</span><span class="n">clock</span> <span class="o">=</span> <span class="n">fs</span><span class="p">.</span><span class="n">jmi</span><span class="p">.</span><span class="n">Clock</span><span class="p">()</span>
+<span class="n">clock</span><span class="p">.</span><span class="n">tic</span><span class="p">(</span><span class="s">''</span><span class="p">)</span>
+<span class="c1"># Importing the Keras libraries and packages
+</span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">MaxPooling2D</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Flatten</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+
+<span class="c1"># Initialising the CNN
+</span><span class="n">classifier2</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+
+<span class="c1"># Step 1 - Convolution
+</span><span class="n">classifier2</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+                             <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_width'</span><span class="p">],</span>
+                                            <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_height'</span><span class="p">],</span>
+                                            <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_dim'</span><span class="p">]),</span>
+                             <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+
+<span class="n">classifier2</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                      <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_width'</span><span class="p">],</span> 
+                                     <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_height'</span><span class="p">],</span>
+                                     <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_dim'</span><span class="p">]),</span>
+                       <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+<span class="c1"># Step 2 - Pooling
+</span><span class="n">classifier2</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+<span class="c1"># Adding a second convolutional layer
+</span><span class="n">classifier2</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                      <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+<span class="n">classifier2</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+<span class="c1"># Step 3 - Flattening
+</span><span class="n">classifier2</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">())</span>
+
+<span class="c1"># Step 4 - Full connection
+</span><span class="n">classifier2</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span> <span class="o">=</span> <span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+
+<span class="n">classifier2</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s">'sigmoid'</span><span class="p">))</span>
+
+<span class="c1"># Compiling the CNN
+</span><span class="n">classifier2</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">optimizer</span> <span class="o">=</span> <span class="s">'adam'</span><span class="p">,</span> 
+                   <span class="n">loss</span> <span class="o">=</span> <span class="s">'binary_crossentropy'</span><span class="p">,</span>
+                   <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s">'accuracy'</span><span class="p">])</span>
+<span class="k">print</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">classifier2</span><span class="p">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="c1"># Part 2 - Fitting the CNN to the images
+</span>
+<span class="n">history2</span> <span class="o">=</span><span class="n">classifier2</span><span class="p">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">training_set</span><span class="p">,</span>
+                         <span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+                         <span class="n">epochs</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+                         <span class="n">validation_data</span> <span class="o">=</span> <span class="n">val_set</span><span class="p">,</span><span class="c1">#test_set,
+</span>                         <span class="n">validation_steps</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span><span class="n">workers</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                         <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks_list</span><span class="p">)</span>
+
+<span class="n">clock</span><span class="p">.</span><span class="n">toc</span><span class="p">(</span><span class="s">''</span><span class="p">)</span>
+
+
+</code></pre></div></div>
+
+<p>— CLOCK STARTED @:    05/03/20 - 09:15:43 AM           Label:            —</p>
+
+<p>Model: “sequential_4”
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+Layer (type)                 Output Shape              Param # <br />
+=================================================================
+conv2d_7 (Conv2D)            (None, 60, 60, 64)        4864    <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_8 (Conv2D)            (None, 58, 58, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_5 (MaxPooling2 (None, 29, 29, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_9 (Conv2D)            (None, 27, 27, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_6 (MaxPooling2 (None, 13, 13, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+flatten_3 (Flatten)          (None, 10816)             0       <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+dense_5 (Dense)              (None, 64)                692288  <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+dense_6 (Dense)              (None, 1)                 65      <br />
+=================================================================
+Total params: 771,073
+Trainable params: 771,073
+Non-trainable params: 0
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_____
+None
+Epoch 1/3
+1000/1000 [==============================] - 50s 50ms/step - loss: 0.4111 - accuracy: 0.7974 - val_loss: 0.7305 - val_accuracy: 0.7500</p>
+
+<p>Epoch 00001: val_accuracy improved from -inf to 0.75000, saving model to data/models/planet_vs_neg/weights-improvement-01-0.75.hdf5
+Epoch 2/3
+1000/1000 [==============================] - 50s 50ms/step - loss: 0.1581 - accuracy: 0.9497 - val_loss: 2.2786 - val_accuracy: 0.6250</p>
+
+<p>Epoch 00002: val_accuracy did not improve from 0.75000
+Restoring model weights from the end of the best epoch
+Epoch 00002: early stopping
+— TOTAL DURATION   =  1 min, 40.158 sec — 
+Summary Table of Clocked Processes
+TOTAL	05/03/20 - 09:15:43 AM	1 min, 40.158 sec</p>
+
+<h1 id="model-evaluation">Model Evaluation</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res2</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">classifier2</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">history2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Model: “sequential_4”
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+Layer (type)                 Output Shape              Param # <br />
+=================================================================
+conv2d_7 (Conv2D)            (None, 60, 60, 64)        4864    <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_8 (Conv2D)            (None, 58, 58, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_5 (MaxPooling2 (None, 29, 29, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_9 (Conv2D)            (None, 27, 27, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_6 (MaxPooling2 (None, 13, 13, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+flatten_3 (Flatten)          (None, 10816)             0       <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+dense_5 (Dense)              (None, 64)                692288  <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+dense_6 (Dense)              (None, 1)                 65      <br />
+=================================================================
+Total params: 771,073
+Trainable params: 771,073
+Non-trainable params: 0</p>
+
+<div>
+<img src="/assets/images/starskope/spec-m2-fusion-matrix.png" alt="m2 fusion matrix" title="m2 fusion matrix" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/spec-m2-roc-auc.png" alt="m1 roc auc" title="m1 roc auc" width="400" />
+</div>
+
+<hr />
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CLASSIFICATION REPORT: ------------------------------------------------------------
+          precision    recall  f1-score   support
+
+       0       0.60      0.60      0.60         5
+       1       0.60      0.60      0.60         5
+
+accuracy                           0.60        10    macro avg       0.60      0.60      0.60        10 weighted avg       0.60      0.60      0.60        10
+</code></pre></div></div>
+
+<div>
+<img src="/assets/images/starskope/spec-m2-acc-loss.png" alt="m1 acc loss" title="m1 aacc loss" width="400" />
+</div>
+
+<h1 id="load-weights">Load weights</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># from keras.utils import 
+</span><span class="n">model_loaded</span> <span class="o">=</span> <span class="n">classifier2</span>
+<span class="n">model_loaded</span><span class="p">.</span><span class="n">load_weights</span><span class="p">(</span><span class="s">'data/models/planet_vs_neg/weights-improvement-01-0.75.hdf5'</span><span class="p">)</span>
+<span class="c1">#model_loaded.weights
+</span></code></pre></div></div>
+
+<h1 id="save-model">Save Model</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">model_subfolder</span> <span class="o">=</span> <span class="s">'data/models/planet_vs_neg/'</span><span class="p">,</span>
+               <span class="n">base_modelname</span> <span class="o">=</span> <span class="s">'CNN_planet_neg_05022020'</span><span class="p">,</span> <span class="n">as_json</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+               <span class="n">return_fpaths</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="c1">## To save to Gdrive, must first chdir to My Drive (so there's no spaces in fpath)
+</span>    <span class="n">curdir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">curdir</span><span class="p">)</span>
+
+    <span class="n">main_folder</span> <span class="o">=</span><span class="s">r'/gdrive/My Drive/Colab Notebooks/starskope'</span>
+    <span class="n">model_subfolder</span> <span class="o">=</span> <span class="s">'data/models/planet_vs_neg/'</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">main_folder</span><span class="p">)</span>
+        <span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="p">,</span><span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f'ERROR: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+
+    <span class="c1"># os.listdir(model_subfolder)
+</span>    <span class="c1"># https://jovianlin.io/saving-loading-keras-models/
+</span>    <span class="k">try</span><span class="p">:</span>
+        <span class="n">weight_fpath</span> <span class="o">=</span> <span class="n">model_subfolder</span><span class="o">+</span><span class="n">base_modelname</span><span class="o">+</span><span class="s">'_weights.h5'</span>
+        <span class="n">model</span><span class="p">.</span><span class="n">save_weights</span><span class="p">(</span><span class="n">weight_fpath</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">as_json</span><span class="p">:</span>
+            <span class="n">model_fpath</span> <span class="o">=</span> <span class="n">model_subfolder</span><span class="o">+</span><span class="n">base_modelname</span><span class="o">+</span><span class="s">'_model.json'</span>
+            <span class="c1"># Save the model architecture
+</span>            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_fpath</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">to_json</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model_fpath</span> <span class="o">=</span> <span class="n">model_subfolder</span><span class="o">+</span><span class="n">base_modelname</span><span class="o">+</span><span class="s">'_model.h5'</span>
+            <span class="n">model</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">model_fpath</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+            <span class="k">print</span><span class="p">(</span><span class="s">f"[io] Model architecture saved as </span><span class="si">{</span><span class="n">model_fpath</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">f"[io] Model weights saved as </span><span class="si">{</span><span class="n">weight_fpath</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">f"[io] Successfully saved model."</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">warnings</span>
+        <span class="n">warnings</span><span class="p">.</span><span class="n">warn</span><span class="p">(</span><span class="s">f"ERROR SAVING: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">return_fpaths</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">model_fpath</span><span class="p">,</span> <span class="n">weight_fpath</span>
+
+
+
+<span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="n">model_fpath</span><span class="p">,</span><span class="n">weight_fpath</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">as_json</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">model_from_json</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">as_json</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">weight_fpath</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">'If using as_json=True, must provide '</span><span class="p">)</span>
+
+    <span class="c1"># Model reconstruction from JSON file
+</span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_fpath</span><span class="p">,</span> <span class="s">'r'</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s">"utf8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">model2</span> <span class="o">=</span> <span class="n">model_from_json</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+
+    <span class="c1"># Load weights into the new model
+</span>    <span class="n">model2</span><span class="p">.</span><span class="n">load_weights</span><span class="p">(</span><span class="n">weight_fpath</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">model2</span><span class="p">.</span><span class="n">summary</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">model2</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model_fpath</span><span class="p">,</span><span class="n">weight_fpath</span> <span class="o">=</span> <span class="n">save_model</span><span class="p">(</span><span class="n">classifier2</span><span class="p">)</span>
+<span class="n">model_loaded</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">model_fpath</span><span class="p">,</span><span class="n">weight_fpath</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>[io] Model architecture saved as data/models/planet_vs_neg/CNN_planet_neg_05022020<em>model.json
+[io] Model weights saved as data/models/planet_vs_neg/CNN_planet_neg_05022020_weights.h5
+Model: “sequential_4”
+<strong>__</strong></em><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__
+Layer (type)                 Output Shape              Param # <br />
+=================================================================
+conv2d_7 (Conv2D)            (None, 60, 60, 64)        4864    <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_8 (Conv2D)            (None, 58, 58, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_5 (MaxPooling2 (None, 29, 29, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_9 (Conv2D)            (None, 27, 27, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_6 (MaxPooling2 (None, 13, 13, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+flatten_3 (Flatten)          (None, 10816)             0       <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+dense_5 (Dense)              (None, 64)                692288  <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+dense_6 (Dense)              (None, 1)                 65      <br />
+=================================================================
+Total params: 771,073
+Trainable params: 771,073
+Non-trainable params: 0
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_____
+None</p>
+
+<h1 id="tune-model-with-gridsearch">Tune Model with Gridsearch</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">build_model</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">,</span><span class="n">filter_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dropout</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span> 
+    <span class="n">vars_</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">f'[i] MODEL BUILT USING:</span><span class="se">\n\t</span><span class="si">{</span><span class="n">vars_</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    <span class="c1"># Part 1 - Building the CNN
+</span>
+    <span class="c1"># Importing the Keras libraries and packages
+</span>    <span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+    <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span>
+    <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">MaxPooling2D</span>
+    <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Flatten</span>
+    <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span>
+
+    <span class="c1"># Initialising the CNN
+</span>    <span class="n">classifier</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+
+    <span class="c1"># Step 1 - Convolution
+</span>    <span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="n">filter_size</span><span class="p">,</span>
+                                <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_width'</span><span class="p">],</span> <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_height'</span><span class="p">],</span> <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_dim'</span><span class="p">]),</span>
+                                <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+
+    <span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="n">filter_size</span><span class="p">,</span>
+                        <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_width'</span><span class="p">],</span> <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_height'</span><span class="p">],</span> <span class="n">SHAPES</span><span class="p">[</span><span class="s">'img_dim'</span><span class="p">]),</span> <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+
+    <span class="c1"># Step 2 - Pooling
+</span>    <span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span> <span class="o">=</span> <span class="n">pool_size</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">dropout</span><span class="p">:</span>
+        <span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">))</span>
+
+    <span class="c1"># Adding a second convolutional layer
+</span>    <span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="n">filter_size</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+    <span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span> <span class="o">=</span> <span class="n">pool_size</span><span class="p">))</span>
+
+    <span class="c1"># Step 3 - Flattening
+</span>    <span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">())</span>
+
+    <span class="c1"># Step 4 - Full connection
+</span>    <span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span> <span class="o">=</span> <span class="n">SHAPES</span><span class="p">[</span><span class="s">'Batchsize'</span><span class="p">],</span> <span class="n">activation</span> <span class="o">=</span> <span class="s">'relu'</span><span class="p">))</span>
+    <span class="n">classifier</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s">'sigmoid'</span><span class="p">))</span>
+
+    <span class="c1"># Compiling the CNN
+</span>    <span class="n">classifier</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">optimizer</span> <span class="o">=</span> <span class="s">'adam'</span><span class="p">,</span> <span class="n">loss</span> <span class="o">=</span> <span class="s">'binary_crossentropy'</span><span class="p">,</span>
+                       <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s">'accuracy'</span><span class="p">])</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">classifier</span><span class="p">.</span><span class="n">summary</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">classifier</span>
+    <span class="c1"># Part 2 - Fitting the CNN to the images
+</span>
+
+
+<span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span><span class="n">training_set</span><span class="p">,</span> <span class="n">test_set</span><span class="p">,</span> 
+                <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+                            <span class="n">epochs</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">validation_steps</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
+                            <span class="n">workers</span><span class="o">=-</span><span class="mi">1</span><span class="p">)):</span>
+    <span class="nb">vars</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">f'[i] Training model using</span><span class="se">\n\t</span><span class="si">{</span><span class="nb">vars</span><span class="si">}</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">clock</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
+    
+    <span class="n">history_</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">training_set</span><span class="p">,</span>
+                                        <span class="n">validation_data</span> <span class="o">=</span> <span class="n">test_set</span><span class="p">,</span>
+                                        <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="n">clock</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">history_</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model_3</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">)</span>
+<span class="n">history_3</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span><span class="n">model_3</span><span class="p">,</span><span class="n">training_set</span><span class="p">,</span><span class="n">test_set</span><span class="p">)</span>
+<span class="n">res3</span><span class="o">=</span><span class="n">compute</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="n">model_3</span><span class="p">,</span><span class="n">hist</span><span class="o">=</span><span class="n">history_3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>[i] MODEL BUILT USING:
+	{‘dropout’: True, ‘pool_size’: (2, 2), ‘filter_size’: (3, 3), ‘SHAPES’: {‘Batchsize’: 64, ‘img_width’: 64, ‘img_height’: 64, ‘img_dim’: 3}}
+Model: “sequential_8”
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+Layer (type)                 Output Shape              Param # <br />
+=================================================================
+conv2d_18 (Conv2D)           (None, 62, 62, 64)        1792    <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_19 (Conv2D)           (None, 60, 60, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_12 (MaxPooling (None, 30, 30, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+dropout_3 (Dropout)          (None, 30, 30, 64)        0       <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+conv2d_20 (Conv2D)           (None, 28, 28, 64)        36928   <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+max_pooling2d_13 (MaxPooling (None, 14, 14, 64)        0       <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+flatten_6 (Flatten)          (None, 12544)             0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+dense_11 (Dense)             (None, 64)                802880  <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+dense_12 (Dense)             (None, 1)                 65      <br />
+=================================================================
+Total params: 878,593
+Trainable params: 878,593
+Non-trainable params: 0
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+None
+[i] Training model using
+	{‘params’: {‘steps_per_epoch’: 2000, ‘epochs’: 3, ‘validation_steps’: 500, ‘workers’: -1}, ‘test_set’: &lt;keras.preprocessing.image.NumpyArrayIterator object at 0x7faefa99d9b0&gt;, ‘training_set’: &lt;keras.preprocessing.image.NumpyArrayIterator object at 0x7faefa99de48&gt;, ‘classifier’: &lt;keras.engine.sequential.Sequential object at 0x7fae18a56128&gt;}</p>
+
+<p>[i] Timer started at 05/03/20 - 09:34:42
+Epoch 1/3
+2000/2000 [==============================] - 100s 50ms/step - loss: 0.2498 - accuracy: 0.8732 - val_loss: 1.6502 - val_accuracy: 0.6000
+Epoch 2/3
+2000/2000 [==============================] - 100s 50ms/step - loss: 0.0021 - accuracy: 0.9993 - val_loss: 2.4729 - val_accuracy: 0.6000
+Epoch 3/3
+2000/2000 [==============================] - 100s 50ms/step - loss: 0.0440 - accuracy: 0.9850 - val_loss: 5.2819 - val_accuracy: 0.7000
+[i] Timer stopped at 05/03/20 - 09:39:43</p>
+<ul>
+  <li>Total Time: 0:05:00.565197
+Model: “sequential_8”
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+Layer (type)                 Output Shape              Param # <br />
+=================================================================
+conv2d_18 (Conv2D)           (None, 62, 62, 64)        1792    <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+conv2d_19 (Conv2D)           (None, 60, 60, 64)        36928   <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+max_pooling2d_12 (MaxPooling (None, 30, 30, 64)        0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+dropout_3 (Dropout)          (None, 30, 30, 64)        0       <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+conv2d_20 (Conv2D)           (None, 28, 28, 64)        36928   <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+max_pooling2d_13 (MaxPooling (None, 14, 14, 64)        0       <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+flatten_6 (Flatten)          (None, 12544)             0       <br />
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_
+dense_11 (Dense)             (None, 64)                802880  <br />
+<strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>___
+dense_12 (Dense)             (None, 1)                 65      <br />
+=================================================================
+Total params: 878,593
+Trainable params: 878,593
+Non-trainable params: 0
+__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong><strong>__</strong>_</li>
+</ul>
+
+<div>
+<img src="/assets/images/starskope/spec-m3-fusion-matrix.png" alt="m3 fusion matrix" title="m3 fusion matrix" width="400" />
+</div>
+
+<div>
+<img src="/assets/images/starskope/spec-m3-roc-auc.png" alt="m3 roc auc" title="m3 roc auc" width="400" />
+</div>
+
+<hr />
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CLASSIFICATION REPORT: ------------------------------------------------------------
+          precision    recall  f1-score   support
+
+       0       0.57      0.80      0.67         5
+       1       0.67      0.40      0.50         5
+
+accuracy                           0.60        10    macro avg       0.62      0.60      0.58        10 weighted avg       0.62      0.60      0.58        10
+</code></pre></div></div>
+
+<div>
+<img src="/assets/images/starskope/spec-m3-acc-loss.png" alt="m3 acc loss" title="m1 acc loss" width="400" />
+</div>
+
+<h1 id="save-model-in-gdrive">Save model in Gdrive</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## To save to Gdrive, must first chdir to My Drive (so there's no spaces in fpath)
+</span><span class="n">curdir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">curdir</span><span class="p">)</span>
+
+<span class="n">main_folder</span> <span class="o">=</span><span class="s">r'/gdrive/My Drive/Colab Notebooks/starskope'</span>
+<span class="n">model_subfolder</span> <span class="o">=</span> <span class="s">'data/models/planet_vs_neg/'</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">main_folder</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="p">,</span><span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">f'ERROR: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">model_subfolder</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>[‘CNN_planet_neg_05022020_weights.h5’, ‘CNN_planet_neg_05022020_model.json’]</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<h2 id="phase-3-scrape-mast-via-api-on-aws">Phase 3: Scrape MAST via API on AWS</h2>
+
+<p>In order to improve the model, therefore, the next step was to generate a larger dataset of images, using not only all the data from Kaggle, but also import additional signal datasets from the MAST API. Traditionally, this can be done from the MAST website directly. However, it is now possible to scrape the data for free from AWS where it is being (at least temporarily) housed. See my next post <a href="/datascience/2020/06/01/starskope-3-scraping-mast-api.html">starskope-3</a> to see how I scrape the MAST API data hosted on AWS via S3 to perform a more in-depth analysis using a physics-based machine learning model.</p>
+
+:ET

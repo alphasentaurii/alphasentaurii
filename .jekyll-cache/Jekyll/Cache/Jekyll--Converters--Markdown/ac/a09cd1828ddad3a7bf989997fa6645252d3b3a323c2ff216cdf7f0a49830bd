@@ -1,0 +1,9 @@
+I"Ì<ul>
+  <li>Builder: building and fitting convolutional neural networks
+    <ul>
+      <li>build_cnn: builds keras 1D CNN architecture</li>
+      <li>fit_cnn: trains keras CNN</li>
+    </ul>
+  </li>
+</ul>
+:ET

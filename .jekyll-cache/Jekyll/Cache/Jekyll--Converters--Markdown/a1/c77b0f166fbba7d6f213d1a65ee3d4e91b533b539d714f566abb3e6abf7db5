@@ -1,4 +1,4 @@
-I"#<p>A <code class="highlighter-rouge">supervised machine learning feature classification</code> project that uses <code class="highlighter-rouge">Decision Trees and XGBoost</code> to <code class="highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
+I"�'<p>A <code class="language-plaintext highlighter-rouge">supervised machine learning feature classification</code> project that uses <code class="language-plaintext highlighter-rouge">Decision Trees and XGBoost</code> to <code class="language-plaintext highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
 
 <h2 id="pulsars">Pulsars</h2>
 
@@ -27,7 +27,7 @@
 
 <p>Each candidate is described by 8 continuous variables, and a single class variable. The first four are simple statistics obtained from the integrated pulse profile (folded profile). This is an array of continuous variables that describe a longitude-resolved version of the signal that has been averaged in both time and frequency. The remaining four variables are similarly obtained from the DM-SNR curve.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Mean of the integrated profile.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Mean of the integrated profile.
 * Standard deviation of the integrated profile.
 * Excess kurtosis of the integrated profile.
 * Skewness of the integrated profile.
@@ -40,7 +40,7 @@
 
 <p>HTRU 2 Summary:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* 17,898 total examples
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* 17,898 total examples
         * 1,639 positive examples
         * 16,259 negative examples
 </code></pre></div></div>
@@ -135,7 +135,7 @@
 
 <h2 id="comparing-attributes">Comparing Attributes</h2>
 
-<h3 id="hotmap-"><code class="highlighter-rouge">Hotmap( )</code></h3>
+<h3 id="hotmap-"><code class="language-plaintext highlighter-rouge">Hotmap( )</code></h3>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">hotmap</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">)):</span>
     <span class="c1">##### correlation heatmap
@@ -209,13 +209,13 @@
 
 <p>Target Class Values are highly differentiated for the following features:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Kurtosis Integrated Profile
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Kurtosis Integrated Profile
 * Skewness Integrated Profile
 </code></pre></div></div>
 
 <h2 id="other-candidates-include">Other candidates include:</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Mean Curve
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Mean Curve
 * Standard Deviation Cruve
 * Kurtosis Curve
 * Skewness Curve
@@ -223,7 +223,7 @@
 
 <h2 id="least-likely-to-be-important-in-distinguishing-pulsars-and-rfi">Least likely to be important in distinguishing pulsars and RFI:</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Mean Integrated Profile
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Mean Integrated Profile
 * Standard Deviation IP
 </code></pre></div></div>
 
@@ -269,7 +269,7 @@
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[GREEN == PULSAR , BLUE == NON-PULSAR]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[GREEN == PULSAR , BLUE == NON-PULSAR]
 </code></pre></div></div>
 
 <h2 id="plot-mean-and-standard-deviation-of-features-lineplots">Plot Mean and Standard Deviation of Features (lineplots)</h2>
@@ -306,7 +306,7 @@
 <span class="k">print</span> <span class="p">(</span><span class="s">"***************************************"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>***************************************
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>***************************************
 DISTIBUTION OF VARIABLES IN DATA SET
 ***************************************
 </code></pre></div></div>
@@ -407,7 +407,7 @@ DISTIBUTION OF VARIABLES IN DATA SET
 <span class="k">print</span> <span class="p">(</span><span class="s">"****************************************************"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>****************************************************
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>****************************************************
 BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 ****************************************************
 </code></pre></div></div>
@@ -632,7 +632,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 <img src="/assets/images/pulsars/output_38_1.png" alt="Compare Kurtosis Profile vs Kurtosis Curve Scatterplot" title="Compare Kurtosis Profile vs Kurtosis Curve Scatterplot" width="400" />
 </div>
 
-<h1 id="model"><code class="highlighter-rouge">MODEL</code></h1>
+<h1 id="model"><code class="language-plaintext highlighter-rouge">MODEL</code></h1>
 
 <h2 id="split-data">Split Data</h2>
 
@@ -645,7 +645,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">display</span><span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(17898,)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(17898,)
 
 
 
@@ -707,7 +707,7 @@ BOXPLOT FOR VARIABLES IN DATA SET WITH TARGET CLASS
     <span class="k">print</span><span class="p">(</span><span class="s">'%s pipeline test accuracy: %.3f'</span> <span class="o">%</span> <span class="p">(</span><span class="n">pipe_dict</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">val</span><span class="p">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Logistic Regression pipeline training accuracy: 0.935
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Logistic Regression pipeline training accuracy: 0.935
 Logistic Regression pipeline test accuracy: 0.937
 Support Vector Machine pipeline training accuracy: 0.955
 Support Vector Machine pipeline test accuracy: 0.955
@@ -736,11 +736,11 @@ XG Boost pipeline test accuracy: 0.973
 <span class="k">print</span><span class="p">(</span><span class="s">'Saved %s pipeline to file'</span> <span class="o">%</span> <span class="n">pipe_dict</span><span class="p">[</span><span class="n">best_clf</span><span class="p">])</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Classifier with best accuracy: XG Boost
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Classifier with best accuracy: XG Boost
 Saved XG Boost pipeline to file
 </code></pre></div></div>
 
-<h1 id="decision-tree"><code class="highlighter-rouge">Decision Tree</code></h1>
+<h1 id="decision-tree"><code class="language-plaintext highlighter-rouge">Decision Tree</code></h1>
 
 <p>Decision Tree</p>
 
@@ -764,7 +764,7 @@ Saved XG Boost pipeline to file
 </span><span class="n">dt_clf</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_transformed</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DecisionTreeClassifier(class_weight='balanced', criterion='entropy',
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DecisionTreeClassifier(class_weight='balanced', criterion='entropy',
                        max_depth=None, max_features=None, max_leaf_nodes=None,
                        min_impurity_decrease=0.0, min_impurity_split=None,
                        min_samples_leaf=1, min_samples_split=2,
@@ -809,7 +809,7 @@ Saved XG Boost pipeline to file
 <span class="k">print</span><span class="p">(</span><span class="s">'Accuracy is :{0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">acc</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Accuracy is :96.56339935669544
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Accuracy is :96.56339935669544
 </code></pre></div></div>
 
 <h3 id="roc_auc-receiver-operator-characteristics-area-under-the-curve">ROC_AUC (Receiver Operator Characteristics Area Under the Curve)</h3>
@@ -821,7 +821,7 @@ Saved XG Boost pipeline to file
 
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AUC is :0.91
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AUC is :0.91
 </code></pre></div></div>
 
 <h3 id="confusion-matrix">Confusion Matrix</h3>
@@ -832,7 +832,7 @@ Saved XG Boost pipeline to file
 <span class="n">pd</span><span class="p">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">rownames</span><span class="o">=</span><span class="p">[</span><span class="s">'True'</span><span class="p">],</span> <span class="n">colnames</span><span class="o">=</span><span class="p">[</span><span class="s">'Predicted'</span><span class="p">],</span> <span class="n">margins</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion Matrix
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion Matrix
 ----------------
 </code></pre></div></div>
 
@@ -880,7 +880,7 @@ Saved XG Boost pipeline to file
 <span class="k">print</span><span class="p">(</span><span class="s">'Confusion Matrix:</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">cnf_matrix</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion Matrix:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion Matrix:
  [[5242  121]
  [  82  462]]
 
@@ -954,7 +954,7 @@ FALSE NEGATIVES: 82 Pulsars misclassifed as noise
 
 <h2 id="parameter-tuning">Parameter Tuning</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Create an array for max_depth values ranging from 1 - 32
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Create an array for max_depth values ranging from 1 - 32
 * In a loop, train the classifier for each depth value (32 runs) 
 * Calculate the training and test AUC for each run
 * Plot a graph to show under/over fitting and optimal value
@@ -1002,14 +1002,14 @@ FALSE NEGATIVES: 82 Pulsars misclassifed as noise
 <img src="/assets/images/pulsars/output_75_0.png" alt="Area Under the Curve" title="Area Under the Curve" width="400" />
 </div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Max tree depth optimal value does not improve beyond 3 for test data.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Max tree depth optimal value does not improve beyond 3 for test data.
 </code></pre></div></div>
 
 <h3 id="min-sample-split">Min Sample Split</h3>
 
 <p>Now we’ll check for the best min_samples_splits parameter for our decision tree.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Create an array for min_sample_splits values ranging from 0.1 - 1 with an 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Create an array for min_sample_splits values ranging from 0.1 - 1 with an 
 increment of 0.1
 * In a loop, train the classifier for each min_samples_splits value (10 runs)
 * Calculate the training and test AUC for each run
@@ -1051,13 +1051,13 @@ increment of 0.1
 <img src="/assets/images/pulsars/output_78_0.png" alt="Area Under the Curve 2" title="Area Under the Curve 2" width="400" />
 </div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AUC does not improve beyond 0.2 for test data.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AUC does not improve beyond 0.2 for test data.
 </code></pre></div></div>
 
 <h3 id="minimum-sample-leafs">Minimum Sample Leafs</h3>
 <p>Now we’ll check for the best min_samples_leafs parameter value for our decision tree.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Create an array for min_samples_leafs values ranging from 0.1 - 0.5 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Create an array for min_samples_leafs values ranging from 0.1 - 0.5 
 with an increment of 0.1
 * In a loop, train the classifier for each min_samples_leafs value (5 runs)
 * Calculate the training and test AUC for each run
@@ -1099,14 +1099,14 @@ with an increment of 0.1
 <img src="/assets/images/pulsars/output_81_0.png" alt="Area Under the Curve 3" title="Area Under the Curve 3" width="400" />
 </div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Highest AUC for both train and test data maximized at 0.10.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Highest AUC for both train and test data maximized at 0.10.
 </code></pre></div></div>
 
 <h3 id="maximum-features">Maximum Features</h3>
 
 <p>Now we’ll check for the best max_features parameter value for our decision tree.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Create an array for max_features values ranging from 1 - 12 (1 features vs all)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Create an array for max_features values ranging from 1 - 12 (1 features vs all)
 * In a loop, train the classifier for each max_features value (12 runs)
 * Calculate the training and test AUC for each run
 * Plot a graph to show under/over fitting and optimal value
@@ -1146,7 +1146,7 @@ with an increment of 0.1
 <img src="/assets/images/pulsars/output_84_0.png" alt="Area Under the Curve 4" title="Area Under the Curve 4" width="400" />
 </div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Increasing parameters has no clear effect on training data (flat AUC). 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Increasing parameters has no clear effect on training data (flat AUC). 
 Optimal value for test data is 5.
 </code></pre></div></div>
 
@@ -1154,7 +1154,7 @@ Optimal value for test data is 5.
 
 <p>We’ll now use the best values from each training phase above and feed it back to our classifier and see if have any improvement in predictive performance.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Train the classifier with optimal values identified
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Train the classifier with optimal values identified
 * Compare the AUC with vanilla DT AUC
 * Interpret the results of comparison
 </code></pre></div></div>
@@ -1177,7 +1177,7 @@ Optimal value for test data is 5.
 <span class="n">roc_auc</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.9257396472014128
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.9257396472014128
 </code></pre></div></div>
 
 <h3 id="dot-graph-1">DOT Graph</h3>
@@ -1256,7 +1256,7 @@ Optimal value for test data is 5.
 </span><span class="n">modelX</span><span class="p">(</span><span class="n">dt_clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="s">"feat"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**********************************************************************
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**********************************************************************
 MODEL X
 **********************************************************************
 DecisionTreeClassifier(class_weight='balanced', criterion='entropy',
@@ -1291,7 +1291,7 @@ weighted avg       0.97      0.97      0.97      5907
 </span><span class="n">modelX</span><span class="p">(</span><span class="n">dt_clf</span><span class="p">,</span> <span class="n">X_train_transformed</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test_transformed</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="s">"coef"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**********************************************************************
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**********************************************************************
 MODEL X
 **********************************************************************
 DecisionTreeClassifier(class_weight='balanced', criterion='entropy',
@@ -1329,19 +1329,19 @@ weighted avg       0.95      0.95      0.95      5907
 
 <p>The F1 score (also F-score or F-measure) is a measure of a test’s accuracy. It considers both the precision p and the recall r of the test to compute the score: p is the number of correct positive results divided by the number of all positive results returned by the classifier, and r is the number of correct positive results divided by the number of all relevant samples (all samples that should have been identified as positive). The F1 score is the harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.</p>
 
-<p><code class="highlighter-rouge">Harmonic Mean</code>
-<code class="highlighter-rouge">f1 = 2*(P*R / P+R)</code></p>
+<p><code class="language-plaintext highlighter-rouge">Harmonic Mean</code>
+<code class="language-plaintext highlighter-rouge">f1 = 2*(P*R / P+R)</code></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">f1</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.8245462402765774
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.8245462402765774
 </code></pre></div></div>
 
 <p>Because the data involves imbalanced classes, F1 score is the most important metric for us to validate the model’s accuracy. Let’s compare the Decision Tree classifier performance to XGBoost next.</p>
 
-<h1 id="xg-boost"><code class="highlighter-rouge">XG Boost</code></h1>
+<h1 id="xg-boost"><code class="language-plaintext highlighter-rouge">XG Boost</code></h1>
 
 <p>Moving ahead with XG Boost</p>
 
@@ -1355,7 +1355,7 @@ weighted avg       0.95      0.95      0.95      5907
 </span><span class="n">xgb_clf</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_transformed</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XGBClassifier(base_score=0.5, booster='gbtree', class_weight='balanced',
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XGBClassifier(base_score=0.5, booster='gbtree', class_weight='balanced',
               colsample_bylevel=1, colsample_bynode=1, colsample_bytree=1,
               gamma=0, learning_rate=0.1, max_delta_step=0, max_depth=3,
               min_child_weight=1, missing=None, n_estimators=100, n_jobs=1,
@@ -1384,7 +1384,7 @@ weighted avg       0.95      0.95      0.95      5907
 
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Training Accuracy: 98.38%
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Training Accuracy: 98.38%
 Validation accuracy: 98.02%
 </code></pre></div></div>
 
@@ -1394,7 +1394,7 @@ Validation accuracy: 98.02%
 </span><span class="n">modelX</span><span class="p">(</span><span class="n">xgb_clf</span><span class="p">,</span> <span class="n">X_train_transformed</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test_transformed</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="s">"coef"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**********************************************************************
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**********************************************************************
 MODEL X
 **********************************************************************
 XGBClassifier(base_score=0.5, booster='gbtree', class_weight='balanced',
@@ -1462,7 +1462,7 @@ weighted avg       0.98      0.98      0.98      5907
 <span class="k">print</span><span class="p">(</span><span class="s">'Validation accuracy: {:.4}%'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">test_accuracy</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Grid Search found the following optimal parameters: 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Grid Search found the following optimal parameters: 
 learning_rate: 0.3
 max_depth: 6
 min_child_weight: 1
@@ -1484,7 +1484,7 @@ Validation accuracy: 97.78%
 
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AUC is :0.92
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AUC is :0.92
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># compare a few different regularization performances on the dataset:
@@ -1522,7 +1522,7 @@ Validation accuracy: 97.78%
 <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------------
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------------
 AUC for 0.005: 0.8839272493446382
 ----------------------------------------------
 AUC for 0.1: 0.8839272493446382
@@ -1552,7 +1552,7 @@ AUC for 0.8: 0.8839272493446382
 <span class="n">pd</span><span class="p">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_preds</span><span class="p">,</span> <span class="n">rownames</span><span class="o">=</span><span class="p">[</span><span class="s">'True'</span><span class="p">],</span> <span class="n">colnames</span><span class="o">=</span><span class="p">[</span><span class="s">'Predicted'</span><span class="p">],</span> <span class="n">margins</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion Matrix
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion Matrix
 ----------------
 </code></pre></div></div>
 
@@ -1603,7 +1603,7 @@ AUC for 0.8: 0.8839272493446382
 <span class="k">print</span><span class="p">(</span><span class="s">'Confusion Matrix:</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">cnf_matrix</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion Matrix:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion Matrix:
  [[5324   39]
  [  78  466]]
 </code></pre></div></div>
@@ -1613,7 +1613,7 @@ AUC for 0.8: 0.8839272493446382
                       <span class="n">title</span><span class="o">=</span><span class="s">'Normalized confusion matrix'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Normalized confusion matrix
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Normalized confusion matrix
 </code></pre></div></div>
 
 <div style="background-color:white">
@@ -1625,7 +1625,7 @@ AUC for 0.8: 0.8839272493446382
                       <span class="n">title</span><span class="o">=</span><span class="s">'Normalized confusion matrix'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion matrix, without normalization
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion matrix, without normalization
 </code></pre></div></div>
 
 <div style="background-color:white">
@@ -1643,7 +1643,7 @@ AUC for 0.8: 0.8839272493446382
 <span class="k">print</span><span class="p">(</span><span class="s">'R-sq score:'</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MSE score: 0.05180294565769426
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MSE score: 0.05180294565769426
 R-sq score: 0.38044238299459265
 </code></pre></div></div>
 
@@ -1653,7 +1653,7 @@ R-sq score: 0.38044238299459265
 </span><span class="n">xgb_clf</span><span class="p">.</span><span class="n">feature_importances_</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([0.04194515, 0.03668287, 0.68801844, 0.03353313, 0.02772439,
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([0.04194515, 0.03668287, 0.68801844, 0.03353313, 0.02772439,
        0.09195759, 0.03966612, 0.04047231], dtype=float32)
 </code></pre></div></div>
 
@@ -1661,7 +1661,7 @@ R-sq score: 0.38044238299459265
 <span class="n">importance</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>KURTOSIS_IP       0.688018
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>KURTOSIS_IP       0.688018
 STD_CURVE         0.091958
 MEAN_IP           0.041945
 SKEWNESS_CURVE    0.040472
@@ -1693,13 +1693,13 @@ dtype: float32
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Testing Accuracy for XG Boost Classifier: {:.4}%"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Testing Accuracy for XG Boost Classifier: 94.82%
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Testing Accuracy for XG Boost Classifier: 94.82%
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Testing F1 Score for XG Boost Classifier: {:.4}%"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Testing F1 Score for XG Boost Classifier: 74.11%
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Testing F1 Score for XG Boost Classifier: 74.11%
 </code></pre></div></div>
 
 <h1 id="interpret-results">INTERPRET RESULTS</h1>
@@ -1713,7 +1713,7 @@ dtype: float32
 <span class="k">print</span><span class="p">(</span><span class="s">f"Mean Cross Validation Score: </span><span class="si">{</span><span class="n">mean_xgb_cv_score</span> <span class="p">:.</span><span class="mi">2</span><span class="o">%</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mean Cross Validation Score: 98.02%
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mean Cross Validation Score: 98.02%
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Feature Importance
@@ -1740,7 +1740,7 @@ dtype: float32
 
 <h1 id="recommendations">RECOMMENDATIONS</h1>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> * Focus on Kurtosis Integrated Profile
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> * Focus on Kurtosis Integrated Profile
  
  * Focus on Standard Deviation DM-NSR Curve
  

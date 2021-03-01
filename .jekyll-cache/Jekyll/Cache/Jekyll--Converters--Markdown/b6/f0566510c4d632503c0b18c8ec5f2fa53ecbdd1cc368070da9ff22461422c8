@@ -1,2 +1,0 @@
-I"4<p>For the next phase of the Starskøpe planet hunting project, I used <code class="highlighter-rouge">Google Colabs</code> to generate spectrograph images of the same star flux signals dataset from Kaggle. Due to memory constraints, I started out by only using a portion of this already small dataset as a test round. To save time, I ran the images through a <code class="highlighter-rouge">Keras Convolutional Network</code> using Theano, similar to the one I built in the first phase of the project. The results were not ideal, but this was to be expected.</p>
-:ET

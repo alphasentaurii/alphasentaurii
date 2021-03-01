@@ -1,6 +1,6 @@
-I"Þ<h2 id="project-demo-detecting-dead-stars-in-deep-space">PROJECT DEMO: Detecting Dead Stars in Deep Space</h2>
+I"P<h2 id="project-demo-detecting-dead-stars-in-deep-space">PROJECT DEMO: Detecting Dead Stars in Deep Space</h2>
 
-<p>This is a <code class="highlighter-rouge">supervised machine learning feature classification project</code> that uses <code class="highlighter-rouge">Decision Trees and XGBoost</code> to <code class="highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
+<p>This is a <code class="language-plaintext highlighter-rouge">supervised machine learning feature classification project</code> that uses <code class="language-plaintext highlighter-rouge">Decision Trees and XGBoost</code> to <code class="language-plaintext highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
 
 <div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;">
 <iframe src="https://player.vimeo.com/video/389320953" width="640" height="360" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" sandbox="allow-scripts"></iframe>
@@ -34,7 +34,7 @@
 
 <p>Each candidate is described by 8 continuous variables, and a single class variable. The first four are simple statistics obtained from the integrated pulse profile (folded profile). This is an array of continuous variables that describe a longitude-resolved version of the signal that has been averaged in both time and frequency. The remaining four variables are similarly obtained from the DM-SNR curve.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Mean of the integrated profile.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Mean of the integrated profile.
 * Standard deviation of the integrated profile.
 * Excess kurtosis of the integrated profile.
 * Skewness of the integrated profile.
@@ -47,7 +47,7 @@
 
 <p>HTRU 2 Summary:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* 17,898 total examples
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* 17,898 total examples
         * 1,639 positive examples
         * 16,259 negative examples
 </code></pre></div></div>
@@ -88,7 +88,7 @@
 
 <h1 id="recommendations">Recommendations</h1>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> * Focus on Kurtosis Integrated Profile
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> * Focus on Kurtosis Integrated Profile
  
  * Focus on Standard Deviation DM-NSR Curve
  

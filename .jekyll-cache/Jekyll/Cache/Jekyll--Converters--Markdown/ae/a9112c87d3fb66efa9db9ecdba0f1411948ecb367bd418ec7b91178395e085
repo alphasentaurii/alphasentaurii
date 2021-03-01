@@ -1,4 +1,4 @@
-I"�y<p>The <code class="highlighter-rouge">Digdag Postgres</code> project demonstrates how to use <code class="highlighter-rouge">SQL queries</code> with <code class="highlighter-rouge">digdag</code> and <code class="highlighter-rouge">embulk</code> open source libraries for automation of ingesting and analyzing data using a PostgreSQL database.</p>
+I"I{<p>The <code class="language-plaintext highlighter-rouge">Digdag Postgres</code> project demonstrates how to use <code class="language-plaintext highlighter-rouge">SQL queries</code> with <code class="language-plaintext highlighter-rouge">digdag</code> and <code class="language-plaintext highlighter-rouge">embulk</code> open source libraries for automation of ingesting and analyzing data using a PostgreSQL database.</p>
 
 <h2 id="about-embulk-and-digdag">About Embulk and Digdag</h2>
 
@@ -12,8 +12,8 @@
 <p>Before you begin, ensure you have met the following requirements:</p>
 
 <ul>
-  <li>You have a <code class="highlighter-rouge">&lt;Windows/Linux/Mac&gt;</code> machine.</li>
-  <li>You have access to <code class="highlighter-rouge">sudo</code> privileges</li>
+  <li>You have a <code class="language-plaintext highlighter-rouge">&lt;Windows/Linux/Mac&gt;</code> machine.</li>
+  <li>You have access to <code class="language-plaintext highlighter-rouge">sudo</code> privileges</li>
 </ul>
 
 <h2 id="directory-structure">Directory structure</h2>
@@ -56,7 +56,7 @@
 
 <ol>
   <li>Download the tar file from <a href="https://www.oracle.com/java/technologies/javase/javase9-archive-downloads.html">Oracle</a>: jdk-9.0.4_linux-x64_bin.tar.gz</li>
-  <li>Secure copy (<code class="highlighter-rouge">scp</code>) the tar file to the remote server</li>
+  <li>Secure copy (<code class="language-plaintext highlighter-rouge">scp</code>) the tar file to the remote server</li>
   <li>Unzip tar file into your JVM directory (you may need to create first)</li>
   <li>Install Java</li>
   <li>Set Java directory</li>
@@ -78,7 +78,7 @@ Java<span class="o">(</span>TM<span class="o">)</span> SE Runtime Environment <s
 Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>build 25.261-b12, mixed mode<span class="o">)</span>
 </code></pre></div></div>
 
-<h3 id="install-digdag">Install <code class="highlighter-rouge">digdag</code></h3>
+<h3 id="install-digdag">Install <code class="language-plaintext highlighter-rouge">digdag</code></h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-s</span>
 <span class="nv">$ </span>curl <span class="nt">-o</span> ~/bin/digdag <span class="nt">--create-dirs</span> <span class="nt">-L</span> <span class="s2">"https://dl.digdag.io/digdag-latest"</span>
@@ -88,7 +88,7 @@ Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM 
 
 <h3 id="check-installation-was-successful">Check installation was successful</h3>
 
-<p>Check to make sure <code class="highlighter-rouge">digdag</code> is installed correctly:</p>
+<p>Check to make sure <code class="language-plaintext highlighter-rouge">digdag</code> is installed correctly:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>digdag <span class="nt">--help</span>
 </code></pre></div></div>
@@ -117,7 +117,7 @@ Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM 
 
 <h3 id="create-user-and-database">Create User and Database</h3>
 
-<p>Use the <code class="highlighter-rouge">sudo</code> command to access the prompt without switching users. The postgres user is typically used only from the local host and it is recommended not to set the password for this user:</p>
+<p>Use the <code class="language-plaintext highlighter-rouge">sudo</code> command to access the prompt without switching users. The postgres user is typically used only from the local host and it is recommended not to set the password for this user:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root:~/digdag-postgres/embulk_to_pg# su - postgres
 postgres:~<span class="nv">$ </span>createuser <span class="nt">--interactive</span> <span class="nt">--pwprompt</span>
@@ -196,7 +196,7 @@ host    all             digdag          127.0.0.1/32            md5
   <li>Files that have a prefix of “customers” should ingest to a table called “customers_tmp”</li>
   <li>Files that have a prefix of “pageviews” should ingest to a table called “pageviews_tmp”</li>
   <li>Ensure that all records from all files are ingested to the appropriate tables.</li>
-  <li>Any timestamps should be ingested to the database as <code class="highlighter-rouge">string/varchar</code></li>
+  <li>Any timestamps should be ingested to the database as <code class="language-plaintext highlighter-rouge">string/varchar</code></li>
 </ul>
 
 <h3 id="customers-embulk-script">Customers Embulk Script</h3>
@@ -285,13 +285,13 @@ host    all             digdag          127.0.0.1/32            md5
 
 <h3 id="customers-table">Customers Table</h3>
 
-<p>Creates a new table called <code class="highlighter-rouge">customers</code> that:</p>
+<p>Creates a new table called <code class="language-plaintext highlighter-rouge">customers</code> that:</p>
 <ul>
   <li>Includes all columns from customers_tmp</li>
   <li>Parses the “user_agent” column to add a new column called ‘operating_system’ that contains one of the following values (“Windows”, “Macintosh”, “Linux”, or “Other”).</li>
 </ul>
 
-<p><code class="highlighter-rouge">create_customers.sql</code></p>
+<p><code class="language-plaintext highlighter-rouge">create_customers.sql</code></p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--create_customers.sql--</span>
 <span class="k">WITH</span> <span class="n">t</span> <span class="k">AS</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">user_id</span><span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="nb">timestamp</span><span class="p">)</span> <span class="k">as</span> <span class="nb">time</span> 
@@ -306,7 +306,7 @@ host    all             digdag          127.0.0.1/32            md5
 <span class="k">JOIN</span> <span class="n">s</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">user_id</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">update_customers.sql</code></p>
+<p><code class="language-plaintext highlighter-rouge">update_customers.sql</code></p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--update_customers.sql</span>
 <span class="k">UPDATE</span> <span class="n">customers</span> 
@@ -328,13 +328,13 @@ host    all             digdag          127.0.0.1/32            md5
 
 <h3 id="pageviews-table">Pageviews Table</h3>
 
-<p>Creates a new table called <code class="highlighter-rouge">pageviews</code> that:</p>
+<p>Creates a new table called <code class="language-plaintext highlighter-rouge">pageviews</code> that:</p>
 <ul>
   <li>Includes all columns from pageviews_tmp</li>
   <li>Excludes all records where job_title contains “Sales”</li>
 </ul>
 
-<p><code class="highlighter-rouge">create_pageviews.sql</code></p>
+<p><code class="language-plaintext highlighter-rouge">create_pageviews.sql</code></p>
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--create_pageviews.sql</span>
 <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pageviews_tmp</span>
 <span class="k">WHERE</span> <span class="n">user_id</span>
@@ -347,7 +347,7 @@ host    all             digdag          127.0.0.1/32            md5
 
 <p>Returns the total number of pageviews from users who are browsing with a Windows operating system or have “Engineer” in their job title.</p>
 
-<p><code class="highlighter-rouge">count_pageviews.sql</code></p>
+<p><code class="language-plaintext highlighter-rouge">count_pageviews.sql</code></p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--count_pageviews.sql--</span>
 <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">AS</span> <span class="n">total_views</span> 
@@ -375,7 +375,7 @@ host    all             digdag          127.0.0.1/32            md5
 
 <p>Returns top 3 user_id’s (ranked by total pageviews) who have viewed a web page with a “.gov” domain extension and the url of last page they viewed.</p>
 
-<p><code class="highlighter-rouge">top_3_users.sql</code></p>
+<p><code class="language-plaintext highlighter-rouge">top_3_users.sql</code></p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">--top_3_users.sql</span>
 <span class="k">WITH</span> <span class="n">p2</span> <span class="k">AS</span> <span class="p">(</span>
