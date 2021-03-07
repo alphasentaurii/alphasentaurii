@@ -1,0 +1,290 @@
+I"Xn<p><code class="language-plaintext highlighter-rouge">spacekit</code> is a PyPi Machine Learning Utility Package for Astrophysical Data Science.</p>
+
+<p>This library is for performing signal analysis and machine learning on astrophysical datasets. The dataset used as an example here is from MAST (Mikulsky Archive for Space Telescopes) accessed via AWS api. We are analyzing time-series light curves (flux signals) of stars from the K2 telescope to identify possible orbiting exoplanets (also known as <code class="language-plaintext highlighter-rouge">threshold crossing events</code> or TCEs).</p>
+
+<p>This post shows how to install spacekit locally and presents an overview of the library. Posts following this one walk you through a demo of each specific class and class methods.</p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+
+<ul>
+  <li>Creation of a virtual-env is recommended.</li>
+  <li>an AWS account (use <code class="language-plaintext highlighter-rouge">us-east-1</code> region)</li>
+  <li>awscli</li>
+  <li>astroquery</li>
+  <li>boto3</li>
+  <li>numpy</li>
+  <li>pandas</li>
+</ul>
+
+<h1 id="install-dependencies">Install Dependencies</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>awscli
+<span class="nv">$ </span>pip <span class="nb">install </span>astroquery
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">astroquery.mast</span> <span class="kn">import</span> <span class="n">Observations</span>
+<span class="kn">from</span> <span class="nn">astroquery.mast</span> <span class="kn">import</span> <span class="n">Catalogs</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+</code></pre></div></div>
+
+<h1 id="source-code">Source Code</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spacekit</span>
+<span class="err">└──</span> <span class="n">spacekit_pkg</span>
+    <span class="err">└──</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+    <span class="err">└──</span> <span class="n">analyzer</span><span class="p">.</span><span class="n">py</span>
+    <span class="err">└──</span> <span class="n">builder</span><span class="p">.</span><span class="n">py</span>
+    <span class="err">└──</span> <span class="n">computer</span><span class="p">.</span><span class="n">py</span>
+    <span class="err">└──</span> <span class="n">radio</span><span class="p">.</span><span class="n">py</span>
+    <span class="err">└──</span> <span class="n">transformer</span><span class="p">.</span><span class="n">py</span>
+<span class="err">└──</span> <span class="n">setup</span><span class="p">.</span><span class="n">py</span>
+<span class="err">└──</span> <span class="n">tests</span>
+<span class="err">└──</span> <span class="n">LICENSE</span>
+<span class="err">└──</span> <span class="n">README</span><span class="p">.</span><span class="n">md</span>
+</code></pre></div></div>
+
+<h2 id="install-spacekit-via-pip">Install spacekit via <code class="language-plaintext highlighter-rouge">pip</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>spacekit
+</code></pre></div></div>
+
+<ul>
+  <li>Radio: scrape Mikulsky archives (MAST) for downloading NASA space telescope datasets
+    <ul>
+      <li>mast_aws: fetch data hosted on AWS using the MAST api</li>
+    </ul>
+  </li>
+  <li>Analyzer: flux-timeseries signal analysis
+    <ul>
+      <li>atomic_vector_plotter: Plots scatter and line plots of time series signal values.</li>
+      <li>make_specgram: generate and save spectographs of flux signal frequencies</li>
+      <li>planet_hunter: calculate period, plot folded lightcurve from .fits files</li>
+    </ul>
+  </li>
+  <li>Transformer: tools for converting and preprocessing signals as numpy arrays
+    <ul>
+      <li>hypersonic_pliers:</li>
+      <li>thermo_fusion_chisel:</li>
+      <li>babel_fish_dispenser: adds a 1D uniform noise filter using timesteps</li>
+      <li>fast_fourier: fast fourier transform utility function</li>
+    </ul>
+  </li>
+  <li>Builder: building and fitting convolutional neural networks
+    <ul>
+      <li>build_cnn: builds keras 1D CNN architecture</li>
+      <li>fit_cnn: trains keras CNN</li>
+    </ul>
+  </li>
+  <li>Computer: gets model predictions and evaluates metrics
+    <ul>
+      <li>get_preds</li>
+      <li>fnfp</li>
+      <li>keras_history</li>
+      <li>roc_plots</li>
+      <li>compute</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="spacekitanalyzer">spacekit.Analyzer()</h2>
+<p>flux-timeseries signal analysis</p>
+
+<h3 id="atomic_vector_plotter">atomic_vector_plotter</h3>
+<p>Plots scatter and line plots of time series signal values.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">spacekit</span> <span class="kn">import</span> <span class="n">analyzer</span>
+<span class="n">signal</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span>  <span class="mf">93.85</span><span class="p">,</span>   <span class="mf">83.81</span><span class="p">,</span>   <span class="mf">20.1</span> <span class="p">,</span>  <span class="o">-</span><span class="mf">26.98</span><span class="p">,</span>  <span class="o">-</span><span class="mf">39.56</span><span class="p">,</span> <span class="o">-</span><span class="mf">124.71</span><span class="p">,</span> <span class="o">-</span><span class="mf">135.18</span><span class="p">,</span>
+        <span class="o">-</span><span class="mf">96.27</span><span class="p">,</span>  <span class="o">-</span><span class="mf">79.89</span><span class="p">,</span> <span class="o">-</span><span class="mf">160.17</span><span class="p">,</span> <span class="o">-</span><span class="mf">207.47</span><span class="p">,</span> <span class="o">-</span><span class="mf">154.88</span><span class="p">,</span> <span class="o">-</span><span class="mf">173.71</span><span class="p">,</span> <span class="o">-</span><span class="mf">146.56</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">120.26</span><span class="p">,</span> <span class="o">-</span><span class="mf">102.85</span><span class="p">,</span>  <span class="o">-</span><span class="mf">98.71</span><span class="p">,</span>  <span class="o">-</span><span class="mf">48.42</span><span class="p">,</span>  <span class="o">-</span><span class="mf">86.57</span><span class="p">,</span>   <span class="o">-</span><span class="mf">0.84</span><span class="p">,</span>  <span class="o">-</span><span class="mf">25.85</span><span class="p">,</span>
+        <span class="o">-</span><span class="mf">67.39</span><span class="p">,</span>  <span class="o">-</span><span class="mf">36.55</span><span class="p">,</span>  <span class="o">-</span><span class="mf">87.01</span><span class="p">,</span>  <span class="o">-</span><span class="mf">97.72</span><span class="p">,</span> <span class="o">-</span><span class="mf">131.59</span><span class="p">,</span> <span class="o">-</span><span class="mf">134.8</span> <span class="p">,</span> <span class="o">-</span><span class="mf">186.97</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">244.32</span><span class="p">,</span> <span class="o">-</span><span class="mf">225.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">229.6</span> <span class="p">,</span> <span class="o">-</span><span class="mf">253.48</span><span class="p">,</span> <span class="o">-</span><span class="mf">145.74</span><span class="p">,</span> <span class="o">-</span><span class="mf">145.74</span><span class="p">,</span>   <span class="mf">30.47</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">173.39</span><span class="p">,</span> <span class="o">-</span><span class="mf">187.56</span><span class="p">,</span> <span class="o">-</span><span class="mf">192.88</span><span class="p">,</span> <span class="o">-</span><span class="mf">182.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">195.99</span><span class="p">,</span> <span class="o">-</span><span class="mf">317.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">167.69</span><span class="p">,</span>
+        <span class="o">-</span><span class="mf">56.86</span><span class="p">,</span>    <span class="mf">7.56</span><span class="p">,</span>   <span class="mf">37.4</span> <span class="p">,</span>  <span class="o">-</span><span class="mf">81.13</span><span class="p">,</span>  <span class="o">-</span><span class="mf">20.1</span> <span class="p">,</span>  <span class="o">-</span><span class="mf">30.34</span><span class="p">,</span> <span class="o">-</span><span class="mf">320.48</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">320.48</span><span class="p">,</span> <span class="o">-</span><span class="mf">287.72</span><span class="p">,</span> <span class="o">-</span><span class="mf">351.25</span><span class="p">,</span>  <span class="o">-</span><span class="mf">70.07</span><span class="p">,</span> <span class="o">-</span><span class="mf">194.34</span><span class="p">,</span> <span class="o">-</span><span class="mf">106.47</span><span class="p">,</span>  <span class="o">-</span><span class="mf">14.8</span> <span class="p">,</span>
+         <span class="mf">63.13</span><span class="p">,</span>  <span class="mf">130.03</span><span class="p">,</span>   <span class="mf">76.43</span><span class="p">,</span>  <span class="mf">131.9</span> <span class="p">,</span> <span class="o">-</span><span class="mf">193.16</span><span class="p">,</span> <span class="o">-</span><span class="mf">193.16</span><span class="p">,</span>  <span class="o">-</span><span class="mf">89.26</span><span class="p">,</span>
+        <span class="o">-</span><span class="mf">17.56</span><span class="p">,</span>  <span class="o">-</span><span class="mf">17.31</span><span class="p">,</span>  <span class="mf">125.62</span><span class="p">,</span>   <span class="mf">68.87</span><span class="p">,</span>  <span class="mf">100.01</span><span class="p">,</span>   <span class="o">-</span><span class="mf">9.6</span> <span class="p">,</span>  <span class="o">-</span><span class="mf">25.39</span><span class="p">,</span>
+        <span class="o">-</span><span class="mf">16.51</span><span class="p">,</span>  <span class="o">-</span><span class="mf">78.07</span><span class="p">,</span> <span class="o">-</span><span class="mf">102.15</span><span class="p">,</span> <span class="o">-</span><span class="mf">102.15</span><span class="p">,</span>   <span class="mf">25.13</span><span class="p">,</span>   <span class="mf">48.57</span><span class="p">,</span>   <span class="mf">92.54</span><span class="p">,</span>
+         <span class="mf">39.32</span><span class="p">,</span>   <span class="mf">61.42</span><span class="p">,</span>    <span class="mf">5.08</span><span class="p">,</span>  <span class="o">-</span><span class="mf">39.54</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">Analyzer</span><span class="p">()</span>
+<span class="n">A</span><span class="p">.</span><span class="n">atomic_vector_plotter</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="make_specgram">make_specgram</h3>
+<p>generate and save spectographs of flux signal frequencies</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="n">Analyzer</span><span class="p">()</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">A</span><span class="p">.</span><span class="n">make_specgram</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<h3 id="planet_hunter">planet_hunter</h3>
+<p>calculates period and plots folded light curve from single or multiple .fits files</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="n">Analyzer</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="s">'./DATA/mast/'</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">f9</span> <span class="o">=</span><span class="n">files</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+<span class="n">A</span><span class="p">.</span><span class="n">planet_hunter</span><span class="p">(</span><span class="n">f9</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'kepler.fits'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="spacekittransformer">spacekit.Transformer()</h2>
+<p>tools for converting and preprocessing signals as numpy arrays</p>
+
+<h3 id="hypersonic_pliers">hypersonic_pliers</h3>
+
+<h3 id="thermo_fusion_chisel">thermo_fusion_chisel</h3>
+
+<h3 id="babel_fish_dispenser">babel_fish_dispenser</h3>
+
+<h3 id="fast_fourier">fast_fourier</h3>
+
+<h2 id="spacekitbuilder">spacekit.Builder()</h2>
+<p>building and fitting convolutional neural networks</p>
+
+<h3 id="build_cnn">build_cnn</h3>
+
+<h3 id="fit_cnn">fit_cnn</h3>
+
+<h2 id="spacekitcomputer">spacekit.Computer()</h2>
+<p>gets model predictions and evaluates metrics</p>
+
+<h3 id="get_preds">get_preds</h3>
+
+<h3 id="fnfp">fnfp</h3>
+
+<h3 id="keras_history">keras_history</h3>
+
+<h3 id="fusion_matrix">fusion_matrix</h3>
+
+<h3 id="roc_plots">roc_plots</h3>
+
+<h3 id="compute">compute</h3>
+
+<h1 id="create-aws-secret-access-key">Create AWS secret access key</h1>
+
+<ul>
+  <li>Login to the aws console and navigate to IAM.</li>
+  <li>Apply S3 Full Access policy to your user</li>
+  <li>Create Access Key - copy and paste the values somewhere (or download the csv) since you won’t be able to view them again</li>
+</ul>
+
+<p>In the command line, add your credentials to an /.aws/config file:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir</span> ~/.aws
+<span class="nv">$ </span><span class="nb">cd</span> ~/.aws
+<span class="nv">$ </span><span class="nb">touch </span>config
+<span class="nv">$ </span>nano config
+</code></pre></div></div>
+
+<p>Edit the config file and paste in your access key values. <strong>NOTE</strong>:In order to access the MAST data without being charged, you need to use the US-EAST-1 region.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+
+<span class="o">[</span>default]
+<span class="nv">aws_access_key_id</span><span class="o">=</span>&lt;your secret access key ID&gt;
+<span class="nv">aws_secret_access_key</span><span class="o">=</span>&lt;your secret access key&gt;
+<span class="nv">region</span><span class="o">=</span>us-east-1
+</code></pre></div></div>
+
+<h1 id="using-google-colabs">Using Google Colabs</h1>
+
+<p>To have AWS cli work in Google Colab, a configuration folder under the path “content/drive/My Drive/” called “config” needs to be created as a .ini file that contains credentials to be stored.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">awscli</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">astroquery</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">astroquery.mast</span> <span class="kn">import</span> <span class="n">Observations</span>
+<span class="kn">from</span> <span class="nn">astroquery.mast</span> <span class="kn">import</span> <span class="n">Catalogs</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+</code></pre></div></div>
+
+<p>Authorize and mount gdrive</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="p">.</span><span class="n">mount</span><span class="p">(</span><span class="s">'/gdrive'</span><span class="p">,</span><span class="n">force_remount</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Enter authorization code and hit enter</p>
+
+<p><em>output</em>: Mounted at /gdrive</p>
+
+<p>Create config directory</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">cd</span> <span class="s">'/gdrive/My Drive/'</span>
+<span class="o">%</span><span class="n">mkdir</span> <span class="n">config</span>
+<span class="o">%</span><span class="n">pwd</span>
+</code></pre></div></div>
+
+<p>Create the .ini file</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">text</span> <span class="o">=</span> <span class="s">'''
+[default]
+aws_access_key_id = &lt;your access key id&gt; 
+aws_secret_access_key = &lt;your secret access key&gt;
+region = &lt;your region&gt;
+'''</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s">"/content/drive/My Drive/config/awscli.ini"</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+   <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="err">!</span><span class="n">cat</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">My</span>\ <span class="n">Drive</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">awscli</span><span class="p">.</span><span class="n">ini</span>
+</code></pre></div></div>
+
+<p>The above script only needs to be run once, since it is equivalent to saving an username and password to a file to be accessed later.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">export</span> <span class="n">AWS_SHARED_CREDENTIALS_FILE</span><span class="o">=/</span><span class="n">gdrive</span><span class="o">/</span><span class="n">My</span>\ <span class="n">Drive</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">awscli</span><span class="p">.</span><span class="n">ini</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'AWS_SHARED_CREDENTIALS_FILE'</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+<span class="k">print</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'AWS_SHARED_CREDENTIALS_FILE'</span><span class="p">])</span>
+</code></pre></div></div>
+<p><em>output</em>: /gdrive/My Drive/config/awscli.ini</p>
+
+<p>Cloud data access is enabled using the enable_cloud_dataset function, which will cause AWS to become the prefered source for data access until it is disabled (disable_cloud_dataset).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Getting the cloud URIs
+</span><span class="n">obs_table</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="n">query_criteria</span><span class="p">(</span><span class="n">obs_collection</span><span class="o">=</span><span class="p">[</span><span class="s">'K2'</span><span class="p">],</span>
+                                        <span class="n">objectname</span><span class="o">=</span><span class="s">"K2-62"</span><span class="p">,</span>
+                                        <span class="n">filters</span><span class="o">=</span><span class="s">'KEPLER'</span><span class="p">,</span>
+                                        <span class="n">provenance_name</span><span class="o">=</span><span class="s">'K2'</span><span class="p">)</span>
+<span class="n">products</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="n">get_product_list</span><span class="p">(</span><span class="n">obs_table</span><span class="p">)</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="n">filter_products</span><span class="p">(</span><span class="n">products</span><span class="p">,</span>
+                                        <span class="n">productSubGroupDescription</span><span class="o">=</span><span class="s">'LLC'</span><span class="p">)</span>
+<span class="n">s3_uris</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="n">get_cloud_uris</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s3_uris</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><em>output</em>: [‘s3://stpubdata/k2/public/lightcurves/c3/206000000/89000/ktwo206089508-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/92000/ktwo206092110-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/92000/ktwo206092615-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/93000/ktwo206093036-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/93000/ktwo206093540-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/94000/ktwo206094039-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/94000/ktwo206094098-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/94000/ktwo206094342-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/94000/ktwo206094605-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/95000/ktwo206095133-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/96000/ktwo206096022-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/96000/ktwo206096602-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/96000/ktwo206096692-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/97000/ktwo206097453-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/98000/ktwo206098619-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/98000/ktwo206098990-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/99000/ktwo206099456-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/99000/ktwo206099582-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206000000/99000/ktwo206099965-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206100000/00000/ktwo206100060-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206100000/02000/ktwo206102898-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/206100000/03000/ktwo206103033-c03_llc.fits’, ‘s3://stpubdata/k2/public/lightcurves/c3/212200000/35000/ktwo212235329-c03_llc.fits’]</p>
+
+<h1 id="download-the-fits-files">download the FITS files</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">s3_urls</span><span class="p">:</span>
+  <span class="c1"># Extract the S3 key from the S3 URL
+</span>  <span class="n">fits_s3_key</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"s3://stpubdata/"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'/'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">bucket</span><span class="p">.</span><span class="n">download_file</span><span class="p">(</span><span class="n">fits_s3_key</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">ExtraArgs</span><span class="o">=</span><span class="p">{</span><span class="s">"RequestPayer"</span><span class="p">:</span> <span class="s">"requester"</span><span class="p">})</span>
+</code></pre></div></div>
+
+<h1 id="analyze-fits-files-light-curves">Analyze FITS files (Light Curves)</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">astropy</span>
+
+<span class="kn">import</span> <span class="nn">tarfile</span>
+<span class="kn">from</span> <span class="nn">astropy.utils.data</span> <span class="kn">import</span> <span class="n">download_file</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'http://data.astropy.org/tutorials/UVES/data_UVES.tar.gz'</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">tarfile</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">download_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s">'r|*'</span><span class="p">)</span>
+<span class="n">working_dir_path</span> <span class="o">=</span> <span class="s">'.'</span>  <span class="c1"># CHANGE TO WHEREVER YOU WANT THE DATA TO BE EXTRACTED
+</span><span class="n">f</span><span class="p">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">working_dir_path</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>You should now have all the FITS files saved in your google drive folder.</p>
+
+<hr />
+
+:ET

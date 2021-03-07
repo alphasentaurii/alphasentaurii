@@ -1,0 +1,13 @@
+I"a<p>spacekit.Builder: building and fitting convolutional neural networks</p>
+<ul>
+  <li>build_cnn: builds keras 1D CNN architecture</li>
+  <li>fit_cnn: trains keras CNN</li>
+</ul>
+
+<h2 id="spacekitbuilder">spacekit.Builder()</h2>
+<p>building and fitting convolutional neural networks</p>
+
+<h3 id="build_cnn">build_cnn</h3>
+
+<h3 id="fit_cnn">fit_cnn</h3>
+:ET

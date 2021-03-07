@@ -7,10 +7,8 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="blog" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4000/blog.html" />
-<meta property="og:url" content="http://localhost:4000/blog.html" />
 <script type="application/ld+json">
-{"headline":"blog","@type":"WebPage","url":"http://localhost:4000/blog.html","@context":"https://schema.org"}</script>
+{"@type":"WebPage","url":"/blog.html","headline":"blog","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <html>
 <head>
@@ -501,56 +499,330 @@ margin:0px;
 
         
     <main style="z-index: 99; position: relative;">
+      <!--<link rel="stylesheet" type="text/css" href="/assets/kali.css">
 
+<canvas id="nokey">
+    Your Browser Doesn't Support Canvas, Please Download Chrome or compatible browser.
+</canvas>
+
+
+<script>
+var canvas = document.getElementById('nokey'),
+    can_w = parseInt(canvas.getAttribute('width')),
+    can_h = parseInt(canvas.getAttribute('height')),
+    ctx = canvas.getContext('2d');
+
+// console.log(typeof can_w);
+
+var ball = {
+        x: 0,
+        y: 0,
+        vx: 0,
+        vy: 0,
+        r: 0,
+        alpha: 1,
+        phase: 0
+    },
+    ball_color = {
+        r: 207,
+        g: 255,
+        b: 4
+    },
+    R = 2,
+    balls = [],
+    alpha_f = 0.03,
+    alpha_phase = 0,
+    
+// Line
+    link_line_width = 0.8,
+    dis_limit = 260,
+    add_mouse_point = true,
+    mouse_in = false,
+    mouse_ball = {
+        x: 0,
+        y: 0,
+        vx: 0,
+        vy: 0,
+        r: 0,
+        type: 'mouse'
+    };
+
+// Random speed
+function getRandomSpeed(pos){
+    var  min = -1,
+        max = 1;
+    switch(pos){
+        case 'top':
+            return [randomNumFrom(min, max), randomNumFrom(0.1, max)];
+            break;
+        case 'right':
+            return [randomNumFrom(min, -0.1), randomNumFrom(min, max)];
+            break;
+        case 'bottom':
+            return [randomNumFrom(min, max), randomNumFrom(min, -0.1)];
+            break;
+        case 'left':
+            return [randomNumFrom(0.1, max), randomNumFrom(min, max)];
+            break;
+        default:
+            return;
+            break;
+    }
+}
+function randomArrayItem(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+function randomNumFrom(min, max){
+    return Math.random()*(max - min) + min;
+}
+console.log(randomNumFrom(0, 10));
+// Random Ball
+function getRandomBall(){
+    var pos = randomArrayItem(['top', 'right', 'bottom', 'left']);
+    switch(pos){
+        case 'top':
+            return {
+                x: randomSidePos(can_w),
+                y: -R,
+                vx: getRandomSpeed('top')[0],
+                vy: getRandomSpeed('top')[1],
+                r: R,
+                alpha: 1,
+                phase: randomNumFrom(0, 10)
+            }
+            break;
+        case 'right':
+            return {
+                x: can_w + R,
+                y: randomSidePos(can_h),
+                vx: getRandomSpeed('right')[0],
+                vy: getRandomSpeed('right')[1],
+                r: R,
+                alpha: 1,
+                phase: randomNumFrom(0, 10)
+            }
+            break;
+        case 'bottom':
+            return {
+                x: randomSidePos(can_w),
+                y: can_h + R,
+                vx: getRandomSpeed('bottom')[0],
+                vy: getRandomSpeed('bottom')[1],
+                r: R,
+                alpha: 1,
+                phase: randomNumFrom(0, 10)
+            }
+            break;
+        case 'left':
+            return {
+                x: -R,
+                y: randomSidePos(can_h),
+                vx: getRandomSpeed('left')[0],
+                vy: getRandomSpeed('left')[1],
+                r: R,
+                alpha: 1,
+                phase: randomNumFrom(0, 10)
+            }
+            break;
+    }
+}
+function randomSidePos(length){
+    return Math.ceil(Math.random() * length);
+}
+
+// Draw Ball
+function renderBalls(){
+    Array.prototype.forEach.call(balls, function(b){
+        if(!b.hasOwnProperty('type')){
+            ctx.fillStyle = 'rgba('+ball_color.r+','+ball_color.g+','+ball_color.b+','+b.alpha+')';
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, R, 0, Math.PI*2, true);
+            ctx.closePath();
+            ctx.fill();
+        }
+    });
+}
+
+// Update balls
+function updateBalls(){
+    var new_balls = [];
+    Array.prototype.forEach.call(balls, function(b){
+        b.x += b.vx;
+        b.y += b.vy;
+        
+        if(b.x > -(50) && b.x < (can_w+50) && b.y > -(50) && b.y < (can_h+50)){
+            new_balls.push(b);
+        }
+        
+        // alpha change
+        b.phase += alpha_f;
+        b.alpha = Math.abs(Math.cos(b.phase));
+        // console.log(b.alpha);
+    });
+    
+    balls = new_balls.slice(0);
+}
+
+// loop alpha
+function loopAlphaInf(){
+    
+}
+
+// Draw lines
+function renderLines(){
+    var fraction, alpha;
+    for (var i = 0; i < balls.length; i++) {
+        for (var j = i + 1; j < balls.length; j++) {
+            
+            fraction = getDisOf(balls[i], balls[j]) / dis_limit;
+            
+            if(fraction < 1){
+                alpha = (1 - fraction).toString();
+
+                ctx.strokeStyle = 'rgba(150,150,150,'+alpha+')';
+                ctx.lineWidth = link_line_width;
+                
+                ctx.beginPath();
+                ctx.moveTo(balls[i].x, balls[i].y);
+                ctx.lineTo(balls[j].x, balls[j].y);
+                ctx.stroke();
+                ctx.closePath();
+            }
+        }
+    }
+}
+
+// calculate distance between two points
+function getDisOf(b1, b2){
+    var  delta_x = Math.abs(b1.x - b2.x),
+        delta_y = Math.abs(b1.y - b2.y);
+    
+    return Math.sqrt(delta_x*delta_x + delta_y*delta_y);
+}
+
+// add balls if there a little balls
+function addBallIfy(){
+    if(balls.length < 20){
+        balls.push(getRandomBall());
+    }
+}
+
+// Render
+function render(){
+    ctx.clearRect(0, 0, can_w, can_h);
+    
+    renderBalls();
+    
+    renderLines();
+    
+    updateBalls();
+    
+    addBallIfy();
+    
+    window.requestAnimationFrame(render);
+}
+
+// Init Balls
+function initBalls(num){
+    for(var i = 1; i <= num; i++){
+        balls.push({
+            x: randomSidePos(can_w),
+            y: randomSidePos(can_h),
+            vx: getRandomSpeed('top')[0],
+            vy: getRandomSpeed('top')[1],
+            r: R,
+            alpha: 1,
+            phase: randomNumFrom(0, 10)
+        });
+    }
+}
+// Init Canvas
+function initCanvas(){
+    canvas.setAttribute('width', window.innerWidth);
+    canvas.setAttribute('height', window.innerHeight);
+    
+    can_w = parseInt(canvas.getAttribute('width'));
+    can_h = parseInt(canvas.getAttribute('height'));
+}
+window.addEventListener('resize', function(e){
+    console.log('Window Resize...');
+    initCanvas();
+});
+
+function goMovie(){
+    initCanvas();
+    initBalls(20);
+    window.requestAnimationFrame(render);
+}
+goMovie();
+
+// Mouse effect
+canvas.addEventListener('mouseenter', function(){
+    console.log('mouseenter');
+    mouse_in = true;
+    balls.push(mouse_ball);
+});
+canvas.addEventListener('mouseleave', function(){
+    console.log('mouseleave');
+    mouse_in = false;
+    var new_balls = [];
+    Array.prototype.forEach.call(balls, function(b){
+        if(!b.hasOwnProperty('type')){
+            new_balls.push(b);
+        }
+    });
+    balls = new_balls.slice(0);
+});
+canvas.addEventListener('mousemove', function(e){
+    var e = e || window.event;
+    mouse_ball.x = e.pageX;
+    mouse_ball.y = e.pageY;
+    // console.log(mouse_ball);
+});
+</script>
+
+-->
       <h1>Latest Posts</h1>
 
 <ul>
   
     <li>
-      <h2><a href="/datascience,/astrophysics/2021/02/02/spacekit-builder-convolutional-neural-networks.html">SPACEKIT: Builder - convolutional neural networks</a></h2>
-      <p><ul>
-  <li>Builder: building and fitting convolutional neural networks
-    <ul>
-      <li>build_cnn: builds keras 1D CNN architecture</li>
-      <li>fit_cnn: trains keras CNN</li>
-    </ul>
-  </li>
+      <h2><a href="/datascience,/astrophysics/2021/03/03/spacekit-computer-evaluate-model-make-predictions.html">SPACEKIT Computer: evaluate and predict</a></h2>
+      <p><p>The spacekit.Computer class is for generating predictions and evaluating model metrics. The example here evaluates a neural network for classifying stars with orbiting exoplanets using time series signal analysis (light curves).</p>
+</p>
+    </li>
+  
+    <li>
+      <h2><a href="/datascience,/astrophysics/2021/02/02/spacekit-builder-convolutional-neural-networks.html">SPACEKIT Builder: convolutional neural networks</a></h2>
+      <p><p>spacekit.Builder: building and fitting convolutional neural networks</p>
+<ul>
+  <li>build_cnn: builds keras 1D CNN architecture</li>
+  <li>fit_cnn: trains keras CNN</li>
 </ul>
 </p>
     </li>
   
     <li>
-      <h2><a href="/datascience,/astrophysics/2021/01/01/spacekit-transformer-signal-processing-and-analysis.html">SPACEKIT: Transformer - signal processing and analysis</a></h2>
-      <p><ul>
-  <li>Transformer: tools for converting and preprocessing signals as numpy arrays
-    <ul>
-      <li>hypersonic_pliers:</li>
-      <li>thermo_fusion_chisel:</li>
-      <li>babel_fish_dispenser: adds a 1D uniform noise filter using timesteps</li>
-      <li>fast_fourier: fast fourier transform utility function</li>
-    </ul>
-  </li>
+      <h2><a href="/datascience,/astrophysics/2021/01/01/spacekit-transformer-signal-processing-and-analysis.html">SPACEKIT: Transformer - signal analysis</a></h2>
+      <p><p>spacekit.Transformer: tools for converting and preprocessing signals as numpy arrays</p>
+<ul>
+  <li>hypersonic_pliers:</li>
+  <li>thermo_fusion_chisel:</li>
+  <li>babel_fish_dispenser: adds a 1D uniform noise filter using timesteps</li>
+  <li>fast_fourier: fast fourier transform utility function</li>
 </ul>
 </p>
     </li>
   
     <li>
-      <h2><a href="/datascience,/astrophysics/2020/12/12/spacekit-convert-timeseries-signal-to-frequency-spectrographs.html">SPACEKIT: converting timeseries signals to frequency spectrographs</a></h2>
-      <p><ul>
-  <li>Transformer: tools for converting and preprocessing signals as numpy arrays
-    <ul>
-      <li>hypersonic_pliers:</li>
-      <li>thermo_fusion_chisel:</li>
-      <li>babel_fish_dispenser: adds a 1D uniform noise filter using timesteps</li>
-      <li>fast_fourier: fast fourier transform utility function</li>
-    </ul>
-  </li>
-</ul>
+      <h2><a href="/datascience,/astrophysics/2020/12/12/spacekit-convert-timeseries-signal-to-frequency-spectrographs.html">SPACEKIT Analyzer: frequency spectrographs</a></h2>
+      <p><h2 id="spacekitanalyzer">spacekit.Analyzer()</h2>
+<p>flux-timeseries signal analysis</p>
 </p>
     </li>
   
     <li>
-      <h2><a href="/datascience/2020/11/11/spacekit-plotting-light-curves-with-planet-hunter.html">SPACEKIT: plotting light curves with planet_hunter</a></h2>
+      <h2><a href="/datascience/2020/11/11/spacekit-plotting-light-curves-with-planet-hunter.html">SPACEKIT Analyzer: plotting light curves</a></h2>
       <p><ul>
   <li>Transformer: tools for converting and preprocessing signals as numpy arrays
     <ul>
@@ -565,13 +837,13 @@ margin:0px;
     </li>
   
     <li>
-      <h2><a href="/datascience/2020/10/10/spacekit-scraping-the-mast-api.html">SPACEKIT - scraping NASA exoplanet data via AWS</a></h2>
-      <p><p><code class="language-plaintext highlighter-rouge">spacekit</code> is a PyPi Machine Learning Utility Package for Astrophysical Data Science.</p>
+      <h2><a href="/datascience/2020/10/10/spacekit-scraping-the-mast-api.html">SPACEKIT Radio: scraping NASA data</a></h2>
+      <p><p>The dataset used as an example here is from MAST (Mikulsky Archive for Space Telescopes) accessed via AWS api. We are analyzing time-series light curves (flux signals) of stars from the K2 telescope to identify possible orbiting exoplanets (also known as <code class="language-plaintext highlighter-rouge">threshold crossing events</code> or TCEs).</p>
 </p>
     </li>
   
     <li>
-      <h2><a href="/datascience,/astrophysics/2020/09/09/spacekit-python-library-for-astronomical-data-science.html">SPACEKIT - Python Library for Astrophysics Machine Learning</a></h2>
+      <h2><a href="/datascience,/astrophysics/2020/09/09/spacekit-python-library-for-astronomical-data-science.html">SPACEKIT: Machine Learning for Astrophysics</a></h2>
       <p><p><code class="language-plaintext highlighter-rouge">spacekit</code> is a PyPi Machine Learning Utility Package for Astrophysical Data Science.</p>
 </p>
     </li>
@@ -602,7 +874,7 @@ margin:0px;
     </li>
   
     <li>
-      <h2><a href="/datascience/2020/04/04/starskope-cyberoptic-artificial-telescope.html">STARSKØPE: The Cyberoptic Artificial Telescope</a></h2>
+      <h2><a href="/datascience/2020/04/04/starskope-cyberoptic-artificial-telescope.html">STARSKØPE: Cyberoptic Artificial Telescope</a></h2>
       <p><blockquote>
   <p>“Mathematicians […] are often led astray when ‘studying’ physics because they lose sight of the physics. They say: <em>‘Look, these differential equations–the Maxwell equations–are all there is to electrodynamics; it is admitted by the physicists that there is nothing which is not contained in the equations. The equations are complicated, but after all they are only mathematical equations and if I understand them mathematically inside out, I will understand the physics inside out.’</em> Only it doesn’t work that way. Mathematicians who study physics with that point of view–and there have been many of them–usually make little contribution to physics and, in fact, little to mathematics. They fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations.”
 <strong>-Richard Feynman, <em>The Feynman Lectures on Physics: Volume 2</em>, Chapter 2-1: “Differential Calculus of Vector Fields”</strong></p>
@@ -647,7 +919,6 @@ margin:0px;
     </li>
   
 </ul>
-
 <link rel="stylesheet" type="text/css" href="/assets/kali.css">
 
 <canvas id="nokey">
@@ -930,7 +1201,8 @@ canvas.addEventListener('mousemove', function(e){
 });
 </script>
 
-</main><footer>
+
+    </main><footer>
   Copyright (c) 2020 Ru Keïn
 </footer>
 </div>

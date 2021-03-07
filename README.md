@@ -1,4 +1,4 @@
-# hakkeray.com
+# alphasentaurii.com
 
 Ru Keïn's datascience and coding blog
 

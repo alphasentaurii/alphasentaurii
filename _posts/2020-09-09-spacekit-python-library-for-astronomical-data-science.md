@@ -1,15 +1,16 @@
 ---
 layout: post
-title:  "SPACEKIT - Python Library for Astrophysics Machine Learning"
+title:  "SPACEKIT: Machine Learning for Astrophysics"
 date:   2020-09-09 09:09:09 -1111
 categories: datascience, astrophysics
 tags: spacekit, machine learning, pypu
 ---
 
-
 `spacekit` is a PyPi Machine Learning Utility Package for Astrophysical Data Science.
 
-The original purpose for creating this library was to for perform signal analysis and machine learning classification algorithms on astrophysical (sparse) datasets. The dataset used as an example here is from MAST (Mikulsky Archive for Space Telescopes) accessed via AWS api. We are analyzing time-series light curves (flux signals) of stars from the K2 telescope to identify possible orbiting exoplanets (also known as `threshold crossing events` or TCEs). 
+This library is for performing signal analysis and machine learning on astrophysical datasets. The dataset used as an example here is from MAST (Mikulsky Archive for Space Telescopes) accessed via AWS api. We are analyzing time-series light curves (flux signals) of stars from the K2 telescope to identify possible orbiting exoplanets (also known as `threshold crossing events` or TCEs). 
+
+This post shows how to install spacekit locally and presents an overview of the library. Posts following this one walk you through a demo of each specific class and class methods. 
 
 # Prerequisites
 
@@ -60,11 +61,13 @@ spacekit
 $ pip install spacekit
 ```
 
+- Radio: scrape Mikulsky archives (MAST) for downloading NASA space telescope datasets
+    - mast_aws: fetch data hosted on AWS using the MAST api 
+
 - Analyzer: flux-timeseries signal analysis
     - atomic_vector_plotter: Plots scatter and line plots of time series signal values.
     - make_specgram: generate and save spectographs of flux signal frequencies
     - planet_hunter: calculate period, plot folded lightcurve from .fits files
-
 
 - Transformer: tools for converting and preprocessing signals as numpy arrays
     - hypersonic_pliers: 
@@ -115,9 +118,6 @@ A = Analyzer()
 spec = A.make_specgram(signal)
 
 ```
-
-
-
 
 ### planet_hunter
 calculates period and plots folded light curve from single or multiple .fits files

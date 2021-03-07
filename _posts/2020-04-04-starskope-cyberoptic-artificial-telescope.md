@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "STARSKØPE: The Cyberoptic Artificial Telescope"
+title:  "STARSKØPE: Cyberoptic Artificial Telescope"
 date:   2020-04-04 04:04:04 -1111
 categories: datascience
 tags: astrophysics, project, machine learning, ai, neural networks

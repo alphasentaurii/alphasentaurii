@@ -1,30 +1,17 @@
 ---
 layout: post
-title:  "SPACEKIT: converting timeseries signals to frequency spectrographs"
+title:  "SPACEKIT Analyzer: frequency spectrographs"
 date:   2020-12-12 12:12:12 -1111
 categories: datascience, astrophysics
 tags: spacekit
 ---
 
-- Transformer: tools for converting and preprocessing signals as numpy arrays
-    - hypersonic_pliers: 
-    - thermo_fusion_chisel: 
-    - babel_fish_dispenser: adds a 1D uniform noise filter using timesteps
-    - fast_fourier: fast fourier transform utility function
-
-- Builder: building and fitting convolutional neural networks
-    - build_cnn: builds keras 1D CNN architecture
-    - fit_cnn: trains keras CNN
-
-- Computer: gets model predictions and evaluates metrics
-    - get_preds
-    - fnfp
-    - keras_history
-    - roc_plots
-    - compute
-
 ## spacekit.Analyzer()
 flux-timeseries signal analysis
+
+- atomic_vector_plotter: Plots scatter and line plots of time series signal values.
+- make_specgram: generate and save spectrographs of flux signal frequencies
+- planet_hunter: calculate period, plot folded lightcurve from .fits files
 
 ### atomic_vector_plotter
 Plots scatter and line plots of time series signal values.
@@ -55,15 +42,6 @@ A = Analyzer()
 spec = A.make_specgram(signal)
 
 ```
-
-
-- Analyzer: flux-timeseries signal analysis
-    - atomic_vector_plotter: Plots scatter and line plots of time series signal values.
-    - make_specgram: generate and save spectographs of flux signal frequencies
-    - planet_hunter: calculate period, plot folded lightcurve from .fits files
-
-
-
 
 ### planet_hunter
 calculates period and plots folded light curve from single or multiple .fits files

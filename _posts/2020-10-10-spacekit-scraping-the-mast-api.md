@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "SPACEKIT - scraping NASA exoplanet data via AWS"
+title:  "SPACEKIT Radio: scraping NASA data"
 date:   2020-10-10 10:10:10 -1800
 categories: datascience
 tags: spacekit, aws, web scraping
 ---
 
-`spacekit` is a PyPi Machine Learning Utility Package for Astrophysical Data Science.
+The dataset used as an example here is from MAST (Mikulsky Archive for Space Telescopes) accessed via AWS api. We are analyzing time-series light curves (flux signals) of stars from the K2 telescope to identify possible orbiting exoplanets (also known as `threshold crossing events` or TCEs).
 
-The original purpose for creating this library was to for perform signal analysis and machine learning classification algorithms on astrophysical (sparse) datasets. The dataset used as an example here is from MAST (Mikulsky Archive for Space Telescopes) accessed via AWS api. We are analyzing time-series light curves (flux signals) of stars from the K2 telescope to identify possible orbiting exoplanets (also known as `threshold crossing events` or TCEs). 
+`spacekit` is a PyPi Machine Learning Utility Package for Astrophysical Data Science. The original purpose for creating this library was to for perform signal analysis and machine learning classification algorithms on astrophysical (sparse) datasets. 
 
 # Prerequisites
 

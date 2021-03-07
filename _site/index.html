@@ -7,10 +7,8 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="hakkeray" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
 <script type="application/ld+json">
-{"headline":"hakkeray","@type":"WebSite","url":"http://localhost:4000/","@context":"https://schema.org"}</script>
+{"@type":"WebSite","url":"/","headline":"hakkeray","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <html>
 <head>
@@ -501,40 +499,7 @@ margin:0px;
 
         
     <main style="z-index: 99; position: relative;">
-
-      <h1 id="featured-projects">Featured Projects</h1>
-
-<h3 id="starskøpe-the-cyberoptic-artificial-telescope"><a href="/projects/datascience/starskope/demo.html">Starskøpe: The Cyberoptic Artificial Telescope</a></h3>
-
-<h3 id="detecting-dead-stars-in-deep-space"><a href="/projects/datascience/pulsars/demo.html">Detecting Dead Stars in Deep Space</a></h3>
-
-<h3 id="realtyrabbit-top-5-zip-codes"><a href="/projects/datascience/top5-zipcodes/demo.html">RealtyRabbit: Top 5 Zip Codes</a></h3>
-
-<h3 id="predicting-home-values"><a href="/projects/datascience/king-county/demo.html">Predicting Home Values</a></h3>
-
-<h1 id="featured-blog-posts">Featured Blog Posts</h1>
-
-
-
-
-  <br />  <!-- add line break if there is any content --><ul><li>[ 2021-02-02 ] <a href="/datascience,/astrophysics/2021/02/02/spacekit-builder-convolutional-neural-networks.html">SPACEKIT: Builder - convolutional neural networks</a>
-    </li><li>[ 2021-01-01 ] <a href="/datascience,/astrophysics/2021/01/01/spacekit-transformer-signal-processing-and-analysis.html">SPACEKIT: Transformer - signal processing and analysis</a>
-    </li><li>[ 2020-12-12 ] <a href="/datascience,/astrophysics/2020/12/12/spacekit-convert-timeseries-signal-to-frequency-spectrographs.html">SPACEKIT: converting timeseries signals to frequency spectrographs</a>
-    </li><li>[ 2020-11-11 ] <a href="/datascience/2020/11/11/spacekit-plotting-light-curves-with-planet-hunter.html">SPACEKIT: plotting light curves with planet_hunter</a>
-    </li><li>[ 2020-10-10 ] <a href="/datascience/2020/10/10/spacekit-scraping-the-mast-api.html">SPACEKIT - scraping NASA exoplanet data via AWS</a>
-    </li><li>[ 2020-09-09 ] <a href="/datascience,/astrophysics/2020/09/09/spacekit-python-library-for-astronomical-data-science.html">SPACEKIT - Python Library for Astrophysics Machine Learning</a>
-    </li><li>[ 2020-08-08 ] <a href="/datascience/2020/08/08/tensorflow-deep-learning-on-aws-ec2.html">Tensorflow Deep Learning on AWS EC2</a>
-    </li><li>[ 2020-07-06 ] <a href="/programming/2020/07/06/digdag-postgresql-tutorial.html">Digdag PostgreSQL Tutorial</a>
-    </li><li>[ 2020-06-06 ] <a href="/programming/2020/06/06/digdag-mysql-tutorial.html">Digdag MySQL Tutorial</a>
-    </li><li>[ 2020-05-05 ] <a href="/datascience/2020/05/05/starskope-2-spectrograph-image-classification.html">Starskøpe 2: Spectrograph Image Classification</a>
-    </li><li>[ 2020-04-04 ] <a href="/datascience/2020/04/04/starskope-cyberoptic-artificial-telescope.html">STARSKØPE: The Cyberoptic Artificial Telescope</a>
-    </li><li>[ 2020-03-03 ] <a href="/datascience/2020/03/03/pulsar-classification-algorithms.html">Detecting Dead Stars in Deep Space</a>
-    </li><li>[ 2020-02-02 ] <a href="/datascience/2020/02/02/visualizing-time-series-data.html">Visualizing Time Series Data</a>
-    </li><li>[ 2020-01-01 ] <a href="/datascience/2020/01/01/sql-northwind-database.html">SQL Northwind Database</a>
-    </li><li>[ 2019-12-12 ] <a href="/datascience/2019/12/12/predicting-home-values-with-multiple-linear-regression.html">Predicting Home Values</a>
-    </li><li>[ 2019-11-11 ] <a href="/programming/2019/11/11/aws-redshift-configuration.html">AWS Redshift Database Management</a>
-    </li><li>[ 2019-10-10 ] <a href="/random/2019/10/10/so-you-think-youre-a-data-scientist.html">So You Think You&#39;re a Data Scientist</a>
-    </li></ul><link rel="stylesheet" type="text/css" href="/assets/kali.css">
+      <!--<link rel="stylesheet" type="text/css" href="/assets/kali.css">
 
 <canvas id="nokey">
     Your Browser Doesn't Support Canvas, Please Download Chrome or compatible browser.
@@ -816,7 +781,379 @@ canvas.addEventListener('mousemove', function(e){
 });
 </script>
 
-</main><footer>
+-->
+      <link rel="stylesheet" type="text/css" href="/assets/kali.css">
+
+<canvas id="nokey">
+    Your Browser Doesn't Support Canvas, Please Download Chrome or compatible browser.
+</canvas>
+
+
+<script>
+var canvas = document.getElementById('nokey'),
+    can_w = parseInt(canvas.getAttribute('width')),
+    can_h = parseInt(canvas.getAttribute('height')),
+    ctx = canvas.getContext('2d');
+
+// console.log(typeof can_w);
+
+var ball = {
+        x: 0,
+        y: 0,
+        vx: 0,
+        vy: 0,
+        r: 0,
+        alpha: 1,
+        phase: 0
+    },
+    ball_color = {
+        r: 207,
+        g: 255,
+        b: 4
+    },
+    R = 2,
+    balls = [],
+    alpha_f = 0.03,
+    alpha_phase = 0,
+    
+// Line
+    link_line_width = 0.8,
+    dis_limit = 260,
+    add_mouse_point = true,
+    mouse_in = false,
+    mouse_ball = {
+        x: 0,
+        y: 0,
+        vx: 0,
+        vy: 0,
+        r: 0,
+        type: 'mouse'
+    };
+
+// Random speed
+function getRandomSpeed(pos){
+    var  min = -1,
+        max = 1;
+    switch(pos){
+        case 'top':
+            return [randomNumFrom(min, max), randomNumFrom(0.1, max)];
+            break;
+        case 'right':
+            return [randomNumFrom(min, -0.1), randomNumFrom(min, max)];
+            break;
+        case 'bottom':
+            return [randomNumFrom(min, max), randomNumFrom(min, -0.1)];
+            break;
+        case 'left':
+            return [randomNumFrom(0.1, max), randomNumFrom(min, max)];
+            break;
+        default:
+            return;
+            break;
+    }
+}
+function randomArrayItem(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+function randomNumFrom(min, max){
+    return Math.random()*(max - min) + min;
+}
+console.log(randomNumFrom(0, 10));
+// Random Ball
+function getRandomBall(){
+    var pos = randomArrayItem(['top', 'right', 'bottom', 'left']);
+    switch(pos){
+        case 'top':
+            return {
+                x: randomSidePos(can_w),
+                y: -R,
+                vx: getRandomSpeed('top')[0],
+                vy: getRandomSpeed('top')[1],
+                r: R,
+                alpha: 1,
+                phase: randomNumFrom(0, 10)
+            }
+            break;
+        case 'right':
+            return {
+                x: can_w + R,
+                y: randomSidePos(can_h),
+                vx: getRandomSpeed('right')[0],
+                vy: getRandomSpeed('right')[1],
+                r: R,
+                alpha: 1,
+                phase: randomNumFrom(0, 10)
+            }
+            break;
+        case 'bottom':
+            return {
+                x: randomSidePos(can_w),
+                y: can_h + R,
+                vx: getRandomSpeed('bottom')[0],
+                vy: getRandomSpeed('bottom')[1],
+                r: R,
+                alpha: 1,
+                phase: randomNumFrom(0, 10)
+            }
+            break;
+        case 'left':
+            return {
+                x: -R,
+                y: randomSidePos(can_h),
+                vx: getRandomSpeed('left')[0],
+                vy: getRandomSpeed('left')[1],
+                r: R,
+                alpha: 1,
+                phase: randomNumFrom(0, 10)
+            }
+            break;
+    }
+}
+function randomSidePos(length){
+    return Math.ceil(Math.random() * length);
+}
+
+// Draw Ball
+function renderBalls(){
+    Array.prototype.forEach.call(balls, function(b){
+        if(!b.hasOwnProperty('type')){
+            ctx.fillStyle = 'rgba('+ball_color.r+','+ball_color.g+','+ball_color.b+','+b.alpha+')';
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, R, 0, Math.PI*2, true);
+            ctx.closePath();
+            ctx.fill();
+        }
+    });
+}
+
+// Update balls
+function updateBalls(){
+    var new_balls = [];
+    Array.prototype.forEach.call(balls, function(b){
+        b.x += b.vx;
+        b.y += b.vy;
+        
+        if(b.x > -(50) && b.x < (can_w+50) && b.y > -(50) && b.y < (can_h+50)){
+            new_balls.push(b);
+        }
+        
+        // alpha change
+        b.phase += alpha_f;
+        b.alpha = Math.abs(Math.cos(b.phase));
+        // console.log(b.alpha);
+    });
+    
+    balls = new_balls.slice(0);
+}
+
+// loop alpha
+function loopAlphaInf(){
+    
+}
+
+// Draw lines
+function renderLines(){
+    var fraction, alpha;
+    for (var i = 0; i < balls.length; i++) {
+        for (var j = i + 1; j < balls.length; j++) {
+            
+            fraction = getDisOf(balls[i], balls[j]) / dis_limit;
+            
+            if(fraction < 1){
+                alpha = (1 - fraction).toString();
+
+                ctx.strokeStyle = 'rgba(150,150,150,'+alpha+')';
+                ctx.lineWidth = link_line_width;
+                
+                ctx.beginPath();
+                ctx.moveTo(balls[i].x, balls[i].y);
+                ctx.lineTo(balls[j].x, balls[j].y);
+                ctx.stroke();
+                ctx.closePath();
+            }
+        }
+    }
+}
+
+// calculate distance between two points
+function getDisOf(b1, b2){
+    var  delta_x = Math.abs(b1.x - b2.x),
+        delta_y = Math.abs(b1.y - b2.y);
+    
+    return Math.sqrt(delta_x*delta_x + delta_y*delta_y);
+}
+
+// add balls if there a little balls
+function addBallIfy(){
+    if(balls.length < 20){
+        balls.push(getRandomBall());
+    }
+}
+
+// Render
+function render(){
+    ctx.clearRect(0, 0, can_w, can_h);
+    
+    renderBalls();
+    
+    renderLines();
+    
+    updateBalls();
+    
+    addBallIfy();
+    
+    window.requestAnimationFrame(render);
+}
+
+// Init Balls
+function initBalls(num){
+    for(var i = 1; i <= num; i++){
+        balls.push({
+            x: randomSidePos(can_w),
+            y: randomSidePos(can_h),
+            vx: getRandomSpeed('top')[0],
+            vy: getRandomSpeed('top')[1],
+            r: R,
+            alpha: 1,
+            phase: randomNumFrom(0, 10)
+        });
+    }
+}
+// Init Canvas
+function initCanvas(){
+    canvas.setAttribute('width', window.innerWidth);
+    canvas.setAttribute('height', window.innerHeight);
+    
+    can_w = parseInt(canvas.getAttribute('width'));
+    can_h = parseInt(canvas.getAttribute('height'));
+}
+window.addEventListener('resize', function(e){
+    console.log('Window Resize...');
+    initCanvas();
+});
+
+function goMovie(){
+    initCanvas();
+    initBalls(20);
+    window.requestAnimationFrame(render);
+}
+goMovie();
+
+// Mouse effect
+canvas.addEventListener('mouseenter', function(){
+    console.log('mouseenter');
+    mouse_in = true;
+    balls.push(mouse_ball);
+});
+canvas.addEventListener('mouseleave', function(){
+    console.log('mouseleave');
+    mouse_in = false;
+    var new_balls = [];
+    Array.prototype.forEach.call(balls, function(b){
+        if(!b.hasOwnProperty('type')){
+            new_balls.push(b);
+        }
+    });
+    balls = new_balls.slice(0);
+});
+canvas.addEventListener('mousemove', function(e){
+    var e = e || window.event;
+    mouse_ball.x = e.pageX;
+    mouse_ball.y = e.pageY;
+    // console.log(mouse_ball);
+});
+</script>
+
+<h1 id="featured-projects">Featured Projects</h1>
+
+<h3 id="starskøpe-the-cyberoptic-artificial-telescope"><a href="/projects/datascience/starskope/demo.html">Starskøpe: The Cyberoptic Artificial Telescope</a></h3>
+
+<h3 id="detecting-dead-stars-in-deep-space"><a href="/projects/datascience/pulsars/demo.html">Detecting Dead Stars in Deep Space</a></h3>
+
+<h3 id="northwind-statisical-analysis-sql"><a href="/projects/datascience/northwind/demo.html">Northwind Statisical Analysis (SQL)</a></h3>
+
+<h3 id="realtyrabbit-top-5-zip-codes"><a href="/projects/datascience/top5-zipcodes/demo.html">RealtyRabbit: Top 5 Zip Codes</a></h3>
+
+<h3 id="predicting-home-values"><a href="/projects/datascience/king-county/demo.html">Predicting Home Values</a></h3>
+
+<h1 id="featured-blog-posts">Featured Blog Posts</h1>
+
+
+
+  <br />  <!-- add line break if there is any content --><ul><li>
+      <!---->
+      <!--[ 2021-03-03 ]--> 
+      <a href="/datascience,/astrophysics/2021/03/03/spacekit-computer-evaluate-model-make-predictions.html">SPACEKIT Computer: evaluate and predict</a>
+    </li><li>
+      <!---->
+      <!--[ 2021-02-02 ]--> 
+      <a href="/datascience,/astrophysics/2021/02/02/spacekit-builder-convolutional-neural-networks.html">SPACEKIT Builder: convolutional neural networks</a>
+    </li><li>
+      <!---->
+      <!--[ 2021-01-01 ]--> 
+      <a href="/datascience,/astrophysics/2021/01/01/spacekit-transformer-signal-processing-and-analysis.html">SPACEKIT: Transformer - signal analysis</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-12-12 ]--> 
+      <a href="/datascience,/astrophysics/2020/12/12/spacekit-convert-timeseries-signal-to-frequency-spectrographs.html">SPACEKIT Analyzer: frequency spectrographs</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-11-11 ]--> 
+      <a href="/datascience/2020/11/11/spacekit-plotting-light-curves-with-planet-hunter.html">SPACEKIT Analyzer: plotting light curves</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-10-10 ]--> 
+      <a href="/datascience/2020/10/10/spacekit-scraping-the-mast-api.html">SPACEKIT Radio: scraping NASA data</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-09-09 ]--> 
+      <a href="/datascience,/astrophysics/2020/09/09/spacekit-python-library-for-astronomical-data-science.html">SPACEKIT: Machine Learning for Astrophysics</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-08-08 ]--> 
+      <a href="/datascience/2020/08/08/tensorflow-deep-learning-on-aws-ec2.html">Tensorflow Deep Learning on AWS EC2</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-07-06 ]--> 
+      <a href="/programming/2020/07/06/digdag-postgresql-tutorial.html">Digdag PostgreSQL Tutorial</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-06-06 ]--> 
+      <a href="/programming/2020/06/06/digdag-mysql-tutorial.html">Digdag MySQL Tutorial</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-05-05 ]--> 
+      <a href="/datascience/2020/05/05/starskope-2-spectrograph-image-classification.html">Starskøpe 2: Spectrograph Image Classification</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-04-04 ]--> 
+      <a href="/datascience/2020/04/04/starskope-cyberoptic-artificial-telescope.html">STARSKØPE: Cyberoptic Artificial Telescope</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-03-03 ]--> 
+      <a href="/datascience/2020/03/03/pulsar-classification-algorithms.html">Detecting Dead Stars in Deep Space</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-02-02 ]--> 
+      <a href="/datascience/2020/02/02/visualizing-time-series-data.html">Visualizing Time Series Data</a>
+    </li><li>
+      <!---->
+      <!--[ 2020-01-01 ]--> 
+      <a href="/datascience/2020/01/01/sql-northwind-database.html">SQL Northwind Database</a>
+    </li><li>
+      <!---->
+      <!--[ 2019-12-12 ]--> 
+      <a href="/datascience/2019/12/12/predicting-home-values-with-multiple-linear-regression.html">Predicting Home Values</a>
+    </li><li>
+      <!---->
+      <!--[ 2019-11-11 ]--> 
+      <a href="/programming/2019/11/11/aws-redshift-configuration.html">AWS Redshift Database Management</a>
+    </li><li>
+      <!---->
+      <!--[ 2019-10-10 ]--> 
+      <a href="/random/2019/10/10/so-you-think-youre-a-data-scientist.html">So You Think You&#39;re a Data Scientist</a>
+    </li></ul>
+    </main><footer>
   Copyright (c) 2020 Ru Keïn
 </footer>
 </div>

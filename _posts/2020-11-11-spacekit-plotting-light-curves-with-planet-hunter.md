@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SPACEKIT: plotting light curves with planet_hunter"
+title:  "SPACEKIT Analyzer: plotting light curves"
 date:   2020-11-11 11:11:11 -1111
 categories: datascience
 tags: astrophysics, spacekit
