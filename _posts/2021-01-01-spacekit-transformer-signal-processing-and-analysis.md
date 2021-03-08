@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SPACEKIT: Transformer - signal analysis"
+title:  "SPACEKIT Transformer: signal processing"
 date:   2021-01-01 01:01:01 -1111
 categories: datascience, astrophysics
 tags: spacekit, signal analysis

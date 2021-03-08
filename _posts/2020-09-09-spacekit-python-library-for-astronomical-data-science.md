@@ -61,33 +61,17 @@ spacekit
 $ pip install spacekit
 ```
 
-- Radio: scrape Mikulsky archives (MAST) for downloading NASA space telescope datasets
-    - mast_aws: fetch data hosted on AWS using the MAST api 
+## spacekit.Radio()
+Scrape Mikulsky archives (MAST) for downloading NASA space telescope datasets
+- mast_aws: fetch data hosted on AWS using the MAST api 
 
-- Analyzer: flux-timeseries signal analysis
-    - atomic_vector_plotter: Plots scatter and line plots of time series signal values.
-    - make_specgram: generate and save spectographs of flux signal frequencies
-    - planet_hunter: calculate period, plot folded lightcurve from .fits files
-
-- Transformer: tools for converting and preprocessing signals as numpy arrays
-    - hypersonic_pliers: 
-    - thermo_fusion_chisel: 
-    - babel_fish_dispenser: adds a 1D uniform noise filter using timesteps
-    - fast_fourier: fast fourier transform utility function
-
-- Builder: building and fitting convolutional neural networks
-    - build_cnn: builds keras 1D CNN architecture
-    - fit_cnn: trains keras CNN
-
-- Computer: gets model predictions and evaluates metrics
-    - get_preds
-    - fnfp
-    - keras_history
-    - roc_plots
-    - compute
 
 ## spacekit.Analyzer()
 flux-timeseries signal analysis
+
+- atomic_vector_plotter: Plots scatter and line plots of time series signal values.
+- make_specgram: generate and save spectographs of flux signal frequencies
+- planet_hunter: calculate period, plot folded lightcurve from .fits files
 
 ### atomic_vector_plotter
 Plots scatter and line plots of time series signal values.
@@ -116,190 +100,40 @@ generate and save spectographs of flux signal frequencies
 ```python
 A = Analyzer()
 spec = A.make_specgram(signal)
-
 ```
 
 ### planet_hunter
 calculates period and plots folded light curve from single or multiple .fits files
 
 ```python
-A = Analyzer()
-data = './DATA/mast/'
-files = os.listdir(data)
-f9 =files[9]
-A.planet_hunter(f9, fmt='kepler.fits')
+from spacekit.analyzer import Analyzer
+analyzer = Analyzer()
+files = os.listdir('./data/mast')
+fits_files = files[0]
+analyzer.planet_hunter(fits_file, fmt='kepler.fits')
 ```
-
 
 ## spacekit.Transformer()
 tools for converting and preprocessing signals as numpy arrays
 
-### hypersonic_pliers
-
-### thermo_fusion_chisel
-
-### babel_fish_dispenser
-
-### fast_fourier
+- hypersonic_pliers: 
+- thermo_fusion_chisel: 
+- babel_fish_dispenser: adds a 1D uniform noise filter using timesteps
+- fast_fourier: fast fourier transform utility function
 
 ## spacekit.Builder()
 building and fitting convolutional neural networks
 
-### build_cnn
+- build_cnn: builds keras 1D CNN architecture
+- fit_cnn: trains keras CNN
 
-### fit_cnn
 
 ## spacekit.Computer()
 gets model predictions and evaluates metrics
 
-### get_preds
-
-### fnfp
-
-### keras_history
-
-### fusion_matrix
-
-### roc_plots
-
-### compute
-
-
-
-
-
-# Create AWS secret access key
-
-- Login to the aws console and navigate to IAM. 
-- Apply S3 Full Access policy to your user
-- Create Access Key - copy and paste the values somewhere (or download the csv) since you won't be able to view them again
-
-In the command line, add your credentials to an /.aws/config file:
-```bash
-$ mkdir ~/.aws
-$ cd ~/.aws
-$ touch config
-$ nano config
-```
-
-Edit the config file and paste in your access key values. **NOTE**:In order to access the MAST data without being charged, you need to use the US-EAST-1 region. 
-
-```bash
-#!/bin/sh
-
-[default]
-aws_access_key_id=<your secret access key ID>
-aws_secret_access_key=<your secret access key>
-region=us-east-1
-```
-
-# Using Google Colabs
-
-To have AWS cli work in Google Colab, a configuration folder under the path “content/drive/My Drive/” called “config” needs to be created as a .ini file that contains credentials to be stored.
-
-```python
-!pip install awscli
-!pip install astroquery
-```
-
-```python
-import pandas as pd
-import numpy as np
-import os
-from astroquery.mast import Observations
-from astroquery.mast import Catalogs
-import boto3
-```
-
-Authorize and mount gdrive
-
-```python
-from google.colab import drive
-drive.mount('/gdrive',force_remount=True)
-```
-
-Enter authorization code and hit enter
-
-_output_: Mounted at /gdrive
-
-Create config directory
-
-```python
-%cd '/gdrive/My Drive/'
-%mkdir config
-%pwd
-```
-
-Create the .ini file 
-
-```python
-text = '''
-[default]
-aws_access_key_id = <your access key id> 
-aws_secret_access_key = <your secret access key>
-region = <your region>
-'''
-path = "/content/drive/My Drive/config/awscli.ini"
-with open(path, 'w') as f:
-   f.write(text)
-!cat /content/drive/My\ Drive/config/awscli.ini
-```
-
-The above script only needs to be run once, since it is equivalent to saving an username and password to a file to be accessed later.
-
-```python
-!export AWS_SHARED_CREDENTIALS_FILE=/gdrive/My\ Drive/config/awscli.ini
-path = path
-os.environ['AWS_SHARED_CREDENTIALS_FILE'] = path
-print(os.environ['AWS_SHARED_CREDENTIALS_FILE'])
-```
-_output_: /gdrive/My Drive/config/awscli.ini
-
-Cloud data access is enabled using the enable_cloud_dataset function, which will cause AWS to become the prefered source for data access until it is disabled (disable_cloud_dataset).
-
-
-```python
-# Getting the cloud URIs
-obs_table = Observations.query_criteria(obs_collection=['K2'],
-                                        objectname="K2-62",
-                                        filters='KEPLER',
-                                        provenance_name='K2')
-products = Observations.get_product_list(obs_table)
-filtered = Observations.filter_products(products,
-                                        productSubGroupDescription='LLC')
-s3_uris = Observations.get_cloud_uris(filtered)
-print(s3_uris)
-```
-
-_output_: ['s3://stpubdata/k2/public/lightcurves/c3/206000000/89000/ktwo206089508-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/92000/ktwo206092110-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/92000/ktwo206092615-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/93000/ktwo206093036-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/93000/ktwo206093540-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/94000/ktwo206094039-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/94000/ktwo206094098-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/94000/ktwo206094342-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/94000/ktwo206094605-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/95000/ktwo206095133-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/96000/ktwo206096022-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/96000/ktwo206096602-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/96000/ktwo206096692-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/97000/ktwo206097453-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/98000/ktwo206098619-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/98000/ktwo206098990-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/99000/ktwo206099456-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/99000/ktwo206099582-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206000000/99000/ktwo206099965-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206100000/00000/ktwo206100060-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206100000/02000/ktwo206102898-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/206100000/03000/ktwo206103033-c03_llc.fits', 's3://stpubdata/k2/public/lightcurves/c3/212200000/35000/ktwo212235329-c03_llc.fits']
-
-
-# download the FITS files
-
-```python
-for url in s3_urls:
-  # Extract the S3 key from the S3 URL
-  fits_s3_key = url.replace("s3://stpubdata/", "")
-  root = url.split('/')[-1]
-  bucket.download_file(fits_s3_key, root, ExtraArgs={"RequestPayer": "requester"})
-```
-
-# Analyze FITS files (Light Curves)
-
-```python
-import matplotlib.pyplot as plt
-%matplotlib inline
-!pip install astropy
-
-import tarfile
-from astropy.utils.data import download_file
-url = 'http://data.astropy.org/tutorials/UVES/data_UVES.tar.gz'
-f = tarfile.open(download_file(url, cache=True), mode='r|*')
-working_dir_path = '.'  # CHANGE TO WHEREVER YOU WANT THE DATA TO BE EXTRACTED
-f.extractall(path=working_dir_path)
-```
-
-You should now have all the FITS files saved in your google drive folder.
-
----
-
+- get_preds
+- fnfp
+- keras_history
+- fusion_matrix
+- roc_plots
+- compute
