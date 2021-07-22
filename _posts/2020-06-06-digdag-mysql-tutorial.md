@@ -3,7 +3,8 @@ layout: post
 title:  "Digdag MySQL Tutorial"
 date:   2020-06-06 06:06:06 -1800
 categories: programming
-tags: mysql, tutorial
+tags: mysql tutorial
+author: Ru Keïn
 ---
 
 # Digdag MySQL Tutorial

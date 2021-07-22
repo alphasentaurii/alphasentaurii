@@ -2,17 +2,23 @@
 layout: post
 title:  "SPACEKIT Builder: convolutional neural networks"
 date:   2021-02-02 02:02:02 -1111
-categories: datascience, astrophysics
-tags: spacekit, neural networks
+categories: datascience
+tags: spacekit astrophysics
+author: Ru Keïn
 ---
 
-spacekit.Builder: building and fitting convolutional neural networks
-- build_cnn: builds keras 1D CNN architecture
-- fit_cnn: trains keras CNN
-
-## spacekit.Builder()
+# spacekit.builder
 building and fitting convolutional neural networks
 
+- build_cnn: builds keras 1D CNN classifier
+- batch_maker: pass equal number of class samples rotating randomly
+- fit_cnn: trains keras CNN classifier
+
 ### build_cnn
+Builds and compiles linear CNN using Keras
+
+### batch_maker
+pass equal number of class samples rotating randomly
 
 ### fit_cnn
+fit and train convolutional neural network

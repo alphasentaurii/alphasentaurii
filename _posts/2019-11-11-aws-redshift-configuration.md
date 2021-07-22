@@ -3,7 +3,8 @@ layout: post
 title:  "AWS Redshift Database Management"
 date:   2019-11-11 11:11:11 -1800
 categories: programming
-tags: aws, redshift, sql
+tags: aws sql redshift linux
+author: Ru Keïn
 ---
 
 Configuring, Managing and Performing Remote SQL Queries on AWS Redshift.

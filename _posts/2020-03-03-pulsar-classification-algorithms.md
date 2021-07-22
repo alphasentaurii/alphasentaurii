@@ -3,7 +3,8 @@ layout: post
 title:  "Detecting Dead Stars in Deep Space"
 date:   2020-03-03 03:03:03 -0800
 categories: datascience
-tags: astrophysics, project, pulsars, binary classification, supervised machine learning
+tags: astrophysics project pulsars classification astrophysics
+author: Ru Keïn
 ---
 
 A `supervised machine learning feature classification` project that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.

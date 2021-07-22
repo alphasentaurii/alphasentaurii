@@ -1,4 +1,4 @@
-I"y«<p>For the next phase of the Starsk√∏pe planet hunting project, I used <code class="language-plaintext highlighter-rouge">Google Colabs</code> to generate spectrograph images of the same star flux signals dataset from Kaggle. Due to memory constraints, I started out by only using a portion of this already small dataset as a test round. I ran the images through a <code class="language-plaintext highlighter-rouge">Keras 2D Convolutional Network</code> using Tensorflow, similar to the 1D CNN I built in the first phase of the project. The accuracy score was lower (0.86 vs .99), but this was to be expected due to the constraints of the dataset.</p>
+I"â…<p>For the next phase of the Starsk√∏pe planet hunting project, I used <code class="language-plaintext highlighter-rouge">Google Colabs</code> to generate spectrograph images of the same star flux signals dataset from Kaggle. Due to memory constraints, I started out by only using a portion of this already small dataset as a test round. I ran the images through a <code class="language-plaintext highlighter-rouge">Keras 2D Convolutional Network</code> using Tensorflow, similar to the 1D CNN I built in the first phase of the project. The accuracy score was lower (0.86 vs .99), but this was to be expected due to the constraints of the dataset.</p>
 
 <div>
 <img src="/assets/images/starskope/specs/test/planets/spec_2.png" alt="spec-test-planet-2" title="spec-test-planet-2" width="400" />
@@ -258,7 +258,7 @@ accuracy                           0.80        10    macro avg       0.86      0
 <span class="kn">from</span> <span class="nn">keras.preprocessing.image</span> <span class="kn">import</span> <span class="n">array_to_img</span>
 </code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">base_folder</span> <span class="o">=</span> <span class="s">r'specs/'</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">base_folder</span> <span class="o">=</span> <span class="sa">r</span><span class="s">'specs/'</span>
 <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">base_folder</span><span class="p">)</span>
 
 <span class="n">train_base_dir</span> <span class="o">=</span> <span class="n">base_folder</span><span class="o">+</span><span class="s">'train/'</span>
@@ -356,7 +356,7 @@ accuracy                           0.80        10    macro avg       0.86      0
     <span class="n">X_train</span><span class="p">,</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
     
     <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">[i] Length of Splits:'</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">f"X_train=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="si">}</span><span class="s">, X_test=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="si">}</span><span class="s">, X_val=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"X_train=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="si">}</span><span class="s">, X_test=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="si">}</span><span class="s">, X_val=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y_val</span>
 </code></pre></div></div>
@@ -500,15 +500,15 @@ SHAPES DICT:
         <span class="bp">self</span><span class="p">.</span><span class="n">_laps_completed</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_time</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
-            <span class="k">print</span><span class="p">(</span><span class="s">f'[i] Timer started at </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">start</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fmt</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[i] Timer started at </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">start</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fmt</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="p">.</span><span class="n">_laps_completed</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_time</span><span class="p">()</span>
         <span class="bp">self</span><span class="p">.</span><span class="n">elapsed</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">-</span>  <span class="bp">self</span><span class="p">.</span><span class="n">start</span>
         <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
-            <span class="k">print</span><span class="p">(</span><span class="s">f'[i] Timer stopped at </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">end</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fmt</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">f'  - Total Time: </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">elapsed</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[i] Timer stopped at </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">end</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fmt</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'  - Total Time: </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">elapsed</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
     
 </code></pre></div></div>
 
@@ -709,7 +709,7 @@ TODO
     <span class="n">preds</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_pred</span><span class="p">).</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f"y_pred:</span><span class="se">\n</span><span class="s"> </span><span class="si">{</span><span class="n">preds</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"y_pred:</span><span class="se">\n</span><span class="s"> </span><span class="si">{</span><span class="n">preds</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span>
@@ -731,11 +731,11 @@ TODO
 </span>    <span class="n">fp</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">neg_idx</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">y_pred</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">training</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f"FN Rate (Training): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f"FP Rate (Training): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fp</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"FN Rate (Training): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"FP Rate (Training): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fp</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f"FN Rate (Test): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f"FP Rate (Test): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fp</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"FN Rate (Test): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"FP Rate (Test): </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">fp</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">%"</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">keras_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">)):</span>
@@ -1010,12 +1010,12 @@ accuracy                           0.80        10    macro avg       0.86      0
     <span class="kn">import</span> <span class="nn">os</span>
     <span class="c1">## To save to Gdrive, must first chdir to My Drive (so there's no spaces in fpath)
 </span>    <span class="n">curdir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">curdir</span><span class="p">)</span>
-    <span class="n">data_folder</span> <span class="o">=</span><span class="s">r'/gdrive/My Drive/Colab Notebooks/starskope/data'</span>
+    <span class="n">data_folder</span> <span class="o">=</span><span class="sa">r</span><span class="s">'/gdrive/My Drive/Colab Notebooks/starskope/data'</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">data_folder</span><span class="p">)</span>
     <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f'ERROR: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'ERROR: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="p">,</span><span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -1259,14 +1259,14 @@ accuracy                           0.60        10    macro avg       0.60      0
     <span class="c1">## To save to Gdrive, must first chdir to My Drive (so there's no spaces in fpath)
 </span>    <span class="n">curdir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">curdir</span><span class="p">)</span>
 
-    <span class="n">main_folder</span> <span class="o">=</span><span class="s">r'/gdrive/My Drive/Colab Notebooks/starskope'</span>
+    <span class="n">main_folder</span> <span class="o">=</span><span class="sa">r</span><span class="s">'/gdrive/My Drive/Colab Notebooks/starskope'</span>
     <span class="n">model_subfolder</span> <span class="o">=</span> <span class="s">'data/models/planet_vs_neg/'</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">main_folder</span><span class="p">)</span>
         <span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="p">,</span><span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f'ERROR: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'ERROR: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
 
     <span class="c1"># os.listdir(model_subfolder)
 </span>    <span class="c1"># https://jovianlin.io/saving-loading-keras-models/
@@ -1283,14 +1283,14 @@ accuracy                           0.60        10    macro avg       0.60      0
             <span class="n">model_fpath</span> <span class="o">=</span> <span class="n">model_subfolder</span><span class="o">+</span><span class="n">base_modelname</span><span class="o">+</span><span class="s">'_model.h5'</span>
             <span class="n">model</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">model_fpath</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
-            <span class="k">print</span><span class="p">(</span><span class="s">f"[io] Model architecture saved as </span><span class="si">{</span><span class="n">model_fpath</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">f"[io] Model weights saved as </span><span class="si">{</span><span class="n">weight_fpath</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"[io] Model architecture saved as </span><span class="si">{</span><span class="n">model_fpath</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"[io] Model weights saved as </span><span class="si">{</span><span class="n">weight_fpath</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">f"[io] Successfully saved model."</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"[io] Successfully saved model."</span><span class="p">)</span>
 
     <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="kn">import</span> <span class="nn">warnings</span>
-        <span class="n">warnings</span><span class="p">.</span><span class="n">warn</span><span class="p">(</span><span class="s">f"ERROR SAVING: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="p">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s">"ERROR SAVING: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">return_fpaths</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">model_fpath</span><span class="p">,</span> <span class="n">weight_fpath</span>
 
@@ -1348,7 +1348,7 @@ None</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">build_model</span><span class="p">(</span><span class="n">SHAPES</span><span class="p">,</span><span class="n">filter_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dropout</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span> 
     <span class="n">vars_</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">f'[i] MODEL BUILT USING:</span><span class="se">\n\t</span><span class="si">{</span><span class="n">vars_</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[i] MODEL BUILT USING:</span><span class="se">\n\t</span><span class="si">{</span><span class="n">vars_</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
     <span class="c1"># Part 1 - Building the CNN
 </span>
     <span class="c1"># Importing the Keras libraries and packages
@@ -1399,7 +1399,7 @@ None</p>
                             <span class="n">epochs</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">validation_steps</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
                             <span class="n">workers</span><span class="o">=-</span><span class="mi">1</span><span class="p">)):</span>
     <span class="nb">vars</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">f'[i] Training model using</span><span class="se">\n\t</span><span class="si">{</span><span class="nb">vars</span><span class="si">}</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[i] Training model using</span><span class="se">\n\t</span><span class="si">{</span><span class="nb">vars</span><span class="si">}</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
     <span class="n">clock</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
     
     <span class="n">history_</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">training_set</span><span class="p">,</span>
@@ -1513,14 +1513,14 @@ accuracy                           0.60        10    macro avg       0.62      0
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## To save to Gdrive, must first chdir to My Drive (so there's no spaces in fpath)
 </span><span class="n">curdir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">curdir</span><span class="p">)</span>
 
-<span class="n">main_folder</span> <span class="o">=</span><span class="s">r'/gdrive/My Drive/Colab Notebooks/starskope'</span>
+<span class="n">main_folder</span> <span class="o">=</span><span class="sa">r</span><span class="s">'/gdrive/My Drive/Colab Notebooks/starskope'</span>
 <span class="n">model_subfolder</span> <span class="o">=</span> <span class="s">'data/models/planet_vs_neg/'</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">main_folder</span><span class="p">)</span>
     <span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_subfolder</span><span class="p">,</span><span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">f'ERROR: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'ERROR: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
 <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">model_subfolder</span><span class="p">)</span>
 </code></pre></div></div>
 

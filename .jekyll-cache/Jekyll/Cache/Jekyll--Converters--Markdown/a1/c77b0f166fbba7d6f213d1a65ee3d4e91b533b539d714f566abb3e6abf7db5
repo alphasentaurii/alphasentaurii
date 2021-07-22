@@ -1,4 +1,4 @@
-I"”'<p>A <code class="language-plaintext highlighter-rouge">supervised machine learning feature classification</code> project that uses <code class="language-plaintext highlighter-rouge">Decision Trees and XGBoost</code> to <code class="language-plaintext highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
+I"Ä'<p>A <code class="language-plaintext highlighter-rouge">supervised machine learning feature classification</code> project that uses <code class="language-plaintext highlighter-rouge">Decision Trees and XGBoost</code> to <code class="language-plaintext highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
 
 <h2 id="pulsars">Pulsars</h2>
 
@@ -1247,7 +1247,7 @@ Optimal value for test data is 5.
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s">"coefficients"</span><span class="p">]):</span>
                 <span class="n">ax</span><span class="p">.</span><span class="n">text</span><span class="p">(.</span><span class="mi">011</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">weight</span> <span class="o">=</span> <span class="s">"bold"</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">f"</span><span class="si">{</span><span class="mi">0</span><span class="si">}</span><span class="s"> has no coef argument"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">algorithm</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="mi">0</span><span class="si">}</span><span class="s"> has no coef argument"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">algorithm</span><span class="p">))</span>
             
 
 </code></pre></div></div>
@@ -1710,7 +1710,7 @@ dtype: float32
 <span class="n">xgb_cv_score</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">xgb_clf</span><span class="p">,</span> <span class="n">X_train_transformed</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">mean_xgb_cv_score</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">xgb_cv_score</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">f"Mean Cross Validation Score: </span><span class="si">{</span><span class="n">mean_xgb_cv_score</span> <span class="p">:.</span><span class="mi">2</span><span class="o">%</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Mean Cross Validation Score: </span><span class="si">{</span><span class="n">mean_xgb_cv_score</span> <span class="p">:.</span><span class="mi">2</span><span class="o">%</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mean Cross Validation Score: 98.02%

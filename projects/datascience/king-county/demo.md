@@ -7,10 +7,10 @@ title:  "Predicting Home Values Project Demo"
 
 The goal of this data science project was to identify a strategy for increasing the sale price or property value of a home in King County, Washington.
 
-<div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;">
+<!-- <div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;">
 <iframe src="https://player.vimeo.com/video/371786438" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts"></iframe>
     <br /><br />
-</div>
+</div> -->
 
 ## Dataset
 

@@ -3,7 +3,8 @@ layout: post
 title:  "Tensorflow Deep Learning on AWS EC2"
 date:   2020-08-08  08:08:08 -1800
 categories: datascience
-tags: aws, tensorflow, deep learning, tutorial
+tags: aws tensorflow deep-learning tutorial
+author: Ru Keïn
 ---
 
 Configure `AWS Deep Learning` EC2 Container image for `TensorFlow` model training on a `CPU instance` with `Python 3.6` and run a machine learning model.

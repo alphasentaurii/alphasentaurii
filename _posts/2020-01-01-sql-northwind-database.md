@@ -3,7 +3,8 @@ layout: post
 title:  "SQL Northwind Database"
 date:   2020-01-01 01:01:01 -1800
 categories: datascience
-tags: sql, statistics, project
+tags: sql statistics project python
+author: Ru Keïn
 ---
 
 The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `hypothesis testing` in order to `recommend business strategies` for increasing sales and reducing costs for the fictitious "Northwind" company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.

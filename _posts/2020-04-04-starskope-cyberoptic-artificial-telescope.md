@@ -3,7 +3,8 @@ layout: post
 title:  "STARSKØPE: Cyberoptic Artificial Telescope"
 date:   2020-04-04 04:04:04 -1111
 categories: datascience
-tags: astrophysics, project, machine learning, ai, neural networks
+tags: astrophysics project machine-learning AI neural-networks starskope astronomy
+author: Ru Keïn
 ---
 
 > "Mathematicians [...] are often led astray when 'studying' physics because they lose sight of the physics. They say: *'Look, these differential equations--the Maxwell equations--are all there is to electrodynamics; it is admitted by the physicists that there is nothing which is not contained in the equations. The equations are complicated, but after all they are only mathematical equations and if I understand them mathematically inside out, I will understand the physics inside out.'* Only it doesn't work that way. Mathematicians who study physics with that point of view--and there have been many of them--usually make little contribution to physics and, in fact, little to mathematics. They fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations."

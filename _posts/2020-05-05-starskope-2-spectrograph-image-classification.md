@@ -3,7 +3,8 @@ layout: post
 title:  "Starskøpe 2: Spectrograph Image Classification"
 date:   2020-05-05 05:05:05 -1111
 categories: datascience
-tags: astrophysics, project, computer vision, neural networks
+tags: astrophysics project computer-vision neural-networks spectroscopy
+author: Ru Keïn
 ---
 
 For the next phase of the Starskøpe planet hunting project, I used `Google Colabs` to generate spectrograph images of the same star flux signals dataset from Kaggle. Due to memory constraints, I started out by only using a portion of this already small dataset as a test round. I ran the images through a `Keras 2D Convolutional Network` using Tensorflow, similar to the 1D CNN I built in the first phase of the project. The accuracy score was lower (0.86 vs .99), but this was to be expected due to the constraints of the dataset. 

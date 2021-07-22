@@ -3,7 +3,8 @@ layout: post
 title:  "Predicting Home Values"
 date:   2019-12-12 12:12:12 -0800
 categories: datascience
-tags: multiple-linear-regression, project
+tags: project linear-regression feature-selection python
+author: Ru Keïn
 ---
 
 Ask any realtor what are the top 3 most important variables for measuring property value, and they will all say the same thing: 1) location, 2) location, and 3) location. I asked a friend who has been doing real estate for about 20 years (we'll call her "Mom") what other factors besides location tend to have some impact and she mentioned the following:

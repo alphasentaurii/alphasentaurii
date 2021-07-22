@@ -3,7 +3,8 @@ layout: post
 title:  "Digdag PostgreSQL Tutorial"
 date:   2020-07-06 07:07:07 -1800
 categories: programming
-tags: postgresql, tutorial
+tags: postgresql tutorial
+author: Ru Keïn
 ---
 
 The `Digdag Postgres` project demonstrates how to use `SQL queries` with `digdag` and `embulk` open source libraries for automation of ingesting and analyzing data using a PostgreSQL database.

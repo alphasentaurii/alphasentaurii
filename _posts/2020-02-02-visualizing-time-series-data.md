@@ -3,7 +3,8 @@ layout: post
 title:  "Visualizing Time Series Data"
 date:   2020-02-02 02:02:02 -0800
 categories: datascience
-tags: timeseries, project, forecasting, statistics
+tags: timeseries project forecasting statistics python
+author: Ru Keïn
 ---
 
 `Time Series Forecasting with SARIMAX and Gridsearch` is a `housing market prediction model` that uses `seasonal ARIMA time-series analysis and GridsearchCV` to `recommend the top 5 zip codes` for purchasing a single-family home in Westchester, New York. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels. 

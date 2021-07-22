@@ -1,8 +1,0 @@
-I"7<p>spacekit.Transformer: tools for converting and preprocessing signals as numpy arrays</p>
-<ul>
-  <li>hypersonic_pliers:</li>
-  <li>thermo_fusion_chisel:</li>
-  <li>babel_fish_dispenser: adds a 1D uniform noise filter using timesteps</li>
-  <li>fast_fourier: fast fourier transform utility function</li>
-</ul>
-:ET

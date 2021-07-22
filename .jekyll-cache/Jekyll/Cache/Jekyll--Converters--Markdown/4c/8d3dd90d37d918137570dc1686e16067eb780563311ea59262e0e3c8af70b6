@@ -1,4 +1,4 @@
-I"�/<h2 id="project-demo-northwind-sql-database">PROJECT DEMO: Northwind SQL Database</h2>
+I"D0<h2 id="project-demo-northwind-sql-database">PROJECT DEMO: Northwind SQL Database</h2>
 
 <p>The <code class="language-plaintext highlighter-rouge">Northwind SQL Database Project</code> demonstrates how to use <code class="language-plaintext highlighter-rouge">SQL queries</code> and <code class="language-plaintext highlighter-rouge">hypothesis testing</code> in order to <code class="language-plaintext highlighter-rouge">recommend business strategies</code> for increasing sales and reducing costs for the fictitious “Northwind” company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.</p>
 
@@ -180,7 +180,7 @@
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># function for converting tables into dataframes on the fly
 </span><span class="k">def</span> <span class="nf">get_table</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
-    <span class="n">cur</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">f"SELECT * from </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s">;"</span><span class="p">)</span>
+    <span class="n">cur</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s">"SELECT * from </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s">;"</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cur</span><span class="p">.</span><span class="n">fetchall</span><span class="p">())</span>
     <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">cur</span><span class="p">.</span><span class="n">description</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">df</span>
@@ -1884,7 +1884,7 @@ Name: ShipCountry, dtype: int64
     <span class="k">try</span><span class="p">:</span>
         <span class="n">grp0</span> <span class="o">=</span> <span class="n">df_countries</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">groupby</span><span class="p">(</span><span class="s">'discounted'</span><span class="p">).</span><span class="n">get_group</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="s">'Quantity'</span><span class="p">]</span>
         <span class="n">grp1</span> <span class="o">=</span> <span class="n">df_countries</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">groupby</span><span class="p">(</span><span class="s">'discounted'</span><span class="p">).</span><span class="n">get_group</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="s">'Quantity'</span><span class="p">]</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f"</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
         
         <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="n">stat</span>
 
@@ -1899,11 +1899,11 @@ Name: ShipCountry, dtype: int64
         <span class="n">result</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">grp0</span><span class="p">,</span><span class="n">grp1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
             <span class="n">stat_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">f"</span><span class="se">\n</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s"> PREFERS DISCOUNTS!"</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s"> PREFERS DISCOUNTS!"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">continue</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f"</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s"> does not contain one of the groups."</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s"> does not contain one of the groups."</span><span class="p">)</span>
 <span class="n">stat_dict</span>
 </code></pre></div></div>
 
@@ -2142,7 +2142,7 @@ Venezuela
     </tbody></table>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># calculate ttest_ind p-values and significance for individual countries
-</span><span class="k">print</span><span class="p">(</span><span class="s">f"</span><span class="se">\n</span><span class="s"> Countries with p-values &lt; 0.05 - Null Hypothesis Rejected:"</span><span class="p">)</span>
+</span><span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s"> Countries with p-values &lt; 0.05 - Null Hypothesis Rejected:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">.</span><span class="n">items</span><span class="p">():</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">grp0</span> <span class="o">=</span> <span class="n">df_countries</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">groupby</span><span class="p">(</span><span class="s">'discounted'</span><span class="p">).</span><span class="n">get_group</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="s">'Quantity'</span><span class="p">]</span>
@@ -2150,7 +2150,7 @@ Venezuela
         <span class="n">result</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">grp0</span><span class="p">,</span><span class="n">grp1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
             
-            <span class="k">print</span><span class="p">(</span><span class="s">f"</span><span class="se">\n\t</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nb">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n\t</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nb">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">continue</span>
     <span class="k">except</span><span class="p">:</span>
