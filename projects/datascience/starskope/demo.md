@@ -6,9 +6,7 @@ title: Starskøpe Project Demo
 ## Starskøpe Project Demo
 
 The main vision for `STARSKØPE` is to build a model that is not limited to analyzing data from just one telescope, but multiple telescopes. The question is: can we use machine learning to break the barriers of time and space that limit astrophysical object classification to just one telescope, or one campaign? _Where *Telescopic becomes cyberoptic*, and human intelligence is extended by artificial intelligence._
-<!-- 
-<div>
-<iframe src="https://player.vimeo.com/video/401277721" width="640" height="319" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div> -->
+
 
 ## Behind-the-Scenes
 

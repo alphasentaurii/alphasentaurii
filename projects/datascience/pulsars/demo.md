@@ -7,10 +7,6 @@ title: Detecting Dead Stars Project Demo
 
 This is a `supervised machine learning feature classification project` that uses `Decision Trees and XGBoost` to `predict and classify signals as either a pulsar or radio frequency interference (noise)`.
 
-<!-- <div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;">
-<iframe src="https://player.vimeo.com/video/389320953" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts"></iframe>
-    <br /><br />
-</div> -->
 
 ## Pulsars
 

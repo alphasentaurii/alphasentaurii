@@ -11,12 +11,6 @@ The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `
 <div style="background-color:white">
 <img src="https://github.com/hakkeray/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="Northwind ERD" title="Northwind ERD" width="400"/></div>
 
-<!--
-<div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;">
-<iframe src="https://player.vimeo.com/video/389320953" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts"></iframe>
-    <br /><br />
-</div>
--->
 
 ## Hypothesis Testing
 

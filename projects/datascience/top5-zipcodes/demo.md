@@ -11,10 +11,6 @@ Top Five Zip Codes is a `housing market prediction model` that uses `seasonal AR
 
 To see the dashboard in action, go to [RealtyRabbit](https://realty-rabbit.herokuapp.com/).
 
-<!-- # Video 
-
-<div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;"><iframe src="https://player.vimeo.com/video/384921005" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-</div> -->
 
 ## Business Case
 

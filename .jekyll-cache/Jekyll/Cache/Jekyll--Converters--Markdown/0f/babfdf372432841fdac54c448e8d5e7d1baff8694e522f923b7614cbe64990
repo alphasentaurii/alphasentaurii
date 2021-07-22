@@ -1,15 +1,10 @@
-I"Â<h1 id="project-demo-top-5-zip-codes">PROJECT DEMO: Top 5 Zip Codes</h1>
+I"´<h1 id="project-demo-top-5-zip-codes">PROJECT DEMO: Top 5 Zip Codes</h1>
 
 <p>Top Five Zip Codes is a <code class="language-plaintext highlighter-rouge">housing market prediction model</code> that uses <code class="language-plaintext highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="language-plaintext highlighter-rouge">recommend the top 5 zip codes for purchasing a single-family home in Westchester, New York</code>.</p>
 
 <h1 id="interactive-dashboard">Interactive Dashboard:</h1>
 
 <p>To see the dashboard in action, go to <a href="https://realty-rabbit.herokuapp.com/">RealtyRabbit</a>.</p>
-
-<!-- # Video 
-
-<div style="display:block; text-align:center; clear:both; position:relative; z-index:9999;"><iframe src="https://player.vimeo.com/video/384921005" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-</div> -->
 
 <h2 id="business-case">Business Case</h2>
 
