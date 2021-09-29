@@ -1,4 +1,4 @@
-I"<h2 id="project-demo-detecting-dead-stars-in-deep-space">PROJECT DEMO: Detecting Dead Stars in Deep Space</h2>
+I"<h2 id="project-demo-detecting-dead-stars-in-deep-space">PROJECT DEMO: Detecting Dead Stars in Deep Space</h2>
 
 <p>This is a <code class="language-plaintext highlighter-rouge">supervised machine learning feature classification project</code> that uses <code class="language-plaintext highlighter-rouge">Decision Trees and XGBoost</code> to <code class="language-plaintext highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
 
@@ -104,7 +104,7 @@
 
 <h2 id="code">CODE</h2>
 
-<p><a href="https://github.com/hakkeray/detecting-dead-stars-in-deep-space">github repo</a></p>
+<p><a href="https://github.com/alphasentaurii/detecting-dead-stars-in-deep-space">github repo</a></p>
 
 <h2 id="contact">CONTACT</h2>
 

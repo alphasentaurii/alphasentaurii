@@ -33,7 +33,7 @@ To run this project locally, follow these steps:
 * In the command line/terminal:
 
 ```
-$ git clone https://github.com/hakkeray/timeseries-forecasting-with-sarimax-and-gridsearch
+$ git clone https://github.com/alphasentaurii/timeseries-forecasting-with-sarimax-and-gridsearch
 $ cd timeseries-forecasting-with-sarimax-and-gridsearch
 $ jupyter notebook
 ```

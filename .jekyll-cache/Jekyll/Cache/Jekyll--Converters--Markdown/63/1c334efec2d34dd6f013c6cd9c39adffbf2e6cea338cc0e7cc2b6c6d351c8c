@@ -1,4 +1,4 @@
-I"�=<blockquote>
+I"�=<blockquote>
   <p>“Mathematicians […] are often led astray when ‘studying’ physics because they lose sight of the physics. They say: <em>‘Look, these differential equations–the Maxwell equations–are all there is to electrodynamics; it is admitted by the physicists that there is nothing which is not contained in the equations. The equations are complicated, but after all they are only mathematical equations and if I understand them mathematically inside out, I will understand the physics inside out.’</em> Only it doesn’t work that way. Mathematicians who study physics with that point of view–and there have been many of them–usually make little contribution to physics and, in fact, little to mathematics. They fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations.”
 <strong>-Richard Feynman, <em>The Feynman Lectures on Physics: Volume 2</em>, Chapter 2-1: “Differential Calculus of Vector Fields”</strong></p>
 </blockquote>
@@ -96,7 +96,7 @@ copyright: NASA</p>
 
 <h2 id="model">Model</h2>
 
-<p>The baseline model I started with is a convolutional neural network using the <code class="language-plaintext highlighter-rouge">Keras API</code> in a <code class="language-plaintext highlighter-rouge">sci-kit learn</code>-esque wrapper. All the functions used in this project (as well as the extended Starskøpe project) are included in a python (PyPi) package I wrote called <code class="language-plaintext highlighter-rouge">spacekit</code>, and you can check out my repo <a href="https://github.com/hakkeray/spacekit">spacekit</a> to view the source code.</p>
+<p>The baseline model I started with is a convolutional neural network using the <code class="language-plaintext highlighter-rouge">Keras API</code> in a <code class="language-plaintext highlighter-rouge">sci-kit learn</code>-esque wrapper. All the functions used in this project (as well as the extended Starskøpe project) are included in a python (PyPi) package I wrote called <code class="language-plaintext highlighter-rouge">spacekit</code>, and you can check out my repo <a href="https://github.com/alphasentaurii/spacekit">spacekit</a> to view the source code.</p>
 
 <div>
 <img src="/assets/images/starskope/output_96_3" alt="Training Accuracy and Loss" title="Training Accuracy and Loss" width="400" />

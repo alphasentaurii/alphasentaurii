@@ -1,4 +1,4 @@
-I"ŒL<ul>
+I"ï¿½L<ul>
   <li>Create a notebook instance</li>
   <li>Prepare the data</li>
   <li>Train the model to learn from the data</li>
@@ -293,7 +293,7 @@ installer: The <span class="nb">install </span>was successful.
 <span class="c"># verify installation</span>
 <span class="nv">$ </span>which aws
 /usr/local/bin/aws <span class="c"># Mojave</span>
-/Users/hakkeray/.local/bin/aws <span class="c"># Sierra</span>
+/Users/alphasentaurii/.local/bin/aws <span class="c"># Sierra</span>
 
 <span class="c"># check version</span>
 <span class="nv">$ </span>aws <span class="nt">--version</span>

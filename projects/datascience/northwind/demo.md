@@ -9,7 +9,7 @@ The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `
 
 
 <div style="background-color:white">
-<img src="https://github.com/hakkeray/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="Northwind ERD" title="Northwind ERD" width="400"/></div>
+<img src="https://github.com/alphasentaurii/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="Northwind ERD" title="Northwind ERD" width="400"/></div>
 
 
 ## Hypothesis Testing
@@ -1764,7 +1764,7 @@ df_country = df_orderDetail.merge(df_order, on='OrderId', copy=True)
 
 
 ```python
-fs.ft.hakkeray.hot_stats(df_country, 'ShipCountry')
+fs.ft.alphasentaurii.hot_stats(df_country, 'ShipCountry')
 ```
 
     -------->
@@ -2245,9 +2245,9 @@ model = ols("Quantity~C(discounted)+C(ShipCountry)+C(discounted):C(ShipCountry)"
 anova_table = sm.stats.anova_lm(model, typ=2)
 ```
 
-    /Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
+    /Users/alphasentaurii/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
       'rank is %d' % (J, J_), ValueWarning)
-    /Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
+    /Users/alphasentaurii/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
       'rank is %d' % (J, J_), ValueWarning)
 
 

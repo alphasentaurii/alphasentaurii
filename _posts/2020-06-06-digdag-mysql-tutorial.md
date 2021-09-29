@@ -16,8 +16,8 @@ Embulk and Digdag are open source libraries for data ingestion and data pipeline
 
 The `Digdag` project demonstrates how to use `SQL queries` with `digdag` and `embulk` open source libraries for ingesting and analyzing data. We'll load a MySQL database from CSV files and perform data analysis using automated workflows with digdag via SQL queries.
 
-![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/digdag-mysql)
-![GitHub license](https://img.shields.io/github/license/hakkeray/digdag-mysql?color=black)
+![GitHub repo size](https://img.shields.io/github/repo-size/alphasentaurii/digdag-mysql)
+![GitHub license](https://img.shields.io/github/license/alphasentaurii/digdag-mysql?color=black)
 
 ## Prerequisites
 
@@ -526,8 +526,8 @@ If you want to contact me you can reach me at rukeine@gmail.com.
 
 # License
 This project uses the following license: MIT License.
-#         _ __ _   _
-#  /\_/\ | '__| | | |
-#  [===] | |  | |_| |
-#   \./  |_|   \__,_|
+         _ __ _   _
+  /\_/\ | '__| | | |
+  [===] | |  | |_| |
+   \./  |_|   \__,_|
 

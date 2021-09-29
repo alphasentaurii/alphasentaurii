@@ -1,4 +1,4 @@
-I"ò<p><code class="language-plaintext highlighter-rouge">Time Series Forecasting with SARIMAX and Gridsearch</code> is a <code class="language-plaintext highlighter-rouge">housing market prediction model</code> that uses <code class="language-plaintext highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="language-plaintext highlighter-rouge">recommend the top 5 zip codes</code> for purchasing a single-family home in Westchester, New York. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels.</p>
+I"ò<p><code class="language-plaintext highlighter-rouge">Time Series Forecasting with SARIMAX and Gridsearch</code> is a <code class="language-plaintext highlighter-rouge">housing market prediction model</code> that uses <code class="language-plaintext highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="language-plaintext highlighter-rouge">recommend the top 5 zip codes</code> for purchasing a single-family home in Westchester, New York. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels.</p>
 
 <h2 id="making-forecast-predictions-by-zip-code">Making Forecast Predictions by Zip Code</h2>
 
@@ -26,7 +26,7 @@
   <li>In the command line/terminal:</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/hakkeray/timeseries-forecasting-with-sarimax-and-gridsearch
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/alphasentaurii/timeseries-forecasting-with-sarimax-and-gridsearch
 $ cd timeseries-forecasting-with-sarimax-and-gridsearch
 $ jupyter notebook
 </code></pre></div></div>

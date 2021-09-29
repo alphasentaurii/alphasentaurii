@@ -1,10 +1,36 @@
-I"
-/<h2 id="project-demo-northwind-sql-database">PROJECT DEMO: Northwind SQL Database</h2>
+I"})<p>The <code class="language-plaintext highlighter-rouge">Northwind SQL Database Project</code> demonstrates how to use <code class="language-plaintext highlighter-rouge">SQL queries</code> and <code class="language-plaintext highlighter-rouge">hypothesis testing</code> in order to <code class="language-plaintext highlighter-rouge">recommend business strategies</code> for increasing sales and reducing costs for the fictitious “Northwind” company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.</p>
 
-<p>The <code class="language-plaintext highlighter-rouge">Northwind SQL Database Project</code> demonstrates how to use <code class="language-plaintext highlighter-rouge">SQL queries</code> and <code class="language-plaintext highlighter-rouge">hypothesis testing</code> in order to <code class="language-plaintext highlighter-rouge">recommend business strategies</code> for increasing sales and reducing costs for the fictitious “Northwind” company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.</p>
+<p><img src="https://img.shields.io/github/repo-size/alphasentaurii/northwind-sql-database-project" alt="GitHub repo size" />
+<img src="https://img.shields.io/github/license/alphasentaurii/northwind-sql-database-project?color=black" alt="GitHub license" /></p>
 
-<div style="background-color:white">
-<img src="https://github.com/hakkeray/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="Northwind ERD" title="Northwind ERD" width="400" /></div>
+<p><img src="https://github.com/alphasentaurii/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="northwind" /></p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>Before you begin, ensure you have met the following requirements:</p>
+
+<ul>
+  <li>You have installed the latest version of <code class="language-plaintext highlighter-rouge">Jupyter Notebook</code></li>
+  <li>You have a <code class="language-plaintext highlighter-rouge">&lt;Windows/Linux/Mac&gt;</code> machine.</li>
+</ul>
+
+<h3 id="fsds---standard-data-science-tools">FSDS - standard data science tools</h3>
+
+<p>You can do a quick install of all the standard data science libraries (matplotlib, pandas, etc) using the FSDS pypi package from <code class="language-plaintext highlighter-rouge">James Irving</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install</span> <span class="nt">-U</span> fsds_100719
+</code></pre></div></div>
+
+<h2 id="running-the-northwind-sql-database-project">Running the Northwind SQL Database Project</h2>
+
+<p>To run this project locally, follow these steps:</p>
+
+<p>In the command line/terminal:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/alphasentaurii/northwind-sql-database-project
+<span class="nb">cd </span>northwind-sql-database-project
+jupyter notebook
+</code></pre></div></div>
 
 <h2 id="hypothesis-testing">Hypothesis Testing</h2>
 
@@ -412,9 +438,7 @@ Name: discounted, dtype: int64
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Distribution of Full Price vs Discount Order Quantity')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_25_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_25_1.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">gca</span><span class="p">()</span>
@@ -425,9 +449,7 @@ Name: discounted, dtype: int64
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Discount Levels and Order Qty')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_26_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_26_1.png" alt="png" /></p>
 
 <p>We can already see that there is a clear relationship between order quantity and specific discount levels before running any statistical tests. However, what is more interesting to note from the visualization above is that the discount levels that DO have an effect appear to be very similar as far as the mean order quantity. The indication is that discount amount produces diminishing returns (offering a discount higher than 5% - the minimum effective amount - does not actually produce higher order quantity which means we are losing revenue we would have otherwise captured).</p>
 
@@ -447,9 +469,7 @@ Name: discounted, dtype: int64
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Order Quantity Sample Sizes: Full Price vs Discount')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_30_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_30_1.png" alt="png" /></p>
 
 <h3 id="normality-test">Normality Test</h3>
 <p>Check assumptions of normality and homogeneity of variance</p>
@@ -1081,9 +1101,7 @@ Name: discounted, dtype: int64
 <span class="n">results</span><span class="p">.</span><span class="n">plot_simultaneous</span><span class="p">(</span><span class="n">comparison_name</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s">'Order Quantity'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Discount Level'</span><span class="p">);</span>
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_38_0.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_38_0.png" alt="png" /></p>
 
 <h3 id="effect-size">Effect Size</h3>
 <p>Calculate effect size using Cohen’s D as well as any post-hoc tests.</p>
@@ -1710,7 +1728,7 @@ Avg Forfeited Per Order $ 686.6359418070444
 
 <h3 id="explore-1">Explore</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fs</span><span class="p">.</span><span class="n">ft</span><span class="p">.</span><span class="n">hakkeray</span><span class="p">.</span><span class="n">hot_stats</span><span class="p">(</span><span class="n">df_country</span><span class="p">,</span> <span class="s">'ShipCountry'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fs</span><span class="p">.</span><span class="n">ft</span><span class="p">.</span><span class="n">alphasentaurii</span><span class="p">.</span><span class="n">hot_stats</span><span class="p">(</span><span class="n">df_country</span><span class="p">,</span> <span class="s">'ShipCountry'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------&gt;
@@ -1905,133 +1923,97 @@ Name: ShipCountry, dtype: int64
 Austria
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_1.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Belgium
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_3.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_3.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Brazil
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_5.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_5.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Canada
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_7.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_7.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Canada PREFERS DISCOUNTS!
 Denmark
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_9.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_9.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Finland
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_11.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_11.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>France
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_13.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_13.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Germany
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_15.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_15.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ireland
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_17.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_17.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Italy
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_19.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_19.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mexico
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_21.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_21.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Norway PREFERS DISCOUNTS!
 Portugal
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_23.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_23.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Spain
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_25.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_25.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Spain PREFERS DISCOUNTS!
 Sweden
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_27.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_27.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Switzerland
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_29.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_29.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UK
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_31.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_31.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UK PREFERS DISCOUNTS!
 USA
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_33.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_33.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USA PREFERS DISCOUNTS!
 Venezuela
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_64_35.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_64_35.png" alt="png" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Canada': 0.0010297982736886485,
  'Norway': 0.04480094051665529,
@@ -2063,9 +2045,7 @@ Venezuela
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.legend.Legend at 0x1a25ab2978&gt;
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_67_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_67_1.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Test for normality - D'Agostino-Pearson's normality test: scipy.stats.normaltest
 </span><span class="n">stat</span><span class="p">.</span><span class="n">normaltest</span><span class="p">(</span><span class="n">grp0</span><span class="p">),</span> <span class="n">stat</span><span class="p">.</span><span class="n">normaltest</span><span class="p">(</span><span class="n">grp1</span><span class="p">)</span>
@@ -2092,9 +2072,9 @@ Venezuela
 <span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">stats</span><span class="p">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/alphasentaurii/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
   'rank is %d' % (J, J_), ValueWarning)
-/Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
+/Users/alphasentaurii/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
   'rank is %d' % (J, J_), ValueWarning)
 </code></pre></div></div>
 
@@ -2189,9 +2169,7 @@ USA: 0.0199
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Discount Order Quantity by Country')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_76_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_76_1.png" alt="png" /></p>
 
 <h3 id="effect-size-1">Effect Size</h3>
 
@@ -2308,9 +2286,7 @@ USA: 0.0199
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Order Quantity by Country: Fullprice vs Discount Orders')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_81_2.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_81_2.png" alt="png" /></p>
 
 <p>According to the plot above, the actual number of discounted orders is lower than the number of full price orders. Let’s compare the sum of quantities for these orders in each group.</p>
 
@@ -2418,9 +2394,7 @@ USA: 0.0199
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Count of Fullprice vs Discount Orders by Country')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_83_2.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_83_2.png" alt="png" /></p>
 
 <p>This still doesn’t tell us much about whether or not these countries prefer discounts (tend to order more products) or not - in order to get better insight, we need to look at the average order size (mean quantities per order) for each group.</p>
 
@@ -2531,9 +2505,7 @@ USA: 0.0199
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Order Quantity by Country: Fullprice vs Discount')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_85_2.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_85_2.png" alt="png" /></p>
 
 <p>The above plots indicate that when a discount is offered, certain countries order higher quantities of products. Let’s look at the values to determine what percentage more they purchase when an order is discounted.</p>
 
@@ -2545,9 +2517,7 @@ USA: 0.0199
 
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_87_0.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_87_0.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">q1</span> <span class="o">=</span> <span class="s">"SELECT ShipCountry, Count(*) as OrderCount from df_countries where discounted = 0 group by 1;"</span>
 <span class="n">q2</span> <span class="o">=</span> <span class="s">"SELECT ShipCountry, Count(*) as OrderCount from df_countries where discounted = 1 group by 1;"</span>
@@ -2570,9 +2540,7 @@ USA: 0.0199
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Order Count by Country')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_88_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_88_1.png" alt="png" /></p>
 
 <h2 id="results">Results</h2>
 
@@ -2926,13 +2894,9 @@ JOIN OrderDetail od USING(OrderId);"""</span><span class="p">)</span>
 <span class="n">fig</span><span class="p">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">);</span>
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_104_0.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_104_0.png" alt="png" /></p>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_104_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_104_1.png" alt="png" /></p>
 
 <p>The graphs show that Western Europe is the region with the greatest number of orders, and also has the greatest total revenue. However, North America has the most expensive order on average (followed by Western Europe). Southern and Eastern Europe has the lowest number of orders, lowest total revenue, and cheapest order on average. The third graph lent support to the alternate hypothesis that there are significant differences in average order revenue between regions.</p>
 
@@ -2952,9 +2916,7 @@ JOIN OrderDetail od USING(OrderId);"""</span><span class="p">)</span>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Average Order Revenue by Region')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_108_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_108_1.png" alt="png" /></p>
 
 <h3 id="normality">Normality</h3>
 
@@ -3231,9 +3193,7 @@ JOIN OrderDetail od USING(OrderId);"""</span><span class="p">)</span>
     <span class="n">ax</span><span class="p">.</span><span class="n">set_label</span><span class="p">(</span><span class="s">'Revenue per Order (log-transformed)'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_118_0.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_118_0.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The data is more normally distributed, and variances from the mean were more similar. 
 # run an ANOVA test:
@@ -4018,9 +3978,7 @@ Name: OrderDate, dtype: datetime64[ns]
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Monthly Order Qty')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_136_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_136_1.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="p">.</span><span class="n">set_style</span><span class="p">(</span><span class="s">"whitegrid"</span><span class="p">)</span>
 <span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="p">.</span><span class="n">figure_format</span><span class="o">=</span><span class="s">'retina'</span>
@@ -4040,9 +3998,7 @@ Name: OrderDate, dtype: datetime64[ns]
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'Monthly Order Qty')
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_137_1.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_137_1.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Anova Test - Season + Quantity ()
 </span>
@@ -4574,11 +4530,10 @@ Name: CategoryId, dtype: int64
     <span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div style="background-color:white">
-<img src="/assets/images/northwind/output_156_0.png" alt="" title="" width="400" />
-</div>
+<p><img src="output_156_0.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># What were the top 3 selling product categories in each region or country?
 # What were the lowest 3 selling product categories in each region or country?
 </span></code></pre></div></div>
+
 :ET

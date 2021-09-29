@@ -7,7 +7,7 @@
 * Instructor name: **James Irving, PhD**
 ---
 > Blog post URL: 
-http://www.hakkeray.com/projects/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html
+http://www.alphasentaurii.com/projects/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html
 
 > Link to video: 
 https://vimeo.com/rukein/datascience-project-1

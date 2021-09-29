@@ -166,7 +166,7 @@ For a more in-depth story about this project and some code examples, check out [
 
 ## CODE
 
-[github repo](https://github.com/hakkeray/starskope)
+[github repo](https://github.com/alphasentaurii/starskope)
 
 ## CONTACT 
 

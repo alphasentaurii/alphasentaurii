@@ -1,4 +1,4 @@
-I"�{<h1 id="digdag-mysql-tutorial">Digdag MySQL Tutorial</h1>
+I"�{<h1 id="digdag-mysql-tutorial">Digdag MySQL Tutorial</h1>
 <p>In this project, we’ll create a digdag workflow that executes an embulk script for ingesting csv files to a MySQL database. We’ll then write SQL queries to prepare and analyze the data.</p>
 
 <h2 id="about-embulk-and-digdag">About Embulk and Digdag</h2>
@@ -7,8 +7,8 @@
 
 <p>The <code class="highlighter-rouge">Digdag</code> project demonstrates how to use <code class="highlighter-rouge">SQL queries</code> with <code class="highlighter-rouge">digdag</code> and <code class="highlighter-rouge">embulk</code> open source libraries for ingesting and analyzing data. We’ll load a MySQL database from CSV files and perform data analysis using automated workflows with digdag via SQL queries.</p>
 
-<p><img src="https://img.shields.io/github/repo-size/hakkeray/digdag-mysql" alt="GitHub repo size" />
-<img src="https://img.shields.io/github/license/hakkeray/digdag-mysql?color=black" alt="GitHub license" /></p>
+<p><img src="https://img.shields.io/github/repo-size/alphasentaurii/digdag-mysql" alt="GitHub repo size" />
+<img src="https://img.shields.io/github/license/alphasentaurii/digdag-mysql?color=black" alt="GitHub license" /></p>
 
 <h2 id="prerequisites">Prerequisites</h2>
 

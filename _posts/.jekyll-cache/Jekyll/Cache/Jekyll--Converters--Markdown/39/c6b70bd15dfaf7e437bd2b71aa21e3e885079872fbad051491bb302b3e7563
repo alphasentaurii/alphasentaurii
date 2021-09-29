@@ -1,9 +1,9 @@
 I"$<p>The <code class="highlighter-rouge">Northwind SQL Database Project</code> demonstrates how to use <code class="highlighter-rouge">SQL queries</code> and <code class="highlighter-rouge">hypothesis testing</code> in order to <code class="highlighter-rouge">recommend business strategies</code> for increasing sales and reducing costs for the fictitious “Northwind” company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.</p>
 
-<p><img src="https://img.shields.io/github/repo-size/hakkeray/northwind-sql-database-project" alt="GitHub repo size" />
-<img src="https://img.shields.io/github/license/hakkeray/northwind-sql-database-project?color=black" alt="GitHub license" /></p>
+<p><img src="https://img.shields.io/github/repo-size/alphasentaurii/northwind-sql-database-project" alt="GitHub repo size" />
+<img src="https://img.shields.io/github/license/alphasentaurii/northwind-sql-database-project?color=black" alt="GitHub license" /></p>
 
-<p><img src="https://github.com/hakkeray/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="northwind" /></p>
+<p><img src="https://github.com/alphasentaurii/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="northwind" /></p>
 
 <h2 id="prerequisites">Prerequisites</h2>
 
@@ -27,7 +27,7 @@
 
 <p>In the command line/terminal:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/hakkeray/northwind-sql-database-project
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/alphasentaurii/northwind-sql-database-project
 <span class="nb">cd </span>northwind-sql-database-project
 jupyter notebook
 </code></pre></div></div>
@@ -1728,7 +1728,7 @@ Avg Forfeited Per Order $ 686.6359418070444
 
 <h3 id="explore-1">Explore</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fs</span><span class="p">.</span><span class="n">ft</span><span class="p">.</span><span class="n">hakkeray</span><span class="p">.</span><span class="n">hot_stats</span><span class="p">(</span><span class="n">df_country</span><span class="p">,</span> <span class="s">'ShipCountry'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fs</span><span class="p">.</span><span class="n">ft</span><span class="p">.</span><span class="n">alphasentaurii</span><span class="p">.</span><span class="n">hot_stats</span><span class="p">(</span><span class="n">df_country</span><span class="p">,</span> <span class="s">'ShipCountry'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------&gt;
@@ -2072,9 +2072,9 @@ Venezuela
 <span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">stats</span><span class="p">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/alphasentaurii/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
   'rank is %d' % (J, J_), ValueWarning)
-/Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
+/Users/alphasentaurii/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
   'rank is %d' % (J, J_), ValueWarning)
 </code></pre></div></div>
 

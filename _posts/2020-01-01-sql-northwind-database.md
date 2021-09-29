@@ -9,10 +9,10 @@ author: Ru Keïn
 
 The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `hypothesis testing` in order to `recommend business strategies` for increasing sales and reducing costs for the fictitious "Northwind" company. The Northwind SQL database was created by Microsoft for data scientists to practice SQL queries and hypothesis testing in their analyses.
 
-![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/northwind-sql-database-project)
-![GitHub license](https://img.shields.io/github/license/hakkeray/northwind-sql-database-project?color=black)
+![GitHub repo size](https://img.shields.io/github/repo-size/alphasentaurii/northwind-sql-database-project)
+![GitHub license](https://img.shields.io/github/license/alphasentaurii/northwind-sql-database-project?color=black)
 
-![northwind](https://github.com/hakkeray/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true)
+![northwind](https://github.com/alphasentaurii/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true)
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ To run this project locally, follow these steps:
 In the command line/terminal:
 
 ```bash
-git clone https://github.com/hakkeray/northwind-sql-database-project
+git clone https://github.com/alphasentaurii/northwind-sql-database-project
 cd northwind-sql-database-project
 jupyter notebook
 ```
@@ -1791,7 +1791,7 @@ df_country = df_orderDetail.merge(df_order, on='OrderId', copy=True)
 
 
 ```python
-fs.ft.hakkeray.hot_stats(df_country, 'ShipCountry')
+fs.ft.alphasentaurii.hot_stats(df_country, 'ShipCountry')
 ```
 
     -------->
@@ -2234,9 +2234,9 @@ model = ols("Quantity~C(discounted)+C(ShipCountry)+C(discounted):C(ShipCountry)"
 anova_table = sm.stats.anova_lm(model, typ=2)
 ```
 
-    /Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
+    /Users/alphasentaurii/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
       'rank is %d' % (J, J_), ValueWarning)
-    /Users/hakkeray/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
+    /Users/alphasentaurii/opt/anaconda3/envs/learn-env/lib/python3.6/site-packages/statsmodels/base/model.py:1752: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 20, but rank is 18
       'rank is %d' % (J, J_), ValueWarning)
 
 

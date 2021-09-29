@@ -123,7 +123,7 @@ Can we validate the accuracy of our prediction model by looking specifically at 
 
 ## Show Me The CODE
 
-[`github repo`](https://github.com/hakkeray/predicting-home-values-with-multiple-linear-regression)
+[`github repo`](https://github.com/alphasentaurii/predicting-home-values-with-multiple-linear-regression)
 
 ## CONTACT 
 <a href="mailto:rukeine@gmail.com">rukeine@gmail.com</a>

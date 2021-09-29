@@ -103,7 +103,7 @@ Moving on to XGBoost, the model scored 98% accuracy with an 89% F1 score. The mo
 
 ## CODE
 
-[github repo](https://github.com/hakkeray/detecting-dead-stars-in-deep-space)
+[github repo](https://github.com/alphasentaurii/detecting-dead-stars-in-deep-space)
 
 ## CONTACT 
 

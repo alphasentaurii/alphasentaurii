@@ -306,7 +306,7 @@ installer: The install was successful.
 # verify installation
 $ which aws
 /usr/local/bin/aws # Mojave
-/Users/hakkeray/.local/bin/aws # Sierra
+/Users/alphasentaurii/.local/bin/aws # Sierra
 
 # check version
 $ aws --version

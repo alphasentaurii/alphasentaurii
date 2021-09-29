@@ -343,14 +343,14 @@ Name: 5085, dtype: float64
                           <span class="n">y_units</span><span class="o">=</span><span class="s">'PDC_SAP Flux'</span><span class="p">,</span> <span class="n">x_units</span><span class="o">=</span><span class="s">'Time'</span><span class="p">)</span> 
 </code></pre></div></div>
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_34_0.png" /></div>
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_34_0.png" /></div>
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_34_1.png" /></div>
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_34_1.png" /></div>
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_34_2.png" /></div>
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_34_2.png" /></div>
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_34_3.png" /></div>
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_34_3.png" /></div>
 
 <h2 id="pre-processing">Pre-processing</h2>
 
@@ -518,7 +518,7 @@ Variance:  1.0
 </code></pre></div></div>
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_48_2.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_48_2.png" />
 </div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># viewed together...
@@ -526,7 +526,7 @@ Variance:  1.0
 <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rolling</span><span class="p">)</span>
 </code></pre></div></div>
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_49_1.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_49_1.png" />
 &lt;/div
 
 ## Model
@@ -1001,7 +1001,7 @@ computer.keras_history(h1)
 ```
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_80_0.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_80_0.png" />
 &lt;/div
 
 With only a few epochs, and a small learning rate, it's obvious that our training parameters have a great deal of room for improvement. This is good - we will definitely need to adjust the learning rate. If that doesn't go far enough in producing desired results, we can also try using a different optimizer such as SGD instead of Adam. For now let's look at a few other key metrics.
@@ -1097,7 +1097,7 @@ m1_fusion = computer.fusion_matrix(matrix=(y_true,y_pred),
 ```
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_84_0.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_84_0.png" />
 </div>
 
 The baseline model only managed to correctly identify 2 planets in the test set, while missing the other 3. The model incorrectly classified 215 non-TCEs as planets. 
@@ -1148,7 +1148,7 @@ m1_roc = computer.roc_plots(X_test, y_test, m1)
 ```
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_88_0.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_88_0.png" />
 </div>
 
 # `Model 2`
@@ -1357,11 +1357,11 @@ res_m2 = computer.compute(X=X_test, y=y_test, model=m2, hist=h2, preds=True,
                classes=['No Planet','Planet'],roc=True)
 ```
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_96_0.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_96_0.png" />
 </div>
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_96_1.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_96_1.png" />
 &lt;/div
     
     
@@ -1380,7 +1380,7 @@ res_m2 = computer.compute(X=X_test, y=y_test, model=m2, hist=h2, preds=True,
 
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_96_3.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_96_3.png" />
 </div>
 
 ```python
@@ -1547,10 +1547,10 @@ res_m3 = computer.compute(X=X_test, y=y_test, model=m3, hist=h3, preds=True,
 ```
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_105_0.png" /></div>
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_105_0.png" /></div>
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_105_1.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_105_1.png" />
 </div>
 
     
@@ -1569,7 +1569,7 @@ res_m3 = computer.compute(X=X_test, y=y_test, model=m3, hist=h3, preds=True,
     
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_105_3.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_105_3.png" />
 </div>
 
 It appears that increasing the learning rate did not help to improve the model's performance. While it still identified all 5 planets, it misclassified 4 non-planets as planets, two more than model 2. Let's see if we can decrease the False Positive Rate, while Maintaining the False Negative Rate at zero. We'll go back to Model 2's original learning rate of 3e-4, this time increasing the number of epochs instead.
@@ -1731,10 +1731,10 @@ res_m4 = computer.compute(X=X_test, y=y_test, model=m4, hist=h4, preds=True,
                classes=['No Planet','Planet'],roc=True)
 ```
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_113_0.png" /></div>
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_113_0.png" /></div>
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_113_1.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_113_1.png" />
 </div>
 
     
@@ -1754,7 +1754,7 @@ res_m4 = computer.compute(X=X_test, y=y_test, model=m4, hist=h4, preds=True,
 
 
 <div style="width:400px">
-<img class="img-responsive" src="http://hakkeray.com/assets/images/starskope/output_113_3.png" />
+<img class="img-responsive" src="http://alphasentaurii.com/assets/images/starskope/output_113_3.png" />
 </div>
 
 # Interpret Results

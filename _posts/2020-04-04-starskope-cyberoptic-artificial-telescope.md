@@ -94,7 +94,7 @@ Compare another two sets of flux values (blue has a transiting planet, red does 
 
 ## Model
 
-The baseline model I started with is a convolutional neural network using the `Keras API` in a `sci-kit learn`-esque wrapper. All the functions used in this project (as well as the extended Starskøpe project) are included in a python (PyPi) package I wrote called `spacekit`, and you can check out my repo [spacekit](https://github.com/hakkeray/spacekit) to view the source code. 
+The baseline model I started with is a convolutional neural network using the `Keras API` in a `sci-kit learn`-esque wrapper. All the functions used in this project (as well as the extended Starskøpe project) are included in a python (PyPi) package I wrote called `spacekit`, and you can check out my repo [spacekit](https://github.com/alphasentaurii/spacekit) to view the source code. 
 
 <div>
 <img src="/assets/images/starskope/output_96_3" alt="Training Accuracy and Loss" title="Training Accuracy and Loss" width="400"/>

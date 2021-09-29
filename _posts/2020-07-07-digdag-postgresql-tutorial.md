@@ -13,8 +13,8 @@ The `Digdag Postgres` project demonstrates how to use `SQL queries` with `digdag
 
 Embulk and Digdag are open source libraries for data ingestion and data pipeline orchestration, respectively. These libraries were invented at Treasure Data and are foundational to the Treasure Data product.
 
-![GitHub repo size](https://img.shields.io/github/repo-size/hakkeray/digdag-postgres)
-![GitHub license](https://img.shields.io/github/license/hakkeray/digdag-postgres?color=black)
+![GitHub repo size](https://img.shields.io/github/repo-size/alphasentaurii/digdag-postgres)
+![GitHub license](https://img.shields.io/github/license/alphasentaurii/digdag-postgres?color=black)
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ Before you begin, ensure you have met the following requirements:
 
 This tutorial walks you through the creation of all necessary files and folders, as well as the installation and configuration steps for the pre-requisites such as JAVA 8 and postgreSQL.
 
-The final directory structure will look like this (alternatively you can download and run the project with everything already done for you from my [digdag-postgres](https://github.com/hakkeray/digdag-postgres) repo on Github.):
+The final directory structure will look like this (alternatively you can download and run the project with everything already done for you from my [digdag-postgres](https://github.com/alphasentaurii/digdag-postgres) repo on Github.):
 
 .
 ├── README.md
@@ -545,8 +545,8 @@ If you want to contact me you can reach me at rukeine@gmail.com.
 
 # License
 This project uses the following license: MIT License.
-#         _ __ _   _
-#  /\_/\ | '__| | | |
-#  [===] | |  | |_| |
-#   \./  |_|   \__,_|
+         _ __ _   _
+  /\_/\ | '__| | | |
+  [===] | |  | |_| |
+   \./  |_|   \__,_|
 
