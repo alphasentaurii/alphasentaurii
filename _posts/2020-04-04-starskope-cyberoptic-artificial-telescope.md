@@ -28,8 +28,8 @@ Then I thought that's a bizarre task to put someone up to - not very nice of the
 
 Unfortunately (perhaps) I was able to identify all 5 planets in the test set **without any physics**. I'm still not totally convinced, but I ultimately concluded that even though the model worked, I would need to validate its accuracy by testing against a larger data set and seeing if my model still performed well. I could then compare it to a model that uses the physics, and the unique properties of the telescope, to clean and scrub the data as well as perform normalization *properly*. This is why there is a STARSKØPE 2 and 3 which you can read about in the posts following this one.
 
-<div style="max-width:100%">
-<iframe src="https://player.vimeo.com/video/401277721" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+<!-- <div style="max-width:100%">
+<iframe src="https://player.vimeo.com/video/401277721" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div> -->
 
 ## Questions
 
@@ -163,3 +163,14 @@ To continue this project, I'll take another approach for detecting exoplanets us
 In [starskope-3](/datascience/2020/06/01/starskope-3-scraping-mast-api.html) I scrape the MAST API data hosted on AWS via S3 to perform a more in-depth analysis using a physics-based machine learning model.
 
 Additional future work following this project will be to develop my "cyberoptic artificial telescope" as a machine learning driven application that any astrophysicist can use to look at a single or collection of stars and have the model classify them according not only to exoplanet predictions, but also predict what type of star it is, and other key properties that would be of interest for astrophysical science applications.
+
+
+```python
+                       
+           /\    _       _                           _                      *  
+/\_/\_____/  \__| |_____| |_________________________| |___________________*___
+[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
+ \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
+                  | /             |___/        
+                  |/   
+```

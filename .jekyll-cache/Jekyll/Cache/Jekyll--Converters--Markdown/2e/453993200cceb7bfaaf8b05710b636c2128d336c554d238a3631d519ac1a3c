@@ -1,0 +1,610 @@
+I"b�<p><code class="language-plaintext highlighter-rouge">Time Series Forecasting with SARIMAX and Gridsearch</code> is a <code class="language-plaintext highlighter-rouge">housing market prediction model</code> that uses <code class="language-plaintext highlighter-rouge">seasonal ARIMA time-series analysis and GridsearchCV</code> to <code class="language-plaintext highlighter-rouge">recommend the top 5 zip codes</code> for purchasing a single-family home in Westchester, New York. The top 5 zip code recommendations rely on the following factors: highest ROI, lowest confidence intervals, and shortest commute time from Grand Central Station. Along with several custom time series analysis helper functions I wrote for this project, I also extrapolate the USZIPCODE pypi library to account for several exogenous factors, including average income levels.</p>
+
+<h2 id="making-forecast-predictions-by-zip-code">Making Forecast Predictions by Zip Code</h2>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10605.png" alt="forecast predictions by zip code" title="Forecast Predictions by Zip Code" width="400" />
+</div>
+
+<h2 id="summary">Summary</h2>
+
+<p>Prior to training, I set out to identify trends, seasonality, and autoregression elements within the Zillow Housing Market Dataset. I then use a fitting procedure to find the coefficients of a regression model, including several plots and statistical tests of the residual errors along the way.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>Before you begin, ensure you have met the following requirements:</p>
+<ul>
+  <li>You have installed the latest version of <code class="language-plaintext highlighter-rouge">Jupyter Notebook</code></li>
+  <li>You have a <code class="language-plaintext highlighter-rouge">&lt;Windows/Linux/Mac&gt;</code> machine.</li>
+</ul>
+
+<h2 id="running-the-time-series-forecasting-with-sarimax-and-gridsearch-project">Running the Time Series Forecasting with SARIMAX and Gridsearch Project</h2>
+
+<p>To run this project locally, follow these steps:</p>
+
+<ul>
+  <li>In the command line/terminal:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/alphasentaurii/timeseries-forecasting-with-sarimax-and-gridsearch
+$ cd timeseries-forecasting-with-sarimax-and-gridsearch
+$ jupyter notebook
+</code></pre></div></div>
+
+<p>Please note that the Zillow data set contains <em>millions</em> of US Zipcodes. If you want to fork this project and follow along with some of the steps I took, you can apply the same model I did to a completely different county. The only part that you’ll need to skip (or adjust) is the Metro North railroad section, since this only applies to Westchester County, New York.</p>
+
+<h2 id="business-case">Business Case</h2>
+
+<p>Recommend top 5 zipcodes for client interested in buying a single-family home in Westchester County, NY within the next two years.</p>
+
+<h2 id="required-parameters-from-client">Required Parameters (from Client)</h2>
+
+<ol>
+  <li>Timeframe: Purchase of new home would take place within the next two years</li>
+  <li>Budget: Cost to buy not to exceed <code class="language-plaintext highlighter-rouge">800,000 USD</code> maximum</li>
+  <li>Location: Zip Code search radius restricted to Westchester County, New York</li>
+</ol>
+
+<h2 id="ideal-parameters-from-client">Ideal Parameters (from Client)</h2>
+
+<ul>
+  <li>Commute: Towns/Villages having shortest/fastest commute New York City</li>
+  <li>School District: Zip codes include towns with A/A+ school district rating</li>
+</ul>
+
+<h2 id="success-criteria-for-model">Success Criteria for Model</h2>
+
+<ol>
+  <li>Maximum ROI (highest forecasted home value increase for lowest upfront cost)</li>
+  <li>Lowest Confidence Intervals (using the prediction mean)</li>
+  <li>Risk mitigation: financial stability of homeowners and homes based on historic data</li>
+</ol>
+
+<h2 id="objective">Objective</h2>
+
+<p>Make forecast predictions for zip codes and their mean home values using Seasonal ARIMA time-series analysis.</p>
+
+<h2 id="commute-times">Commute Times</h2>
+
+<p>Since commute time to Grand Central Station is part of the client’s required criteria, I first had to look up which towns/zip codes were on which train lines. Grand Central has 3 main lines on Metro North Railroad: Hudson, Harlem, and New Haven. The first question I was interested in answering was if the average home prices for the zip codes that fall under these geographic sections display any trends.</p>
+
+<h2 id="model">Model</h2>
+
+<p>Make forecast predictions for zip codes and their mean home values using Seasonal ARIMA time-series analysis.</p>
+
+<h3 id="1-model-identification">1. Model Identification</h3>
+
+<ul>
+  <li>Plots and summary statistics</li>
+  <li>Identify trends, seasonality, and autoregression elements</li>
+  <li>Get an idea of the amount of differencing and size of lag that will be required.</li>
+</ul>
+
+<h3 id="2-parameter-estimation">2. Parameter Estimation</h3>
+
+<ul>
+  <li>Use a fitting procedure to find the coefficients of the regression model.</li>
+  <li>split data into train and test sets.</li>
+</ul>
+
+<h3 id="3-model-checking">3. Model Checking</h3>
+
+<ul>
+  <li>Plots and statistical tests of the residual errors</li>
+  <li>Determine the amount and type of temporal structure not captured by the model.</li>
+</ul>
+
+<h3 id="4-forecasting">4. Forecasting</h3>
+
+<ul>
+  <li>Input complete time-series and get prediction values</li>
+  <li>Identify top 5 zip codes based on required criteria (above).</li>
+</ul>
+
+<h2 id="workflow">Workflow</h2>
+
+<h4 id="import">IMPORT</h4>
+<ul>
+  <li>Import libraries, functions and dataset</li>
+</ul>
+
+<h4 id="preprocessing">PREPROCESSING</h4>
+<ul>
+  <li>Reshape data format (Wide to Long): <code class="language-plaintext highlighter-rouge">pd.melt()</code> function</li>
+  <li>convert datetime column to datetime objects</li>
+  <li>set datetime col to index</li>
+</ul>
+
+<h4 id="resampling">RESAMPLING</h4>
+<ul>
+  <li>Groupby state, county, cities (<code class="language-plaintext highlighter-rouge">get_groups()</code>)</li>
+  <li>filter by zipcodes in selected New York cities in Westchester County</li>
+  <li>EDA &amp; visualizations</li>
+</ul>
+
+<h4 id="parameters">PARAMETERS</h4>
+<ul>
+  <li>seasonal decomposition</li>
+  <li>decomposed residuals</li>
+  <li>plot time series</li>
+  <li>Check for stationarity</li>
+  <li>pmdarima (differencing)</li>
+</ul>
+
+<h4 id="initial-model">INITIAL MODEL</h4>
+<ul>
+  <li>Split train/test by integer index based on len(data)//test_size</li>
+  <li>Train ARIMA model</li>
+  <li>Model results/summary for each independent zipcode</li>
+</ul>
+
+<h4 id="revised-model">REVISED MODEL</h4>
+<ul>
+  <li>Seasonal Arima (SARIMA)</li>
+  <li>Exogenous Data</li>
+  <li>SARIMAX</li>
+</ul>
+
+<h4 id="forecast">FORECAST</h4>
+<ul>
+  <li>Get predictions for test set.</li>
+  <li>Get another set of predictions built off of train+test set combined.</li>
+</ul>
+
+<h4 id="interpret">INTERPRET</h4>
+<ul>
+  <li>Analyze Results</li>
+  <li>Summarize Findings</li>
+  <li>Make Recommendations</li>
+</ul>
+
+<h2 id="mean-values-by-train-line">Mean Values by Train Line</h2>
+
+<p>Since commute time to Grand Central Station is part of the client’s required criteria, I first had to look up which towns/zip codes were on which train lines. Grand Central has 3 main lines on Metro North Railroad: Hudson, Harlem, and New Haven. The first question I was interested in answering was if the average home prices for the zip codes that fall under these geographic sections display any trends.</p>
+
+<h3 id="area-plot">Area Plot</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/meanvalues_area.png" alt="Mean Values by Train Line Area Plot" title="Mean Values by Train Line Area Plot" width="400" />
+</div>
+
+<h3 id="new-haven-line">New Haven line</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/newhaven_mapTime.png" alt="New Haven Line Zip Code Timeseries" title="New Haven Line Zip Code Timeseries" width="400" />
+</div>
+
+<h4 id="note">NOTE</h4>
+
+<p>Note that the plot above <em>does not</em> include zip codes in Connecticut (which the New Haven line covers) since the client is only interested in towns in New York state.</p>
+
+<h3 id="harlem-line">Harlem Line</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/harlem_mapTime.png" alt="Harlem Line Zip Code Timeseries" title="Harlem Line Zip Code Timeseries" width="400" />
+</div>
+
+<h3 id="hudson-line">Hudson Line</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/hudson_mapTime.png" alt="Hudson Line Zip Code Timeseries" title="Hudson Line Zip Code Timeseries" width="400" />
+</div>
+
+<h2 id="custom-time-series-analysis-functions-python">Custom Time Series Analysis Functions (python)</h2>
+
+<p>Below is the <code class="language-plaintext highlighter-rouge">mapTime()</code> function I wrote for generating the timeseries plots above.</p>
+
+<h4 id="maptime"><code class="language-plaintext highlighter-rouge">mapTime()</code></h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mapTime</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">xcol</span><span class="p">,</span> <span class="n">ycol</span><span class="o">=</span><span class="s">'MeanValue'</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">vlines</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">MEAN</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="s">"""
+    'Maps' a timeseries plot of zipcodes, you can input either a dataframe
+    or a dictionary of dataframes.
+
+    
+    # fig,ax = mapTime(d=HUDSON, xcol='RegionName', ycol='MeanValue', 
+                       MEAN=True, vlines=None)
+    
+    **ARGS
+    d: takes a dictionary of dataframes OR a single dataframe
+    xcol: column in dataframe containing x-axis values (ex: zipcode)
+    ycol: column in dataframe containing y-axis values (ex: price)
+    X: list of x values to plot on x-axis (defaults to all x in d if empty)
+    
+    **kw_args
+    mean: plots the mean of X (default=True)
+    vlines : default is None: shows MIN_, MAX_, crash 
+    
+    *Ex1: `d` = dataframe
+    mapTime(d=NY, xcol='RegionName', ycol='MeanValue', X=list_of_zips)
+    
+    *Ex2: `d` = dictionary of dataframes
+    mapTime(d=NYC, xcol='RegionName', y='MeanValue')
+    """</span>
+  
+    
+    <span class="c1"># create figure for timeseries plot
+</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span><span class="mi">13</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s">'Time Series Plot: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">ycol</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">'Mean Home Values'</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s">'Year'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Price($)'</span><span class="p">,</span> <span class="n">font_dict</span><span class="o">=</span><span class="n">font_title</span><span class="p">)</span>  
+    
+    <span class="n">zipcodes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1">#check if `d` is dataframe or dictionary
+</span>    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="n">pd</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="c1"># if X is empty, create list of all zipcodes
+</span>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">zipcodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">xcol</span><span class="p">].</span><span class="n">unique</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">zipcodes</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="c1"># cut list in half  
+</span>        <span class="n">breakpoint</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zipcodes</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+        
+        <span class="k">for</span> <span class="n">zc</span> <span class="ow">in</span> <span class="n">zipcodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">zc</span> <span class="o">&lt;</span> <span class="n">breakpoint</span><span class="p">:</span>
+                <span class="n">ls</span><span class="o">=</span><span class="s">'-'</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ls</span><span class="o">=</span><span class="s">'--'</span>
+            <span class="n">ts</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">zc</span><span class="p">][</span><span class="n">ycol</span><span class="p">].</span><span class="n">rename</span><span class="p">(</span><span class="n">zc</span><span class="p">)</span><span class="c1">#.loc[zc]
+</span>            <span class="n">ts</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">ycol</span><span class="p">].</span><span class="n">loc</span><span class="p">[</span><span class="n">zc</span><span class="p">]</span>
+            <span class="c1">### PLOT each zipcode as timeseries `ts`
+</span>            <span class="n">ts</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">zc</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">)</span>
+        <span class="c1">## Calculate and plot the MEAN
+</span>        
+        <span class="k">if</span> <span class="n">MEAN</span><span class="p">:</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">ycol</span><span class="p">].</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mean</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">'Mean'</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'black'</span><span class="p">)</span>
+    
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="c1"># if X passed in as empty list, create list of all zipcodes
+</span>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">zipcodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">zipcodes</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="c1"># cut list in half  
+</span>        <span class="n">breakpoint</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zipcodes</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+        
+        <span class="c1"># create empty dictionary for plotting 
+</span>        <span class="n">txd</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># create different linestyles for zipcodes (easier to distinguish if list is long)
+</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">zc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">zipcodes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">breakpoint</span><span class="p">:</span>
+                <span class="n">ls</span><span class="o">=</span><span class="s">'-'</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ls</span><span class="o">=</span><span class="s">'--'</span>
+            <span class="c1"># store each zipcode as ts  
+</span>            <span class="n">ts</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">zc</span><span class="p">][</span><span class="n">ycol</span><span class="p">].</span><span class="n">rename</span><span class="p">(</span><span class="n">zc</span><span class="p">)</span>
+            <span class="c1">### PLOT each zipcode as timeseries `ts`
+</span>            <span class="n">ts</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">zc</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
+            <span class="n">txd</span><span class="p">[</span><span class="n">zc</span><span class="p">]</span> <span class="o">=</span> <span class="n">ts</span>
+            
+        <span class="k">if</span> <span class="n">MEAN</span><span class="p">:</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">txd</span><span class="p">).</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mean</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">'Mean'</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'black'</span><span class="p">)</span>
+            
+    <span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.04</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s">"upper left"</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            
+    <span class="k">if</span> <span class="n">vlines</span><span class="p">:</span>
+        <span class="c1">## plot crash, min and max vlines
+</span>        <span class="n">crash</span> <span class="o">=</span> <span class="s">'01-2009'</span>
+        <span class="n">ax</span><span class="p">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">crash</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Housing Index Drops'</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s">':'</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">MIN_</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">crash</span><span class="p">:].</span><span class="n">idxmin</span><span class="p">()</span>
+        <span class="n">MAX_</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'2004'</span><span class="p">:</span><span class="s">'2010'</span><span class="p">].</span><span class="n">idxmax</span><span class="p">()</span>
+        <span class="n">ax</span><span class="p">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">MIN_</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s">'Min Price Post Crash </span><span class="si">{</span><span class="n">MIN_</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'black'</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>    
+        <span class="n">ax</span><span class="p">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">MAX_</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">'Max Price'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'black'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s">':'</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> 
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+</code></pre></div></div>
+
+<h2 id="seasonality-and-trends">Seasonality and Trends</h2>
+
+<p>To check for seasonality and remove trends, I also wrote a custom function to generate all the necessary time series analysis plots in one shot. This is really handy for not having to repeat steps over and over again (um, yes that is the point of any function…):</p>
+
+<h3 id="autocorrelation">Autocorrelation</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_1.png" alt="autocorrelation" title="Autocorrelation" width="400" />
+</div>
+
+<h3 id="differencing">Differencing</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_2.png" alt="differencing" title="differencing" width="400" />
+</div>
+
+<h3 id="seasonality">Seasonality</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_3.png" alt="seasonality" title="seasonality" width="400" />
+</div>
+
+<h3 id="partial-autocorrelation">Partial Autocorrelation</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_4.png" alt="partial autocorrelation" title="Partial Autocorrelation" width="400" />
+</div>
+
+<h3 id="rolling-mean-and-standard-deviation">Rolling Mean and Standard Deviation</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_5.png" alt="rolling mean and standard deviation" title="Rolling Mean and Standard Deviation" width="400" />
+</div>
+
+<h3 id="check-for-seasonality">Check for Seasonality</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_50_6.png" alt="check for seasonality" title="Checking for Seasonality" width="400" />
+</div>
+
+<h3 id="residual-density-qq-and-correlogram">Residual, Density, QQ, and Correlogram</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/output_65_0.png" alt="residual density qq and correlogram" title="Residual, Density, QQ, and Correlogram" width="400" />
+</div>
+
+<h2 id="creating-the-visuals-with-clocktime">Creating the Visuals with <code class="language-plaintext highlighter-rouge">clockTime()</code></h2>
+
+<p>All of the above are generated in one shot with the clockTime() function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">clockTime</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">lags</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">TS</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="s">"""    
+     /\    /\    /\    /\  ______________/\/\/\__-_-_
+    / CLOCKTIME STATS /  \/
+        \/    \/    \/    
+
+    # clockTime(ts, lags=43, d=5, TS=NY, y='MeanValue',figsize=(13,11))
+    #
+    # ts = df.loc[df['RegionName']== zc]["MeanValue"].rename(zc).resample('MS').asfreq()
+    """</span>
+    <span class="c1"># import required libraries
+</span>    <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="n">mpl</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">log</span> 
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+    <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span>
+    <span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">autocorrelation_plot</span>
+    <span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">lag_plot</span>
+    <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="n">sm</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_pacf</span>  
+    
+    <span class="k">print</span><span class="p">(</span><span class="s">' /</span><span class="se">\\</span><span class="s">   '</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="s">' /'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'/ CLOCKTIME STATS'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'    \/'</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1">#**************#   
+</span>    <span class="c1"># Plot Time Series
+</span>    <span class="c1">#original
+</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span><span class="mi">13</span><span class="p">))</span>
+    <span class="n">ts</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">'Original'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="s">'red'</span><span class="p">)</span>
+    <span class="c1"># autocorrelation 
+</span>    <span class="n">autocorrelation_plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s">'magenta'</span><span class="p">)</span> 
+    <span class="c1"># 1-lag
+</span>    <span class="n">autocorrelation_plot</span><span class="p">(</span><span class="n">ts</span><span class="p">.</span><span class="n">diff</span><span class="p">().</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s">'green'</span><span class="p">)</span>
+    <span class="n">lag_plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">gcf</span><span class="p">().</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+    
+    <span class="c1"># DICKEY-FULLER Stationarity Test
+</span>    <span class="c1"># TS = NY | y = 'MeanValue'
+</span>    <span class="n">dtest</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">TS</span><span class="p">[</span><span class="n">y</span><span class="p">].</span><span class="n">dropna</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">dtest</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
+        <span class="c1">## difference data before checking autoplot
+</span>        <span class="n">stationary</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="s">'rejected'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1">### skip differencing and check autoplot
+</span>        <span class="n">stationary</span> <span class="o">=</span> <span class="bp">True</span> 
+        <span class="n">r</span> <span class="o">=</span> <span class="s">'accepted'</span>
+
+    <span class="c1">#**************#
+</span>    <span class="c1"># ts orders of difference
+</span>    <span class="n">ts1</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">diff</span><span class="p">().</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">ts2</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">diff</span><span class="p">().</span><span class="n">diff</span><span class="p">().</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">ts3</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">diff</span><span class="p">().</span><span class="n">diff</span><span class="p">().</span><span class="n">diff</span><span class="p">().</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">ts4</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">diff</span><span class="p">().</span><span class="n">diff</span><span class="p">().</span><span class="n">diff</span><span class="p">().</span><span class="n">diff</span><span class="p">().</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">tdiff</span> <span class="o">=</span> <span class="p">[</span><span class="n">ts1</span><span class="p">,</span><span class="n">ts2</span><span class="p">,</span><span class="n">ts3</span><span class="p">,</span><span class="n">ts4</span><span class="p">]</span>
+    <span class="c1"># Calculate Standard Deviation of Differenced Data
+</span>    <span class="n">sd</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">td</span> <span class="ow">in</span> <span class="n">tdiff</span><span class="p">:</span>
+        <span class="n">sd</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">std</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
+    
+    <span class="c1">#sd = [np.std(ts1), np.std(ts2),np.std(ts3),np.std(ts4)]
+</span>    <span class="n">SD</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">sd</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s">'ts1'</span><span class="p">,</span><span class="s">' ts2'</span><span class="p">,</span> <span class="s">'ts3'</span><span class="p">,</span> <span class="s">'ts4'</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s">'sd'</span><span class="p">})</span>
+    <span class="c1">#SD['sd'] = [np.std(ts1), np.std(ts2),np.std(ts3),np.std(ts4)]
+</span>    <span class="n">SD</span><span class="p">[</span><span class="s">'D'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">'d=1'</span><span class="p">,</span><span class="s">'d=2'</span><span class="p">,</span><span class="s">'d=3'</span><span class="p">,</span><span class="s">'d=4'</span><span class="p">]</span>
+    <span class="n">MIN</span> <span class="o">=</span> <span class="n">SD</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">SD</span><span class="p">[</span><span class="s">'sd'</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">sd</span><span class="p">)][</span><span class="s">'sd'</span><span class="p">]</span>
+
+    <span class="c1"># Extract and display full test results 
+</span>    <span class="n">output</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s">'ADF Stat'</span><span class="p">,</span><span class="s">'p-val'</span><span class="p">,</span><span class="s">'# Lags'</span><span class="p">,</span><span class="s">'# Obs'</span><span class="p">],</span> <span class="n">dtest</span><span class="p">[:</span><span class="mi">4</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dtest</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">output</span><span class="p">[</span><span class="s">'Crit. Val (%s)'</span><span class="o">%</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="n">output</span><span class="p">[</span><span class="s">'min std dev'</span><span class="p">]</span> <span class="o">=</span> <span class="n">MIN</span>
+    <span class="n">output</span><span class="p">[</span><span class="s">'NULL HYPOTHESIS'</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
+    <span class="n">output</span><span class="p">[</span><span class="s">'STATIONARY'</span><span class="p">]</span> <span class="o">=</span> <span class="n">stationary</span>
+     
+    <span class="c1"># Finding optimal value for order of differencing
+</span>    <span class="kn">from</span> <span class="nn">pmdarima.arima.utils</span> <span class="kn">import</span> <span class="n">ndiffs</span>
+    <span class="n">adf</span> <span class="o">=</span> <span class="n">ndiffs</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ts</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="s">'adf'</span><span class="p">)</span>
+    <span class="n">kpss</span> <span class="o">=</span> <span class="n">ndiffs</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ts</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="s">'kpss'</span><span class="p">)</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="n">ndiffs</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ts</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="s">'pp'</span><span class="p">)</span>
+        
+    <span class="n">output</span><span class="p">[</span><span class="s">'adf,kpss,pp'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">adf</span><span class="p">,</span><span class="n">kpss</span><span class="p">,</span><span class="n">pp</span><span class="p">]</span>
+
+    <span class="c1">#**************#
+</span>    <span class="c1"># show differencing up to `d` on single plot (default = 5)
+</span>    <span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig2</span><span class="p">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">diff</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.04</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s">"upper left"</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">gcf</span><span class="p">().</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+    
+    <span class="c1">#**************#
+</span>    <span class="c1"># DIFFERENCED SERIES
+</span>    <span class="n">fig3</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">ts1</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">'d=1'</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s">'blue'</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="p">.</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">ts2</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">'d=2'</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="p">.</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">ts3</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">'d=3'</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s">'magenta'</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="p">.</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">ts4</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">'d=4'</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s">'green'</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="p">.</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.04</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s">"upper left"</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+               <span class="n">fancybox</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">'lightgray'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">gcf</span><span class="p">().</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+    <span class="c1">#**************#
+</span>    
+    <span class="c1"># Plot ACF, PACF
+</span>    <span class="n">fig4</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span><span class="mi">13</span><span class="p">))</span>
+    <span class="n">plot_acf</span><span class="p">(</span><span class="n">ts1</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">lags</span><span class="o">=</span><span class="n">lags</span><span class="p">)</span>
+    <span class="n">plot_pacf</span><span class="p">(</span><span class="n">ts1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">lags</span><span class="o">=</span><span class="n">lags</span><span class="p">)</span>
+    <span class="n">plot_acf</span><span class="p">(</span><span class="n">ts2</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">lags</span><span class="o">=</span><span class="n">lags</span><span class="p">)</span>
+    <span class="n">plot_pacf</span><span class="p">(</span><span class="n">ts2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">lags</span><span class="o">=</span><span class="n">lags</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">gcf</span><span class="p">().</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+    
+    <span class="c1">#**************#
+</span>    <span class="c1"># plot rolling mean and std
+</span>    <span class="c1">#Determine rolling statistics
+</span>    <span class="n">rolmean</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">rolstd</span> <span class="o">=</span> <span class="n">ts</span><span class="p">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="n">std</span><span class="p">()</span>
+        
+    <span class="c1">#Plot rolling statistics
+</span>    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'original'</span><span class="p">)</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rolmean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'cyan'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'rolling mean'</span><span class="p">)</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rolstd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'orange'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'rolling std'</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.04</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s">"upper left"</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Rolling mean and standard deviation'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">gcf</span><span class="p">().</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+    
+    <span class="c1">#**************#
+</span>    <span class="c1"># # Check Seasonality 
+</span>    <span class="s">"""
+    Calculates and plots Seasonal Decomposition for a time series
+    """</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span class="n">seasonal_decompose</span>
+
+    <span class="n">decomp</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s">'additive'</span><span class="p">)</span> <span class="c1"># model='multiplicative'
+</span>
+    <span class="n">decomp</span><span class="p">.</span><span class="n">plot</span><span class="p">()</span>
+    <span class="n">ts_seas</span> <span class="o">=</span> <span class="n">decomp</span><span class="p">.</span><span class="n">seasonal</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ts_seas</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s">'green'</span><span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="p">.</span><span class="n">get_figure</span><span class="p">()</span>
+    <span class="n">fig</span><span class="p">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+
+    <span class="c1">## Get min and max idx
+</span>    <span class="n">min_</span> <span class="o">=</span> <span class="n">ts_seas</span><span class="p">.</span><span class="n">idxmin</span><span class="p">()</span>
+    <span class="n">max_</span> <span class="o">=</span> <span class="n">ts_seas</span><span class="p">.</span><span class="n">idxmax</span><span class="p">()</span>
+    <span class="n">min_2</span> <span class="o">=</span> <span class="n">ts_seas</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">max_</span><span class="p">:].</span><span class="n">idxmin</span><span class="p">()</span>
+
+    <span class="n">ax</span><span class="p">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">min_</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">min_</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s">'red'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">max_</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s">':'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">min_2</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">period</span> <span class="o">=</span> <span class="n">min_2</span> <span class="o">-</span> <span class="n">min_</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">'Season Length = </span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">gcf</span><span class="p">().</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+   
+    <span class="c1">#*******#
+</span>    <span class="n">clock</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s">'index'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">' /</span><span class="se">\\</span><span class="s">   '</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="s">' /'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'/ CLOCK-TIME STATS'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'    \/'</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+    
+    <span class="c1">#display results
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">'---'</span><span class="o">*</span><span class="mi">9</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">clock</span>
+
+</code></pre></div></div>
+
+<h2 id="gridsearchcv-with-sarimax">GridsearchCV with SARIMAX</h2>
+
+<p>I then ran a gridsearch using a Seasonal ARIMA (SARIMAX) model to make forecast predictions on all 61 zip codes in Westchester County. Using PANDAS, I narrowed down the list by top 10 highest ROI zip codes. I then identified which of these had the lowest confidence intervals in order to ensure I was only selecting the most accurate results.</p>
+
+<h3 id="confidence-intervals-and-roi-predictions-3d-graph">Confidence Intervals and ROI Predictions (3D Graph)</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/conf_roi_pred_3D.png" alt="conf roi pred 3D" title="Confidence Intervals and ROI Predictions in 3D" width="400" />
+</div>
+
+<h3 id="confidence-intervals-and-roi-heatmap">Confidence Intervals and ROI (Heatmap)</h3>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/conf_roi_heatmap.png" alt="conf roi pred heatmap" title="Confidence Intervals and ROI Predictions Heatmap" width="400" />
+</div>
+
+<h2 id="top-five-recommendations">TOP FIVE RECOMMENDATIONS</h2>
+
+<p>The top five results that fit the required criteria were 10549, 10573, 10604, 10605, 10706:</p>
+
+<h2 id="10549">10549</h2>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10549.png" alt="timeseries 10549" title="timeseries 10549" width="400" />
+</div>
+
+<h2 id="10573">10573</h2>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10573.png" alt="timeseries 10573" title="timeseries 10573" width="400" />
+</div>
+
+<h2 id="10604">10604</h2>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10604.png" alt="timeseries 10604" title="timeseries 10604" width="400" />
+</div>
+
+<h2 id="10605">10605</h2>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10605.png" alt="timeseries 10605" title="timeseries 10605" width="400" />
+</div>
+
+<h2 id="10706">10706</h2>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/10706.png" alt="timeseries 10706" title="timeseries 10706" width="400" />
+</div>
+
+<h2 id="top-five-zip-codes-in-westchester-county">Top Five Zip Codes in Westchester County</h2>
+
+<div style="background-color:white">
+<img src="/assets/images/timeseries/top5_final_mapTime.png" alt="top five zipcodes timeseries" title="top five zip codes timeseries" width="400" />
+</div>
+
+<h2 id="future-work">FUTURE WORK</h2>
+
+<p>My client was keen on accounting for public school districts, which upon initial inspection would have required a great deal of manual plug and play. However, if there is an API or some other way to scrape this data from the web, I would definitely incorporate school districts as an exogenous factor for the sake of making recommendations for a client. Someone might actually <em>not</em> prefer schools with a rating of 10 as these tend to be predominantly all-white. My client in particular was looking for decent school districts below the 10-mark because she wants her child to grow up in a more ethnically-diverse community. Being able to account for such preferences would be part of the future work of this project.</p>
+
+<h2 id="contact">Contact</h2>
+
+<p>If you want to contact me you can reach me at <a href="mailto:rukeine@gmail.com">rukeine@gmail.com</a>.</p>
+
+<h2 id="license">License</h2>
+
+<p>This project uses the <a href="/LICENSE.md">MIT License</a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#                        
+#             /\    _       _                            _                     * *    
+#  /\_/\     /__\__|_|_____|_|__________________________| |________________________
+#  [===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| |_   _| _  \ \_/ /| * _/| | |
+#   \./    /_/  \_\|_| |_|_|_| |_|__/\_\ \______|_|\__| |_| |__/\_\___/ |_|\_\|_|_|
+#                    | |             |___/        
+#                    |_|   
+</span></code></pre></div></div>
+:ET

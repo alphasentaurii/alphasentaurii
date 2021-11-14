@@ -116,11 +116,15 @@ If you want to contact me you can reach me at <rukeine@gmail.com>.
 This project uses the following license: [MIT License](./LICENSE.md).
 
 ```python
-#         _ __ _   _
-#  /\_/\ | '__| | | |
-#  [===] | |  | |_| |
-#   \./  |_|   \__,_|
+#                        
+#             /\    _       _                            _                     * *    
+#  /\_/\     /__\__|_|_____|_|__________________________| |________________________
+#  [===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| |_   _| _  \ \_/ /| * _/| | |
+#   \./    /_/  \_\|_| |_|_|_| |_|__/\_\ \______|_|\__| |_| |__/\_\___/ |_|\_\|_|_|
+#                    | |             |___/        
+#                    |_|   
 ```
+
 ---
 
 ## Project Demo
@@ -4958,4 +4962,14 @@ for k,v in rev_per_cat.items():
 ```python
 # What were the top 3 selling product categories in each region or country?
 # What were the lowest 3 selling product categories in each region or country?
+```
+
+```python
+                       
+           /\    _       _                           _                      *  
+/\_/\_____/  \__| |_____| |_________________________| |___________________*___
+[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
+ \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
+                  | /             |___/        
+                  |/   
 ```

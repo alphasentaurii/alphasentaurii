@@ -9,8 +9,8 @@
 > Blog post URL: 
 http://www.alphasentaurii.com/projects/datascience/2019/11/06/predicting-home-values-with-multiple-linear-regression.html
 
-> Link to video: 
-https://vimeo.com/rukein/datascience-project-1
+<!-- > Link to video: 
+https://vimeo.com/rukein/datascience-project-1 -->
 
 > Link to tableau public: https://public.tableau.com/views/HousePricesbyZipCodeinKingCountyWA/KingCounty?:display_count=y&:origin=viz_share_link
 
@@ -7737,3 +7737,14 @@ print(halfmills)
     [['98039']]
     [['98074'], ['98053'], ['98040'], ['98119'], ['98112'], ['98105'], ['98004'], ['98005'], ['98075'], ['98199'], ['98077'], ['98006'], ['98033'], ['98039']]
 
+
+
+```python
+                       
+           /\    _       _                           _                      *  
+/\_/\_____/  \__| |_____| |_________________________| |___________________*___
+[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
+ \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
+                  | /             |___/        
+                  |/   
+```

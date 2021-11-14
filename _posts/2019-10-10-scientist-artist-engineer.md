@@ -21,7 +21,7 @@ Peter Pan has always been one of my favorite childhood stories. I identify with 
 >## _This is the reason he can fly._
 >
 
-I thought to myself: why am I afraid of death? If I were to die young — if I were to die tomorrow, what would I feel then? And the answer came to me immediately — I would regret everything, I would feel like I had wasted so much time worrying about meeting other people’s expectations of me, and my life would feel meaningless. I’ve known since I was a child what I love doing. My life flashed before my eyes, and I saw the seven-year-old version of Ru trying to solder the last piece of a little 3-wheeled robot I was trying to build. I saw myself collecting data in my field notebooks on the various species of mice, their habitats and diet. And another notebook for dinosaurs. I was obsessed with dinosaurs - never did find any out in the wild unfortunately.
+I thought to myself: why am I afraid of death? If I were to die young — if I were to die tomorrow, what would I feel then? And the answer came to me immediately — I would regret everything, I would feel like I had wasted so much time worrying about meeting other people’s expectations of me, and my life would feel meaningless. I’ve known since I was a child what I love doing. My life flashed before my eyes, but this time I didn't see that parts where I struggled to fit in or find myself for twenty years. Instead, I saw the seven-year-old version of Ru trying to solder the last piece of a little 3-wheeled robot I was trying to build. I saw myself collecting data in composition notebooks on various species of mice, their habitats and diet. And another notebook classifying various dinosaur - and "wannabe" dinosaur - species.
 
 ### Ru's First DataFrame object (circa 1997)
 
@@ -29,24 +29,30 @@ I thought to myself: why am I afraid of death? If I were to die young — if I w
 
 ### Goofball Confused?
 
-I saw myself as an eight-year old laughing as each person in my family interacted with a Mac Basic program I had written on our Special Edition II. The user is prompted to type in their name and a couple of numbers to the input. Then, to everyone's surprise, the program just calls them a Goofball plus whatever numbers they entered. The computer, and Goofball Confused? both still work by the way. 
+I saw myself as an eight-year old laughing as I watched each family member sit down and interact with the prompts of my first Mac Basic program "Goofball Confused?" on our Macintosh Special Edition II. 30+ years later, I discovered that the computer (circa 1987), its games and "Goofball Confused?" all still work. That's good engineering.
 
 <div><img src="/assets/images/goofball-confused.jpg" alt="goofball confused" title="Ru's first computer program" width="400"/></div>
 
 ### "Closet Geek"
 
-I saw myself at age nine building a spaceship out of legos and submitting it to an official contest (I didn’t win, but I framed the honorary certificate they sent because it meant that much to  me, and I was proud of my little rocket). I heard my fifth-grade science teacher asking me what I wanted to be when I grew up and the unhesitating reply from my ten-year-old lips: “ASTRONAUT”. I didn’t see myself struggling to fit in for twenty years, but I saw my 32nd birthday when I successfully built a super-fast PC for 4K video production from the ground up. That moment when you  go to boot up and are silently praying you didn’t inadvertently short a circuit on the motherboard or put too much paste on the CPU when connecting the cooler.
+I saw myself at age nine building a spaceship out of legos and submitting it to an official contest (I didn’t win but the journey was the destination and they sent me a certificate which I promptly framed). I heard my fifth-grade science teacher asking me what I wanted to be when I grew up and ten-year-old me responding without hestitation: “ASTRONAUT”.  And more recently, I saw myself holding my breath on my 32nd birthday when I finally went to boot up the PC I built for 4K video production. "Did I inadvertently short a circuit on the motherboard? Did I put too much paste between the CPU and cooler?" The lights come on, the fans whirr - and like magic - the BIOS screen appears on the monitor. 
 
 <div><img src="/assets/images/building-my-first-pc.jpeg" alt="first pc build" title="Ru's first PC Build" width="400"/></div>
 
-### New Frequencies 
-
-I saw myself playing lead guitar and vocals to an audience of 200 kids when I was in eight grade, and live acoustic performances for my entire high schoool on an almost monthly basis. I didn't think for a second about my twenties, where music, computers, spaceships and love for life became lost in my attempt to just make money and become someone important everyone would like. I saw myself getting an A in physics because it was my favorite class, but barely getting by in math because I didn’t think it would be useful to my writing and music career. I saw myself coming home from a long day at work and spending my free time doing homework and quizzes for the Intro to Aerospace Engineering class I signed up for online. I was just doing it for fun, but I ended up with a 97% final grade. Turns out I'm quite fond of math, especially if the equations have to do with calculating rocket trajectories.
-
-### Creation and Pandemonium
-
-None of us know when our time on earth is going to run out. I now see life is a precious gift - that to live is the only point of life, and that if we were “created in God’s image”, then we should be creating, because that is how we bring Good into a world that would otherwise just be chaos. It's been almost one year - the summer of Pandemic 2020. Last fall I quit my company, learned Python and multivariable calculus, and graduated from one of the top data science bootcamps in the world. What has always driven me, since childhood, is not data -- it's patterns. I love code-breaking. I love solving mysteries, I love finding secret hidden meanings in words and numbers. That’s why I love music, computers, poetry and stories.  
 
 ### Artist - Scientist - Engineer
 
-What I realized last summer was that if I spend my days doing those simple things that make me who I already am, then I will wake up every day knowing why I exist, and I don’t need some grand meaning of life’s ultimate purpose to guide my destiny. I created this blog to remind myself of who I am and what I like to do. It gives me a purpose, it lets me share my passion with the world as I continue to explore myself as a Scientist, Artist and Engineer. A place to create, to experiment, and to build. If I do those three things every day, then I can leave the world in absolute peace knowing I lived exactly the way I was meant to live.
+None of us know when our time on earth is going to run out. I now see life is a precious gift - that to live is the only point of living, and that if we were “created in God’s image”, then we should be creating, because that is how we bring Good into a world that would otherwise just be chaos. What I realized in the summer of 2019 was that if I spend my days doing those simple things that make me who I already am - coding, writing, and music - then I will wake up every day knowing why I exist, and I don’t need some grand meaning of life’s ultimate purpose to guide my destiny. So I started learning everything I could, from Python to multivariable calculus, and a year later graduated from one of the top data science bootcamps in the world. In the fall of 2020, I left Kinetik to work as an astronomical data scientist at the Space Telescope Science Institute in Baltimore, MD. During the day (and sometimes at night) I build machine learning algorithms for space telescope data and image processing. At night (and sometimes during the day) I write stories and poetry, or I sing and play guitar. There isn't much time left for existential crises - I'm too busy enjoying existence now for that. 
+
+I created this blog to remind myself who I am and what I like to do. It also lets me share my passion with the world as a Scientist, Artist and Engineer. What are these occupations other than someone who creates, experiments and builds? For me they are more than just occupations. If I just do those three things every day, I could leave the world in absolute peace - no matter when my time is up - because I'll know that I lived exactly the way I was meant to live.
+
+
+```python
+                       
+           /\    _       _                           _                      *  
+/\_/\_____/  \__| |_____| |_________________________| |___________________*___
+[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
+ \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
+                  | /             |___/        
+                  |/   
+```

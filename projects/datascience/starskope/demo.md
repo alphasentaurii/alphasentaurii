@@ -10,7 +10,7 @@ The main vision for `STARSKØPE` is to build a model that is not limited to anal
 
 ## Behind-the-Scenes
 
-For a more in-depth story about this project and some code examples, check out my blog post [Starskøpe: The Cyberoptic Artificial Telescope](/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html).
+For a more in-depth story about this project and some code examples, check out my blog post [Starskøpe: The Cyberoptic Artificial Telescope](/datascience/2020/04/04/starskope-cyberoptic-artificial-telescope.html).
 
 ## MISSION
 
@@ -175,3 +175,15 @@ For a more in-depth story about this project and some code examples, check out [
 ## LICENSE
 
 [MIT License](/LICENSE.html)
+
+
+
+```python
+                       
+           /\    _       _                           _                      *  
+/\_/\_____/  \__| |_____| |_________________________| |___________________*___
+[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
+ \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
+                  | /             |___/        
+                  |/   
+```

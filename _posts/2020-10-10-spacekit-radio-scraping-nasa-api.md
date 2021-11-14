@@ -173,3 +173,14 @@ In the next several posts, we'll use these datasets to plot light curves and fre
 
 [spacekit.analyzer (part 1): plotting light curves]('/datascience/2020/11/11/spacekit-analyzer-plotting-light-curves.html')
 
+
+
+```python
+                       
+           /\    _       _                           _                      *  
+/\_/\_____/  \__| |_____| |_________________________| |___________________*___
+[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
+ \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
+                  | /             |___/        
+                  |/   
+```

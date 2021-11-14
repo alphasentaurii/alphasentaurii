@@ -74,3 +74,14 @@ gets model predictions and evaluates metrics
 - fusion_matrix: customized multi-class confusion matrix
 - roc_plots: receiver operator characteristic (ROC) plot
 - compute: generates all of the above in one shot
+
+
+```python
+                       
+           /\    _       _                           _                      *  
+/\_/\_____/  \__| |_____| |_________________________| |___________________*___
+[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
+ \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
+                  | /             |___/        
+                  |/   
+```

@@ -307,3 +307,14 @@ def compute(X, y, model, hist=None, preds=True, summary=True, fusion=True,
 # Summary
 
 `spacekit` is a PyPi Machine Learning Utility Package for Astrophysical Data Science. This library is for performing signal analysis and machine learning on astrophysical datasets. 
+
+
+```python
+                       
+           /\    _       _                           _                      *  
+/\_/\_____/  \__| |_____| |_________________________| |___________________*___
+[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
+ \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
+                  | /             |___/        
+                  |/   
+```

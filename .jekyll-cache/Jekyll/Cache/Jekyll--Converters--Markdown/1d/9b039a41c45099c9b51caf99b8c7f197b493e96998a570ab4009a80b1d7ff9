@@ -1,0 +1,27 @@
+I"‚<h1 id="spacekitbuilder">spacekit.builder</h1>
+<p>building and fitting convolutional neural networks</p>
+
+<ul>
+  <li>build_cnn: builds keras 1D CNN classifier</li>
+  <li>batch_maker: pass equal number of class samples rotating randomly</li>
+  <li>fit_cnn: trains keras CNN classifier</li>
+</ul>
+
+<h3 id="build_cnn">build_cnn</h3>
+<p>Builds and compiles linear CNN using Keras</p>
+
+<h3 id="batch_maker">batch_maker</h3>
+<p>pass equal number of class samples rotating randomly</p>
+
+<h3 id="fit_cnn">fit_cnn</h3>
+<p>fit and train convolutional neural network</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#                        
+#             /\    _       _                            _                     * *    
+#  /\_/\     /__\__|_|_____|_|__________________________| |________________________
+#  [===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| |_   _| _  \ \_/ /| * _/| | |
+#   \./    /_/  \_\|_| |_|_|_| |_|__/\_\ \______|_|\__| |_| |__/\_\___/ |_|\_\|_|_|
+#                    | |             |___/        
+#                    |_|   
+</span></code></pre></div></div>
+:ET

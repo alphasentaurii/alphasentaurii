@@ -1,0 +1,85 @@
+I"�<h1 id="spacekit-is-a-pypi-machine-learning-utility-package-for-astrophysical-data-science"><code class="language-plaintext highlighter-rouge">spacekit</code> is a PyPi Machine Learning Utility Package for Astrophysical Data Science.</h1>
+
+<p>This library is for performing signal analysis and machine learning on astrophysical datasets. The dataset used as an example here is from MAST (Mikulsky Archive for Space Telescopes) accessed via AWS api. We are analyzing time-series light curves (flux signals) of stars from the K2 telescope to identify possible orbiting exoplanets (also known as <code class="language-plaintext highlighter-rouge">threshold crossing events</code> or TCEs).</p>
+
+<p>This post shows how to install spacekit locally and presents an overview of the library. The next few posts include walkthroughs and demos for each specific class and their respective class methods.</p>
+
+<h1 id="source-code">Source Code</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spacekit
+└── spacekit_pkg
+    └── __init__.py
+    └── analyzer.py
+    └── builder.py
+    └── computer.py
+    └── radio.py
+    └── transformer.py
+└── setup.py
+└── tests
+└── LICENSE
+└── README.md
+</code></pre></div></div>
+
+<h1 id="install-spacekit-via-pip">Install spacekit via <code class="language-plaintext highlighter-rouge">pip</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>spacekit
+</code></pre></div></div>
+
+<h1 id="spacekitradio"><a href="/datascience/2020/10/10/spacekit-radio-scraping-nasa-api.html">spacekit.radio</a></h1>
+<p>Scrape Mikulsky archives (MAST) for downloading NASA space telescope datasets</p>
+<ul>
+  <li>mast_aws: fetch data hosted on AWS using the MAST api</li>
+</ul>
+
+<h1 id="spacekitanalyzer"><a href="'/datascience/2020/11/11/spacekit-analyzer-plotting-light-curves.html'">spacekit.analyzer</a></h1>
+<p>flux-timeseries signal analysis</p>
+
+<p><a href="'/datascience/2020/11/11/spacekit-analyzer-plotting-light-curves.html'">spacekit.analyzer (part 1): plotting light curves</a>
+<a href="'/datascience/2020/12/12/spacekit-analyzer-frequency-spectrographs.html'">spacekit.analyzer (part 2): frequency spectrographs</a></p>
+
+<ul>
+  <li>atomic_vector_plotter: Plots scatter and line plots of time series signal values.</li>
+  <li>planet_hunter: calculate period, plot folded lightcurve from .fits files</li>
+  <li>make_specgram: generate and save spectographs of flux signal frequencies</li>
+</ul>
+
+<h2 id="spacekittransformer"><a href="/datascience/2021/01/01-spacekit-transformer-signal-processing-and-analysis.html">spacekit.transformer</a></h2>
+<p>tools for converting and preprocessing signals as numpy arrays</p>
+
+<ul>
+  <li>hypersonic_pliers: load datasets from file and extract into 1D arrays</li>
+  <li>thermo_fusion_chisel: scale multiple arrays to zero mean and unit variance.</li>
+  <li>babel_fish_dispenser: adds a 1D uniform noise filter using timesteps</li>
+  <li>fast_fourier: fast fourier transform utility function</li>
+</ul>
+
+<h2 id="spacekitbuilder">spacekit.builder</h2>
+<p>building and fitting convolutional neural networks</p>
+
+<ul>
+  <li>build_cnn: builds and compiles linear CNN using Keras</li>
+  <li>batch_maker: pass equal number of class samples rotating randomly</li>
+  <li>fit_cnn: trains keras CNN</li>
+</ul>
+
+<h2 id="spacekitcomputer">spacekit.computer</h2>
+<p>gets model predictions and evaluates metrics</p>
+
+<ul>
+  <li>get_preds: generate model predictions</li>
+  <li>fnfp: count of false negative and false positive predictions</li>
+  <li>keras_history: keras history plots (accuracy and loss)</li>
+  <li>fusion_matrix: customized multi-class confusion matrix</li>
+  <li>roc_plots: receiver operator characteristic (ROC) plot</li>
+  <li>compute: generates all of the above in one shot</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                       
+           <span class="o">/</span>\    <span class="n">_</span>       <span class="n">_</span>                           <span class="n">_</span>                      <span class="o">*</span>  
+<span class="o">/</span>\<span class="n">_</span><span class="o">/</span>\<span class="n">_____</span><span class="o">/</span>  \<span class="n">__</span><span class="o">|</span> <span class="o">|</span><span class="n">_____</span><span class="o">|</span> <span class="o">|</span><span class="n">_________________________</span><span class="o">|</span> <span class="o">|</span><span class="n">___________________</span><span class="o">*</span><span class="n">___</span>
+<span class="p">[</span><span class="o">===</span><span class="p">]</span>    <span class="o">/</span> <span class="o">/</span>\ \ <span class="o">|</span> <span class="o">|</span>  <span class="n">_</span>  <span class="o">|</span>  <span class="n">_</span>  <span class="o">|</span> <span class="n">_</span>  \<span class="o">/</span> <span class="n">__</span><span class="o">/</span> <span class="o">-</span><span class="n">__</span><span class="o">|</span>  \<span class="o">|</span> \<span class="n">_</span>  <span class="n">_</span><span class="o">/</span> <span class="n">_</span>  \ \<span class="n">_</span><span class="o">/</span> <span class="o">|</span> <span class="o">*</span> <span class="n">_</span><span class="o">/|</span> <span class="o">|</span> <span class="o">|</span>
+ \<span class="p">.</span><span class="o">/</span>    <span class="o">/</span><span class="n">_</span><span class="o">/</span>  \<span class="n">_</span>\<span class="o">|</span><span class="n">_</span><span class="o">|</span>  <span class="n">___</span><span class="o">|</span><span class="n">_</span><span class="o">|</span> <span class="o">|</span><span class="n">_</span><span class="o">|</span><span class="n">__</span><span class="o">/</span>\<span class="n">_</span>\ \ \<span class="n">____</span><span class="o">|</span><span class="n">_</span><span class="o">|</span>\<span class="n">__</span><span class="o">|</span> \<span class="n">__</span><span class="o">/</span><span class="n">__</span><span class="o">/</span>\<span class="n">_</span>\<span class="n">___</span><span class="o">/|</span><span class="n">_</span><span class="o">|</span>\<span class="n">_</span>\<span class="o">|</span><span class="n">_</span><span class="o">|</span><span class="n">_</span><span class="o">|</span>
+                  <span class="o">|</span> <span class="o">/</span>             <span class="o">|</span><span class="n">___</span><span class="o">/</span>        
+                  <span class="o">|/</span>   
+</code></pre></div></div>
+:ET
