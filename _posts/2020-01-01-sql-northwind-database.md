@@ -12,7 +12,7 @@ The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `
 ![GitHub repo size](https://img.shields.io/github/repo-size/alphasentaurii/northwind-sql-database-project)
 ![GitHub license](https://img.shields.io/github/license/alphasentaurii/northwind-sql-database-project?color=black)
 
-![northwind](https://github.com/alphasentaurii/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true)
+![northwind](https://github.com/alphasentaurii/northwind-sql-database-project/blob/master/Northwind_ERD_updated.png?raw=true)
 
 ## Prerequisites
 
