@@ -1,13 +1,13 @@
-I"<h2 id="spacekitanalyzermake_specgram">spacekit.analyzer.make_specgram()</h2>
+I"<h2 id="spacekitanalyzermake_specgram">spacekit.analyzer.make_specgram()</h2>
 
 <ul>
   <li>make_specgram:
 generate and save spectrographs of flux signal frequencies</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">spacekit.analyzer</span> <span class="kn">import</span> <span class="n">Analyzer</span>
-<span class="n">analyzer</span> <span class="o">=</span> <span class="n">Analyzer</span><span class="p">()</span>
-<span class="n">spec</span> <span class="o">=</span> <span class="n">analyzer</span><span class="p">.</span><span class="n">make_specgram</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">spacekit.analyzer</span> <span class="kn">import</span> <span class="n">Analyzer</span>
+<span class="n">analyzer</span> <span class="o">=</span> <span class="nc">Analyzer</span><span class="p">()</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">analyzer</span><span class="p">.</span><span class="nf">make_specgram</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
 
 </code></pre></div></div>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                       

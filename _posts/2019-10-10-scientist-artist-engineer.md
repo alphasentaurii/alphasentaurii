@@ -31,7 +31,7 @@ I thought to myself: why am I afraid of death? If I were to die young — if I w
 
 I saw myself as an eight-year old laughing as I watched each family member sit down and interact with the prompts of my first Mac Basic program "Goofball Confused?" on our Macintosh Special Edition II. 30+ years later, I discovered that the computer (circa 1987), its games and "Goofball Confused?" all still work. That's good engineering.
 
-<div><img src="/assets/images/goofball-confused.jpg" alt="goofball confused" title="Ru's first computer program" width="400"/></div>
+<div><img src="/assets/images/goofball-confused.jpeg" alt="goofball confused" title="Ru's first computer program" width="400"/></div>
 
 ### "Closet Geek"
 

@@ -6,8 +6,8 @@ title: About
 **Hello, World.**
 
 
-<!-- ![Ru Kein](/assets/images/alphasentaurii-sm.png) -->
-![Ru Kein](/assets/images/ru-kein-photo.JPG)
+
+![Ru Kein](/assets/images/ru-kein-photo.jpg)
 
 _My name is `Ru Keïn`. Some words about me:_
 

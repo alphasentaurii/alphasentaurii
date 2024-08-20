@@ -1,4 +1,4 @@
-I"ªV<h1 id="spacekitradio">spacekit.radio</h1>
+I"¼b<h1 id="spacekitradio">spacekit.radio</h1>
 <p>This module is used to access the STScI public dataset [astroquery.mast.cloud] hosted in S3 on AWS. In this post, Iâ€™ll show you how to scrape and download NASA space telescope datasets that can be used in astronomical machine learning projects (or any astronomy-based analysis and programming). For this demonstration weâ€™ll call the API to acquire FITS files containing the time-validated light curves of stars with confirmed exoplanets. The datasets all come from the K2 space telescope (Kepler phase 2).</p>
 
 <h1 id="prerequisites">Prerequisites</h1>
@@ -20,12 +20,12 @@
 <span class="nv">$ </span>pip <span class="nb">install </span>spacekit
 </code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">astroquery.mast</span> <span class="kn">import</span> <span class="n">Observations</span><span class="p">,</span> <span class="n">Catalogs</span>
-<span class="kn">import</span> <span class="nn">boto3</span>
-<span class="kn">from</span> <span class="nn">spacekit</span> <span class="kn">import</span> <span class="n">radio</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="n">os</span>
+<span class="kn">from</span> <span class="n">astroquery.mast</span> <span class="kn">import</span> <span class="n">Observations</span><span class="p">,</span> <span class="n">Catalogs</span>
+<span class="kn">import</span> <span class="n">boto3</span>
+<span class="kn">from</span> <span class="n">spacekit</span> <span class="kn">import</span> <span class="n">radio</span>
 </code></pre></div></div>
 
 <h1 id="spacekitradiomast_awstarget_list">spacekit.radio.mast_aws(target_list)</h1>
@@ -33,45 +33,45 @@
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># function for downloading data from MAST s3 bucket on AWS
 </span><span class="k">def</span> <span class="nf">mast_aws</span><span class="p">(</span><span class="n">target_list</span><span class="p">):</span>
-    <span class="kn">import</span> <span class="nn">boto3</span>
-    <span class="kn">from</span> <span class="nn">astroquery.mast</span> <span class="kn">import</span> <span class="n">Observations</span>
-    <span class="kn">from</span> <span class="nn">astroquery.mast</span> <span class="kn">import</span> <span class="n">Catalogs</span>
+    <span class="kn">import</span> <span class="n">boto3</span>
+    <span class="kn">from</span> <span class="n">astroquery.mast</span> <span class="kn">import</span> <span class="n">Observations</span>
+    <span class="kn">from</span> <span class="n">astroquery.mast</span> <span class="kn">import</span> <span class="n">Catalogs</span>
     <span class="c1"># configure aws settings
-</span>    <span class="n">region</span> <span class="o">=</span> <span class="s">'us-east-1'</span>
-    <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="p">.</span><span class="n">resource</span><span class="p">(</span><span class="s">'s3'</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="n">region</span><span class="p">)</span>
-    <span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="p">.</span><span class="n">Bucket</span><span class="p">(</span><span class="s">'stpubdata'</span><span class="p">)</span>
-    <span class="n">location</span> <span class="o">=</span> <span class="p">{</span><span class="s">'LocationConstraint'</span><span class="p">:</span> <span class="n">region</span><span class="p">}</span>
-    <span class="n">Observations</span><span class="p">.</span><span class="n">enable_cloud_dataset</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s">'AWS'</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="s">'default'</span><span class="p">)</span> <span class="c1"># make AWS preferred data source
+</span>    <span class="n">region</span> <span class="o">=</span> <span class="sh">'</span><span class="s">us-east-1</span><span class="sh">'</span>
+    <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="p">.</span><span class="nf">resource</span><span class="p">(</span><span class="sh">'</span><span class="s">s3</span><span class="sh">'</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="n">region</span><span class="p">)</span>
+    <span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="p">.</span><span class="nc">Bucket</span><span class="p">(</span><span class="sh">'</span><span class="s">stpubdata</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">LocationConstraint</span><span class="sh">'</span><span class="p">:</span> <span class="n">region</span><span class="p">}</span>
+    <span class="n">Observations</span><span class="p">.</span><span class="nf">enable_cloud_dataset</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="sh">'</span><span class="s">AWS</span><span class="sh">'</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="sh">'</span><span class="s">default</span><span class="sh">'</span><span class="p">)</span> <span class="c1"># make AWS preferred data source
 </span>    
     <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">target_list</span><span class="p">:</span>
     <span class="c1">#Do a cone search and find the K2 long cadence data for target
-</span>        <span class="n">obs</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="n">query_object</span><span class="p">(</span><span class="n">target</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="s">"0s"</span><span class="p">)</span>
-        <span class="n">want</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s">'obs_collection'</span><span class="p">]</span> <span class="o">==</span> <span class="s">"K2"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s">'t_exptime'</span><span class="p">]</span> <span class="o">==</span><span class="mf">1800.0</span><span class="p">)</span>
-        <span class="n">data_prod</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="n">get_product_list</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="n">want</span><span class="p">])</span>
-        <span class="n">filt_prod</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="n">filter_products</span><span class="p">(</span><span class="n">data_prod</span><span class="p">,</span> <span class="n">productSubGroupDescription</span><span class="o">=</span><span class="s">"LLC"</span><span class="p">)</span>
-        <span class="n">s3_uris</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="n">get_cloud_uris</span><span class="p">(</span><span class="n">filt_prod</span><span class="p">)</span>
+</span>        <span class="n">obs</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="nf">query_object</span><span class="p">(</span><span class="n">target</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="sh">"</span><span class="s">0s</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">want</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="sh">'</span><span class="s">obs_collection</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="sh">"</span><span class="s">K2</span><span class="sh">"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="sh">'</span><span class="s">t_exptime</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span><span class="mf">1800.0</span><span class="p">)</span>
+        <span class="n">data_prod</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="nf">get_product_list</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="n">want</span><span class="p">])</span>
+        <span class="n">filt_prod</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="nf">filter_products</span><span class="p">(</span><span class="n">data_prod</span><span class="p">,</span> <span class="n">productSubGroupDescription</span><span class="o">=</span><span class="sh">"</span><span class="s">LLC</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">s3_uris</span> <span class="o">=</span> <span class="n">Observations</span><span class="p">.</span><span class="nf">get_cloud_uris</span><span class="p">(</span><span class="n">filt_prod</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">s3_uris</span><span class="p">:</span>
         <span class="c1"># Extract the S3 key from the S3 URL
-</span>            <span class="n">fits_s3_key</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"s3://stpubdata/"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
-            <span class="n">root</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'/'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">bucket</span><span class="p">.</span><span class="n">download_file</span><span class="p">(</span><span class="n">fits_s3_key</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">ExtraArgs</span><span class="o">=</span><span class="p">{</span><span class="s">"RequestPayer"</span><span class="p">:</span> <span class="s">"requester"</span><span class="p">})</span>
-    <span class="n">Observations</span><span class="p">.</span><span class="n">disable_cloud_dataset</span><span class="p">()</span>
-    <span class="k">return</span> <span class="k">print</span><span class="p">(</span><span class="s">'Download Complete'</span><span class="p">)</span>
+</span>            <span class="n">fits_s3_key</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s">s3://stpubdata/</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">)</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">/</span><span class="sh">'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">bucket</span><span class="p">.</span><span class="nf">download_file</span><span class="p">(</span><span class="n">fits_s3_key</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">ExtraArgs</span><span class="o">=</span><span class="p">{</span><span class="sh">"</span><span class="s">RequestPayer</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">requester</span><span class="sh">"</span><span class="p">})</span>
+    <span class="n">Observations</span><span class="p">.</span><span class="nf">disable_cloud_dataset</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">Download Complete</span><span class="sh">'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="configure-aws-access-using-your-account-credentials">Configure AWS access using your account credentials</h2>
 <p>Before we can fetch data we need to configure our AWS credentials (this demo assumes you have already set up an account) and configure Boto3. Create a <code class="language-plaintext highlighter-rouge">config</code> directory and save your credentials in a file called <code class="language-plaintext highlighter-rouge">awscli.ini</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s">'config'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">text</span> <span class="o">=</span> <span class="s">'''
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">makedirs</span><span class="p">(</span><span class="sh">'</span><span class="s">config</span><span class="sh">'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="sh">'''</span><span class="s">
 [default]
 aws_access_key_id = &lt;access_id&gt;
 aws_secret_access_key = &lt;access_key&gt;
 aws_session_token= &lt;token&gt;
-'''</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s">"./config/awscli.ini"</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span class="sh">'''</span>
+<span class="n">path</span> <span class="o">=</span> <span class="sh">"</span><span class="s">./config/awscli.ini</span><span class="sh">"</span>
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sh">'</span><span class="s">w</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h3 id="set-the-credentials-via-config-file">Set the credentials via config file</h3>
@@ -79,8 +79,8 @@ aws_session_token= &lt;token&gt;
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">export</span> <span class="n">AWS_SHARED_CREDENTIALS_FILE</span><span class="o">=</span><span class="p">.</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">awscli</span><span class="p">.</span><span class="n">ini</span>
 <span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
-<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'AWS_SHARED_CREDENTIALS_FILE'</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
-<span class="k">print</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'AWS_SHARED_CREDENTIALS_FILE'</span><span class="p">])</span>
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="sh">'</span><span class="s">AWS_SHARED_CREDENTIALS_FILE</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="sh">'</span><span class="s">AWS_SHARED_CREDENTIALS_FILE</span><span class="sh">'</span><span class="p">])</span>
 </code></pre></div></div>
 
 <h3 id="setup-boto3-configuration">Setup Boto3 configuration</h3>
@@ -88,10 +88,10 @@ aws_session_token= &lt;token&gt;
 For more info on how to configure Boto3, check out the guide here:
 https://boto3.readthedocs.io/en/latest/guide/configuration.html [astroquery.mast.cloud]</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">region</span> <span class="o">=</span> <span class="s">'us-east-1'</span>
-<span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="p">.</span><span class="n">resource</span><span class="p">(</span><span class="s">'s3'</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="n">region</span><span class="p">)</span>
-<span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="p">.</span><span class="n">Bucket</span><span class="p">(</span><span class="s">'stpubdata'</span><span class="p">)</span>
-<span class="n">location</span> <span class="o">=</span> <span class="p">{</span><span class="s">'LocationConstraint'</span><span class="p">:</span> <span class="n">region</span><span class="p">}</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">region</span> <span class="o">=</span> <span class="sh">'</span><span class="s">us-east-1</span><span class="sh">'</span>
+<span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="p">.</span><span class="nf">resource</span><span class="p">(</span><span class="sh">'</span><span class="s">s3</span><span class="sh">'</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="n">region</span><span class="p">)</span>
+<span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="p">.</span><span class="nc">Bucket</span><span class="p">(</span><span class="sh">'</span><span class="s">stpubdata</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">location</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">LocationConstraint</span><span class="sh">'</span><span class="p">:</span> <span class="n">region</span><span class="p">}</span>
 </code></pre></div></div>
 
 <h1 id="download-data-sets-via-awsmast-api">Download data sets via AWS/MAST api</h1>
@@ -106,42 +106,42 @@ https://boto3.readthedocs.io/en/latest/guide/configuration.html [astroquery.mast
 <p>This script queries MAST for TESS FFI data for a single sector/camera/chip combination and downloads the data from the AWS public dataset rather than from MAST servers.q</p>
 
 <p><strong>Targets with confirmed exoplanets for K2 mission</strong></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s">'./data/mast'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="s">'./data/mast'</span><span class="p">)</span>
-<span class="n">K2_confirmed_planets</span> <span class="o">=</span> <span class="p">[</span><span class="s">'K2-1'</span><span class="p">,</span><span class="s">'K2-21'</span><span class="p">,</span><span class="s">'K2-28'</span><span class="p">,</span><span class="s">'K2-39'</span><span class="p">,</span><span class="s">'K2-54'</span><span class="p">,</span><span class="s">'K2-55'</span><span class="p">,</span><span class="s">'K2-57'</span><span class="p">,</span><span class="s">'K2-58'</span><span class="p">,</span><span class="s">'K2-59'</span><span class="p">,</span><span class="s">'K2-60'</span><span class="p">,</span><span class="s">'K2-61'</span><span class="p">,</span><span class="s">'K2-62'</span><span class="p">,</span><span class="s">'K2-63'</span><span class="p">,</span><span class="s">'K2-64'</span><span class="p">,</span><span class="s">'K2-65'</span><span class="p">,</span><span class="s">'K2-66'</span><span class="p">,</span> <span class="s">'K2-68'</span><span class="p">,</span><span class="s">'K2-70'</span><span class="p">,</span><span class="s">'K2-71'</span><span class="p">,</span><span class="s">'K2-72'</span><span class="p">,</span><span class="s">'K2-73'</span><span class="p">,</span><span class="s">'K2-74'</span><span class="p">,</span><span class="s">'K2-75'</span><span class="p">,</span><span class="s">'K2-76'</span><span class="p">,</span>
-<span class="s">'K2-116'</span><span class="p">,</span><span class="s">'K2-167'</span><span class="p">,</span><span class="s">'K2-168'</span><span class="p">,</span><span class="s">'K2-169'</span><span class="p">,</span><span class="s">'K2-170'</span><span class="p">,</span><span class="s">'K2-171'</span><span class="p">,</span><span class="s">'K2-172'</span><span class="p">]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">makedirs</span><span class="p">(</span><span class="sh">'</span><span class="s">./data/mast</span><span class="sh">'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="sh">'</span><span class="s">./data/mast</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">K2_confirmed_planets</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">K2-1</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-21</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-28</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-39</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-54</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-55</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-57</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-58</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-59</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-60</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-61</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-62</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-63</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-64</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-65</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-66</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">K2-68</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-70</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-71</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-72</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-73</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-74</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-75</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-76</span><span class="sh">'</span><span class="p">,</span>
+<span class="sh">'</span><span class="s">K2-116</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-167</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-168</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-169</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-170</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-171</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">K2-172</span><span class="sh">'</span><span class="p">]</span>
 </code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">spacekit.radio</span> <span class="kn">import</span> <span class="n">Radio</span>
-<span class="n">radio</span> <span class="o">=</span> <span class="n">Radio</span><span class="p">()</span>
-<span class="n">radio</span><span class="p">.</span><span class="n">mast_aws</span><span class="p">(</span><span class="n">K2_confirmed_planets</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">spacekit.radio</span> <span class="kn">import</span> <span class="n">Radio</span>
+<span class="n">radio</span> <span class="o">=</span> <span class="nc">Radio</span><span class="p">()</span>
+<span class="n">radio</span><span class="p">.</span><span class="nf">mast_aws</span><span class="p">(</span><span class="n">K2_confirmed_planets</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Download Complete</p>
 
 <p><strong>Alt: Download larger dataset of all confirmed Kepler planets using <code class="language-plaintext highlighter-rouge">requests</code> api from NASA</strong></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
-<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&amp;select=pl_hostname,ra,dec&amp;where=pl_hostname like K2&amp;format=json'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">requests</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&amp;select=pl_hostname,ra,dec&amp;where=pl_hostname like K2&amp;format=json</span><span class="sh">'</span><span class="p">)</span>
 
-<span class="n">r</span><span class="o">=</span><span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&amp;format=json&amp;select=pl_hostname&amp;where=pl_hostname like '%K2%'"</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">r</span><span class="o">=</span><span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&amp;format=json&amp;select=pl_hostname&amp;where=pl_hostname like </span><span class="sh">'</span><span class="s">%K2%</span><span class="sh">'"</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="nf">json</span><span class="p">()</span>
 
-<span class="n">targets_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="n">targets_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">.</span><span class="nf">from_dict</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 
-<span class="n">k2_targets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">targets_df</span><span class="p">[</span><span class="s">'pl_hostname'</span><span class="p">].</span><span class="n">unique</span><span class="p">())</span>
+<span class="n">k2_targets</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">targets_df</span><span class="p">[</span><span class="sh">'</span><span class="s">pl_hostname</span><span class="sh">'</span><span class="p">].</span><span class="nf">unique</span><span class="p">())</span>
 
-<span class="n">radio</span><span class="p">.</span><span class="n">mast_aws</span><span class="p">(</span><span class="n">k2_targets</span><span class="p">)</span>
+<span class="n">radio</span><span class="p">.</span><span class="nf">mast_aws</span><span class="p">(</span><span class="n">k2_targets</span><span class="p">)</span>
 
 </code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MAST</span> <span class="o">=</span> <span class="s">'./data/mast'</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">MAST</span><span class="p">))</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MAST</span> <span class="o">=</span> <span class="sh">'</span><span class="s">./data/mast</span><span class="sh">'</span>
+<span class="nf">len</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="nf">listdir</span><span class="p">(</span><span class="n">MAST</span><span class="p">))</span>
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">348</code></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">MAST</span><span class="p">)[</span><span class="mi">9</span><span class="p">]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="nf">listdir</span><span class="p">(</span><span class="n">MAST</span><span class="p">)[</span><span class="mi">9</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">'ktwo246067459-c12_llc.fits'</code></p>

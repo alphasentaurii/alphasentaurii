@@ -1,4 +1,4 @@
-I"<<h2 id="spacekitanalyzer">spacekit.Analyzer()</h2>
+I".<h2 id="spacekitanalyzer">spacekit.Analyzer()</h2>
 <p>timeseries flux signal analysis</p>
 
 <ul>
@@ -10,17 +10,17 @@
 <h3 id="atomic_vector_plotter">atomic_vector_plotter</h3>
 <p>Plots scatter and line plots of time series signal values.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">astropy.timeseries</span> <span class="kn">import</span> <span class="n">TimeSeries</span>
-<span class="n">fits_file</span> <span class="o">=</span> <span class="s">'ktwo246384368-c12_llc.fits'</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">fits_file</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s">'kepler.fits'</span><span class="p">)</span>
-<span class="n">flux</span> <span class="o">=</span> <span class="n">ts</span><span class="p">[</span><span class="s">'sap_flux'</span><span class="p">]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">astropy.timeseries</span> <span class="kn">import</span> <span class="n">TimeSeries</span>
+<span class="n">fits_file</span> <span class="o">=</span> <span class="sh">'</span><span class="s">ktwo246384368-c12_llc.fits</span><span class="sh">'</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="n">fits_file</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="sh">'</span><span class="s">kepler.fits</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">flux</span> <span class="o">=</span> <span class="n">ts</span><span class="p">[</span><span class="sh">'</span><span class="s">sap_flux</span><span class="sh">'</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p>Now that we have the flux signal values we can plot them as timeseries scatter and line plots.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">spacekit</span> <span class="kn">import</span> <span class="n">analyzer</span>
-<span class="n">analyzer</span> <span class="o">=</span> <span class="n">Analyzer</span><span class="p">()</span>
-<span class="n">analyzer</span><span class="p">.</span><span class="n">atomic_vector_plotter</span><span class="p">(</span><span class="n">flux</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">spacekit</span> <span class="kn">import</span> <span class="n">analyzer</span>
+<span class="n">analyzer</span> <span class="o">=</span> <span class="nc">Analyzer</span><span class="p">()</span>
+<span class="n">analyzer</span><span class="p">.</span><span class="nf">atomic_vector_plotter</span><span class="p">(</span><span class="n">flux</span><span class="p">)</span>
 
 </code></pre></div></div>
 
@@ -35,8 +35,8 @@
 <h3 id="planet_hunter">planet_hunter</h3>
 <p>calculates period and plots folded light curve from single or multiple .fits files</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">signal</span> <span class="o">=</span> <span class="s">'ktwo246384368-c12_llc.fits'</span>
-<span class="n">analyzer</span><span class="p">.</span><span class="n">planet_hunter</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'kepler.fits'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">signal</span> <span class="o">=</span> <span class="sh">'</span><span class="s">ktwo246384368-c12_llc.fits</span><span class="sh">'</span>
+<span class="n">analyzer</span><span class="p">.</span><span class="nf">planet_hunter</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="sh">'</span><span class="s">kepler.fits</span><span class="sh">'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div style="background-color:white">

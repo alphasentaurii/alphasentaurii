@@ -9,7 +9,7 @@ The `Northwind SQL Database Project` demonstrates how to use `SQL queries` and `
 
 
 <div style="background-color:white">
-<img src="https://github.com/alphasentaurii/dsc-mod-3-project-online-ds-ft-100719/blob/master/Northwind_ERD_updated.png?raw=true" alt="Northwind ERD" title="Northwind ERD" width="400"/></div>
+<img src="https://github.com/alphasentaurii/northwind-sql-database-project/blob/master/Northwind_ERD_updated.png?raw=true" alt="Northwind ERD" title="Northwind ERD" width="400"/></div>
 
 
 ## Hypothesis Testing

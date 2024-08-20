@@ -57,7 +57,7 @@ The flux values for planet vs. no planet can in some cases be fairly obvious, al
 # Scatterplot of Star Flux Signals - Confirmed Exoplanet
 
 <div>
-<img src="/assets/images/starskope/output_32_0" alt="signal timeseries plot - planet" title="" width="400"/>
+<img src="/assets/images/starskope/output_32_0.png" alt="signal timeseries plot - planet" title="" width="400"/>
 </div>
 
 You can see above (and below - same signal using line plot) the values drop for a brief period of time then return. This could be a possible planet (in this case it is in fact a planet). 
@@ -65,7 +65,7 @@ You can see above (and below - same signal using line plot) the values drop for 
 # Lineplot of Star Flux Signals - Confirmed Exoplanet
 
 <div>
-<img src="/assets/images/starskope/output_32_1" alt="signal timeseries plot - planet" title="" width="400"/>
+<img src="/assets/images/starskope/output_32_1.png" alt="signal timeseries plot - planet" title="" width="400"/>
 </div>
 
 By contrast, the raw values of non-planet star flux values do reveal some important differences. Notice where on the y-axis the majority of values lay, and there is no significant drop indicating a transit. Some of these show a spike upwards, which could be explained by a number of things, potentially some kind of noise or disturbance interfering with the sensors either internally or from the sun.
@@ -73,23 +73,23 @@ By contrast, the raw values of non-planet star flux values do reveal some import
 # Scatterplot of Star Flux Signals with No Exoplanet
 
 <div>
-<img src="/assets/images/starskope/output_34_0" alt="signal timeseries plot" title="" width="400"/>
+<img src="/assets/images/starskope/output_34_0.png" alt="signal timeseries plot" title="" width="400"/>
 </div>
 
 # No exoplanet - lineplot
 
 <div>
-<img src="/assets/images/starskope/output_34_1" alt="signal timeseries plot" title="" width="400"/>
+<img src="/assets/images/starskope/output_34_1.png" alt="signal timeseries plot" title="" width="400"/>
 </div>
 
 Compare another two sets of flux values (blue has a transiting planet, red does not):
 
 <div>
-<img src="/assets/images/starskope/output_32_3" alt="signal timeseries plot" title="" width="400"/>
+<img src="/assets/images/starskope/output_32_3.png" alt="signal timeseries plot" title="" width="400"/>
 </div>
 
 <div>
-<img src="/assets/images/starskope/output_34_3" alt="signal timeseries plot" title="" width="400"/>
+<img src="/assets/images/starskope/output_34_3.png" alt="signal timeseries plot" title="" width="400"/>
 </div>
 
 ## Model
@@ -97,7 +97,7 @@ Compare another two sets of flux values (blue has a transiting planet, red does 
 The baseline model I started with is a convolutional neural network using the `Keras API` in a `sci-kit learn`-esque wrapper. All the functions used in this project (as well as the extended Starskøpe project) are included in a python (PyPi) package I wrote called `spacekit`, and you can check out my repo [spacekit](https://github.com/alphasentaurii/spacekit) to view the source code. 
 
 <div>
-<img src="/assets/images/starskope/output_96_3" alt="Training Accuracy and Loss" title="Training Accuracy and Loss" width="400"/>
+<img src="/assets/images/starskope/output_96_3.png" alt="Training Accuracy and Loss" title="Training Accuracy and Loss" width="400"/>
 </div>
 
 ## Results
@@ -107,7 +107,7 @@ I was able to identify with 99% accuracy the handful of stars (5) in the test da
 ## Fusion Matrix
 
 <div>
-<img src="/assets/images/starskope/output_96_0" alt="Fusion Matrix" title="Fusion Matrix" width="400"/>
+<img src="/assets/images/starskope/output_96_0.png" alt="Fusion Matrix" title="Fusion Matrix" width="400"/>
 </div>
 
 ## ROC Area Under Curve (AUC)
@@ -115,7 +115,7 @@ I was able to identify with 99% accuracy the handful of stars (5) in the test da
 A little too perfect?
 
 <div>
-<img src="/assets/images/starskope/output_96_1" alt="ROC AUC" title="ROC AUC" width="400"/>
+<img src="/assets/images/starskope/output_96_1.png" alt="ROC AUC" title="ROC AUC" width="400"/>
 </div>
 
 ## Conclusion
@@ -158,9 +158,9 @@ __Spectrograph of Fourier-transform Flux Signal__
 
 ## Future Work
 
-To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. Please go to the next post [starskope-2](/datascience/2020/05/06/starskope-2-spectrograph-image-classification.html) to see how I build a `convolutional neural network` to classify stars using spectrograph images of the flux values to find transiting exoplanets. Following this, I apply the same algorithm to spectrographs of Fourier transformed data.
+To continue this project, I'll take another approach for detecting exoplanets using computer vision to analyze images of spectographs of this same star flux data set. Please go to the next post [starskope-2](/datascience/2020/05/05/starskope-2-spectrograph-image-classification.html) to see how I build a `convolutional neural network` to classify stars using spectrograph images of the flux values to find transiting exoplanets. Following this, I apply the same algorithm to spectrographs of Fourier transformed data.
 
-In [starskope-3](/datascience/2020/06/01/starskope-3-scraping-mast-api.html) I scrape the MAST API data hosted on AWS via S3 to perform a more in-depth analysis using a physics-based machine learning model.
+To perform a more in-depth analysis using a physics-based machine learning model, I scrape the MAST API data hosted on AWS in S3 buckets and extract additional information using tools like astropy. Most of the heavy-lifting for this project has been consolidated into the python library [spacekit](/datascience/2020/09/09/spacekit-python-library-for-astronomical-data-science.html), the machine learning toolkit for astronomical data science.
 
 Additional future work following this project will be to develop my "cyberoptic artificial telescope" as a machine learning driven application that any astrophysicist can use to look at a single or collection of stars and have the model classify them according not only to exoplanet predictions, but also predict what type of star it is, and other key properties that would be of interest for astrophysical science applications.
 
