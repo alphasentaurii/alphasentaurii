@@ -5,9 +5,7 @@ title: About
 
 **Hello, World.**
 
-
-
-![Ru Kein](/assets/images/ru-kein-photo.jpg)
+<div><img src="/assets/images/ru-kein-photo.jpg" alt="ru kein" title="Ru Kein" width="200"/></div>
 
 _My name is `Ru Keïn`. Some words about me:_
 

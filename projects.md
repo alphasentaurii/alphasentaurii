@@ -24,6 +24,10 @@ Real Estate Forecast Project for Home Buyers in Westchester County, New York
 Real Estate Prediction Model for Home Sellers in King County, WA.
 
 
+### [Northwind Statisical Analysis (SQL)](/projects/datascience/northwind/demo.html)
+
+SQL-based hypothesis testing for imaginary business on how discounted products affect sales.
+
 <!-- 
 ## HARDWARE
 
