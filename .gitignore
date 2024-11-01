@@ -6,3 +6,6 @@ Gemfile.lock
 alphasentaurii.code-workspace
 README-old.md
 docs-old
+.jekyll-cache/
+*/.jekyll-cache/
+.DS_Store

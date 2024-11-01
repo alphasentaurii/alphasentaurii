@@ -137,7 +137,7 @@ The ultimate vision for this work will be to develop STARSKØPE into a front-end
 
 ## Read More
 
-For a more in-depth story about this project and some code examples, check out [the blog post on Starskøpe: The Cyberoptic Artificial Telescope](/datascience/2020/04/01/starskope-cyberoptic-artificial-telescope.html).
+For a more in-depth story about this project and some code examples, check out [the blog post on Starskøpe: The Cyberoptic Artificial Telescope](/datascience/2020/04/04/starskope-cyberoptic-artificial-telescope.html).
 
 ## Appendix
 
