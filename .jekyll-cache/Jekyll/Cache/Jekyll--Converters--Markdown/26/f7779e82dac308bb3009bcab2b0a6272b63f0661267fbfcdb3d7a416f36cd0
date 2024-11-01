@@ -1,3 +1,0 @@
-I"�<h1 id="digdag-mysql-tutorial">Digdag MySQL Tutorial</h1>
-<p>In this project, we’ll create a digdag workflow that executes an embulk script for ingesting csv files to a MySQL database. We’ll then write SQL queries to prepare and analyze the data.</p>
-:ET

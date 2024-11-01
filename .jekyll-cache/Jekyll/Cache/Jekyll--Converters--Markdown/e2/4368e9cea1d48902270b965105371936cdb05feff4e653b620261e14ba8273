@@ -1,2 +1,0 @@
-I"s<p>A <code class="language-plaintext highlighter-rouge">supervised machine learning feature classification</code> project that uses <code class="language-plaintext highlighter-rouge">Decision Trees and XGBoost</code> to <code class="language-plaintext highlighter-rouge">predict and classify signals as either a pulsar or radio frequency interference (noise)</code>.</p>
-:ET

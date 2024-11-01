@@ -1,2 +1,0 @@
-I"¨<p>The <code class="language-plaintext highlighter-rouge">Digdag Postgres</code> project demonstrates how to use <code class="language-plaintext highlighter-rouge">SQL queries</code> with <code class="language-plaintext highlighter-rouge">digdag</code> and <code class="language-plaintext highlighter-rouge">embulk</code> open source libraries for automation of ingesting and analyzing data using a PostgreSQL database.</p>
-:ET

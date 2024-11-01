@@ -1,3 +1,0 @@
-I"0<h1 id="spacekitradio">spacekit.radio</h1>
-<p>This module is used to access the STScI public dataset [astroquery.mast.cloud] hosted in S3 on AWS. In this post, I’ll show you how to scrape and download NASA space telescope datasets that can be used in astronomical machine learning projects (or any astronomy-based analysis and programming). For this demonstration we’ll call the API to acquire FITS files containing the time-validated light curves of stars with confirmed exoplanets. The datasets all come from the K2 space telescope (Kepler phase 2).</p>
-:ET
