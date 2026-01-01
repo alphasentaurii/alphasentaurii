@@ -53,19 +53,3 @@ analyzer.planet_hunter(signal, fmt='kepler.fits')
 <div style="background-color:white">
 <img src="/assets/images/spacekit/k2-folded-light-curve.png" alt="k2 folded light curve" title="Planet Hunter K2 Folded Light Curve" width="400"/>
 </div>
-
-
-# NEXT
-
-[spacekit.analyzer (part 2): frequency spectrographs]('/datascience/2020/12/12/spacekit-analyzer-frequency-spectrographs.html')
-
-
-```python
-                       
-           /\    _       _                           _                      *  
-/\_/\_____/  \__| |_____| |_________________________| |___________________*___
-[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
- \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
-                  | /             |___/        
-                  |/   
-```

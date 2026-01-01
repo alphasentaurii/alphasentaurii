@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
 
   {%- include head.html -%}
   
-  <body>
-    
-    <div class="container">
+  <body data-theme="dark" size-sensor-id="1" style="position:relative;">
 
+          <canvas id="nokey" style="z-index: -1;"></canvas>
+    <div class="container" style="z-index: 2;">
       {%- include header.html -%}
         {% include navigation.html %}
-        
-    <main style="z-index: 99; position: relative;">
-      <!--{%- include kali.html -%}-->
+    <main>
       {{ content }}
     </main>
-
+    {%- include logo.html -%}
     {%- include footer.html -%}
 
     </div>
-    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="{{ '/assets/js/kali.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+
   </body>
 </html>

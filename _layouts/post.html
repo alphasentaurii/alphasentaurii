@@ -9,7 +9,42 @@ layout: default
 <p class="view">by Ru Kein</p>
 
 {{content}}
-{%- include kali.html -%}
-{% if page.tags %}
+
+
+
+<div class="post-tags">
+  {% if page.tags %}
   <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
 {% endif %}
+</div>
+<div class="post-navigation">
+  <div class="previous-post">
+    {% if page.previous.url %}
+      
+      <a href="{{ page.previous.url }}" rel="prev">
+        &laquo; PREV
+      </a>
+    {% endif %}
+  </div>
+  <div class="next-post">
+    {% if page.next.url %}
+      <a href="{{ page.next.url }}" rel="next">
+        NEXT &raquo;
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+
+
+<h1>Contact</h1>
+
+<p>If you want to contact me you can send a message on <a href="https://www.linkedin.com/in/rukein/">LinkedIn</a>.</p>
+
+<h1>License</h1>
+
+<p>This project uses the following license: <a href="{{ '/LICENSE.html' | relative_url }}">MIT License</a>.</p>
+
+
+
+

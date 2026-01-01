@@ -45,14 +45,3 @@ I saw myself at age nine building a spaceship out of legos and submitting it to 
 None of us know when our time on earth is going to run out. I now see life is a precious gift - that to live is the only point of living, and that if we were “created in God’s image”, then we should be creating, because that is how we bring Good into a world that would otherwise just be chaos. What I realized in the summer of 2019 was that if I spend my days doing those simple things that make me who I already am - coding, writing, and music - then I will wake up every day knowing why I exist, and I don’t need some grand meaning of life’s ultimate purpose to guide my destiny. So I started learning everything I could, from Python to multivariable calculus, and a year later graduated from one of the top data science bootcamps in the world. In the fall of 2020, I left Kinetik to work as an astronomical data scientist at the Space Telescope Science Institute in Baltimore, MD. During the day (and sometimes at night) I build machine learning algorithms for space telescope data and image processing. At night (and sometimes during the day) I write stories and poetry, or I sing and play guitar. There isn't much time left for existential crises - I'm too busy enjoying existence now for that. 
 
 I created this blog to remind myself who I am and what I like to do. It also lets me share my passion with the world as a Scientist, Artist and Engineer. What are these occupations other than someone who creates, experiments and builds? For me they are more than just occupations. If I just do those three things every day, I could leave the world in absolute peace - no matter when my time is up - because I'll know that I lived exactly the way I was meant to live.
-
-
-```python
-                       
-           /\    _       _                           _                      *  
-/\_/\_____/  \__| |_____| |_________________________| |___________________*___
-[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
- \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
-                  | /             |___/        
-                  |/   
-```

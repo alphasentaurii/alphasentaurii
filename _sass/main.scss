@@ -1,12 +1,58 @@
-@import "main";
+// ---
+// # Only the main Sass file needs front matter (the dashes are enough)
+// ---
 
-.current {
-  color: limegreen;
-}
-
+@import "base";
+@import "kali";
 
 :root {
-  --ifm-image-alignment-padding:1.25rem}
+  --base-color: #DBDBDB;
+  --primary-color: #53ff53;
+  --border: dashed 1px rgba(219, 219, 219, 0.9);
+  --selection-background: rgba(219, 219, 219, 0.99);
+  --selection-text: #000;
+  --background-color: #000;
+  --text-color: var(--base-color);
+  --placeholder-color: var(--base-color);
+  --link-color: var(--base-color);
+  --ifm-image-alignment-padding:1.25rem
+  --btn-bg: transparent;
+  --btn-border-color: var(--base-color);
+  --btn-color: var(--base-color);
+  --btn-text: var(--base-color);
+}
+
+body[data-theme="light"] {
+  --base-color: #000;
+  --primary-color: #0000EE;
+  --border: dashed 1px rgba(0, 0, 0, 1);
+  --selection-background: rgba(0, 0, 0, 0.99);
+  --selection-text: #FFF;
+  --background-color: #FFF;
+  --text-color: var(--base-color);
+  --placeholder-color: var(--base-color);
+  --link-color: var(--base-color);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button#theme-toggle {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+button#theme-toggle:hover {
+    background-color: var(--btn-border-color);
+    color: var(--background-color);
+}
+
 
 img {
   border-style: none;
@@ -22,10 +68,29 @@ img[align=left] {
   padding-right: var(--image-alignment-padding)
 }
 
-.responsive-img {
-  width: 400px; 
-  display:block; 
-  height: auto;
-  min-width:200px;
-  }
+a:hover {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+.current {
+  color: limegreen;
+}
 
+.post-tags {
+  border-top: var(--border);
+  margin-top: 2rem;
+}
+
+.post-navigation {
+  overflow: hidden;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: var(--border);
+}
+
+.post-navigation .previous-post {
+  float: left;
+}
+.post-navigation .next-post {
+  float: right;
+}

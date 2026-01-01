@@ -570,21 +570,3 @@ The top five results that fit the required criteria were 10549, 10573, 10604, 10
 ## FUTURE WORK
 
 My client was keen on accounting for public school districts, which upon initial inspection would have required a great deal of manual plug and play. However, if there is an API or some other way to scrape this data from the web, I would definitely incorporate school districts as an exogenous factor for the sake of making recommendations for a client. Someone might actually *not* prefer schools with a rating of 10 as these tend to be predominantly all-white. My client in particular was looking for decent school districts below the 10-mark because she wants her child to grow up in a more ethnically-diverse community. Being able to account for such preferences would be part of the future work of this project.
-
-## Contact
-
-If you want to contact me you can reach me at <rukeine@gmail.com>.
-
-## License
-
-This project uses the [MIT License](/LICENSE.md).
-
-```python
-                       
-           /\    _       _                           _                      *  
-/\_/\_____/  \__| |_____| |_________________________| |___________________*___
-[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
- \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
-                  | /             |___/        
-                  |/   
-```

@@ -27,13 +27,3 @@ Adds an input corresponding to the running average over a set number of time ste
 
 ### fast_fourier
 takes in array and rotates #bins to the left as a fourier transform returns vector of length equal to input array
-
-```python
-                       
-           /\    _       _                           _                      *  
-/\_/\_____/  \__| |_____| |_________________________| |___________________*___
-[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
- \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
-                  | /             |___/        
-                  |/   
-```
