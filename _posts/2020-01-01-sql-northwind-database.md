@@ -4922,13 +4922,3 @@ for k,v in rev_per_cat.items():
 # What were the top 3 selling product categories in each region or country?
 # What were the lowest 3 selling product categories in each region or country?
 ```
-
-```python
-                       
-           /\    _       _                           _                      *  
-/\_/\_____/  \__| |_____| |_________________________| |___________________*___
-[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
- \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
-                  | /             |___/        
-                  |/   
-```

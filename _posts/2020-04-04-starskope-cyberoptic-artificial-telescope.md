@@ -163,14 +163,3 @@ To continue this project, I'll take another approach for detecting exoplanets us
 To perform a more in-depth analysis using a physics-based machine learning model, I scrape the MAST API data hosted on AWS in S3 buckets and extract additional information using tools like astropy. Most of the heavy-lifting for this project has been consolidated into the python library [spacekit](/datascience/2020/09/09/spacekit-python-library-for-astronomical-data-science.html), the machine learning toolkit for astronomical data science.
 
 Additional future work following this project will be to develop my "cyberoptic artificial telescope" as a machine learning driven application that any astrophysicist can use to look at a single or collection of stars and have the model classify them according not only to exoplanet predictions, but also predict what type of star it is, and other key properties that would be of interest for astrophysical science applications.
-
-
-```python
-                       
-           /\    _       _                           _                      *  
-/\_/\_____/  \__| |_____| |_________________________| |___________________*___
-[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
- \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
-                  | /             |___/        
-                  |/   
-```

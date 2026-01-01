@@ -1,11 +1,11 @@
 *.gem
 .bundle
 .sass-cache
-_site
+_site/
 Gemfile.lock
 alphasentaurii.code-workspace
-README-old.md
-docs-old
+jekyll.md
+code.md
 .jekyll-cache/
 */.jekyll-cache/
 .DS_Store

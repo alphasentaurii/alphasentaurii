@@ -1619,14 +1619,3 @@ os.listdir(model_subfolder)
 ## Phase 3: Scrape MAST via API on AWS
 
 In order to improve the model, therefore, the next step was to generate a larger dataset of images, using not only all the data from Kaggle, but also import additional signal datasets from the MAST API. Traditionally, this can be done from the MAST website directly. However, it is now possible to scrape the data for free from AWS where it is being (at least temporarily) housed. See my next post [starskope-3](/datascience/2020/06/01/starskope-3-scraping-mast-api.html) to see how I scrape the MAST API data hosted on AWS via S3 to perform a more in-depth analysis using a physics-based machine learning model.
-
-
-```python
-                       
-           /\    _       _                           _                      *  
-/\_/\_____/  \__| |_____| |_________________________| |___________________*___
-[===]    / /\ \ | |  _  |  _  | _  \/ __/ -__|  \| \_  _/ _  \ \_/ | * _/| | |
- \./    /_/  \_\|_|  ___|_| |_|__/\_\ \ \____|_|\__| \__/__/\_\___/|_|\_\|_|_|
-                  | /             |___/        
-                  |/   
-```

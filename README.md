@@ -6,7 +6,7 @@ This website is based on the `console` Jekyll theme.
 
 ## Contact
 
-If you want to contact me you can reach me at <rukeine@gmail.com>.
+If you want to contact me you can send me a message on [LinkedIn](https://www.linkedin.com/in/rukein/).
 
 ## License
 
