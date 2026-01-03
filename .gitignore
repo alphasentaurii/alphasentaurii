@@ -10,3 +10,4 @@ code.md
 .jekyll-cache/
 */.jekyll-cache/
 .DS_Store
+_drafts/*
