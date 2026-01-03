@@ -1,7 +1,8 @@
 *.gem
 .bundle
 .sass-cache
-_site/
+_site
+_site/**/*
 Gemfile.lock
 alphasentaurii.code-workspace
 jekyll.md
