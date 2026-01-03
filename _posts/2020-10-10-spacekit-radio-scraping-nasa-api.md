@@ -11,22 +11,14 @@ author: Ru Keïn
 This module is used to access the STScI public dataset [astroquery.mast.cloud] hosted in S3 on AWS. In this post, I'll show you how to scrape and download NASA space telescope datasets that can be used in astronomical machine learning projects (or any astronomy-based analysis and programming). For this demonstration we'll call the API to acquire FITS files containing the time-validated light curves of stars with confirmed exoplanets. The datasets all come from the K2 space telescope (Kepler phase 2).
 
 # Prerequisites
-Creation of a virtual-env is recommended.
-
-- an AWS account (use `us-east-1` region)
-- awscli
-- astroquery
-- boto3
-- numpy
-- pandas
+Creation of a virtual-env and an AWS account (use `us-east-1` region) is recommended.
 
 # Install Dependencies
 
 ```bash
-$ pip install awscli
-$ pip install astroquery
 $ pip install spacekit[x]
 ```
+
 # Import Packages
 
 ```python
@@ -80,7 +72,7 @@ This script queries MAST for TESS FFI data for a single sector/camera/chip combi
 ```python
 os.makedirs('./data/mast', exist_ok=True)
 os.chdir('./data/mast')
-K2_confirmed_planets = ['K2-1','K2-21','K2-28','K2-39','K2-54','K2-55','K2-57','K2-58','K2-59','K2-60','K2-61','K2-62','K2-63','K2-64','K2-65','K2-66', 'K2-68','K2-70','K2-71','K2-72','K2-73','K2-74','K2-75','K2-76',
+K2_confirmed_planets = ['K2-21','K2-28','K2-39','K2-54','K2-55','K2-57','K2-58','K2-59','K2-60','K2-61','K2-62','K2-63','K2-64','K2-65','K2-66', 'K2-68','K2-70','K2-71','K2-72','K2-73','K2-74','K2-75','K2-76',
 'K2-116','K2-167','K2-168','K2-169','K2-170','K2-171','K2-172']
 ```
 
